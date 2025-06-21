@@ -28,14 +28,13 @@ export default function LandingPage() {
           <div className="container relative z-10">
             <div className="max-w-4xl mx-auto text-center space-y-8">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight">
-                {/* Cyrus Lang: <span className="text-primary">Modern, Expressive, and Efficient</span> */}
                 <span className="text-primary">Cyrus Programming Language</span>
               </h1>
               <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
                 A programming language designed for simplicity, performance, and developer happiness.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link href="#get-started">
+                <Link href="/docs">
                   <Button size="lg" className="w-full sm:w-auto">
                     Get Started
                   </Button>

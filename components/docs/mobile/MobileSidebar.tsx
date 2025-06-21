@@ -18,7 +18,7 @@ export default function MobileSidebar() {
   }
 
   return (
-    <div className="fixed top-[65px] flex items-center w-full px-4 py-2 md:hidden bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 text-foreground border-b border-border transition-colors">
+    <div className="fixed top-[64px] flex items-center w-full px-4 py-2 md:hidden bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 text-foreground border-b border-border transition-colors">
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetTrigger asChild>
           <Button variant="outline" aria-label="Open menu" size="icon" className="xl:hidden">

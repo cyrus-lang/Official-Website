@@ -10,16 +10,16 @@ import LogoLight from "@/app/assets/logo-light.png";
 export function Logo() {
   return (
     <>
-    <Image
-      src={LogoDark}
-      className="h-8 w-8 dark:block hidden"
-      alt="Cyrus Programming Language Dark Logo"
-    />
-    <Image
-      src={LogoLight}
-      className="h-8 w-8 dark:hidden block"
-      alt="Cyrus Programming Language Light Logo"
-    />
+      <Image
+        src={LogoDark}
+        className="h-8 w-8 dark:block hidden"
+        alt="Cyrus Programming Language Dark Logo"
+      />
+      <Image
+        src={LogoLight}
+        className="h-8 w-8 dark:hidden block"
+        alt="Cyrus Programming Language Light Logo"
+      />
     </>
   )
 }
@@ -31,50 +31,61 @@ export default function Header() {
         <div className="px-4 flex h-16 items-center justify-between">
           <div className="flex items-center">
             <Link href="/" className="flex items-center gap-2 pl-1 pr-8">
-              <Logo/>
+              <Logo />
               <span className="text-md font-bold">Cyrus</span>
             </Link>
 
             <nav className="hidden xl:flex gap-6 pt-1">
-              <Link
-                href="#features"
-                className="text-sm font-medium hover:text-primary transition-colors"
-              >
-                Features
-              </Link>
               <Link
                 href="#examples"
                 className="text-sm font-medium hover:text-primary transition-colors"
               >
                 Examples
               </Link>
-              <Link
-                href="#why"
-                className="text-sm font-medium hover:text-primary transition-colors"
-              >
-                Why Cyrus?
-              </Link>
-              <Link
-                href="#community"
-                className="text-sm font-medium hover:text-primary transition-colors"
-              >
-                Community
-              </Link>
+
               <Link
                 href="/docs"
                 className="text-sm font-medium hover:text-primary transition-colors"
               >
                 Documentation
               </Link>
+
+              <Link
+                href="/blog"
+                className="text-sm font-medium hover:text-primary transition-colors"
+              >
+                Blog
+              </Link>
+
+              <Link
+                href="/forum"
+                className="text-sm font-medium hover:text-primary transition-colors"
+              >
+                Forum
+              </Link>
+
+              <Link
+                href="/packages"
+                className="text-sm font-medium hover:text-primary transition-colors"
+              >
+                Packages
+              </Link>
+
+              <Link
+                href="/support_us"
+                className="text-sm font-medium hover:text-primary transition-colors"
+              >
+                Support Us
+              </Link>
             </nav>
           </div>
 
           <div className="flex items-center gap-4">
             <ThemeToggle />
-            <Link href="#get-started" className="hidden xl:inline-flex">
+            <Link href="/docs" className="hidden xl:inline-flex">
               <Button variant="outline">Documentation</Button>
             </Link>
-            <Link href="#get-started" className="hidden xl:inline-flex">
+            <Link href="/docs" className="hidden xl:inline-flex">
               <Button>Get Started</Button>
             </Link>
             <Sheet>
@@ -92,7 +103,7 @@ export default function Header() {
                 <div className="flex flex-col h-full">
                   <div className="flex items-center justify-between mb-6">
                     <Link href="/" className="flex items-center gap-2">
-                      <Logo/>
+                      <Logo />
                       <span className="text-xl font-bold">Cyrus</span>
                     </Link>
                     <SheetTrigger asChild>
@@ -102,41 +113,52 @@ export default function Header() {
                       </Button>
                     </SheetTrigger>
                   </div>
-                  
+
                   <nav className="flex flex-col gap-4">
-                    <Link
-                      href="#features"
-                      className="text-lg font-medium hover:text-primary transition-colors"
-                    >
-                      Features
-                    </Link>
                     <Link
                       href="#examples"
                       className="text-lg font-medium hover:text-primary transition-colors"
                     >
                       Examples
                     </Link>
-                    <Link
-                      href="#why"
-                      className="text-lg font-medium hover:text-primary transition-colors"
-                    >
-                      Why Cyrus?
-                    </Link>
-                    <Link
-                      href="#community"
-                      className="text-lg font-medium hover:text-primary transition-colors"
-                    >
-                      Community
-                    </Link>
+
                     <Link
                       href="/docs"
                       className="text-lg font-medium hover:text-primary transition-colors"
                     >
                       Documentation
                     </Link>
+
+                    <Link
+                      href="/blog"
+                      className="text-lg font-medium hover:text-primary transition-colors"
+                    >
+                      Blog
+                    </Link>
+
+                    <Link
+                      href="/forum"
+                      className="text-lg font-medium hover:text-primary transition-colors"
+                    >
+                      Forum
+                    </Link>
+
+                    <Link
+                      href="/packages"
+                      className="text-lg font-medium hover:text-primary transition-colors"
+                    >
+                      Packages
+                    </Link>
+
+                    <Link
+                      href="/support_us"
+                      className="text-lg font-medium hover:text-primary transition-colors"
+                    >
+                      Support Us
+                    </Link>
                   </nav>
                   <div className="mt-auto flex flex-col gap-2">
-                    <Link href="#get-started" className="w-full">
+                    <Link href="/docs" className="w-full">
                       <Button className="w-full">Get Started</Button>
                     </Link>
                     <Link href="/docs" className="w-full">
