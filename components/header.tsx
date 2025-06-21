@@ -37,7 +37,7 @@ export default function Header() {
 
             <nav className="hidden xl:flex gap-6 pt-1">
               <Link
-                href="#examples"
+                href="/#examples"
                 className="text-sm font-medium hover:text-primary transition-colors"
               >
                 Examples
@@ -116,7 +116,7 @@ export default function Header() {
 
                   <nav className="flex flex-col gap-4">
                     <Link
-                      href="#examples"
+                      href="/#examples"
                       className="text-lg font-medium hover:text-primary transition-colors"
                     >
                       Examples

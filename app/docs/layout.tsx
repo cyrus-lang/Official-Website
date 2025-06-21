@@ -1,30 +1,27 @@
-"use client";
-import MobileSidebar from "@/components/docs/mobile/MobileSidebar";
-import { Sidebar } from "@/components/docs/sidebar";
 import Header from "@/components/header";
 import { SidebarProvider } from "@/components/ui/sidebar";
-import { usePathname } from "next/navigation";
 import type React from "react";
+import { getDocsNavigation } from "./collector";
+import { DocNavItem } from '@/app/types/doc_nav_item';
+import ClientSidebarWrapper from '../../components/docs/client_sidebar_wrapper';
 
-export default function DocsLayout({
+export default async function DocsLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const pathname = usePathname();
+  const navigationItems: DocNavItem[] = await getDocsNavigation();
 
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
 
-      {/* Show MobileSidebar on /docs and all nested routes */}
-      {pathname.startsWith("/docs") && <MobileSidebar />}
-
       <SidebarProvider>
         <div className="flex flex-col md:flex-row md:overflow-hidden flex-1">
           <div className="w-full flex-none md:w-64">
-            <Sidebar />
+            <ClientSidebarWrapper navigationItems={navigationItems} />
           </div>
+
           <div className="flex-grow pt-24 md:pt-12 pb-6 px-6 md:px-12 md:overflow-y-auto">
             {children}
           </div>

@@ -39,7 +39,7 @@ export default function LandingPage() {
                     Get Started
                   </Button>
                 </Link>
-                <Link href="#examples">
+                <Link href="/#examples">
                   <Button size="lg" variant="outline" className="w-full sm:w-auto">
                     See Examples
                   </Button>

@@ -1,22 +1,21 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { sidebarItems } from "../sidebarItems";
 
-function getSectionTitle(pathname: string) {
-  const group = sidebarItems.find(
-    (section) => section.href === pathname
-  );
-  if (group) return group.title;
+// function getSectionTitle(pathname: string) {
+//   const group = sidebarItems.find(
+//     (section) => section.href === pathname
+//   );
+//   if (group) return group.title;
 
-  for (const section of sidebarItems) {
-    const item = section.items.find((item) => item.href === pathname);
-    if (item) return item.title;
-  }
+//   for (const section of sidebarItems) {
+//     const item = section.items.find((item) => item.href === pathname);
+//     if (item) return item.title;
+//   }
 
-  const last = pathname.split("/").filter(Boolean).pop() || "";
-  return last.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
-}
+//   const last = pathname.split("/").filter(Boolean).pop() || "";
+//   return last.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+// }
 
 export default function Breadcrumb() {
   const pathname = usePathname();
@@ -25,18 +24,18 @@ export default function Breadcrumb() {
 
   let visibleCrumbs: { href: string; title: string }[] = [];
 
-  if (hrefs.length <= 2) {
-    visibleCrumbs = hrefs.map((href) => ({
-      href,
-      title: getSectionTitle(href),
-    }));
-  } else {
-    const lastTwo = hrefs.slice(-2);
-    visibleCrumbs = lastTwo.map((href) => ({
-      href,
-      title: getSectionTitle(href),
-    }));
-  }
+  // if (hrefs.length <= 2) {
+  //   visibleCrumbs = hrefs.map((href) => ({
+  //     href,
+  //     title: getSectionTitle(href),
+  //   }));
+  // } else {
+  //   const lastTwo = hrefs.slice(-2);
+  //   visibleCrumbs = lastTwo.map((href) => ({
+  //     href,
+  //     title: getSectionTitle(href),
+  //   }));
+  // }
 
   return (
     <nav

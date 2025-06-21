@@ -1,8 +1,5 @@
 "use client";
-import MobileSidebar from "@/components/docs/mobile/MobileSidebar";
-import { Sidebar } from "@/components/docs/sidebar";
 import Header from "@/components/header";
-import { SidebarProvider } from "@/components/ui/sidebar";
 import { usePathname } from "next/navigation";
 import type React from "react";
 

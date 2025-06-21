@@ -1,18 +1,16 @@
-"use client";
-
+// components/docs/mobile/MobileSidebar.tsx
 import { Logo } from "@/components/header";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
-import Breadcrumb from "./Breadcrumb";
-import { SidebarMenuList } from "./SidebarMenuList";
+import Breadcrumb from "./breadcrumb";
 import { Button } from "@/components/ui/button";
+import { Sidebar, SidebarProps } from "../sidebar"; // This import is correct, assuming 'sidebar.tsx' is in the parent directory
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
-export default function MobileSidebar() {
+export default function MobileSidebar({ navigationItems }: SidebarProps) {
   const [open, setOpen] = useState(false);
 
-  // Pass the onItemClick prop to SidebarMenuList
   function handleClose() {
     setOpen(false);
   }
@@ -25,7 +23,6 @@ export default function MobileSidebar() {
             <Menu className="h-6 w-6" />
             <span className="sr-only">Toggle menu</span>
           </Button>
-
         </SheetTrigger>
 
         <SheetContent
@@ -34,7 +31,7 @@ export default function MobileSidebar() {
         >
           <div className="flex items-center justify-between mb-0 p-4">
             <Link href="/" className="flex items-center gap-2">
-              <Logo/>
+              <Logo />
               <span className="text-xl font-bold">Cyrus</span>
             </Link>
             <SheetTrigger asChild>
@@ -45,14 +42,13 @@ export default function MobileSidebar() {
             </SheetTrigger>
           </div>
 
-          {/* Navigation menu list rendered below the header */}
           <div className="flex-1 overflow-y-auto">
-            <SidebarMenuList onItemClick={handleClose} />
+            {/* This is correct. The Sidebar component should now render */}
+            <Sidebar navigationItems={navigationItems} />
           </div>
         </SheetContent>
       </Sheet>
 
-      {/* Breadcrumb section in the center */}
       <div className="flex-1 flex ml-3">
         <nav className="flex items-center space-x-1 rtl:space-x-reverse">
           <Breadcrumb />
