@@ -72,7 +72,7 @@ export default async function ShowDocumentPage({ params }: {
   }
 
   return (
-    <article className="prose lg:prose-xl mx-auto py-8">
+    <article className="prose lg:prose-xl container mx-auto py-5">
       <MDXRemote source={mdxSource} components={useMDXComponents({})} />
     </article>
   );

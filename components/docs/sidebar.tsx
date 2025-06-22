@@ -51,8 +51,8 @@ const CollapsibleNavItem = ({ item, pathname, renderChildren }: CollapsibleNavIt
       <div className="text-xs font-semibold uppercase text-muted-foreground">
         <div className="flex items-center justify-between w-full cursor-pointer"> 
           {/* Link for directory title */}
-          <Link
-            href={itemHref}
+          <a
+            
             className={cn(
               "text-muted-foreground flex-grow py-2 rounded-md px-2",
             )}
@@ -61,7 +61,7 @@ const CollapsibleNavItem = ({ item, pathname, renderChildren }: CollapsibleNavIt
             }}
           >
             {item.title}
-          </Link>
+          </a>
 
           {/* Toggle Button for Dropdown */}
           {item.children && item.children.length > 0 && ( // Only show caret if there are children

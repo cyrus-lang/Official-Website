@@ -1,4 +1,4 @@
-import { Code, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
 import { Button } from "./ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
@@ -6,6 +6,8 @@ import Link from "next/link";
 import Image from "next/image";
 import LogoDark from "@/app/assets/logo-dark.png";
 import LogoLight from "@/app/assets/logo-light.png";
+
+export const HEADER_HEIGHT = "64px";
 
 export function Logo() {
   return (
@@ -28,7 +30,7 @@ export default function Header() {
   return (
     <>
       <header className="select-none border-b sticky top-0 z-50 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="px-4 flex h-16 items-center justify-between">
+        <div className="px-4 flex items-center justify-between" style={{ height: HEADER_HEIGHT }}>
           <div className="flex items-center">
             <Link href="/" className="flex items-center gap-2 pl-1 pr-8">
               <Logo />

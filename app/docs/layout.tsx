@@ -4,6 +4,7 @@ import type React from "react";
 import { getDocsNavigation } from "./collector";
 import { DocNavItem } from '@/app/types/doc_nav_item';
 import ClientSidebarWrapper from '../../components/docs/client_sidebar_wrapper';
+import { HEADER_HEIGHT } from "@/components/header"
 
 export default async function DocsLayout({
   children,
@@ -18,11 +19,11 @@ export default async function DocsLayout({
 
       <SidebarProvider>
         <div className="flex flex-col md:flex-row md:overflow-hidden flex-1">
-          <div className="w-full flex-none md:w-64 xl:w-80 border-r">
+          <div className="w-full hidden md:flex flex-none md:w-64 xl:w-80 border-r" style={{ height: `calc(100vh - 1px - ${HEADER_HEIGHT})` }}>
             <ClientSidebarWrapper navigationItems={navigationItems} />
           </div>
 
-          <div className="flex-grow pt-24 md:pt-12 pb-6 px-6 md:px-12 md:overflow-y-auto">
+          <div className="flex-grow pb-6 overflow-y-auto">
             {children}
           </div>
         </div>
