@@ -39,8 +39,8 @@ interface CollapsibleNavItemProps {
 const CollapsibleNavItem = ({ item, pathname, renderChildren }: CollapsibleNavItemProps) => {
   const itemHref = item.slug === '' ? '/docs' : `/docs/${item.slug}`;
 
-  const initialOpenState = pathname.startsWith(itemHref);
-  const [isOpen, setIsOpen] = useState(initialOpenState);
+  // Set initial state to true to make it open by default
+  const [isOpen, setIsOpen] = useState(true);
 
   const toggleOpen = () => setIsOpen(!isOpen);
 
@@ -50,9 +50,8 @@ const CollapsibleNavItem = ({ item, pathname, renderChildren }: CollapsibleNavIt
         <div className="flex items-center justify-between w-full cursor-pointer"> 
           {/* Link for directory title */}
           <a
-            
             className={cn(
-              "text-muted-foreground flex-grow py-2 rounded-md px-2",
+              "text-muted-foreground flex-grow py-2 rounded-md px-2 my-1",
             )}
             onClick={() => {
               setIsOpen(prev => !prev);
