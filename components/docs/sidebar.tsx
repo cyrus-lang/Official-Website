@@ -51,7 +51,7 @@ const CollapsibleNavItem = ({ item, currentBasePath, pathname, renderChildren }:
   const isActive = pathname === itemHref || pathname.startsWith(`${itemHref}/`);
 
   return (
-    <div className="mb-2"> {/* Mimics SidebarGroup */}
+    <div className="mb-3"> {/* Mimics SidebarGroup */}
       <div className="text-xs font-semibold uppercase text-gray-500 dark:text-gray-400 mb-2">
         <div className="flex items-center justify-between w-full cursor-pointer" onClick={toggleOpen}>
           {/* Link for directory title */}

@@ -4,4 +4,5 @@ export interface DocNavItem {
     path: string;                   // The full file system path (internal use)
     type: 'file' | 'directory';
     children?: DocNavItem[];         // For nested directories
+    weight?: number
 }
