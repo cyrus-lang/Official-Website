@@ -16,7 +16,7 @@ export default function ClientSidebarWrapper({ navigationItems }: ClientSideMobi
         <>
             {pathname.startsWith("/docs") && <MobileSidebar navigationItems={navigationItems} />}
 
-            <div className="w-full flex-none md:w-64">
+            <div className="w-full flex-none">
                 <Sidebar navigationItems={navigationItems} />
             </div>
         </>

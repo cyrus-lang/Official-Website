@@ -51,31 +51,31 @@ const CollapsibleNavItem = ({ item, currentBasePath, pathname, renderChildren }:
   const isActive = pathname === itemHref || pathname.startsWith(`${itemHref}/`);
 
   return (
-    <div className="mb-4"> {/* Mimics SidebarGroup */}
-      <div className="text-xs font-semibold uppercase text-gray-500 dark:text-gray-400 mb-2"> {/* Mimics SidebarGroupLabel */}
+    <div className="mb-2"> {/* Mimics SidebarGroup */}
+      <div className="text-xs font-semibold uppercase text-gray-500 dark:text-gray-400 mb-2">
         <div className="flex items-center justify-between w-full cursor-pointer" onClick={toggleOpen}>
           {/* Link for directory title */}
           <Link
             href={itemHref}
             className={cn(
-              "flex-grow py-1 rounded-md px-2", // Added some padding and rounded corners
-              isActive ? "text-primary dark:text-blue-400 font-semibold" : "text-foreground hover:bg-gray-100 dark:hover:bg-gray-800",
+              "text-foreground flex-grow py-1 rounded-md px-2",
               // Prevent default click on link to allow button to handle toggle, but only if not navigating
               { 'pointer-events-none': !isActive && item.children && item.children.length > 0 } // Disable link if it's a parent with children and not active
             )}
             onClick={(e) => {
-                if (item.type === 'directory' && pathname !== itemHref) {
-                    e.preventDefault();
-                }
+              if (item.type === 'directory' && pathname !== itemHref) {
+                e.preventDefault();
+              }
             }}
           >
             {item.title}
           </Link>
+
           {/* Toggle Button for Dropdown */}
           {item.children && item.children.length > 0 && ( // Only show caret if there are children
             <button
               onClick={toggleOpen}
-              className="p-1 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 ml-2"
+              className="p-1 rounded-md hover:bg-gray-200 dark:hover:bg-border dark:focus:bg-border ml-2"
               aria-expanded={isOpen}
               aria-controls={`sidebar-group-content-${item.slug}`}
             >
@@ -112,21 +112,21 @@ export function Sidebar({ navigationItems }: SidebarProps) {
           <CollapsibleNavItem
             key={item.slug}
             item={item}
-            currentBasePath={itemHref} // Pass the directory's own href as base for its children
+            currentBasePath={itemHref}
             pathname={pathname}
             renderChildren={renderNavItems}
           />
         );
       } else { // type === 'file'
         return (
-          <li key={item.slug} className="mb-1"> {/* Mimics SidebarMenuItem */}
+          <li key={item.slug} className="mb-1 list-none">
             <Link
               href={itemHref}
               className={cn(
-                "block w-full py-1 px-2 rounded-md text-sm", // Added padding, rounded corners, font size
+                "block w-full py-1 px-2 rounded-md text-md",
                 pathname === itemHref
-                  ? "text-primary dark:text-blue-400 font-medium bg-gray-100 dark:bg-gray-800" // Active state background
-                  : "text-muted-foreground hover:bg-gray-100 dark:hover:bg-gray-800"
+                  ? "text-white font-medium bg-primary" // Active state background
+                  : "text-muted-foreground hover:bg-gray-100 dark:hover:bg-muted"
               )}
             >
               {item.title}
@@ -138,11 +138,11 @@ export function Sidebar({ navigationItems }: SidebarProps) {
   };
 
   return (
-    <div className="h-full bg-background md:bg-inherit dark:bg-background md:dark:bg-inherit py-4 pr-2"> {/* Mimics SidebarComponent, added padding */}
-      <div className="flex flex-col h-full overflow-hidden"> {/* Mimics SidebarContent */}
-        <ScrollArea className="h-[calc(100vh-3.5rem)] md:h-full"> {/* Adjust height for desktop */}
-          <nav className="px-2"> {/* Added nav tag for semantics and padding */}
-            {renderNavItems(navigationItems)} {/* Start rendering from the top-level */}
+    <div className="h-full bg-background md:bg-inherit dark:bg-background md:dark:bg-inherit py-4 px-2">
+      <div className="flex flex-col h-full overflow-hidden">
+        <ScrollArea className="h-[calc(100vh-3.5rem)] md:h-full">
+          <nav className="px-2">
+            {renderNavItems(navigationItems)}
           </nav>
         </ScrollArea>
       </div>
