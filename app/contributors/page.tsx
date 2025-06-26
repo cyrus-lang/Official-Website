@@ -52,8 +52,8 @@ export default function ContributorsPage() {
       </div>
       <div className="flex flex-row justify-evenly gap-4 sm:gap-6 flex-wrap">
         {MOCK_Participants.map((participant) => (
-          <div className="w-full sm:w-[330px]  border rounded-2xl pt-5 px-3">
-            <Box key={participant.id} participant={participant} />
+          <div key={participant.id} className="w-full sm:w-[330px]  border rounded-2xl pt-5 px-3">
+            <Box participant={participant} />
           </div>
         ))}
       </div>

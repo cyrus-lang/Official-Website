@@ -3,7 +3,7 @@
 import Header from "@/components/header";
 import type React from "react";
 
-export default function PackagesLayout({
+export default function ContributorsLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -11,7 +11,6 @@ export default function PackagesLayout({
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
-
       {children}
     </div>
   );
