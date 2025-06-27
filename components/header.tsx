@@ -23,14 +23,17 @@ export function Logo() {
         alt="Cyrus Programming Language Light Logo"
       />
     </>
-  )
+  );
 }
 
 export default function Header() {
   return (
     <>
       <header className="select-none border-b sticky top-0 z-50 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="px-4 flex items-center justify-between" style={{ height: HEADER_HEIGHT }}>
+        <div
+          className="px-4 flex items-center justify-between"
+          style={{ height: HEADER_HEIGHT }}
+        >
           <div className="flex items-center">
             <Link href="/" className="flex items-center gap-2 pl-1 pr-8">
               <Logo />
@@ -78,6 +81,12 @@ export default function Header() {
                 className="text-sm font-medium hover:text-primary transition-colors"
               >
                 Support Us
+              </Link>
+              <Link
+                href="/contributors"
+                className="text-sm font-medium hover:text-primary transition-colors"
+              >
+                Contributors
               </Link>
             </nav>
           </div>
@@ -157,6 +166,12 @@ export default function Header() {
                       className="text-lg font-medium hover:text-primary transition-colors"
                     >
                       Support Us
+                    </Link>
+                    <Link
+                      href="/contributors"
+                      className="text-lg font-medium hover:text-primary transition-colors"
+                    >
+                      Contributors
                     </Link>
                   </nav>
                   <div className="mt-auto flex flex-col gap-2">
