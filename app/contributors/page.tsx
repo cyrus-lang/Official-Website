@@ -3,7 +3,7 @@ import contributors from "@/content/contributors.json";
 
 export default function ContributorsPage() {
   return (
-    <div className="container sm:px-10 px-3 py-10 flex flex-col gap-5 ">
+    <div className="container sm:px-10 px-3 py-10 flex flex-col gap-5 mb-10">
       <div className="flex flex-col gap-2">
         <div className=" text-4xl font-bold  ">Team</div>
         <div className="text-lg">Meet the people behind Cyrus</div>
