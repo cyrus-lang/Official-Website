@@ -200,6 +200,37 @@
             }
         }
     },
+    "DocsNavigation": {
+        "gettingStarted": {
+            "Getting Started": "شروع کار",
+            "Introduction": "معرفی",
+            "Hello World!": "سلام دنیا!",
+            "Install compiler binary": "نصب کامپایلر باینری",
+            "Build from source": "ساخت از منبع",
+            "Design Goals": "اهداف طراحی",
+            "Roadmap": "نقشه راه"
+        },
+        "tutorial": {
+            "Tutorial": "آموزش",
+            "Basic Syntax": "نحو پایه",
+            "Installation": "نصب",
+            "Project Configuration": "پیکربندی پروژه",
+            "Reflection": "بازتاب",
+            "Structs": "ساختارها",
+            "Variables": "متغیرها",
+            "Control Flow": "کنترل جریان",
+            "Enums": "شمارش‌ها",
+            "Error Handling": "مدیریت خطا",
+            "Expressions": "عبارات",
+            "Functions": "توابع",
+            "Generic Types": "انواع عمومی",
+            "Inline Assembly": "اسمبلی درون‌خطی",
+            "Macros": "ماکروها",
+            "Memory Management": "مدیریت حافظه",
+            "Modules": "ماژول‌ها",
+            "FFI": "رابط خارجی"
+        }
+    },
     "DocsError": {
         "notFound": {
             "title": "مستند یافت نشد",
@@ -247,13 +278,5 @@
             "creator": "خالق",
             "contributor": "مشارکت‌کننده"
         }
-    },
-    "DocsNavigation": {
-        "documentationHome": "صفحه اصلی مستندات",
-        "introduction": "معرفی",
-        "tutorial": "آموزش",
-        "basicSyntax": "پایه نوشتار",
-        "installation": "نصب",
-        "tutorial copy": "آموزش کپی"
     }
 }

@@ -200,6 +200,37 @@
             }
         }
     },
+    "DocsNavigation": {
+        "gettingStarted": {
+            "Getting Started": "Getting Started",
+            "Introduction": "Introduction",
+            "Hello World!": "Hello World!",
+            "Install compiler binary": "Install compiler binary",
+            "Build from source": "Build from source",
+            "Design Goals": "Design Goals",
+            "Roadmap": "Roadmap"
+        },
+        "tutorial": {
+            "Tutorial": "Tutorial",
+            "Basic Syntax": "Basic Syntax",
+            "Installation": "Installation",
+            "Project Configuration": "Project Configuration",
+            "Reflection": "Reflection",
+            "Structs": "Structs",
+            "Variables": "Variables",
+            "Control Flow": "Control Flow",
+            "Enums": "Enums",
+            "Error Handling": "Error Handling",
+            "Expressions": "Expressions",
+            "Functions": "Functions",
+            "Generic Types": "Generic Types",
+            "Inline Assembly": "Inline Assembly",
+            "Macros": "Macros",
+            "Memory Management": "Memory Management",
+            "Modules": "Modules",
+            "FFI": "FFI"
+        }
+    },
     "DocsError": {
         "notFound": {
             "title": "Document Not Found",
@@ -247,13 +278,5 @@
             "creator": "Creator",
             "contributor": "Contributor"
         }
-    },
-    "DocsNavigation": {
-        "documentationHome": "Documentation Home",
-        "introduction": "Introduction",
-        "tutorial": "Tutorial",
-        "basicSyntax": "Basic Syntax",
-        "installation": "Installation",
-        "tutorial copy": "tutorial copy"
     }
 }

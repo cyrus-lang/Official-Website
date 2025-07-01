@@ -4,6 +4,7 @@ import fs from "fs/promises";
 import { CONTENT_BASE_PATH } from "./base_path";
 import { DocNavItem } from "@/app/types/doc_nav_item";
 import { getMdxData } from "@/app/docs/mdx";
+import { getTranslations } from "next-intl/server";
 
 /**
  * Normalizes a file or directory name into a human-readable title.
@@ -21,25 +22,67 @@ function slugToTitle(slug: string): string {
 }
 
 /**
- * Translates navigation titles based on the current locale
+ * Translates navigation titles based on the current locale and file path
  */
-function translateTitle(title: string, locale: string = "en"): string {
-  const translations: Record<string, Record<string, string>> = {
-    en: {
-      Introduction: "Introduction",
-      Tutorial: "Tutorial",
-      "Basic Syntax": "Basic Syntax",
-      Installation: "Installation",
-    },
-    fa: {
-      Introduction: "معرفی",
-      Tutorial: "آموزش",
-      "Basic Syntax": "پایه نوشتار",
-      Installation: "نصب",
-    },
-  };
+async function translateTitle(
+  title: string,
+  locale: string = "en",
+  filePath?: string
+): Promise<string> {
+  try {
+    // If the title is already in Persian script, don't translate it
+    const persianRegex =
+      /[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF]/;
+    if (persianRegex.test(title)) {
+      return title;
+    }
 
-  return translations[locale]?.[title] || title;
+    const t = await getTranslations({ locale, namespace: "DocsNavigation" });
+
+    // Determine which section to use based on file path
+    let section = "tutorial"; // default
+    if (filePath) {
+      if (filePath.includes("getting-started")) {
+        section = "gettingStarted";
+      } else if (filePath.includes("tutorial")) {
+        section = "tutorial";
+      }
+    }
+
+    const translationKey = `${section}.${title}`;
+
+    try {
+      const translation = t(translationKey);
+      if (translation && translation !== title) {
+        return translation;
+      }
+    } catch (e) {
+      // Try alternative title formats if the first one fails
+      const alternativeTitles = [
+        title.replace(/^./, title[0].toUpperCase()), // First letter uppercase
+        title.replace(/\b\w/g, (l) => l.toUpperCase()), // Title case
+        title.toLowerCase().replace(/\b\w/g, (l) => l.toUpperCase()), // Title case from lowercase
+      ];
+
+      for (const altTitle of alternativeTitles) {
+        if (altTitle === title) continue; // Skip the original title
+        try {
+          const altTranslationKey = `${section}.${altTitle}`;
+          const altTranslation = t(altTranslationKey);
+          if (altTranslation && altTranslation !== altTitle) {
+            return altTranslation;
+          }
+        } catch (altError) {
+          // Continue to next alternative
+        }
+      }
+    }
+
+    return title;
+  } catch (error) {
+    console.error("Translation error:", error);
+    return title;
+  }
 }
 
 /**
@@ -99,7 +142,7 @@ export async function getDocsNavigation(
     const itemSlug = currentSlug; // The slug for the directory's main page is the directory's slug itself
 
     const rawTitle = frontmatter.title || slugToTitle(currentSlug);
-    const title = translateTitle(rawTitle, locale);
+    const title = await translateTitle(rawTitle, locale, filePath);
     const weight = frontmatter.weight || 9999;
 
     items.push({
@@ -131,7 +174,7 @@ export async function getDocsNavigation(
 
     if (children.length > 0) {
       const rawTitle = childMainDoc?.title || slugToTitle(dirNameEntry); // Use main doc title if available, else derive
-      const title = translateTitle(rawTitle, locale);
+      const title = await translateTitle(rawTitle, locale, dirPath);
 
       items.push({
         title: title,
@@ -159,7 +202,7 @@ export async function getDocsNavigation(
     const fullItemSlug = currentSlug ? `${currentSlug}/${fileSlug}` : fileSlug;
 
     const rawTitle = frontmatter.title || slugToTitle(fileSlug);
-    const title = translateTitle(rawTitle, locale);
+    const title = await translateTitle(rawTitle, locale, filePath);
     const weight = frontmatter.weight || 9999;
 
     items.push({
@@ -197,3 +240,5 @@ export async function getDocsNavigation(
 
   return items;
 }
+
+
