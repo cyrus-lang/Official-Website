@@ -70,16 +70,17 @@ export default function Header() {
               </Link>
 
               <Link
-                href="/support_us"
-                className="text-sm font-medium hover:text-primary transition-colors"
-              >
-                Support Us
-              </Link>
-              <Link
                 href="/contributors"
                 className="text-sm font-medium hover:text-primary transition-colors"
               >
                 Contributors
+              </Link>
+
+              <Link
+                href="/support_us"
+                className="text-sm font-medium hover:text-primary transition-colors"
+              >
+                Support Us
               </Link>
             </nav>
           </div>
@@ -148,16 +149,17 @@ export default function Header() {
                     </Link>
 
                     <Link
-                      href="/support_us"
-                      className="text-lg font-medium hover:text-primary transition-colors"
-                    >
-                      Support Us
-                    </Link>
-                    <Link
                       href="/contributors"
                       className="text-lg font-medium hover:text-primary transition-colors"
                     >
                       Contributors
+                    </Link>
+
+                    <Link
+                      href="/support_us"
+                      className="text-lg font-medium hover:text-primary transition-colors"
+                    >
+                      Support Us
                     </Link>
                   </nav>
                   <div className="mt-auto flex flex-col gap-2">
