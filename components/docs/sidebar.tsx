@@ -6,7 +6,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 
 export interface SidebarProps {
   navigationItems: DocNavItem[];
@@ -34,15 +34,18 @@ const CaretIcon = ({ isOpen }: { isOpen: boolean }) => (
 interface CollapsibleNavItemProps {
   item: DocNavItem;
   pathname: string;
+  locale: string;
   renderChildren: (items: DocNavItem[]) => JSX.Element[];
 }
 
 const CollapsibleNavItem = ({
   item,
   pathname,
+  locale,
   renderChildren,
 }: CollapsibleNavItemProps) => {
-  const itemHref = item.slug === "" ? "/docs" : `/docs/${item.slug}`;
+  const itemHref =
+    item.slug === "" ? `/${locale}/docs` : `/${locale}/docs/${item.slug}`;
 
   // Set initial state to true to make it open by default
   const [isOpen, setIsOpen] = useState(true);
@@ -102,6 +105,7 @@ const CollapsibleNavItem = ({
 export function Sidebar({ navigationItems }: SidebarProps) {
   const pathname = usePathname(); // Get current pathname once
   const t = useTranslations("Docs");
+  const locale = useLocale();
 
   // Helper function to render nested navigation items
   const renderNavItems = (items: DocNavItem[]) => {
@@ -109,7 +113,8 @@ export function Sidebar({ navigationItems }: SidebarProps) {
     return items.map((item) => {
       // Construct the full href for any item (file or directory's main page)
       // item.slug already contains the full path from /docs/
-      const itemHref = item.slug === "" ? "/docs" : `/docs/${item.slug}`;
+      const itemHref =
+        item.slug === "" ? `/${locale}/docs` : `/${locale}/docs/${item.slug}`;
 
       if (item.type === "directory") {
         return (
@@ -120,6 +125,7 @@ export function Sidebar({ navigationItems }: SidebarProps) {
             // but keeping it as a prop for now for type compatibility if you have other uses for it.
             // If not, you can remove it from CollapsibleNavItemProps and here.
             pathname={pathname}
+            locale={locale}
             renderChildren={renderNavItems} // Pass the helper itself for recursion
           />
         );
@@ -132,7 +138,7 @@ export function Sidebar({ navigationItems }: SidebarProps) {
               className={cn(
                 "block w-full py-1 px-2 rounded-md text-md",
                 pathname === itemHref ||
-                  (item.slug === "" && pathname === "/docs") // Handle root active state
+                  (item.slug === "" && pathname === `/${locale}/docs`) // Handle root active state
                   ? "text-white font-medium bg-primary" // Active state background
                   : "text-muted-foreground hover:bg-gray-100 dark:hover:bg-muted"
               )}

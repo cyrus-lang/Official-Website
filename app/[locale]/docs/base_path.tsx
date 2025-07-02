@@ -5,5 +5,4 @@ export function getContentBasePath(locale: string = "en"): string {
   return path.join(process.cwd(), "content", langFolder);
 }
 
-// برای سازگاری با کدهای قدیمی
 export const CONTENT_BASE_PATH = path.join(process.cwd(), "content", "en-docs");

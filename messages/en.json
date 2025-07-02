@@ -172,18 +172,6 @@
             "errorAlert": {
                 "title": "Under Development",
                 "content": "Consider that Cyrus is under heavy development and is not stable yet. Therefore, it is not recommended for production environments or critical applications where stability and long-term support are paramount. Users should anticipate frequent updates, breaking changes, and potential bugs as the project evolves."
-            },
-            "cards": {
-                "newcomers": {
-                    "title": "For Newcomers",
-                    "description": "If you're new to Cyrus, start with our comprehensive tutorial to learn the basics and get up to speed quickly.",
-                    "button": "Get Started"
-                },
-                "reference": {
-                    "title": "Language Reference",
-                    "description": "For a detailed overview of Cyrus's built-in types, functions, and modules, check out our language reference.",
-                    "button": "Explore Reference"
-                }
             }
         },
         "tutorial": {

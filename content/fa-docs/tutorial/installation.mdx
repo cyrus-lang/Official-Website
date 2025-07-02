@@ -1,0 +1,49 @@
+---
+title: نصب
+weight: 3
+---
+
+# نصب سایروس
+
+قبل از شروع آموزش، باید سایروس را نصب کنید.
+
+## روش‌های نصب
+
+### 1. نصب مستقیم
+
+```bash
+curl -fsSL https://get.cyrus-lang.org | sh
+```
+
+### 2. استفاده از پکیج منیجر
+
+**ویندوز:**
+
+```powershell
+winget install cyrus-lang.compiler
+```
+
+**لینوکس:**
+
+```bash
+sudo apt install cyrus-lang  # Ubuntu/Debian
+sudo dnf install cyrus-lang  # Fedora
+```
+
+**مک:**
+
+```bash
+brew install cyrus-lang
+```
+
+## تأیید نصب
+
+```bash
+cyrus --version
+```
+
+باید خروجی مشابه این ببینید:
+
+```
+cyrus 1.0.0
+```

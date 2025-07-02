@@ -1,10 +1,9 @@
 // collector.ts (or docs.ts)
 import path from "path";
 import fs from "fs/promises";
-import { CONTENT_BASE_PATH } from "./base_path";
+import { getContentBasePath } from "./base_path";
 import { DocNavItem } from "@/app/types/doc_nav_item";
 import { getMdxData } from "./mdx";
-import { getTranslations } from "next-intl/server";
 
 /**
  * Normalizes a file or directory name into a human-readable title.
@@ -22,88 +21,26 @@ function slugToTitle(slug: string): string {
 }
 
 /**
- * Translates navigation titles based on the current locale and file path
- */
-async function translateTitle(
-  title: string,
-  locale: string = "en",
-  filePath?: string
-): Promise<string> {
-  try {
-    // If the title is already in Persian script, don't translate it
-    const persianRegex =
-      /[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF]/;
-    if (persianRegex.test(title)) {
-      return title;
-    }
-
-    const t = await getTranslations({ locale, namespace: "DocsNavigation" });
-
-    // Determine which section to use based on file path
-    let section = "tutorial"; // default
-    if (filePath) {
-      if (filePath.includes("getting-started")) {
-        section = "gettingStarted";
-      } else if (filePath.includes("tutorial")) {
-        section = "tutorial";
-      }
-    }
-
-    const translationKey = `${section}.${title}`;
-
-    try {
-      const translation = t(translationKey);
-      if (translation && translation !== title) {
-        return translation;
-      }
-    } catch (e) {
-      // Try alternative title formats if the first one fails
-      const alternativeTitles = [
-        title.replace(/^./, title[0].toUpperCase()), // First letter uppercase
-        title.replace(/\b\w/g, (l) => l.toUpperCase()), // Title case
-        title.toLowerCase().replace(/\b\w/g, (l) => l.toUpperCase()), // Title case from lowercase
-      ];
-
-      for (const altTitle of alternativeTitles) {
-        if (altTitle === title) continue; // Skip the original title
-        try {
-          const altTranslationKey = `${section}.${altTitle}`;
-          const altTranslation = t(altTranslationKey);
-          if (altTranslation && altTranslation !== altTitle) {
-            return altTranslation;
-          }
-        } catch (altError) {
-          // Continue to next alternative
-        }
-      }
-    }
-
-    return title;
-  } catch (error) {
-    console.error("Translation error:", error);
-    return title;
-  }
-}
-
-/**
  * Recursively scans the documentation directory and builds a nested navigation structure.
  * @param currentPath The current file system path being scanned.
  * @param currentSlug The current URL slug path being built (e.g., 'tutorial/introduction').
- * @param locale The current locale for translations.
+ * @param locale The current locale for content selection.
  * @returns A promise resolving to an array of DocNavItem.
  */
 export async function getDocsNavigation(
-  currentPath: string = CONTENT_BASE_PATH,
+  currentPath?: string,
   currentSlug: string = "",
   locale: string = "en"
 ): Promise<DocNavItem[]> {
+  // Use the appropriate content path based on locale
+  const basePath = currentPath || getContentBasePath(locale);
   const items: DocNavItem[] = [];
   let dirents;
 
   try {
-    dirents = await fs.readdir(currentPath, { withFileTypes: true });
+    dirents = await fs.readdir(basePath, { withFileTypes: true });
   } catch (error) {
-    console.error(`Error reading directory: ${currentPath}`, error);
+    console.error(`Error reading directory: ${basePath}`, error);
     return [];
   }
 
@@ -120,7 +57,7 @@ export async function getDocsNavigation(
   }
 
   // --- 1. Determine the "main" file for the current directory (index.mdx or [dirName].mdx) ---
-  const dirName = path.basename(currentPath);
+  const dirName = path.basename(basePath);
   const dirNamedMdxFile = `${dirName}.mdx`;
 
   let mainMdxFileName: string | undefined;
@@ -136,13 +73,12 @@ export async function getDocsNavigation(
   let fileToExcludeFromChildren: string | undefined; // To prevent duplication
 
   if (mainMdxFileName) {
-    const filePath = path.join(currentPath, mainMdxFileName);
+    const filePath = path.join(basePath, mainMdxFileName);
     const { frontmatter, content } = await getMdxData(filePath); // Use getMdxData to get content
 
     const itemSlug = currentSlug; // The slug for the directory's main page is the directory's slug itself
 
-    const rawTitle = frontmatter.title || slugToTitle(currentSlug);
-    const title = await translateTitle(rawTitle, locale, filePath);
+    const title = frontmatter.title || slugToTitle(currentSlug);
     const weight = frontmatter.weight || 9999;
 
     items.push({
@@ -159,7 +95,7 @@ export async function getDocsNavigation(
   // --- 2. Process subdirectories ---
   // Sort directories alphabetically by name first for consistent order before recursion
   for (const dirNameEntry of directories.sort()) {
-    const dirPath = path.join(currentPath, dirNameEntry);
+    const dirPath = path.join(basePath, dirNameEntry);
     const newSlug = currentSlug
       ? `${currentSlug}/${dirNameEntry}`
       : dirNameEntry;
@@ -173,8 +109,7 @@ export async function getDocsNavigation(
     );
 
     if (children.length > 0) {
-      const rawTitle = childMainDoc?.title || slugToTitle(dirNameEntry); // Use main doc title if available, else derive
-      const title = await translateTitle(rawTitle, locale, dirPath);
+      const title = childMainDoc?.title || slugToTitle(dirNameEntry); // Use main doc title if available, else derive
 
       items.push({
         title: title,
@@ -195,14 +130,13 @@ export async function getDocsNavigation(
   for (const fileName of files.sort()) {
     if (fileName === fileToExcludeFromChildren) continue; // Skip the main file if it was processed
 
-    const filePath = path.join(currentPath, fileName);
+    const filePath = path.join(basePath, fileName);
     const { frontmatter } = await getMdxData(filePath);
 
     const fileSlug = fileName.replace(/\.mdx$/, "");
     const fullItemSlug = currentSlug ? `${currentSlug}/${fileSlug}` : fileSlug;
 
-    const rawTitle = frontmatter.title || slugToTitle(fileSlug);
-    const title = await translateTitle(rawTitle, locale, filePath);
+    const title = frontmatter.title || slugToTitle(fileSlug);
     const weight = frontmatter.weight || 9999;
 
     items.push({

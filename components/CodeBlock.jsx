@@ -10,9 +10,28 @@ export default function CodeBlock({ children, language = "typescript" }) {
     hljs.highlightAll();
   }, []);
 
+  const getLanguage = (lang) => {
+    if (lang === "cyrus") {
+      return "typescript";
+    }
+    return lang;
+  };
+
   return (
-    <pre className="!mt-0 !mb-0 rounded-lg">
-      <code className={`language-${language}`}>{children}</code>
-    </pre>
+    <div className="my-2 overflow-x-auto">
+      <pre
+        className="!mt-0 !mb-0 rounded-lg  text-left"
+        dir="ltr"
+      >
+        <code
+          className={`language-${getLanguage(
+            language
+          )} text-sm md:text-base text-left`}
+          dir="ltr"
+        >
+          {children}
+        </code>
+      </pre>
+    </div>
   );
 }

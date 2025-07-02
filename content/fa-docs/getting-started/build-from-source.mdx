@@ -1,0 +1,28 @@
+---
+title: ساخت از منبع
+weight: 6
+---
+
+# ساخت از منبع
+
+اگر می‌خواهید سایروس را از کد منبع بسازید:
+
+## پیش‌نیازها
+
+- Rust 1.70+
+- Cargo
+- Git
+
+## مراحل ساخت
+
+```bash
+git clone https://github.com/cyrus-lang/cyrus.git
+cd cyrus
+cargo build --release
+```
+
+## نصب
+
+```bash
+cargo install --path .
+```

@@ -1,0 +1,54 @@
+---
+title: Introduction
+weight: 1
+---
+
+<ErrorAlert title="Under Development" />
+
+# Documentation
+
+Welcome to the official documentation for Cyrus. Here you'll find everything you need to get started with our modern, expressive, and efficient programming language.
+
+<br />
+
+<div className="flex flex-col md:flex-row gap-4">
+  <Card className="shadow-lg h-full">
+    <CardHeader>
+      <CardTitle className="flex items-center gap-2 text-xl md:text-2xl">
+        For Newcomers
+      </CardTitle>
+    </CardHeader>
+    <CardContent>
+      <div className="space-y-4">
+        <div className="text-base md:text-lg text-gray-600 dark:text-muted-foreground">
+          If you're new to Cyrus, start with our comprehensive tutorial to learn
+          the basics and progress quickly.
+        </div>
+        <Link href="/docs/tutorial/basic-syntax" className="mt-2 block">
+          <Button className="w-full md:w-auto">Get Started</Button>
+        </Link>
+      </div>
+    </CardContent>
+  </Card>
+
+  <Card className="shadow-lg h-full">
+    <CardHeader>
+      <CardTitle className="flex items-center gap-2 text-xl md:text-2xl">
+        Language Reference
+      </CardTitle>
+    </CardHeader>
+    <CardContent>
+      <div className="space-y-4">
+        <div className="text-base md:text-lg text-gray-600 dark:text-muted-foreground">
+          Explore our language reference for detailed information about built-in
+          types, functions, and modules in Cyrus.
+        </div>
+        <Link href="/docs/langref" className="mt-2 block">
+          <Button variant="outline" className="w-full md:w-auto">
+            Explore Reference
+          </Button>
+        </Link>
+      </div>
+    </CardContent>
+  </Card>
+</div>

@@ -19,11 +19,7 @@ export function LanguageToggle() {
 
   const toggleLanguage = () => {
     const newLocale = locale === "en" ? "fa" : "en";
-
-    const pathWithoutLocale = pathname.replace(`/${locale}`, "") || "/";
-    const newPath = `/${newLocale}${pathWithoutLocale}`;
-
-    router.push(newPath);
+    router.replace(pathname, { locale: newLocale });
   };
 
   if (!mounted) {
