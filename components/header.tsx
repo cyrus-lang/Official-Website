@@ -86,14 +86,14 @@ export default function Header() {
                 href="/contributors"
                 className="text-sm font-medium hover:text-primary transition-colors"
               >
-                {t("navigation.supportUs")}
+                {t("navigation.contributors")}
               </Link>
 
               <Link
                 href="/support_us"
                 className="text-sm font-medium hover:text-primary transition-colors"
               >
-                {t("navigation.contributors")}
+                {t("navigation.supportUs")}
               </Link>
             </nav>
           </div>
