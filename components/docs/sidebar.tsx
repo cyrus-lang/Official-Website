@@ -45,9 +45,6 @@ const CollapsibleNavItem = ({
   locale,
   renderChildren,
 }: CollapsibleNavItemProps) => {
-  const itemHref =
-    item.slug === "" ? `/${locale}/docs` : `/${locale}/docs/${item.slug}`;
-
   // Set initial state to true to make it open by default
   const [isOpen, setIsOpen] = useState(true);
   const { isRTL } = useLocaleInfo();
@@ -93,10 +90,8 @@ const CollapsibleNavItem = ({
       {/* Render children only if open and children exist */}
       {isOpen && item.children && item.children.length > 0 && (
         <div id={`sidebar-group-content-${item.slug}`} className="ml-2">
-          {" "}
           {/* Mimics SidebarGroupContent */}
           <ul className={cn("space-y-1", isRTL ? "text-right mr-5" : "text-left ml-5")}>
-            {" "}
             {/* Mimics SidebarMenu */}
             {renderChildren(item.children)}{" "}
             {/* Call renderChildren with only the items */}

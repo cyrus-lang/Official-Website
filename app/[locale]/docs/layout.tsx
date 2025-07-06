@@ -12,7 +12,6 @@ export default async function DocsLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const t = await getTranslations("DocsNavigation");
   const locale = await getLocale();
 
   const navigationItems: DocNavItem[] = await getDocsNavigation(
