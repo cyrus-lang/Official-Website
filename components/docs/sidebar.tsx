@@ -56,7 +56,6 @@ const CollapsibleNavItem = ({
 
   return (
     <div className="mb-3">
-      {" "}
       {/* Mimics SidebarGroup */}
       <div className="text-xs font-semibold uppercase text-muted-foreground ">
         <div
@@ -82,7 +81,7 @@ const CollapsibleNavItem = ({
             item.children.length > 0 && ( // Only show caret if there are children
               <button
                 onClick={toggleOpen} // Only the button toggles
-                className="p-1  rounded-md hover:bg-gray-200  dark:hover:bg-border dark:focus:bg-border ml-2"
+                className="p-1 rounded-md hover:bg-gray-200 dark:hover:bg-border dark:focus:bg-border ml-2"
                 aria-expanded={isOpen}
                 aria-controls={`sidebar-group-content-${item.slug}`}
               >

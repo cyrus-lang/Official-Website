@@ -28,7 +28,7 @@ export default async function DocsLayout({
       <SidebarProvider>
         <div className="flex flex-col md:flex-row md:overflow-hidden flex-1">
           <div
-            className="w-full hidden md:flex flex-none md:w-64 xl:w-80 border-r"
+            className={"w-full hidden md:flex flex-none md:w-64 xl:w-80 border-l border-r"}
             style={{ height: `calc(100vh - 1px - ${HEADER_HEIGHT})` }}
           >
             <ClientSidebarWrapper navigationItems={navigationItems} />

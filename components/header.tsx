@@ -7,7 +7,6 @@ import Link from "next/link";
 import Image from "next/image";
 import LogoDark from "@/app/assets/logo-dark.png";
 import LogoLight from "@/app/assets/logo-light.png";
-import { getTranslations } from "next-intl/server";
 import { useLocaleInfo } from "@/hooks/use-locale";
 import {useTranslations} from 'next-intl';
 
@@ -34,7 +33,7 @@ export function Logo() {
 
 export default function Header() {
   const t = useTranslations("Header");
-  const { isPersian, fontFamily } = useLocaleInfo();
+  const { fontFamily } = useLocaleInfo();
 
   return (
     <>
