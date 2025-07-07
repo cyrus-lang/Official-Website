@@ -1,4 +1,4 @@
-'use client'
+"use client"
 
 import { Menu, X } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
@@ -12,7 +12,8 @@ import LogoLight from "@/app/assets/logo-light.png";
 import { useLocaleInfo } from "@/hooks/use-locale";
 import { useTranslations } from 'next-intl';
 import { usePathname } from 'next/navigation';
-import Breadcrumb from "./docs/mobile/breadcrumb"
+import MobileSidebar from "./docs/mobile/mobile_sidebar";
+import { DocNavItem } from "@/app/types/doc_nav_item";
 
 export function Logo() {
   const t = useTranslations("Header.logo");
@@ -33,9 +34,9 @@ export function Logo() {
   );
 }
 
-export default function Header({ className }: { className?: string }) {
+export default function Header({ className, navigationItems }: { className?: string, navigationItems?: DocNavItem[] }) {
   const t = useTranslations("Header");
-  const { fontFamily, locale } = useLocaleInfo();
+  const { fontFamily } = useLocaleInfo();
   const pathname = usePathname();
   const isDocsRoute = /^\/[a-z]{2}\/docs(\/.*)?$/.test(pathname);
 
@@ -205,7 +206,9 @@ export default function Header({ className }: { className?: string }) {
           </div>
         </div>
 
-        {isDocsRoute && <Breadcrumb className="block md:hidden" />}
+        {isDocsRoute && navigationItems &&
+          <MobileSidebar navigationItems={navigationItems!} />
+        }
       </header>
     </>
   );

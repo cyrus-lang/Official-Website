@@ -1,35 +1,40 @@
-import { Logo } from "@/components/header";
-import { Menu, X } from "lucide-react";
+"use client"
+
 import Link from "next/link";
-import { useState } from "react";
+import { X } from "lucide-react";
 import Breadcrumb from "./breadcrumb";
+import { Logo } from "@/components/header";
+import { useState, useEffect } from "react";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Sidebar, SidebarProps } from "../sidebar";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { useTranslations } from "next-intl";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 export default function MobileSidebar({ navigationItems }: SidebarProps) {
   const [open, setOpen] = useState(false);
   const t = useTranslations("Docs");
 
+  useEffect(() => {
+    if (open) {
+      document.documentElement.style.overflow = "hidden";
+    } else {
+      document.documentElement.style.overflow = "";
+    }
+    return () => {
+      document.documentElement.style.overflow = "";
+    };
+  }, [open]);
+
   return (
-    <div className="fixed flex items-center w-full px-4 py-2 md:hidden bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 text-foreground border-b border-border transition-colors"
-    >
+    <div>
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetTrigger asChild>
-          <Button
-            variant="outline"
-            aria-label={t("mobile.openMenu")}
-            size="icon"
-            className="xl:hidden"
-          >
-            <Menu className="h-6 w-6" />
-            <span className="sr-only">{t("mobile.toggleMenu")}</span>
-          </Button>
+          <Breadcrumb onClick={() => setOpen(true)} />
         </SheetTrigger>
 
         <SheetContent side="left" className="p-0 w-full h-full flex flex-col">
-          <div className="flex items-center justify-between mb-0 p-4">
+          <div className="flex items-center justify-between mb-0 p-4 pb-1">
             <Link href="/" className="flex items-center gap-2">
               <Logo />
               <span className="text-xl font-bold">Cyrus</span>
@@ -42,17 +47,11 @@ export default function MobileSidebar({ navigationItems }: SidebarProps) {
             </SheetTrigger>
           </div>
 
-          <div className="flex-1 overflow-y-auto">
+          <ScrollArea className="flex-1">
             <Sidebar navigationItems={navigationItems} />
-          </div>
+          </ScrollArea>
         </SheetContent>
       </Sheet>
-
-      <div className="flex-1 flex ml-3">
-        <nav className="flex items-center space-x-1 rtl:space-x-reverse">
-          <Breadcrumb />
-        </nav>
-      </div>
-    </div >
+    </div>
   );
 }

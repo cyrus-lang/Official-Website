@@ -1,10 +1,10 @@
-import Header from "@/components/header";
-import { SidebarProvider } from "@/components/ui/sidebar";
 import type React from "react";
+import Header from "@/components/header";
+import { getLocale } from "next-intl/server";
 import { getDocsNavigation } from "./collector";
 import { DocNavItem } from "@/app/types/doc_nav_item";
+import { SidebarProvider } from "@/components/ui/sidebar";
 import ClientSidebarWrapper from "@/components/docs/client_sidebar_wrapper";
-import { getLocale } from "next-intl/server";
 
 export default async function DocsLayout({
   children,
@@ -21,7 +21,7 @@ export default async function DocsLayout({
 
   return (
     <div className="flex flex-col min-h-screen">
-      <Header className="docs-header" />
+      <Header className="docs-header" navigationItems={navigationItems}/>
 
       <SidebarProvider>
         <div className="flex flex-1">

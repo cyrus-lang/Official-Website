@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { DocNavItem } from "@/app/types/doc_nav_item";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -155,12 +154,9 @@ export function Sidebar({ navigationItems }: SidebarProps) {
   return (
     <div className="bg-background md:bg-inherit dark:bg-background md:dark:bg-inherit py-4 px-2">
       <div className="flex flex-col h-full overflow-hidden">
-        <ScrollArea className="h-[calc(100vh-3.5rem)] md:h-full">
-          <nav className="px-2 " aria-label={t("sidebar.navigation")}>
+          <nav className="px-2" aria-label={t("sidebar.navigation")}>
             {renderNavItems(navigationItems)}{" "}
-            {/* Initial call to render top-level items */}
           </nav>
-        </ScrollArea>
       </div>
     </div>
   );
