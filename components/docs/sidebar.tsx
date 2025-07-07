@@ -44,7 +44,6 @@ const CollapsibleNavItem = ({
   locale,
   renderChildren,
 }: CollapsibleNavItemProps) => {
-  // Set initial state to true to make it open by default
   const [isOpen, setIsOpen] = useState(true);
   const { isRTL } = useLocaleInfo();
 

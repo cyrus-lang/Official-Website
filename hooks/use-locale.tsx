@@ -6,7 +6,11 @@ export function useLocaleInfo() {
   return {
     locale,
     isPersian: locale === "fa",
-    isRTL: locale === "fa",
+    isRTL: isLocaleRTL(locale),
     fontFamily: locale === "fa" ? "font-fa" : "font-sans",
   };
+}
+
+export function isLocaleRTL(locale: string) {
+  return locale === "fa";
 }
