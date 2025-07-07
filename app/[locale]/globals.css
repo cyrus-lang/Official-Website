@@ -39,6 +39,8 @@
     --input: 240 5.9% 90%;
     --ring: 252 59% 48%;
     --radius: 0.5rem;
+
+    --header-height: 64px;
   }
 
   .dark {
@@ -81,22 +83,9 @@
     padding-top: 4px;
   }
 }
-/* 
-.docs-layout {
-  width: 100%;
-  height: 100%;
-}
 
-.docs-sidebar {
-  position: fixed;
-  top: 64px;
-  bottom: 0;
-  height: 100%;
+@media (width <= 48rem) { 
+  .docs-header {
+    --header-height: 70px;
+  }
 }
-
-.docs-children{
-  position: relative;
-  width: calc(100% - var(--sidebar-width));
-  left: var(--sidebar-width);
-  background-color: green;
-} */

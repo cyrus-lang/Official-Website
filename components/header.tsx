@@ -1,3 +1,5 @@
+'use client'
+
 import { Menu, X } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
 import { LanguageToggle } from "./language-toggle";
@@ -8,9 +10,9 @@ import Image from "next/image";
 import LogoDark from "@/app/assets/logo-dark.png";
 import LogoLight from "@/app/assets/logo-light.png";
 import { useLocaleInfo } from "@/hooks/use-locale";
-import {useTranslations} from 'next-intl';
-
-export const HEADER_HEIGHT = "64px";
+import { useTranslations } from 'next-intl';
+import { usePathname } from 'next/navigation';
+import Breadcrumb from "./docs/mobile/breadcrumb"
 
 export function Logo() {
   const t = useTranslations("Header.logo");
@@ -31,18 +33,20 @@ export function Logo() {
   );
 }
 
-export default function Header() {
+export default function Header({ className }: { className?: string }) {
   const t = useTranslations("Header");
-  const { fontFamily } = useLocaleInfo();
+  const { fontFamily, locale } = useLocaleInfo();
+  const pathname = usePathname();
+  const isDocsRoute = /^\/[a-z]{2}\/docs(\/.*)?$/.test(pathname);
 
   return (
     <>
       <header
-        className={`select-none border-b sticky top-0 z-50 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 header-fa ${fontFamily}`}
+        className={`select-none border-b sticky top-0 z-50 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 header-fa ${fontFamily} ${className}`}
       >
         <div
           className="px-4 flex items-center justify-between"
-          style={{ height: HEADER_HEIGHT }}
+          style={{ height: "var(--header-height)" }}
         >
           <div className="flex items-center">
             <Link href="/" className="flex items-center gap-2">
@@ -200,6 +204,8 @@ export default function Header() {
             </Sheet>
           </div>
         </div>
+
+        {isDocsRoute && <Breadcrumb className="block md:hidden" />}
       </header>
     </>
   );

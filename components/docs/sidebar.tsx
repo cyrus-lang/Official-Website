@@ -153,7 +153,7 @@ export function Sidebar({ navigationItems }: SidebarProps) {
   };
 
   return (
-    <div className=" bg-background md:bg-inherit dark:bg-background md:dark:bg-inherit py-4 px-2">
+    <div className="bg-background md:bg-inherit dark:bg-background md:dark:bg-inherit py-4 px-2">
       <div className="flex flex-col h-full overflow-hidden">
         <ScrollArea className="h-[calc(100vh-3.5rem)] md:h-full">
           <nav className="px-2 " aria-label={t("sidebar.navigation")}>

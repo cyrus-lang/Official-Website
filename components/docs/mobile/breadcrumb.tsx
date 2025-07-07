@@ -1,73 +1,28 @@
 "use client";
 
+import React from "react";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
+import { ChevronRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
-// function getSectionTitle(pathname: string) {
-//   const group = sidebarItems.find(
-//     (section) => section.href === pathname
-//   );
-//   if (group) return group.title;
-
-//   for (const section of sidebarItems) {
-//     const item = section.items.find((item) => item.href === pathname);
-//     if (item) return item.title;
-//   }
-
-//   const last = pathname.split("/").filter(Boolean).pop() || "";
-//   return last.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
-// }
-
-export default function Breadcrumb() {
+export default function Breadcrumb({ className }: { className?: string }) {
   const pathname = usePathname();
   const t = useTranslations("Docs");
-  const parts = pathname.split("/").filter(Boolean);
-  const hrefs = parts.map((_, idx) => "/" + parts.slice(0, idx + 1).join("/"));
-
-  let visibleCrumbs: { href: string; title: string }[] = [];
-
-  // if (hrefs.length <= 2) {
-  //   visibleCrumbs = hrefs.map((href) => ({
-  //     href,
-  //     title: getSectionTitle(href),
-  //   }));
-  // } else {
-  //   const lastTwo = hrefs.slice(-2);
-  //   visibleCrumbs = lastTwo.map((href) => ({
-  //     href,
-  //     title: getSectionTitle(href),
-  //   }));
-  // }
 
   return (
     <nav
-      className="flex items-center text-sm space-x-1 rtl:space-x-reverse"
+      className={`relative px-4 pb-3 flex text-sm space-x-1 rtl:space-x-reverse ${className}`}
       aria-label={t("mobile.breadcrumb")}
     >
-      {visibleCrumbs.map((crumb, idx) => (
-        <span key={idx} className="flex items-center">
-          {idx !== 0 && (
-            <svg
-              className="w-3 h-3 mx-1 text-muted-foreground"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M9 5l7 7-7 7"
-              />
-            </svg>
-          )}
-          {idx === visibleCrumbs.length - 1 ? (
-            <span className="font-semibold text-foreground">{crumb.title}</span>
-          ) : (
-            <span className="text-muted-foreground">{crumb.title}</span>
-          )}
-        </span>
-      ))}
+      <div className="flex flex-row items-center">
+        <Button className="bg-transparent hover:bg-transparent" variant="outline">
+          {t("mobile.breadcrumb")}
+          <ChevronRight className="w-3 h-3 mx-1 text-muted-foreground" />
+        </Button>
+
+        <span className="ms-3">Basic Syntax</span>
+      </div>
     </nav>
   );
 }
