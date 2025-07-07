@@ -1,11 +1,25 @@
 "use client"
 
 import * as React from "react"
-import * as SheetPrimitive from "@radix-ui/react-dialog"
+import * as SheetPrimitive from "@radix-ui/react-dialog" 
 import { cva, type VariantProps } from "class-variance-authority"
-import { X } from "lucide-react"
-
 import { cn } from "@/lib/utils"
+
+const VisuallyHidden = (props: React.HTMLAttributes<HTMLSpanElement>) => (
+  <span style={{
+    border: '0',
+    clip: 'rect(0 0 0 0)',
+    height: '1px',
+    margin: '-1px',
+    overflow: 'hidden',
+    padding: '0',
+    position: 'absolute',
+    width: '1px',
+    whiteSpace: 'nowrap',
+    wordWrap: 'normal',
+  }} {...props} />
+);
+
 
 const Sheet = SheetPrimitive.Root
 
@@ -64,6 +78,16 @@ const SheetContent = React.forwardRef<
       className={cn(sheetVariants({ side }), className)}
       {...props}
     >
+      <VisuallyHidden>
+        <SheetPrimitive.Title>Sheet Content</SheetPrimitive.Title>
+      </VisuallyHidden>
+
+      <VisuallyHidden>
+        <SheetPrimitive.Description>
+          This is a description for screen readers for the Sheet content.
+        </SheetPrimitive.Description>
+      </VisuallyHidden>
+
       {children}
     </SheetPrimitive.Content>
   </SheetPortal>
