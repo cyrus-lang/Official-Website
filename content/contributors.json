@@ -40,5 +40,14 @@
     "linkedin": "https://www.linkedin.com/in/mahdirahmany",
     "email": "mahdirahmani.cm@gmail.com",
     "telegram": "https://t.me/Mahdy_l"
+  },
+  {
+    "id": 5,
+    "name": "MrPi",
+    "nameFa": "مستر پی",
+    "title": "Contributor",
+    "picture": "https://avatars.githubusercontent.com/imMrPi",
+    "github": "https://github.com/imMrPi",
+    "telegram": "https://t.me/imMrPi"
   }
 ]

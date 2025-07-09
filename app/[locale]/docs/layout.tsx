@@ -6,6 +6,7 @@ import { DocNavItem } from "@/app/types/doc_nav_item";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import ClientSidebarWrapper from "@/components/docs/client_sidebar_wrapper";
 import { useLocaleInfo, isLocaleRTL } from "@/hooks/use-locale";
+import { cn } from "@/lib/utils";
 
 export default async function DocsLayout({
   children,
@@ -37,7 +38,7 @@ export default async function DocsLayout({
             </div>
           </div>
 
-          <div className="relative flex-grow pb-6 overflow-y-auto md:ml-64 xl:ml-80 p-4">
+          <div className={cn(`relative flex-grow pb-6 overflow-y-auto   p-4`, isRTL ? "md:mr-64" : "md:ml-64")}>
             {children}
           </div>
         </div>

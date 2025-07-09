@@ -19,10 +19,7 @@ export default function CodeBlock({ children, language = "typescript" }) {
 
   return (
     <div className="my-2 overflow-x-auto">
-      <pre
-        className="!mt-0 !mb-0 rounded-lg  text-left"
-        dir="ltr"
-      >
+      <pre className="!mt-0 !mb-0 rounded-lg  text-left" dir="ltr">
         <code
           className={`language-${getLanguage(
             language
