@@ -3,4 +3,54 @@ title: Hello World!
 weight: 6
 ---
 
-Coming soon...
+# Hello World!
+
+It’s finally time for every programmer’s first program: **Hello World!**
+
+<br></br>
+
+You can create a basic Cyrus project using the Cyrus compiler. Just run this in your shell:
+
+```bash
+cyrus new hello-world
+```
+
+This command creates a new Cyrus project named `hello-world`.
+<br></br>
+
+Every Cyrus project follows this structure:
+```bash
+    src/
+        main.cyr
+    .gitignore
+    Project.toml
+```
+
+- `main.cyr` is where your program starts.
+- `Project.toml` contains project metadata and settings.
+- `.gitignore` is optional and used for Git version control.
+<br></br>
+To run the project, navigate into the project directory and run:
+```bash
+cyrus run
+```
+
+Cyrus source files use the `.cyr` extension. The compiler expects a `main.cyr` file as the project’s entry point.
+<br></br>
+## Writing Hello World
+
+If you want to write the code yourself, open `main.cyr` and add the following:
+
+```cyrus
+func main() {
+    printf("Hello World!");
+}
+```
+<br></br>
+### What does this code do?
+
+- `main()` is the entry point. Cyrus runs this function first.
+- `printf()` is a built-in function that prints text to your terminal.
+
+That’s it — you’ve successfully written your first Cyrus program!  
+Now you're ready to build more.

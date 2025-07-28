@@ -3,4 +3,115 @@ title: Build from source
 weight: 5
 ---
 
-Coming soon...
+# Building Cyrus with Cargo and Rustup (No Nix)
+
+This guide explains how to build and develop the Cyrus programming language
+using standard Rust tooling like `cargo`, `rustup`, and optionally `make` or `just`.
+If you're not using Nix, this setup gives you an equivalent developer experience
+using mainstream tools.
+
+<br></br>
+## Prerequisites
+Ensure the following are installed:
+<br></br>
+- rustup (https://rustup.rs)
+- cargo (comes with rustup)
+- clang, llvm, libxml2, libffi, gcc, etc.
+- Optional: make or just (https://github.com/casey/just)
+<br></br>
+## Toolchain Configuration
+
+Create a rust-toolchain.toml file to pin your Rust toolchain version and components:
+<br></br>
+```toml
+[toolchain]
+channel = "nightly"
+components = [
+  "rust-src",
+  "rust-analyzer",
+  "clippy",
+  "cargo"
+]
+targets = ["x86_64-unknown-linux-gnu"]
+```
+<br></br>
+## Project Manifest
+
+Define your Cargo project metadata in Cargo.toml:
+
+```toml
+[package]
+name = "cyrus"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+# Add your dependencies here
+```
+<br></br>
+## dev Workflow (Makefile or Justfile)
+
+Optionally use Makefile or justfile to automate build/dev steps:
+```makefile
+.PHONY: build install dev
+
+build:
+	LIBRARY_PATH="/usr/lib:/usr/local/lib" \
+	LLVM_SYS_180_PREFIX="/usr/lib/llvm-18" \
+	cargo build --release
+
+install:
+	mkdir -p ~/.local/bin
+	cp target/release/cyrus ~/.local/bin/
+
+dev:
+	LIBRARY_PATH="/usr/lib:/usr/local/lib" \
+	LLVM_SYS_180_PREFIX="/usr/lib/llvm-18" \
+	cargo run --release
+```
+
+Or a justfile:
+
+
+```bash
+export LIBRARY_PATH="/usr/lib:/usr/local/lib"
+export LLVM_SYS_180_PREFIX="/usr/lib/llvm-18"
+
+
+build:
+    cargo build --release
+
+install:
+    mkdir -p ~/.local/bin
+    cp target/release/cyrus ~/.local/bin/
+
+dev:
+    cargo run --release
+
+```
+<br></br>
+## System Dependencies
+
+Install via your OS package manager:
+
+### Ubuntu/Debian:
+```bash
+sudo apt install build-essential clang llvm-18-dev libxml2-dev libffi-dev
+```
+
+### Arch Linux:
+```bash
+sudo pacman -S base-devel clang llvm libxml2 libffi
+```
+<br></br>
+### Environment Variables
+
+Add these to your .bashrc, .zshrc, or .env file:
+```bash
+export LIBRARY_PATH="/usr/lib:/usr/local/lib"
+export LLVM_SYS_180_PREFIX="/usr/lib/llvm-18"
+```
+
+<br></br>
+
+### You're now ready to develop and build Cyrus using Cargo and Rustup 
