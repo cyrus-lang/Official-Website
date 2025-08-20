@@ -73,6 +73,10 @@ Example:
 #poem: char* = "Line one\nLine two\nLine three";
 #quote: char* = "She said: \"Cyrus is great!\"";
 #backslash: char = '\\';
+
+#paragraph: char* = "Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+when an unknown printer took a galley of type and scrambled it to make a type specimen book.";
 ```
 
 <br />
@@ -87,7 +91,7 @@ Cyrus supports Unicode characters directly in string and character literals. You
 #rocket: string = "Let's go! \u{1F680}"; // ✅ Works, 🚀
 #greek_alpha: char* = "\u03B1";          // ✅ Works, α
 #emoji_char: char = '😇';                // ❌ Does NOT work
-#multibyte_char: char = '\u263A';        // ❌ Does NOT work 
+#multibyte_char: char = '\u263A';        // ❌ Does NOT work
 ```
 
 <br />
@@ -96,34 +100,150 @@ Cyrus supports Unicode characters directly in string and character literals. You
 
 Coming soon...
 
-## Basic Types
+# Basic Types
 
-Coming soon...
+Cyrus provides a set of built-in types for numbers, characters, booleans, and special-purpose values. These are the fundamental building blocks of your programs.
+
+### Integer Types
+
+- Signed integers: **Int**, **Int8**, **Int16**, **Int32**, **Int64**, **Int128**.
+- Unsigned integers: **UInt**, **UInt8**, **UInt16**, **UInt32**, **UInt64**, **UInt128**.
+- Pointer-sized integers: **IntPtr**, **UIntPtr**.
+- Size type: **SizeT** - Typically used for array indices, sizes, and memory offsets.
+
+### Floating-Point Types
+
+- **Float16**, **Float32**, **Float64**, **Float128** - for decimal numbers of increasing precision.
+
+### Character and Boolean Types
+
+- Char - A single character unit (one code unit; multi-byte Unicode not allowed in '...').
+- Bool - Boolean values **true** or **false**.
+
+### Special Types
+- Void - represents no value, commonly used for functions that do not return anything.
+- Null - a null value, typically used for uninitialized pointers or optional values.
+
+<br />
 
 ## Integer Constants
 
-- Binary
-- Hexadecimal
-- Octal
+Numeric constants in Cyrus can be written in **decimal**, **hexadecimal**, **octal**, or **binary** formats:
 
-Coming soon...
+- Decimal (Base 10):
 
-## Constant Suffixes
+```cyrus
+#a = 1234;
+```
 
-Coming soon...
+- Hexadecimal (Base 16, prefix with 0x or 0X):
+
+```cyrus
+#b = 0x42EDAA02;
+```
+
+- Binary (Base 2, prefix with 0b or 0B):
+
+```cyrus
+#b = 0x42EDAA02;
+```
+
+Numeric literals may include underscores **_** between digits for readability; these are ignored by the compiler:
+
+```cyrus
+#million = 1_000_000;
+#hex_val = 0xDE_AD_BE_EF;
+```
+
+<br />
+
+## Literal Suffixes
+
+Cyrus allows explicit type suffixes on numeric literals to specify their type.
+This is useful when the compiler cannot infer the type or when you want to guarantee a specific type.
+
+### Integer Suffixes
+
+Valid integer suffixes include:
+
+- uintptr
+- intptr
+- size_t
+- int
+- int8
+- int16
+- int32
+- int64
+- int128
+- uint
+- uint8
+- uint16
+- uint32
+- uint64
+- uint128
+
+Valid float suffixes include:
+
+- float16
+- float32
+- float64
+- float128
+
+Example:
+
+```cyrus
+#a = 1234int64;
+#b = 3.14float64;
+```
+
+<br />
 
 ## Arrays
 
-Coming soon...
+Arrays in Cyrus are fixed-size sequences of elements. Their size must be known at compile time, similar to C arrays.
 
-## Vectors
+```cyrus
+#name: Type[capacity] = {element1, element2, ..., elementN};
+```
 
-Coming soon...
+Example:
 
-## Arrays
+```cyrus
+#a = int[3]{1, 2, 3};
+#b = float64[4]{3.14, 2.71, 1.618, 0.577};
+```
 
-Coming soon...
+#### Notes
+
+- The array size cannot change at runtime.
+- Access elements using indexing, starting from 0.
+
+```cyrus
+printf("%d\n", a[0]);
+```
 
 ## Pointers
+
+Pointers in Cyrus behave like C pointers. They store the memory address of another variable.
+
+```cyrus
+#ptr: Type* = &variable;
+```
+
+- Type* - pointer to a value of Type
+- &variable - takes the address of a variable
+
+Example:
+
+```cyrus
+#a: int = 10;
+#b: int* = &a;
+
+printf("%d\n", *b); // prints 10
+```
+
+Pointer arithmetic behaves like C (e.g., incrementing a pointer moves it by sizeof(Type) bytes).
+
+## Vectors
 
 Coming soon...
