@@ -3,4 +3,120 @@ title: Build from source
 weight: 5
 ---
 
+# Build from source
+
+Sometimes you want the freshest bits—whether to contribute to Cyrus itself, test bleeding-edge features, or just peek under the compiler’s hood. Building from source is straightforward and gives you full control over the toolchain.
+
+### Prerequisites
+
+Before you begin, make sure you have the following installed:
+
+- Git - to fetch the source code.
+- Rust 1.87-nightly.
+- LLVM 18.
+
+Also these native libraries are required:
+
+- glibc
+- clang
+- clang-tools
+- libffi
+- ffi
+- ffi-dev
+- isl
+- libxml2
+
+## On Linux
+
+Update your package index first:
+
+```bash
+sudo apt update
+```
+
+Install the dependencies:
+
+```bash
+sudo apt install -y git \
+    build-essential \
+    clang \
+    clang-tools \
+    llvm-18 \
+    llvm-18-dev \
+    libffi-dev \
+    libisl-dev \
+    libxml2-dev \
+    libc6-dev
+```
+
+Install Rust using rustup:
+
+```bash
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+source $HOME/.cargo/env
+rustup toolchain install nightly-2025-01-01
+rustup default nightly-2025-01-01
+```
+
+Verify installation:
+
+```bash
+git --version
+rustc --version
+llvm-config --version
+```
+
+## MacOS (via Homebrew):
+
+Install dependencies via Homebrew:
+
+```bash
+brew install git \
+    llvm@18 \
+    clang \
+    libffi \
+    isl \
+    libxml2
+```
+
+Ensure Homebrew’s LLVM is in your path (add to ~/.zshrc or ~/.bashrc):
+
+```bash
+export PATH="/opt/homebrew/opt/llvm@18/bin:$PATH"
+```
+
+Install Rust using rustup:
+
+```bash
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+source $HOME/.cargo/env
+rustup toolchain install nightly-2025-01-01
+rustup default nightly-2025-01-01
+```
+
+Verify installation:
+
+```bash
+git --version
+rustc --version
+llvm-config --version
+```
+
+## On Windows:
+
 Coming soon...
+
+# Clone the Repository
+
+```bash
+git clone --depth=1 https://github.com/cyrus-lang/Cyrus.git
+cd Cyrus
+```
+
+From the project root:
+
+```bash
+cargo build -j24 
+```
+
+This will produce the Cyrus compiler binary in **target/release/cyrus**.
