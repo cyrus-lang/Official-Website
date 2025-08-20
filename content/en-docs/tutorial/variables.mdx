@@ -3,4 +3,71 @@ title: Variables
 weight: 2
 ---
 
-Coming soon...
+# Variables
+
+Variables in Cyrus are declared using the # symbol:
+
+```cyrus
+#name: OptionalType = Value;
+```
+
+- **#name** - the variable name, always prefixed with #
+- **OptionalType** - (optional) the type of the variable; if omitted, the compiler infers it
+- **Value** - the initial value assigned to the variable
+
+Example
+
+```cyrus
+#count: int = 42;                   // explicit type annotation
+#message: char* = "Hello, Cyrus!";  // explicit type annotation
+#flag = true;                       // type inferred as bool
+```
+
+<br />
+
+## Why Sharp (#)?
+
+The # prefix is unique to Cyrus. It makes variable declarations easy to spot and improves editor syntax highlighting.   
+Using # instead of keywords like var or let keeps code shorter and visually distinct.   
+Type inference works automatically when the type is omitted.    
+
+<br />
+
+## Zero Initialization
+
+Variables that are declared without an initial value are automatically zero-initialized:
+
+```cyrus
+#x: int;
+#y: float64;
+#ptr: int*;
+
+printf("%d\n", x);   // prints 0
+printf("%f\n", y);   // prints 0.0
+printf("%p\n", ptr); // prints null / 0
+```
+
+<br />
+
+## Variable Mutability
+
+In Cyrus, variables are mutable by default. You can assign new values to them after their initial declaration:
+
+```cyrus
+#counter: int = 0;
+#counter = 10; // allowed
+```
+
+To declare a **read-only variable**, use the const keyword before the type:
+
+```cyrus
+#pi: const float64 = 3.14159;
+```
+
+- Const Type variables cannot be reassigned after initialization.
+- Must be initialized at the time of declaration; leaving it uninitialized is not allowed.
+
+```cyrus
+#pi: const float64; // ❌ const variable must be initialized
+#pi = 3.14159;      // ❌ cannot assign to const variable
+```
