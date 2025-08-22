@@ -17,12 +17,12 @@ export default function CodeBlock({ children, language = "typescript" }) {
   };
 
   return (
-    <div className="my-2 overflow-x-auto w-[80px]">
-      <pre className="!mt-0 !mb-0 rounded-lg border text-left w-[80px]" dir="ltr ">
+    <div className="my-2 overflow-x-auto">
+      <pre className="!mt-0 !mb-0 rounded-lg border text-left" dir="ltr">
         <code
           className={`language-${getLanguage(
             language
-          )} text-sm md:text-base text-left rounded-lg w-[80px]`}
+          )} text-sm md:text-base text-left rounded-lg`}
           dir="ltr"
         >
           {children}
