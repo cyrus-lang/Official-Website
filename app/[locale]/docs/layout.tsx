@@ -44,11 +44,10 @@ export default async function DocsLayout({
               `relative flex-grow pb-6 overflow-y-auto p-4`,
               isRTL ? "md:mr-64 xl:mr-80" : "md:ml-64 xl:ml-80"
             )}
-          >
-            {children}
-          </div>
+          ></div>
         </div>
       </SidebarProvider>
+      {children}
     </div>
   );
 }
