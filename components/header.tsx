@@ -43,7 +43,7 @@ export default function Header({ className, navigationItems }: { className?: str
   return (
     <>
       <header
-        className={`select-none border-b sticky top-0 z-50 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 header-fa ${fontFamily} ${className}`}
+        className={` select-none border-b sticky top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 header-fa ${fontFamily} ${className}`}
       >
         <div
           className="px-4 flex items-center justify-between"
