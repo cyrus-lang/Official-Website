@@ -86,7 +86,7 @@ export default async function ShowDocumentPage({
   }
 
   return (
-    <div className="prose lg:prose-xl sm:container mx-auto sm:px-0 px-2 py-5 pt-8 text-xl">
+    <div className="prose lg:prose-xl sm:container mx-auto sm:px-0 px-1 py-5 pt-8 text-xl   ">
       <MDXRemote source={mdxSource} components={useMDXComponents({})} />
     </div>
   );
