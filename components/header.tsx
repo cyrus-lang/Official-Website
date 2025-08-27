@@ -52,19 +52,12 @@ export default function Header({ className, navigationItems }: { className?: str
           <div className="flex items-center">
             <Link href="/" className="flex items-center gap-2">
               <Logo />
-              <span className="text-md font-bold brand-text text-black dark:text-white">
+              <span className="text-md font-bold brand-text text-black dark:text-white pt-1">
                 {t("brand")}
               </span>
             </Link>
 
             <nav className="hidden xl:flex gap-6 pt-1 ms-3">
-              <Link
-                href="/docs"
-                className="text-sm font-medium hover:text-primary transition-colors"
-              >
-                {t("navigation.documentation")}
-              </Link>
-
               <Link
                 href="/blog"
                 className="text-sm font-medium hover:text-primary transition-colors"
@@ -148,14 +141,7 @@ export default function Header({ className, navigationItems }: { className?: str
                     </SheetTrigger>
                   </div>
 
-                  <nav className="flex flex-col gap-4 mobile-nav">
-                    <Link
-                      href="/docs"
-                      className="text-lg font-medium hover:text-primary transition-colors"
-                    >
-                      {t("navigation.documentation")}
-                    </Link>
-
+                  <nav className="flex flex-col gap-4 mobile-nav">                    
                     <Link
                       href="/blog"
                       className="text-lg font-medium hover:text-primary transition-colors"
