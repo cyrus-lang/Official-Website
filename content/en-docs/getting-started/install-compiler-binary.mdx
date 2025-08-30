@@ -29,11 +29,22 @@ So you can run Cyrus from anywhere, move the binary to a directory in your PATH:
 sudo mv cyrus /usr/local/bin
 ```
 
-On macOS with zsh, you can also add it to your shell config:
+Cyrus requires access to its standard library. Copy it to a known location (e.g. ~/.cyrus_stdlib):
 
 ```bash
-echo 'export PATH="$HOME/cyrus/bin:$PATH"' >> ~/.zshrc
-source ~/.zshrc
+cp -r ./stdlib ~/.cyrus_stdlib
+```
+
+Then export the path in your shell config (~/.bashrc, ~/.zshrc, etc.):
+
+```
+export CYRUS_STDLIB=~/.cyrus_stdlib
+```
+
+Apply the changes:
+
+```bash
+source ~/.bashrc # or source ~/.zshrc
 ```
 
 <br />
