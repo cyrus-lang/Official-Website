@@ -3,6 +3,38 @@ title: Types
 weight: 2
 ---
 
+# Type System
+
+Cyrus features a **strong and expressive type system**. The compiler performs **implicit type conversions** when it is safe, and requires **explicit casts** when conversions could be unsafe or lossy.
+
+<br />
+
+## Safe Implicit Casting
+
+If a type can be safely converted to another type without losing information, Cyrus will perform the conversion automatically.  
+
+```cyrus
+#a: int32 = 42;
+#b: int64 = a; // Implicit cast from int32 to int64
+```
+
+- `int32` (32-bit signed integer) can always fit into `int64` (64-bit signed integer).  
+- The compiler handles this **implicitly**, so no special syntax is required.  
+- Safe casts also apply to numeric literals, e.g., `#x: float64 = 10.0` is allowed.
+
+<br />
+
+## Unsafe / Explicit Casting
+
+If a conversion **could be unsafe**, the compiler requires an **explicit cast** using the `cast` keyword.
+
+```cyrus
+#u: uint32 = 10;
+#i: int64 = cast(int64, u); // Explicit unsafe cast from uint32 to int64
+```
+
+<br />
+
 # Basic Types
 
 Cyrus provides a set of built-in types for numbers, characters, booleans, and special-purpose values. These are the fundamental building blocks of your programs.
@@ -192,36 +224,3 @@ Cyrus provides a set of built-in types for numbers, characters, booleans, and sp
     </TableRow>
   </TableBody>
 </Table>
-
-<br />
-
-# Optional (Not implemented yet.)
-
-Coming soon...
-
-```cyrus
-Coming soon...
-```
-
-<br />
-
-# Tuples (Not implemented yet.)
-
-Tuple - A fixed-size, ordered collection of values that may be of different types.
-Useful for grouping related values without creating a full struct.
-
-```cyrus
-Coming soon...
-```
-
-<br />
-
-# Range (Not implemented yet.)
-
-Range - Represents a sequence of values with a defined start and end.
-Ranges are commonly used in loops and iteration, allowing concise traversal of integer intervals.
-They do not allocate or store elements, but instead describe the bounds to iterate over.
-
-```cyrus
-Coming soon...
-```

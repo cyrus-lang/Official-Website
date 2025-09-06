@@ -3,4 +3,135 @@ title: Structs
 weight: 6
 ---
 
-Coming soon...
+# Structs 
+
+Structs in Cyrus are **user-defined composite types** that allow grouping related data together.  They are similar to `struct` in C/C++ but follow Cyrus' type system rules.
+
+<br />
+
+## Defining a Struct
+
+Use the `struct` keyword, followed by the name and fields:
+
+```cyrus
+struct User {
+    name: char*;
+    age: uint;
+    king: bool;
+}
+```
+
+<br />
+
+## Initializing a Struct
+
+Structs can be initialized using **struct literals**:
+
+```cyrus
+#user = User {
+    name: "Cyrus",
+    age: 2500,
+    king: true
+};
+```
+
+<br />
+
+## Accessing Struct Fields
+
+You can access struct fields using the **dot (`.`) operator**:
+
+```cyrus
+user.name; # Output: Cyrus
+user.age;  # Output: 2500
+user.king; # Output: true
+```
+
+<br />
+
+## Methods 
+
+Structs can define functions inside their body, called **methods**. Methods can be **public**, **private** or **inline**.
+
+```cyrus
+public struct Logger {
+    group: char*;
+
+    public func new(group: char*) Logger { 
+        Logger.logger_initialized();
+        return Logger { group: group };
+    }
+
+    inline func logger_initialized() {
+        libc::fprintf(libc::stdout, "Logger init.\n");
+    }
+
+    public func logf(&self, format: char*) {
+        libc::printf("[info][%s] %s\n", self->group, format);
+    }
+
+    public inline func errorf(self, format: char*) {
+        libc::fprintf(libc::stderr, "[error][%s] %s\n", self->group, format);
+    }
+}
+```
+
+<br />
+
+## Static Methods
+
+Static methods do not require a struct instance. Called on the struct type itself. It often used as constructor or helper functions.
+
+```cyrus
+public func new(group: char*) Logger {
+    return Logger { group: group };
+}
+```
+
+<br />
+
+## Instance Methods
+
+Instance methods operate on a struct instance and can access its fields.
+
+```cyrus
+public func logf(&self, format: char*) {
+    libc::printf("[info][%s] %s\n", self->group, format);
+}
+
+public func errorf(self, format: char*) {
+    libc::fprintf(libc::stderr, "[error][%s] %s\n", self->group, format);
+}
+```
+
+<br />
+
+## Reference vs Copy
+
+Cyrus allows controlling how instance methods receive the struct:
+
+- `&self` → passes a **reference** to the instance (does not copy)  
+- `self` → passes a **copy** of the instance (moves it)
+
+```cyrus
+public func logf(&self, format: char*) { ... } # reference
+public func errorf(self, format: char*) { ... } # copy
+```
+
+Note: Attempting to get a reference (&self) from a const-lvalue is not allowed. The compiler will issue an error to prevent modifying or referencing immutable data.
+
+<br />
+
+## Fat Arrows
+
+In Cyrus, you can have pointers to structs. When accessing fields or calling methods through a pointer, you can use **fat pointers** (fat arrows) which **automatically dereference** the pointer.
+
+```cyrus
+#user = User { name: "Cyrus", age: 2500 }; 
+#ptr = &user;
+
+ptr->name; // Output: Cyrus
+ptr->age; // Output: 2500
+```
+
+Note: Using **ptr->name** or **ptr->age** is equivalent to **{"(*ptr).name"}** and **{"(*ptr).age"}**.
