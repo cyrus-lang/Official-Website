@@ -1,6 +1,90 @@
 ---
 title: Modules
-weight: 9
+weight: 8
 ---
 
-Coming soon...
+# Modules
+
+Cyrus features a **powerful module system** with **incremental compilation** and a **strong module cache**. Modules allow code organization, reusability, and proper scoping.
+
+<br />
+
+## Module Files
+
+In Cyrus, **files are considered modules**.
+
+Module files must:
+  - Use **snake_case** names
+  - Have the `.cyr` extension
+- Example: `user_utils.cyr` defines a module named `user_utils`.
+
+<br />
+
+## Importing Modules
+
+Modules can be imported into other files **beside the entry (main) file**.
+
+```cyrus
+import sample;
+```
+
+- Only publicly exported symbols from a module are accessible.
+- After importing, access symbols with the module name:
+
+```cyrus
+sample::some_func();
+```
+
+<br />
+
+## Importing Single Symbols
+
+You can import only a single symbol instead of the whole module:
+
+```cyrus
+import sample{some_func};
+
+some_func(); // direct usage without module prefix
+```
+
+Note: If you import a symbol individually, you cannot import the whole module again in the same file.
+
+<br />
+
+## Importing Multiple Modules
+
+Cyrus supports grouped imports as syntactic sugar:
+
+```cyrus
+import (
+    foo{greeting_func},
+    bar
+);
+```
+
+<br />
+
+## Renaming Imported Symbols
+
+Cyrus allows renaming symbols when importing to avoid conflicts or for clarity:
+
+```cyrus
+import std::libc{my_func: printf}; // rename printf to my_func
+import my_libc: std::libc;         // rename entire module
+```
+
+<br />
+
+## Compiler Module Paths
+
+You can tell the Cyrus compiler where to search for modules using CLI flags:
+
+```text
+--sources=<directory> // Add directories to search for imported modules
+--build-dir <PATH>    // Directory where build artifacts will be stored
+--base-path <PATH>    // Base path for running the command
+```
+
+- **--sources** allows you to include multiple module directories.
+- **--build-dir** is used for caching compiled modules and incremental builds.
+- **--base-path** sets a reference path for resolving relative imports.
