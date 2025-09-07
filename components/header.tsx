@@ -14,6 +14,7 @@ import { useTranslations } from 'next-intl';
 import { usePathname } from 'next/navigation';
 import MobileSidebar from "./docs/mobile/mobile_sidebar";
 import { DocNavItem } from "@/app/types/doc_nav_item";
+import SearchBar from "./search-bar";
 
 export function Logo() {
   const t = useTranslations("Header.logo");
@@ -43,7 +44,7 @@ export default function Header({ className, navigationItems }: { className?: str
   return (
     <>
       <header
-        className={`select-none border-b sticky top-0 z-50 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 header-fa ${fontFamily} ${className}`}
+        className={` select-none border-b sticky top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 header-fa ${fontFamily} ${className}`}
       >
         <div
           className="px-4 flex items-center justify-between"
@@ -52,19 +53,12 @@ export default function Header({ className, navigationItems }: { className?: str
           <div className="flex items-center">
             <Link href="/" className="flex items-center gap-2">
               <Logo />
-              <span className="text-md font-bold brand-text text-black dark:text-white">
+              <span className="text-md font-bold brand-text text-black dark:text-white pt-1">
                 {t("brand")}
               </span>
             </Link>
 
             <nav className="hidden xl:flex gap-6 pt-1 ms-3">
-              <Link
-                href="/docs"
-                className="text-sm font-medium hover:text-primary transition-colors"
-              >
-                {t("navigation.documentation")}
-              </Link>
-
               <Link
                 href="/blog"
                 className="text-sm font-medium hover:text-primary transition-colors"
@@ -110,6 +104,7 @@ export default function Header({ className, navigationItems }: { className?: str
           </div>
 
           <div className="flex items-center gap-4">
+            <SearchBar />
             <LanguageToggle />
             <ThemeToggle />
             <Link href="/docs" className="hidden xl:inline-flex">
@@ -148,14 +143,7 @@ export default function Header({ className, navigationItems }: { className?: str
                     </SheetTrigger>
                   </div>
 
-                  <nav className="flex flex-col gap-4 mobile-nav">
-                    <Link
-                      href="/docs"
-                      className="text-lg font-medium hover:text-primary transition-colors"
-                    >
-                      {t("navigation.documentation")}
-                    </Link>
-
+                  <nav className="flex flex-col gap-4 mobile-nav">                    
                     <Link
                       href="/blog"
                       className="text-lg font-medium hover:text-primary transition-colors"
@@ -179,20 +167,20 @@ export default function Header({ className, navigationItems }: { className?: str
 
                     <Link
                       href="/playground"
-                      className="text-sm font-medium hover:text-primary transition-colors"
+                      className="text-lg font-medium hover:text-primary transition-colors"
                     >
                       {t("navigation.playground")}
                     </Link>
 
                     <Link
-                      href="/contributors"
+                      href="/support_us"
                       className="text-lg font-medium hover:text-primary transition-colors"
                     >
                       {t("navigation.supportUs")}
                     </Link>
 
                     <Link
-                      href="/support_us"
+                      href="/contributors"
                       className="text-lg font-medium hover:text-primary transition-colors"
                     >
                       {t("navigation.contributors")}
@@ -200,6 +188,7 @@ export default function Header({ className, navigationItems }: { className?: str
                   </nav>
                   <div className="mt-auto flex flex-col gap-2">
                     <div className="flex gap-2 mb-4">
+                      <SearchBar />
                       <LanguageToggle />
                       <ThemeToggle />
                     </div>

@@ -1,0 +1,335 @@
+[
+  {
+    "id": "en-getting-started-build-from-source",
+    "title": "Build from source",
+    "path": "/en/docs/getting-started/build-from-source",
+    "content": "Coming soon......",
+    "searchable": "build from source coming soon...",
+    "language": "en",
+    "category": "getting-started"
+  },
+  {
+    "id": "en-getting-started-design-goals",
+    "title": "Design Goals",
+    "path": "/en/docs/getting-started/design-goals",
+    "content": "Cyrus is a mid-level, imperative programming language designed for developers who want modern power without modern complexity.",
+    "searchable": "design goals # cyrus programming language\r cyrus is a mid-level, imperative programming language designed for developers who want modern power without modern complexity.\r it is built with performance and clarity in mind, featuring a lightweight memory model, zero runtime dependency, and a clean, expressive syntax designed from scratch. if you are familiar with c, go, you’ll feel right at home — and probably happier.\r ---\r ## ✨ key philosophy\r cyrus was born out of frustration with the unnecessary complexity of modern languages. while languages like rust and go offer great features, they also come with learning curves, runtimes, or abstractions that many system programmers neither need nor want.\r cyrus makes a different bet: that *, explicitness, and elegance** can coexist without sacrificing performance.\r ---\r ## 🚀 features\r ### 🧠 syntax-first simplicity\r - designed from scratch for **maximum readability and minimal cognitive load**.\r\n- not a c clone, but friendly to c-style minds.\r\n- no \"magic,\" no hidden transformations, no obscure rules.\r ### ⚙️ memory management\r - **no garbage collector**.\r\n- uses **custom allocator objects** and **lifetime zones** for memory grouping and release.\r\n- allows deterministic control without the steep complexity of ownership models like rust.\r\n- designed for **compile-time safety**, with minimal runtime involvement.\r ### 🔩 low-level control\r - full control over system memory and stack.\r\n- optional inline assembly support.\r\n- safe by default, but `unsafe` blocks allow full access when necessary.\r ### 📦 module system\r - clean, expressive module system.\r\n- no build tool hell — just readable imports and clean dependency handling.\r ### 🛠 built on llvm\r - high-performance llvm backend.\r\n- compiles to efficient native code.\r\n- supports cross-compilation and future toolchain integration.\r ### 🔄 concurrency support (we still thinking about the idea...)\r - language-level support for concurrency — without needing a runtime.\r\n- based on allocators and resource ownership patterns that work well in parallel contexts.\r ---\r ## 👤 who is cyrus for?\r cyrus is ideal for:\r - system developers who love **c**, but want a modern evolution without garbage collection.\r\n- developers frustrated by the **learning curve of rust**, but who still want safe and performant code.\r\n- embedded and os-level developers needing **low runtime overhead and full control**.\r\n- anyone looking for a beautiful, expressive, **low-level language that respects your brain**.\r not recommended (yet) for:\r - absolute beginners with no background in system languages.\r\n- developers who want automatic memory management and runtime safety without learning allocator logic.\r ---\r ## 🧪 current status\r cyrus is in active development and rapidly evolving.\r for a detailed overview of our planned features and development timeline, please refer to our public roadmap listed in the [github project](https://github.com/orgs/cyrus-lang/projects/1).\r ---\r ## 📚 philosophy\r - **simplicity is a feature.**\r\n- **readability is performance.**\r\n- **performance is non-negotiable.**\r\n- **you, the developer, are in control.**",
+    "language": "en",
+    "category": "getting-started"
+  },
+  {
+    "id": "en-getting-started-getting-started",
+    "title": "Getting Started",
+    "path": "/en/docs/getting-started/getting-started",
+    "content": "...",
+    "searchable": "getting started ",
+    "language": "en",
+    "category": "getting-started"
+  },
+  {
+    "id": "en-getting-started-hello-world",
+    "title": "Hello World!",
+    "path": "/en/docs/getting-started/hello-world",
+    "content": "Coming soon......",
+    "searchable": "hello world! coming soon...",
+    "language": "en",
+    "category": "getting-started"
+  },
+  {
+    "id": "en-getting-started-install-compiler-binary",
+    "title": "Install compiler binary",
+    "path": "/en/docs/getting-started/install-compiler-binary",
+    "content": "Coming soon......",
+    "searchable": "install compiler binary coming soon...",
+    "language": "en",
+    "category": "getting-started"
+  },
+  {
+    "id": "en-getting-started-introduction",
+    "title": "Introduction",
+    "path": "/en/docs/getting-started/introduction",
+    "content": "Welcome to the official documentation for Cyrus. Here you'll find everything you need to get started with our modern, expressive, and efficient programming language.",
+    "searchable": "introduction <erroralert title=\"under development\" />\r # documentation\r welcome to the official documentation for cyrus. here you'll find everything you need to get started with our modern, expressive, and efficient programming language.\r <br />\r <div classname=\"flex flex-col md:flex-row gap-4\">\r\n  <card classname=\"shadow-lg h-full\">\r\n    <cardheader>\r\n      <cardtitle classname=\"flex items-center gap-2 text-xl md:text-2xl\">\r\n        for newcomers\r\n      </cardtitle>\r\n    </cardheader>\r\n    <cardcontent>\r\n      <div classname=\"space-y-4\">\r\n        <div classname=\"text-base md:text-lg text-gray-600 dark:text-muted-foreground\">\r\n          if you're new to cyrus, start with our comprehensive tutorial to learn\r\n          the basics and progress quickly.\r\n        </div>\r\n        <link href=\"/docs/tutorial/basic-syntax\" classname=\"mt-2 block\">\r\n          <button classname=\"w-full md:w-auto\">get started</button>\r\n        </link>\r\n      </div>\r\n    </cardcontent>\r\n  </card>\r   <card classname=\"shadow-lg h-full\">\r\n    <cardheader>\r\n      <cardtitle classname=\"flex items-center gap-2 text-xl md:text-2xl\">\r\n        language reference\r\n      </cardtitle>\r\n    </cardheader>\r\n    <cardcontent>\r\n      <div classname=\"space-y-4\">\r\n        <div classname=\"text-base md:text-lg text-gray-600 dark:text-muted-foreground\">\r\n          explore our language reference for detailed information about built-in\r\n          types, functions, and modules in cyrus.\r\n        </div>\r\n        <link href=\"/docs/langref\" classname=\"mt-2 block\">\r\n          <button variant=\"outline\" classname=\"w-full md:w-auto\">\r\n            explore reference\r\n          </button>\r\n        </link>\r\n      </div>\r\n    </cardcontent>\r\n  </card>\r\n</div>",
+    "language": "en",
+    "category": "getting-started"
+  },
+  {
+    "id": "en-getting-started-roadmap",
+    "title": "Roadmap",
+    "path": "/en/docs/getting-started/roadmap",
+    "content": "Coming soon......",
+    "searchable": "roadmap coming soon...",
+    "language": "en",
+    "category": "getting-started"
+  },
+  {
+    "id": "en-tutorial-basic-syntax",
+    "title": "Basic Syntax",
+    "path": "/en/docs/tutorial/basic-syntax",
+    "content": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop p...",
+    "searchable": "basic syntax # basic syntax\r lorem ipsum is simply dummy text of the printing and typesetting industry. lorem ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. it has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. it was popularised in the 1960s with the release of letraset sheets containing lorem ipsum passages, and more recently with desktop publishing software like aldus pagemaker including versions of lorem ipsum.\r ## comments\r coming soon... \r ## literals\r coming soon... \r ## base64 & hex data literals\r coming soon... \r ## escape characters\r coming soon... \r ## basic types\r coming soon... \r ## integer constants\r - binary\r\n- hexadecimal\r\n- octal\r coming soon... \r ## constant suffixes\r coming soon... \r ## arrays\r coming soon...\r ## vectors\r coming soon...\r ## arrays\r coming soon...\r ## pointers\r coming soon...",
+    "language": "en",
+    "category": "tutorial"
+  },
+  {
+    "id": "en-tutorial-control_flow",
+    "title": "Control Flow",
+    "path": "/en/docs/tutorial/control_flow",
+    "content": "Coming soon......",
+    "searchable": "control flow coming soon...",
+    "language": "en",
+    "category": "tutorial"
+  },
+  {
+    "id": "en-tutorial-enums",
+    "title": "Enums",
+    "path": "/en/docs/tutorial/enums",
+    "content": "Coming soon......",
+    "searchable": "enums coming soon...",
+    "language": "en",
+    "category": "tutorial"
+  },
+  {
+    "id": "en-tutorial-error_handling",
+    "title": "Error Handling",
+    "path": "/en/docs/tutorial/error_handling",
+    "content": "Coming soon......",
+    "searchable": "error handling coming soon...",
+    "language": "en",
+    "category": "tutorial"
+  },
+  {
+    "id": "en-tutorial-expressions",
+    "title": "Expressions",
+    "path": "/en/docs/tutorial/expressions",
+    "content": "Coming soon......",
+    "searchable": "expressions coming soon...",
+    "language": "en",
+    "category": "tutorial"
+  },
+  {
+    "id": "en-tutorial-FFI",
+    "title": "FFI",
+    "path": "/en/docs/tutorial/FFI",
+    "content": "Coming soon......",
+    "searchable": "ffi coming soon...",
+    "language": "en",
+    "category": "tutorial"
+  },
+  {
+    "id": "en-tutorial-functions",
+    "title": "Functions",
+    "path": "/en/docs/tutorial/functions",
+    "content": "Coming soon......",
+    "searchable": "functions coming soon...",
+    "language": "en",
+    "category": "tutorial"
+  },
+  {
+    "id": "en-tutorial-generic_types",
+    "title": "Generic Types",
+    "path": "/en/docs/tutorial/generic_types",
+    "content": "Coming soon......",
+    "searchable": "generic types coming soon...",
+    "language": "en",
+    "category": "tutorial"
+  },
+  {
+    "id": "en-tutorial-inline_assembly",
+    "title": "Inline Assembly",
+    "path": "/en/docs/tutorial/inline_assembly",
+    "content": "Coming soon......",
+    "searchable": "inline assembly coming soon...",
+    "language": "en",
+    "category": "tutorial"
+  },
+  {
+    "id": "en-tutorial-installation",
+    "title": "installation",
+    "path": "/en/docs/tutorial/installation",
+    "content": "...",
+    "searchable": "installation ",
+    "language": "en",
+    "category": "tutorial"
+  },
+  {
+    "id": "en-tutorial-macros",
+    "title": "Macros",
+    "path": "/en/docs/tutorial/macros",
+    "content": "Coming soon......",
+    "searchable": "macros coming soon...",
+    "language": "en",
+    "category": "tutorial"
+  },
+  {
+    "id": "en-tutorial-memory_management",
+    "title": "Memory Management",
+    "path": "/en/docs/tutorial/memory_management",
+    "content": "Coming soon......",
+    "searchable": "memory management coming soon...",
+    "language": "en",
+    "category": "tutorial"
+  },
+  {
+    "id": "en-tutorial-modules",
+    "title": "Modules",
+    "path": "/en/docs/tutorial/modules",
+    "content": "Coming soon......",
+    "searchable": "modules coming soon...",
+    "language": "en",
+    "category": "tutorial"
+  },
+  {
+    "id": "en-tutorial-project_configuration",
+    "title": "Project Configuration",
+    "path": "/en/docs/tutorial/project_configuration",
+    "content": "Coming soon......",
+    "searchable": "project configuration coming soon...",
+    "language": "en",
+    "category": "tutorial"
+  },
+  {
+    "id": "en-tutorial-reflection",
+    "title": "Reflection",
+    "path": "/en/docs/tutorial/reflection",
+    "content": "Coming soon......",
+    "searchable": "reflection coming soon...",
+    "language": "en",
+    "category": "tutorial"
+  },
+  {
+    "id": "en-tutorial-structs",
+    "title": "Structs",
+    "path": "/en/docs/tutorial/structs",
+    "content": "Coming soon......",
+    "searchable": "structs coming soon...",
+    "language": "en",
+    "category": "tutorial"
+  },
+  {
+    "id": "en-tutorial-tutorial",
+    "title": "Tutorial",
+    "path": "/en/docs/tutorial/tutorial",
+    "content": "...",
+    "searchable": "tutorial ",
+    "language": "en",
+    "category": "tutorial"
+  },
+  {
+    "id": "en-tutorial-variables",
+    "title": "Variables",
+    "path": "/en/docs/tutorial/variables",
+    "content": "Coming soon......",
+    "searchable": "variables coming soon...",
+    "language": "en",
+    "category": "tutorial"
+  },
+  {
+    "id": "fa-getting-started-build-from-source",
+    "title": "ساخت از منبع",
+    "path": "/fa/docs/getting-started/build-from-source",
+    "content": "اگر می‌خواهید سایروس را از کد منبع بسازید:",
+    "searchable": "ساخت از منبع # ساخت از منبع\r اگر می‌خواهید سایروس را از کد منبع بسازید:\r ## پیش‌نیازها\r - rust 1.70+\r\n- cargo\r\n- git\r ## مراحل ساخت\r ``\r\ngit clone https://github.com/cyrus-lang/cyrus.git\r\ncd cyrus\r\ncargo build --release\r\n```\r ## نصب\r ```bash\r\ncargo install --path .\r\n```",
+    "language": "fa",
+    "category": "getting-started"
+  },
+  {
+    "id": "fa-getting-started-design-goals",
+    "title": "اهداف طراحی",
+    "path": "/fa/docs/getting-started/design-goals",
+    "content": "سایروس یک زبان برنامه‌نویسی سطح میانی و Imperative است که برای توسعه‌دهندگانی طراحی شده که به دنبال قدرت مدرن هستند، اما تمایلی به پیچیدگی‌های مدرن ندارند.",
+    "searchable": "اهداف طراحی # زبان برنامه‌نویسی سایروس\r سایروس یک زبان برنامه‌نویسی سطح میانی و imperative است که برای توسعه‌دهندگانی طراحی شده که به دنبال قدرت مدرن هستند، اما تمایلی به پیچیدگی‌های مدرن ندارند.\r این زبان با تمرکز بر عملکرد بالا و وضوح طراحی شده است. دارای یک مدل حافظه سبک، بدون وابستگی به رانتایم، و نگارشی ساده و ابداعی است. اگر با زبان‌هایی مانند c یا go آشنایی داشته باشید، سایروس برایتان محیطی آشنا و حتی لذت‌بخش‌تر خواهد بود.\r ---\r ## ✨ فلسفه‌ی اصلی\r سایروس از دل نارضایتی از پیچیدگی بی‌مورد زبان‌های برنامه‌نویسی مدرن زاده شد. گرچه زبان‌هایی مانند rust و go قابلیت‌های زیادی دارند، اما همراه آن‌ها منحنی یادگیری، پیچیدگی رانتایم، یا انتزاعاتی ارائه می‌شود که بسیاری از برنامه‌نویسان سیستم واقعاً نیازی به آن‌ها ندارند.\r سایروس بر پایه‌ی این فرض بنا شده که **سادگی، صراحت، و زیبایی** می‌توانند در کنار هم وجود داشته باشند؛ بدون آن‌که چیزی از عملکرد کاسته شود.\r ---\r ## 🚀 ویژگی‌ها\r ### 🧠 سادگی مبتنی بر سینتکس\r - از پایه با هدف **حداکثر خوانایی و حداقل بار ذهنی** طراحی شده است.\r\n- کلونی از c نیست، اما برای ذهن‌هایی که به سبک c فکر می‌کنند بسیار آشنا خواهد بود.\r\n- بدون جادوی پنهان، بدون تبدیل‌های نامرئی، و بدون قواعد پیچیده و غیرقابل درک.\r ### ⚙️ مدیریت حافظه\r - **بدون استفاده از گاربج کالکتور (gc)**.\r\n- بهره‌گیری از **ابجکت‌های الوکیتر سفارشی** و **محدوده‌های طول عمر (lifetime zones)** برای گروه‌بندی و آزادسازی حافظه.\r\n- کنترل کاملاً پیش‌بینی‌پذیر و بدون مدل‌های پیچیده‌ی مالکیت مانند rust.\r\n- طراحی‌شده با هدف **بررسی ایمنی در زمان کامپایل** و دخالت حداقلی در زمان اجرا.\r ### 🔩 کنترل سطح پایین\r - دسترسی و کنترل کامل بر حافظه سیستم و پشته (stack).\r\n- پشتیبانی اختیاری از اسمبلی خطی (inline assembly).\r\n- به‌صورت پیش‌فرض ایمن است، اما در صورت نیاز می‌توان با استفاده از بلوک‌های ` به تمام امکانات دسترسی داشت.\r ### 📦 سیستم ماژول زیبا و شفاف\r - سیستم ماژول تمیز، گویا، و خوانا.\r\n- بدون نیاز به ابزارهای پیچیده ساخت و ساز (build tools)، فقط ایمپورت‌های ساده و کنترل وابستگی واضح.\r ### 🛠 مبتنی بر llvm\r - بک‌اند قدرتمند مبتنی بر llvm.\r\n- تبدیل مستقیم به کد باینری سریع و کارآمد.\r\n- پشتیبانی از کامپایل متقابل (cross-compilation) و یکپارچه‌سازی با ابزارهای آینده.\r ### 🔄 پشتیبانی از هم‌زمانی (در حال بررسی و طراحی)\r - پشتیبانی در سطح زبان برای هم‌زمانی، بدون نیاز به رانتایم.\r\n- مبتنی بر الگوهای مالکیت و مدیریت منابع که در زمینه‌ی هم‌زمانی نیز کاربرد دارند.\r ---\r ## 👤 این زبان برای چه کسانی طراحی شده است؟\r سایروس مناسب است برای:\r - توسعه‌دهندگان سیستم که عاشق **c** هستند ولی به‌دنبال نسخه‌ای مدرن و بدون gc هستند.\r\n- برنامه‌نویسانی که از **منحنی یادگیری rust** خسته شده‌اند ولی همچنان به دنبال امنیت حافظه و عملکرد بالا هستند.\r\n- توسعه‌دهندگان سطح پایین یا امبدد (embedded/os) که نیاز به **رانتایم سبک و کنترل کامل بر سخت‌افزار** دارند.\r\n- هر کسی که به‌دنبال زبانی سطح پایین، زیبا و خوانا است که به شعور او احترام می‌گذارد.\r فعلاً پیشنهاد نمی‌شود برای:\r - افراد کاملاً مبتدی که تجربه‌ای در زبان‌های سطح پایین ندارند.\r\n- توسعه‌دهندگانی که به دنبال مدیریت حافظه خودکار و ایمنی رانتایم بدون آشنایی با الگوهای تخصیص حافظه هستند.\r ---\r ## 🧪 وضعیت فعلی\r زبان سایروس در حال توسعه فعال است و با سرعت در حال رشد است.\r برای مشاهده نقشه راه کامل توسعه، لطفاً به [پروژه رسمی ما در گیت‌هاب](https://github.com/orgs/cyrus-lang/projects/1) مراجعه کنید.\r ---\r ## 📚 باورهای طراحی\r - **سادگی، یک قابلیت است.**\r\n- **خوانایی، بخشی از عملکرد است.**\r\n- **عملکرد، غیرقابل مذاکره است.**\r\n- **کنترل باید در دستان برنامه‌نویس باشد.**",
+    "language": "fa",
+    "category": "getting-started"
+  },
+  {
+    "id": "fa-getting-started-getting-started",
+    "title": "شروع کنید",
+    "path": "/fa/docs/getting-started/getting-started",
+    "content": "به سایروس خوش آمدید! این راهنما به شما کمک می‌کند تا اولین قدم‌های خود را در دنیای برنامه‌نویسی با سایروس بردارید.",
+    "searchable": "شروع کنید # شروع کنید\r به سایروس خوش آمدید! این راهنما به شما کمک می‌کند تا اولین قدم‌های خود را در دنیای برنامه‌نویسی با سایروس بردارید.",
+    "language": "fa",
+    "category": "getting-started"
+  },
+  {
+    "id": "fa-getting-started-hello-world",
+    "title": "سلام دنیا",
+    "path": "/fa/docs/getting-started/hello-world",
+    "content": "اولین برنامه شما در سایروس:",
+    "searchable": "سلام دنیا # سلام دنیا\r اولین برنامه شما در سایروس:\r ``\r\nfn main() {\r\n    println(\"سلام دنیا!\");\r\n}\r\n```\r این ساده‌ترین برنامه ممکن در سایروس است که عبارت \"سلام دنیا\" را چاپ می‌کند.",
+    "language": "fa",
+    "category": "getting-started"
+  },
+  {
+    "id": "fa-getting-started-install-compiler-binary",
+    "title": "نصب کامپایلر",
+    "path": "/fa/docs/getting-started/install-compiler-binary",
+    "content": "برای شروع کار با سایروس، ابتدا باید کامپایلر را نصب کنید.",
+    "searchable": "نصب کامپایلر # نصب کامپایلر\r برای شروع کار با سایروس، ابتدا باید کامپایلر را نصب کنید.\r ## ویندوز\r ``\r\nwinget install cyrus-lang.compiler\r\n```\r ## لینوکس\r ```bash\r\ncurl -fssl https://get.cyrus-lang.org | sh\r\n```\r ## مک\r ```bash\r\nbrew install cyrus-lang\r\n```",
+    "language": "fa",
+    "category": "getting-started"
+  },
+  {
+    "id": "fa-getting-started-introduction",
+    "title": "معرفی",
+    "path": "/fa/docs/getting-started/introduction",
+    "content": "به مستندات رسمی سایروس خوش آمدید. در اینجا همه چیزهایی که برای شروع با زبان برنامه‌نویسی مدرن، بیانگر و کارآمد ما نیاز دارید را پیدا خواهید کرد.",
+    "searchable": "معرفی <erroralert title=\"در حال توسعه\" />\r # مستندات\r به مستندات رسمی سایروس خوش آمدید. در اینجا همه چیزهایی که برای شروع با زبان برنامه‌نویسی مدرن، بیانگر و کارآمد ما نیاز دارید را پیدا خواهید کرد.\r <br />\r <div classname=\"flex flex-col md:flex-row gap-4\">\r\n  <card classname=\"shadow-lg h-full\">\r\n    <cardheader>\r\n      <cardtitle classname=\"flex items-center gap-2 text-xl md:text-2xl\">\r\n        برای تازه‌واردان\r\n      </cardtitle>\r\n    </cardheader>\r\n    <cardcontent>\r\n      <div classname=\"space-y-4\">\r\n        <div classname=\"text-base md:text-lg text-gray-600 dark:text-muted-foreground\">\r\n          اگر تازه با سایروس آشنا شده‌اید، با آموزش جامع ما شروع کنید تا اصول\r\n          اولیه را یاد بگیرید و سریعاً پیشرفت کنید.\r\n        </div>\r\n        <link href=\"/docs/tutorial/basic-syntax\" classname=\"mt-2 block\">\r\n          <button classname=\"w-full md:w-auto\">شروع کنید</button>\r\n        </link>\r\n      </div>\r\n    </cardcontent>\r\n  </card>\r   <card classname=\"shadow-lg h-full\">\r\n    <cardheader>\r\n      <cardtitle classname=\"flex items-center gap-2 text-xl md:text-2xl\">\r\n        مرجع زبان\r\n      </cardtitle>\r\n    </cardheader>\r\n    <cardcontent>\r\n      <div classname=\"space-y-4\">\r\n        <div classname=\"text-base md:text-lg text-gray-600 dark:text-muted-foreground\">\r\n          برای بررسی دقیق انواع داخلی، توابع و ماژول‌های سایروس، مرجع زبان ما را\r\n          بررسی کنید.\r\n        </div>\r\n        <link href=\"/docs/langref\" classname=\"mt-2 block\">\r\n          <button variant=\"outline\" classname=\"w-full md:w-auto\">\r\n            مشاهده مرجع\r\n          </button>\r\n        </link>\r\n      </div>\r\n    </cardcontent>\r\n  </card>\r\n</div>{\" \"}",
+    "language": "fa",
+    "category": "getting-started"
+  },
+  {
+    "id": "fa-getting-started-roadmap",
+    "title": "نقشه راه",
+    "path": "/fa/docs/getting-started/roadmap",
+    "content": "- [x] نحو پایه",
+    "searchable": "نقشه راه # نقشه راه\r ## نسخه 1.0 (q2 2024)\r - [x] نحو پایه\r\n- [x] سیستم نوع\r\n- [x] کامپایلر پایه\r\n- [ ] کتابخانه استاندارد\r\n- [ ] مستندات کامل\r ## نسخه 1.1 (q3 2024)\r - [ ] ماکروها\r\n- [ ] مدیریت حافظه پیشرفته\r\n- [ ] بهینه‌سازی‌های بیشتر\r ## نسخه 2.0 (q4 2024)\r - [ ] همزمانی\r\n- [ ] ffi\r\n- [ ] پکیج منیجر",
+    "language": "fa",
+    "category": "getting-started"
+  },
+  {
+    "id": "fa-tutorial-basic-syntax",
+    "title": "نحو پایه",
+    "path": "/fa/docs/tutorial/basic-syntax",
+    "content": "سایروس دارای نحو ساده و قابل فهمی است که یادگیری آن آسان است.",
+    "searchable": "نحو پایه # نحو پایه\r سایروس دارای نحو ساده و قابل فهمی است که یادگیری آن آسان است.\r ## توضیحات\r ``\r\n// این یک توضیح تک خطی است\r\n/* این یک توضیح چند خطی است */\r\n```\r ## ثابت‌ها\r ```cyrus\r\n// رشته‌ها\r\nlet message = \"سلام دنیا\";\r // اعداد\r\nlet number = 42;\r\nlet float = 3.14;\r // بولین\r\nlet is_true = true;\r\nlet is_false = false;\r\n```\r ## کاراکترهای فرار\r ```cyrus\r\nlet newline = \"\\n\";\r\nlet tab = \"\\t\";\r\nlet quote = \"\\\"\";\r\n```\r ## انواع پایه\r ```cyrus\r\nlet integer: i32 = 42;\r\nlet float: f64 = 3.14;\r\nlet boolean: bool = true;\r\nlet string: str = \"سلام\";\r\n```\r ## ثابت‌های عددی\r ```cyrus\r\nlet binary = 0b1010;      // دودویی\r\nlet hex = 0xff;           // هگزادسیمال\r\nlet octal = 0o77;         // هشت‌تایی\r\n```\r ## آرایه‌ها\r ```cyrus\r\nlet numbers = [1, 2, 3, 4, 5];\r\nlet first = numbers[0];\r\n```\r ## بردارها\r ```cyrus\r\nlet mut vector = [1, 2, 3];\r\nvector.push(4);\r\n```\r ## اشاره‌گرها\r ```cyrus\r\nlet value = 42;\r\nlet pointer = &value;\r\n```",
+    "language": "fa",
+    "category": "tutorial"
+  },
+  {
+    "id": "fa-tutorial-functions",
+    "title": "توابع",
+    "path": "/fa/docs/tutorial/functions",
+    "content": "توابع در سایروس برای گروه‌بندی کد و قابلیت استفاده مجدد استفاده می‌شوند.",
+    "searchable": "توابع # توابع\r توابع در سایروس برای گروه‌بندی کد و قابلیت استفاده مجدد استفاده می‌شوند.\r ## تعریف تابع ساده\r ``\r\nfn greet() {\r\n    println(\"سلام!\");\r\n}\r\n```\r ## تابع با پارامتر\r ```cyrus\r\nfn greet(name: str) {\r\n    println(\"سلام \" + name + \"!\");\r\n}\r\n```\r ## تابع با مقدار بازگشتی\r ```cyrus\r\nfn add(a: i32, b: i32) -> i32 {\r\n    return a + b;\r\n}\r\n```\r ## تابع با مقدار بازگشتی ضمنی\r ```cyrus\r\nfn multiply(a: i32, b: i32) -> i32 {\r\n    a * b  // آخرین عبارت به عنوان مقدار بازگشتی در نظر گرفته می‌شود\r\n}\r\n```\r ## فراخوانی توابع\r ```cyrus\r\nfn main() {\r\n    greet();\r\n    greet(\"احمد\");\r     let result = add(5, 3);\r\n    println(\"نتیجه: \" + result);\r\n}\r\n```",
+    "language": "fa",
+    "category": "tutorial"
+  },
+  {
+    "id": "fa-tutorial-installation",
+    "title": "نصب",
+    "path": "/fa/docs/tutorial/installation",
+    "content": "قبل از شروع آموزش، باید سایروس را نصب کنید.",
+    "searchable": "نصب # نصب سایروس\r قبل از شروع آموزش، باید سایروس را نصب کنید.\r ## روش‌های نصب\r ### 1. نصب مستقیم\r ``\r\ncurl -fssl https://get.cyrus-lang.org | sh\r\n```\r ### 2. استفاده از پکیج منیجر\r **ویندوز:**\r ```powershell\r\nwinget install cyrus-lang.compiler\r\n```\r **لینوکس:**\r ```bash\r\nsudo apt install cyrus-lang  # ubuntu/debian\r\nsudo dnf install cyrus-lang  # fedora\r\n```\r **مک:**\r ```bash\r\nbrew install cyrus-lang\r\n```\r ## تأیید نصب\r ```bash\r\ncyrus --version\r\n```\r باید خروجی مشابه این ببینید:\r ```\r\ncyrus 1.0.0\r\n```",
+    "language": "fa",
+    "category": "tutorial"
+  },
+  {
+    "id": "fa-tutorial-tutorial",
+    "title": "آموزش",
+    "path": "/fa/docs/tutorial/tutorial",
+    "content": "این بخش شامل آموزش‌های کامل برای یادگیری زبان برنامه‌نویسی سایروس است.",
+    "searchable": "آموزش # آموزش سایروس\r این بخش شامل آموزش‌های کامل برای یادگیری زبان برنامه‌نویسی سایروس است.",
+    "language": "fa",
+    "category": "tutorial"
+  },
+  {
+    "id": "fa-tutorial-variables",
+    "title": "متغیرها",
+    "path": "/fa/docs/tutorial/variables",
+    "content": "متغیرها در سایروس برای ذخیره داده‌ها استفاده می‌شوند.",
+    "searchable": "متغیرها # متغیرها\r متغیرها در سایروس برای ذخیره داده‌ها استفاده می‌شوند.\r #### تعریف متغیر\r ``\r\nlet name = \"احمد\";\r\nlet age = 25;\r\nlet height = 1.75;\r\n```\r ####  متغیرهای قابل تغییر\r ```cyrus\r\nlet mut counter = 0;\r\ncounter = counter + 1;\r\n```\r ####  انواع صریح\r ```cyrus\r\nlet name: str = \"احمد\";\r\nlet age: i32 = 25;\r\nlet is_student: bool = true;\r\n```\r ####  ثابت‌ها\r ```cyrus\r\nconst pi = 3.14159;\r\nconst max_size = 100;\r\n```",
+    "language": "fa",
+    "category": "tutorial"
+  }
+]

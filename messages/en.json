@@ -118,6 +118,13 @@
             "documentation": "Documentation",
             "toggleMenu": "Toggle menu",
             "closeMenu": "Close menu"
+        },
+        "search": {
+            "ariaLabel": "Search documentation",
+            "placeholder": "Search Cyrus docs...",
+            "noResults": "No results found. Try different keywords.",
+            "startTyping": "Start typing to search the docs...",
+            "goToPage": "Go to page"
         }
     },
     "Footer": {

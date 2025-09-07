@@ -118,6 +118,13 @@
             "documentation": "مستندات",
             "toggleMenu": "تغییر منو",
             "closeMenu": "بستن منو"
+        },
+        "search": {
+            "ariaLabel": "جستجو در مستندات",
+            "placeholder": "جستجو در مستندات Cyrus...",
+            "noResults": "نتیجه‌ای یافت نشد. کلمات دیگری را امتحان کنید.",
+            "startTyping": "برای جستجو در مستندات شروع به تایپ کنید...",
+            "goToPage": "برو به صفحه"
         }
     },
     "Footer": {
