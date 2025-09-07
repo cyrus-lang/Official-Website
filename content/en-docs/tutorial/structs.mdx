@@ -42,9 +42,9 @@ Structs can be initialized using **struct literals**:
 You can access struct fields using the **dot (`.`) operator**:
 
 ```cyrus
-user.name; # Output: Cyrus
-user.age;  # Output: 2500
-user.king; # Output: true
+user.name; // Output: Cyrus
+user.age;  // Output: 2500
+user.king; // Output: true
 ```
 
 <br />
@@ -114,8 +114,8 @@ Cyrus allows controlling how instance methods receive the struct:
 - `self` → passes a **copy** of the instance (moves it)
 
 ```cyrus
-public func logf(&self, format: char*) { ... } # reference
-public func errorf(self, format: char*) { ... } # copy
+public func logf(&self, format: char*) { ... } // reference
+public func errorf(self, format: char*) { ... } // copy
 ```
 
 Note: Attempting to get a reference (&self) from a const-lvalue is not allowed. The compiler will issue an error to prevent modifying or referencing immutable data.
