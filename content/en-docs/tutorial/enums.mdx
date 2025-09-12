@@ -7,6 +7,8 @@ weight: 7
 
 Enums in Cyrus are a way to define a type that can hold one value out of a fixed set of variants. Each variant can be a simple tag, a tagged constant, or carry additional fields (like a struct).
 
+<br />
+
 ## Declaring an Enum
 
 You declare an enum with the enum keyword, followed by its name and variant list:
@@ -21,6 +23,8 @@ enum Color {
 }
 ```
 
+<br />
+
 ## Using Enums
 
 You construct enum values by qualifying them with the enum's name:
@@ -30,6 +34,8 @@ You construct enum values by qualifying them with the enum's name:
 #variant = Color.Valued;
 #variant = Color.Custom(1, 2, 3);
 ```
+
+<br />
 
 ## Matching Enum Variants
 
@@ -51,6 +57,25 @@ switch (variant) {
         break;
     default:
         printf("Unknown\n");
+        break;
+}
+```
+
+<br />
+
+## Fallthrough into Enum Variants with Fields
+
+When a case without fields falls through into a case with fields, the compiler must attempt to bind payload variables for the second case. Since the actual variant does not contain those fields, the bindings would be undefined, which could lead to undefined behavior at runtime.
+
+The compiler will not allow this. If a programmer attempts to write a switch where a fieldless case falls through into a case with fields, the compiler will produce an error, forcing the developer to either terminate the first case with break; or explicitly handle fallthrough safely.
+
+```cyrus
+ switch (variant) {
+    case .Red:
+        printf("Red chosen!\n");
+        // missing `break;`
+    case .Custom(a, b, c):
+        printf("Custom(%d, %d, %d)\n", a, b, c);
         break;
 }
 ```
