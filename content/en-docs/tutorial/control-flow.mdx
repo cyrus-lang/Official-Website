@@ -150,29 +150,6 @@ switch (i) {
 
 <br />
 
-### Multiple values per case
-
-A single case can match multiple values, separated by commas. If the expression matches any of the values, that case runs.
-
-```cyrus
-#i: int = 4;
-
-switch (i) {
-    case 2, 4, 6, 8:
-        // Matches even numbers.
-        break;
-    case 1, 3, 5, 7:
-        // Matches odd numbers.
-        break;
-
-    default:
-        // This block runs if none of the above cases match.
-        break;
-}
-```
-
-<br />
-
 ### Fallthrough behavior
 
 In Cyrus, switch statements automatically fall through to the next case unless you explicitly use break.

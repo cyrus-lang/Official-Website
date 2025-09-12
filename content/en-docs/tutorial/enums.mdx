@@ -3,4 +3,54 @@ title: Enums
 weight: 7
 ---
 
-Coming soon...
+# Enums
+
+Enums in Cyrus are a way to define a type that can hold one value out of a fixed set of variants. Each variant can be a simple tag, a tagged constant, or carry additional fields (like a struct).
+
+## Declaring an Enum
+
+You declare an enum with the enum keyword, followed by its name and variant list:
+
+```cyrus
+enum Color {
+    Red,
+    Green,
+    Black,
+    Valued = "my valued color!",
+    Custom(int, int, int)
+}
+```
+
+## Using Enums
+
+You construct enum values by qualifying them with the enum's name:
+
+```cyrus
+#variant = Color.Red;
+#variant = Color.Valued;
+#variant = Color.Custom(1, 2, 3);
+```
+
+## Matching Enum Variants
+
+The switch statement lets you match a value against the possible variants of an enum. Each case corresponds to one variant. If the variant carries fields, you can bind them to local variables inside the case body:
+
+```cyrus
+switch (variant) {
+    case .Red:
+        printf("Red\n");
+        break;
+    case .Black:
+        printf("Black\n");
+        break;
+    case .Valued:
+        printf("Valued\n");
+        break;
+    case .Custom(a, b, c):
+        printf("Color(%d, %d, %d)\n", a, b, c);
+        break;
+    default:
+        printf("Unknown\n");
+        break;
+}
+```
