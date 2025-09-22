@@ -5,6 +5,7 @@ import { Search, X, ExternalLink } from "lucide-react";
 import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { useTranslations, useLocale } from "next-intl";
 import Fuse from "fuse.js";
 
@@ -72,7 +73,7 @@ export default function SearchBar() {
         </Button>
       </DialogTrigger>
       <DialogContent
-        className="sm:max-w-[600px] max-h-[80vh] overflow-y-auto p-0"
+        className="max-w-[90vw] sm:max-w-[600px] max-h-[80vh] p-0 rounded-lg"
         dir={locale === 'fa' ? 'rtl' : 'ltr'}
         closeButton={false}
       >
@@ -97,11 +98,11 @@ export default function SearchBar() {
                 setResults([]);
               }}
             >
-              <X className="h-5 w-5" />
+              <X className="h-5 w-5 text-primary" />
             </Button>
           )}
         </div>
-        <div className="p-4">
+        <ScrollArea className="h-[calc(80vh-72px)] p-4">
           {results.length > 0 ? (
             <ul className="space-y-3">
               {results.map((result) => (
@@ -138,7 +139,7 @@ export default function SearchBar() {
               {t("search.startTyping") || "Start typing to search..."}
             </p>
           )}
-        </div>
+        </ScrollArea>
       </DialogContent>
     </Dialog>
   );
