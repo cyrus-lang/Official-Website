@@ -22,59 +22,9 @@ import {
   TableCell,
   TableCaption,
 } from "@/components/ui/table";
+import { ErrorAlert, WarningAlert, InfoAlert } from "@/components/ui/alert"
+import UnderDevelopmentAlert from "@/components/under-development-alert"
 
-
-export function ErrorAlert({
-  title,
-  children,
-}: {
-  title?: string;
-  children?: React.ReactNode;
-}) {
-  const t = useTranslations("DocsContent.introduction.errorAlert");
-
-  const translatedTitle = title === "Under Development" ? t("title") : title;
-
-  // Always use the translated content for the development warning
-  const translatedContent = t("content");
-
-  return (
-    <div
-      className="bg-red-50 border-t-4 border-red-500 p-3 md:p-4 dark:bg-red-800/20 mb-4 rounded-md"
-      role="alert"
-    >
-      <div className="flex flex-col sm:flex-row">
-        <div className="shrink-0 mb-2 sm:mb-0">
-          <span className="inline-flex justify-center items-center size-6 md:size-8 rounded-full border-4 border-red-100 bg-red-200 text-red-800 dark:border-red-950 dark:bg-red-800 dark:text-red-100">
-            <svg
-              className="shrink-0 size-3 md:size-4"
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-            >
-              <path d="M18 6 6 18"></path>
-              <path d="m6 6 12 12"></path>
-            </svg>
-          </span>
-        </div>
-        <div className="sm:ms-4">
-          <h3
-            id="hs-bordered-red-style-label"
-            className="text-gray-800 font-semibold dark:text-white mb-2 text-base md:text-lg"
-          >
-            {translatedTitle || "Error!"}
-          </h3>
-          <div className="text-sm md:text-lg text-gray-700 dark:text-neutral-300 m-0">
-            {translatedContent}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
@@ -179,7 +129,10 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         </code>
       );
     },
+    UnderDevelopmentAlert,
     ErrorAlert,
+    WarningAlert,
+    InfoAlert,
     Button,
     Card,
     CardHeader,

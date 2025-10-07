@@ -51,26 +51,26 @@ user.king; // Output: true
 
 ## Methods 
 
-Structs can define functions inside their body, called **methods**. Methods can be **public**, **private** or **inline**.
+Structs can define functions inside their body, called **methods**.
 
 ```cyrus
-public struct Logger {
-    group: char*;
+pub struct Logger {
+    pub group: char*;
 
-    public func new(group: char*) Logger { 
+    pub fn new(group: char*) Logger { 
         Logger.logger_initialized();
         return Logger { group: group };
     }
 
-    inline func logger_initialized() {
+    inline fn logger_initialized() {
         libc::fprintf(libc::stdout, "Logger init.\n");
     }
 
-    public func logf(&self, format: char*) {
+    pub fn logf(&self, format: char*) {
         libc::printf("[info][%s] %s\n", self->group, format);
     }
 
-    public inline func errorf(self, format: char*) {
+    pub inline fn errorf(self, format: char*) {
         libc::fprintf(libc::stderr, "[error][%s] %s\n", self->group, format);
     }
 }
@@ -83,7 +83,7 @@ public struct Logger {
 Static methods do not require a struct instance. Called on the struct type itself. It often used as constructor or helper functions.
 
 ```cyrus
-public func new(group: char*) Logger {
+pub fn new(group: char*) Logger {
     return Logger { group: group };
 }
 ```
@@ -95,11 +95,11 @@ public func new(group: char*) Logger {
 Instance methods operate on a struct instance and can access its fields.
 
 ```cyrus
-public func logf(&self, format: char*) {
+pub fn logf(&self, format: char*) {
     libc::printf("[info][%s] %s\n", self->group, format);
 }
 
-public func errorf(self, format: char*) {
+pub fn errorf(self, format: char*) {
     libc::fprintf(libc::stderr, "[error][%s] %s\n", self->group, format);
 }
 ```
@@ -114,8 +114,8 @@ Cyrus allows controlling how instance methods receive the struct:
 - `self` → passes a **copy** of the instance (moves it)
 
 ```cyrus
-public func logf(&self, format: char*) { ... } // reference
-public func errorf(self, format: char*) { ... } // copy
+pub fn logf(&self, format: char*) { ... } // reference
+pub fn errorf(self, format: char*) { ... } // copy
 ```
 
 Note: Attempting to get a reference (&self) from a const-lvalue is not allowed. The compiler will issue an error to prevent modifying or referencing immutable data.
@@ -143,7 +143,7 @@ Note: Using **ptr->name** or **ptr->age** is equivalent to **{"(*ptr).name"}** a
 In Cyrus, structs can also be declared **locally inside functions**. This is useful when the type is only relevant to that function and should not pollute the global scope.
 
 ```cyrus
-func main() {
+fn main() {
     struct User {
         name: char*;
         age: uint;
@@ -161,7 +161,7 @@ func main() {
 Unnamed structs are struct values declared inline without defining a named type. They are useful for quick, one-off configurations or temporary data holders.
 
 ```cyrus
-func main() {
+fn main() {
     #state = struct {
         name = "Cyrus",
         counter = 0,
@@ -196,12 +196,12 @@ Note: Unnamed structs cannot define methods.
 Unnamed structs are not limited to local scope. They can also be declared globally and accessed across functions (if marked public).
 
 ```cyrus
-public config = const struct {
+pub config = const struct {
     host = "127.0.0.1",
     port = 8080
 };
 
-func main() {
+fn main() {
     printf("host: %s\n", config.host);
     printf("port: %d\n", config.port);
 }

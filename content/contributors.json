@@ -12,15 +12,6 @@
   },
   {
     "id": 2,
-    "name": "Reza TG",
-    "nameFa": "رضا تی‌جی",
-    "title": "Contributor",
-    "picture": "https://avatars.githubusercontent.com/rezatg",
-    "github": "https://github.com/rezatg",
-    "telegram": "https://t.me/dll_as"
-  },
-  {
-    "id": 3,
     "name": "meshya",
     "nameFa": "مشیا",
     "title": "Contributor",
@@ -31,7 +22,7 @@
     "telegram": "https://t.me/meshyah"
   },
   {
-    "id": 4,
+    "id": 3,
     "name": "Mahdi Rahmani",
     "nameFa": "مهدی رحمانی",
     "title": "Contributor",
@@ -42,7 +33,7 @@
     "telegram": "https://t.me/Mahdy_l"
   },
   {
-    "id": 5,
+    "id": 4,
     "name": "MrPi",
     "nameFa": "مستر پی",
     "title": "Contributor",
@@ -51,15 +42,7 @@
     "telegram": "https://t.me/imMrPi"
   },
   {
-    "id": 6,
-    "name": "HyprBytes",
-    "nameFa": "هایپربایتز",
-    "title": "Contributor",
-    "picture": "https://avatars.githubusercontent.com/hyprbytes",
-    "github": "https://github.com/hyprbytes"
-  },
-  {
-    "id": 6,
+    "id": 5,
     "name": "Saeed Dayani",
     "nameFa": "سعید دیانی",
     "title": "Contributor",

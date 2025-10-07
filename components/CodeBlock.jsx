@@ -4,7 +4,11 @@ import { useEffect } from "react";
 import hljs from "highlight.js";
 import "highlight.js/styles/base16/bright.css";
 
-export default function CodeBlock({ children, language = "typescript" }) {
+export default function CodeBlock({
+  children,
+  language = "typescript",
+  disableBorder = false,
+}) {
   useEffect(() => {
     hljs.highlightAll();
   }, []);
@@ -18,7 +22,12 @@ export default function CodeBlock({ children, language = "typescript" }) {
 
   return (
     <div className="my-2 overflow-x-auto">
-      <pre className="!mt-0 !mb-0 rounded-lg border text-left" dir="ltr">
+      <pre
+        className={`!mt-0 !mb-0 rounded-lg text-left ${
+          disableBorder ? "" : "border"
+        }`}
+        dir="ltr"
+      >
         <code
           className={`language-${getLanguage(
             language

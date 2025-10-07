@@ -176,40 +176,40 @@ export default async function LandingPage() {
                   </TabsTrigger>
                 </TabsList>
                 <TabsContent value="hello" className="mt-6">
-                  <div className="bg-zinc-950 text-zinc-50 rounded-lg p-6 overflow-x-auto">
+                  <div>
                     <pre className="font-mono text-sm">
-                      <CodeBlock language="typescript">{`import std::io;
+                      <CodeBlock disableBorder language="typescript">{`import std::io;
 
 fn main() {
-    io::println("Hello, World!");
+  io::println("Hello, World!");
 }
 
 // A simple function
 fn greet(name: string): string {
-    return io::format("Hello, {}", name);
+  return io::format("Hello, {}", name);
 }
 
 // Using the function
 fn example() {
-    #message = greet("Developer");
-    io::println(message); // Outputs: Hello, Developer!
+  #message = greet("Developer");
+  io::println(message); // Outputs: Hello, Developer!
 }`}</CodeBlock>
                     </pre>
                   </div>
                 </TabsContent>
                 <TabsContent value="concurrency" className="mt-6">
-                  <div className="bg-zinc-950 text-zinc-50 rounded-lg p-6 overflow-x-auto">
+                  <div>
                     <pre className="font-mono text-sm">
-                      <CodeBlock language="typescript">
+                      <CodeBlock disableBorder language="typescript">
                         {t("examples.comingSoon")}
                       </CodeBlock>
                     </pre>
                   </div>
                 </TabsContent>
                 <TabsContent value="data" className="mt-6">
-                  <div className="bg-zinc-950 text-zinc-50 rounded-lg p-6 overflow-x-auto">
+                  <div>
                     <pre className="font-mono text-sm">
-                      <CodeBlock language="typescript">
+                      <CodeBlock disableBorder language="typescript">
                         {t("examples.comingSoon")}
                       </CodeBlock>
                     </pre>
@@ -287,9 +287,12 @@ fn example() {
                   </div>
                 </div>
                 <div className="mt-8 text-center">
-                  <Button size="lg" className="w-full sm:w-auto">
-                    {t("getStarted.installButton")}
-                  </Button>
+                  <Link href="/docs/getting-started/install-compiler-binary">
+                    <Button size="lg" className="w-full sm:w-auto">
+                      {t("getStarted.installButton")}
+                    </Button>
+                  </Link>
+                  
                   <p className="mt-4 text-sm text-muted-foreground">
                     {t("getStarted.availability")}
                   </p>

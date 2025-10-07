@@ -5,7 +5,7 @@ weight: 5
 
 # Functions
 
-Functions in Cyrus are defined using the `func` keyword, followed by the function name, parameters, and return type.
+Functions in Cyrus are defined using the `fn` keyword, followed by the function name, parameters, and return type.
 
 <br />
 
@@ -14,7 +14,7 @@ Functions in Cyrus are defined using the `func` keyword, followed by the functio
 Here's a simple example of a function that adds two integers:
 
 ```cyrus
-func sum(x: int, y: int) int {
+fn sum(x: int, y: int) int {
     return x + y;
 }
 ```
@@ -24,11 +24,11 @@ func sum(x: int, y: int) int {
 ## Recursion
 
 ```cyrus
-func main() {
+fn main() {
     fibonacci(10); // expected value: 55
 }
 
-func fibonacci(n: int) int {
+fn fibonacci(n: int) int {
     if (n == 0) {
         return 0;
     }
@@ -49,20 +49,20 @@ func fibonacci(n: int) int {
 # Function Access Specifiers
 
 In Cyrus, functions can be declared with **access specifiers** that control their visibility and behavior.  
-These specifiers are placed **before** the `func` keyword.
+These specifiers are placed **before** the `fn` keyword.
 
 - **extern** - Declares that the function is defined outside the current module (e.g., in a C library). Useful for interoperability.
 
 ```cyrus
-extern func printf(format: const char*, ...) int32;
+extern fn printf(format: const char*, ...) int32;
 ```
 
 Only valid for declarations.
 
-- **public** Makes the function visible outside the current module. Without `public`, a function is **private** by default and can only be used within the same module.
+- **pub** Makes the function visible outside the current module. Without `pub`, a function is private by default and can only be used within the same module.
 
 ```cyrus
-public func sum(a: int, b: int) int {
+pub fn sum(a: int, b: int) int {
     return a + b;
 }
 ```
@@ -70,15 +70,15 @@ public func sum(a: int, b: int) int {
 - **inline** Hints to the compiler that the function body should be expanded inline at call sites (for performance). This is most effective with **small utility functions**.
 
 ```cyrus
-inline func square(x: int) int {
+inline fn square(x: int) int {
     return x * x;
 }
 ```
 
-- **public inline** A combination: visible outside the module and a candidate for inlining.
+- **pub inline** A combination: visible outside the module and a candidate for inlining.
 
 ```cyrus
-public inline func abs(x: int) int {
+pub inline fn abs(x: int) int {
     if (x < 0) {
         return -x;
     } else {
@@ -87,10 +87,10 @@ public inline func abs(x: int) int {
 }
 ```
 
-- **public extern** Declares an **external function** that is also exported from the current module. This is commonly used when exposing bindings or APIs.
+- **pub extern** Declares an **external function** that is also exported from the current module. This is commonly used when exposing bindings or APIs.
 
 ```cyrus
-public extern func sin(x: float64) float64;
+pub extern fn sin(x: float64) float64;
 ```
 
 <br />
@@ -106,9 +106,9 @@ Cyrus supports two kinds of variadic arguments, allowing functions to accept a v
 C-style variadic functions use the `...` notation, just like in C. These are typically used for **interfacing with C libraries** (e.g., `printf`) or when type safety is not a concern.
 
 ```cyrus
-extern func printf(format: const char*, ...) int;
+extern fn printf(format: const char*, ...) int;
 
-func main() {
+fn main() {
     printf("Hello %s, number = %d\n", "Cyrus", 42);
 }
 ```
@@ -123,11 +123,11 @@ func main() {
 Typed variadic functions allow specifying **one type** that repeats for an arbitrary number of arguments. This gives type safety and better compiler optimizations.
 
 ```cyrus
-func sum_all(nums: int...) int {
+fn sum_all(nums: int...) int {
     // Coming soon.
 }
 
-func main() {
+fn main() {
     #s: int = sum_all(1, 2, 3, 4, 5);
     println(s); # Output: 15
 }
@@ -145,9 +145,9 @@ Coming soon...
 Cyrus allows you to specify a **different ABI-level (linker) name** for a function than its Cyrus name. This is done using the `as` keyword after the declaration.  
 
 ```cyrus
-extern func printf(fmt: string, ...) int as my_printf;
+extern fn printf(fmt: string, ...) int as my_printf;
 
-func main() {
+fn main() {
     my_printf("Hello, %s!\n", "Cyrus");
 }
 ```

@@ -8,13 +8,21 @@ weight: 8
 
 A Union in Cyrus is a composite data type similar to C-style unions. 
 It allows multiple fields to share the same memory location, so only one of its fields can hold a valid value at any given time.
-Unlike structs, assigning a value to one field will overwrite the memory for other fields.
+
+Unlike structs, writing to one field will overwrite the memory for all others.
 
 <br />
 
-⚠️ **Warning**: Unions in Cyrus are not memory-safe. Reading a field that was not most recently written is undefined behavior, just like in C. Use unions only when you explicitly need memory-efficient, low-level data representations.
+<WarningAlert title="Unions Are Not Memory-Safe">
+  Unions in Cyrus are not memory-safe. Reading a field that was not most recently 
+  written is undefined behavior, just like in C. Use unions only when you explicitly 
+  need memory-efficient, low-level data representations.
+</WarningAlert>
 
-✅ **Safe Alternative**: If you want a memory-safe way to store different types of values, use an enum, which enforces at compile time which variant is active.
+<InfoAlert title="Safe Alternative">
+  If you want a memory-safe way to store different types of values, use an enum, 
+  which enforces at compile time which variant is active.
+</InfoAlert>
 
 <br />
 
@@ -26,11 +34,27 @@ union DataUnion {
     b: float64;
 }
 
-func main() {
+fn main() {
     #un = DataUnion;
     un.b = 3.14;
 }
 ```
+
+<br />
+
+## Using a Union
+
+You can create a union instance and assign fields directly:
+
+```cyrus
+fn main() {
+    #un = DataUnion;
+    un.a = 42;       // set the integer field
+    un.b = 3.14;     // overwrites the same memory with a float
+}
+```
+
+After un.b = 3.14, the value of un.a is no longer valid.
 
 <br />
 
@@ -42,6 +66,40 @@ Unions can be initialized using a Union Initializer, specifying which field to s
 #un: DataUnion = DataUnion { a: 10 };
 ```
 
-- Only one field should be initialized at a time.
-- Initialization sets the union's memory to store the specified field's value.
+Rules:
 
+- Only one field should be initialized.
+- The union's memory will be set according to that field.
+
+<br />
+
+## Practical Use Cases
+
+Unions are low-level tools, mainly used in systems programming:
+
+- Type punning: reinterpret the same memory as different types.
+- Interfacing with C libraries: many C APIs expose unions in their structs.
+- Memory efficiency: when you know only one of several large fields will be used at once.
+
+Example: Interpreting the same 32-bit data as either an integer or raw bytes.
+
+```cyrus
+import std::libc{printf};
+
+union IntBytes {
+    value: int;
+    bytes: uint8[4];
+}
+
+fn main() {
+    #data = IntBytes { value: 0x12345678 };
+
+    printf("%x %x %x %x\n", data.bytes[0], data.bytes[1], data.bytes[2], data.bytes[3]);
+}
+```
+
+Output (on little-endian systems):
+
+```text
+78 56 34 12
+```

@@ -11,30 +11,41 @@ Cyrus features a **powerful module system** with **incremental compilation** and
 
 ## Module Files
 
-In Cyrus, **files are considered modules**. 
+In Cyrus, **files are considered modules**.
 
 Module files must:
-  - Use **snake_case** names
-  - Have the `.cyr` extension
+
+- Use **snake_case** names
+- Have the `.cyr` extension
 
 Example: `user_utils.cyr` defines a module named `user_utils`.
+
+Inside user_utils.cyr:
+
+```cyrus
+pub fn greet(name: str) {
+  printf("Hello, %s!\n", name);
+}
+```
 
 <br />
 
 ## Importing Modules
 
-Modules can be imported into other files **beside the entry (main) file**.
+To use a module in another file, you import it.
 
 ```cyrus
-import sample;
+import user_utils;
+
+fn main() {
+  user_utils::greet("Cyrus");
+}
 ```
 
-- Only publicly exported symbols from a module are accessible.
-- After importing, access symbols with the module name:
+Notes:
 
-```cyrus
-sample::some_func();
-```
+- The entry file (the one you compile as main) cannot import other modules; it is considered the root.
+- Only publicly exported symbols (declared with pub) are visible outside their module.
 
 <br />
 
@@ -43,53 +54,55 @@ sample::some_func();
 You can import only a single symbol instead of the whole module:
 
 ```cyrus
-import sample{some_func};
+import user_utils{greet};
 
-some_func(); // direct usage without module prefix
+fn main() {
+  greet("Alice"); // no need for module path prefix
+}
 ```
 
-Note: If you import a symbol individually, you cannot import the whole module again in the same file.
+⚠️ You cannot import the same module both as a whole and with selected symbols in the same file. Choose one style.
 
 <br />
 
 ## Importing Multiple Modules
 
-Cyrus supports grouped imports as syntactic sugar:
+For convenience, Cyrus supports grouped imports:
 
 ```cyrus
 import (
-    foo{greeting_func},
-    bar
+  math_ops,
+  user_utils{greet}
 );
+
+fn main() {
+  #sum = math_ops::add(3, 5);
+  greet("Bob");
+}
 ```
 
 <br />
 
 ## Renaming Imported Symbols
 
-Cyrus allows renaming symbols when importing to avoid conflicts or for clarity:
+Renaming avoids conflicts or makes names clearer.   
+
+- Renaming a symbol
 
 ```cyrus
-import std::libc{my_func: printf}; // rename printf to my_func
+import user_utils{greet: say_hello};
+
+fn main() {
+  say_hello("Charlie");
+}
 ```
+
+- Renaming a module
 
 ```cyrus
-import my_libc: std::libc; // rename entire module
+import my_math: math_ops;
+
+fn main() {
+  #result = my_math::mul(4, 6);
+}
 ```
-
-<br />
-
-## Compiler Module Paths
-
-You can tell the Cyrus compiler where to search for modules using CLI flags:
-
-```text
---sources=<directory> // Add directories to search for imported modules
---build-dir <PATH>    // Directory where build artifacts will be stored
---base-path <PATH>    // Base path for running the command
-```
-
-- **sources** allows you to include multiple module directories.
-- **build-dir** is used for caching compiled modules and incremental builds.
-- **base-path** sets a reference path for resolving relative imports.
-
