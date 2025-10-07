@@ -15,7 +15,7 @@ function BaseAlert({ title, children, color, icon, defaultTitle }: AlertProps) {
 
   const circleColors: Record<string, string> = {
     red: "border-red-100 bg-red-200 text-red-800 dark:border-red-950 dark:bg-red-800 dark:text-red-100",
-    yellow: "border-yellow-100 bg-yellow-200 text-yellow-800 dark:border-yellow-950 dark:bg-yellow-800 dark:text-yellow-100",
+    yellow: "border-yellow-100 bg-yellow-200 text-yellow-800 dark:border-yellow-900 dark:bg-yellow-700 dark:text-yellow-100",
     blue: "border-blue-100 bg-blue-200 text-blue-800 dark:border-blue-950 dark:bg-blue-800 dark:text-blue-100",
   };
 
