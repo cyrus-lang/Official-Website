@@ -101,15 +101,15 @@ export default function SearchBar() {
             </Button>
           )}
         </div>
-        <div className="p-4">
+        <div className="py-4 px-4.5">
           {results.length > 0 ? (
             <ul className="space-y-3">
               {results.map((result) => (
                 <li
                   key={result.id}
-                  className="p-4 bg-card rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 cursor-pointer group border border-border"
+                  className="p-4 bg-card rounded-lg shadow-xs hover:scale-[103%] hover:shadow-md duration-200 cursor-pointer group border border-border"
                 >
-                  <a href={result.path} className="block group-hover:underline">
+                  <a href={result.path} className="block">
                     <div className="flex items-center justify-between">
                       <h3 className="font-semibold text-base text-primary">
                         {result.title}
