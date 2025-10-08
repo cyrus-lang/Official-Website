@@ -4,6 +4,8 @@ import { ReactNode, useEffect, useState, useRef } from "react";
 import { LoadingBarContainer, useLoadingBar } from "react-top-loading-bar";
 import ClientSplashWrapper from "./splash-screen-client-wrapper"; 
 import { usePathname } from "next/navigation";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 interface AppLoadingWrapperProps {
   children: ReactNode;
@@ -31,6 +33,13 @@ function InnerApp({ children, showLoadingBar, setShowLoadingBar }: InnerAppProps
   const { start, complete } = useLoadingBar();
   const pathname = usePathname();
   const firstLoad = useRef(true);
+
+  useEffect(() => {
+    AOS.init({ duration: 1000 });
+    return () => {
+      AOS.refresh();
+    };
+  }, []);
 
   // Handle initial splash timing
   useEffect(() => {

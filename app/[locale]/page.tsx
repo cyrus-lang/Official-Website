@@ -71,7 +71,7 @@ export default async function LandingPage() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {/* Feature 1 */}
-              <div className="bg-background rounded-lg p-6 shadow-sm border hover:shadow-md transition-shadow">
+              <div data-aos="fade-up" data-aos-duration="2000" className="bg-background rounded-lg p-6 shadow-sm border hover:shadow-md transition-shadow">
                 <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
                   <Code className="h-6 w-6 text-primary" />
                 </div>
@@ -84,7 +84,7 @@ export default async function LandingPage() {
               </div>
 
               {/* Feature 2 */}
-              <div className="bg-background rounded-lg p-6 shadow-sm border hover:shadow-md transition-shadow">
+              <div data-aos="fade-up" data-aos-duration="2000" className="bg-background rounded-lg p-6 shadow-sm border hover:shadow-md transition-shadow">
                 <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
                   <Shield className="h-6 w-6 text-primary" />
                 </div>
@@ -97,7 +97,7 @@ export default async function LandingPage() {
               </div>
 
               {/* Feature 3 */}
-              <div className="bg-background rounded-lg p-6 shadow-sm border hover:shadow-md transition-shadow">
+              <div data-aos="fade-up" data-aos-duration="2000" className="bg-background rounded-lg p-6 shadow-sm border hover:shadow-md transition-shadow">
                 <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
                   <Globe className="h-6 w-6 text-primary" />
                 </div>
@@ -110,7 +110,7 @@ export default async function LandingPage() {
               </div>
 
               {/* Feature 4 */}
-              <div className="bg-background rounded-lg p-6 shadow-sm border hover:shadow-md transition-shadow">
+              <div data-aos="fade-up" data-aos-duration="2000" className="bg-background rounded-lg p-6 shadow-sm border hover:shadow-md transition-shadow">
                 <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
                   <Cpu className="h-6 w-6 text-primary" />
                 </div>
@@ -123,7 +123,7 @@ export default async function LandingPage() {
               </div>
 
               {/* Feature 5 */}
-              <div className="bg-background rounded-lg p-6 shadow-sm border hover:shadow-md transition-shadow">
+              <div data-aos="fade-up" data-aos-duration="2000" className="bg-background rounded-lg p-6 shadow-sm border hover:shadow-md transition-shadow">
                 <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
                   <Layers className="h-6 w-6 text-primary" />
                 </div>
@@ -136,7 +136,7 @@ export default async function LandingPage() {
               </div>
 
               {/* Feature 6 */}
-              <div className="bg-background rounded-lg p-6 shadow-sm border hover:shadow-md transition-shadow">
+              <div data-aos="fade-up" data-aos-duration="2000" className="bg-background rounded-lg p-6 shadow-sm border hover:shadow-md transition-shadow">
                 <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
                   <Github className="h-6 w-6 text-primary" />
                 </div>
@@ -314,7 +314,7 @@ fn example() {
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-              <div className="bg-background rounded-lg p-6 shadow-sm border text-center hover:shadow-md transition-shadow">
+              <div data-aos="fade-up" data-aos-duration="2000" className="bg-background rounded-lg p-6 shadow-sm border text-center hover:shadow-md transition-shadow">
                 <Github className="h-12 w-12 mx-auto mb-4 text-primary" />
                 <h3 className="text-xl font-bold mb-2">
                   {t("community.github.title")}
@@ -330,7 +330,7 @@ fn example() {
                   </Button>
                 </Link>
               </div>
-              <div className="bg-background rounded-lg p-6 shadow-sm border text-center hover:shadow-md transition-shadow">
+              <div data-aos="fade-up" data-aos-duration="2000" className="bg-background rounded-lg p-6 shadow-sm border text-center hover:shadow-md transition-shadow">
                 <MessageSquare className="h-12 w-12 mx-auto mb-4 text-primary" />
                 <h3 className="text-xl font-bold mb-2">
                   {t("community.discord.title")}
@@ -346,7 +346,7 @@ fn example() {
                   </Button>
                 </Link>
               </div>
-              <div className="bg-background rounded-lg p-6 shadow-sm border text-center hover:shadow-md transition-shadow">
+              <div data-aos="fade-up" data-aos-duration="2000" className="bg-background rounded-lg p-6 shadow-sm border text-center hover:shadow-md transition-shadow">
                 <Send className="h-12 w-12 mx-auto mb-4 text-primary" />
                 <h3 className="text-xl font-bold mb-2">
                   {t("community.telegram.title")}
