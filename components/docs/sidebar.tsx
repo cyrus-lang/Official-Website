@@ -49,7 +49,7 @@ const CollapsibleNavItem = ({
   return (
     <div className="mb-3">
       {/* Mimics SidebarGroup */}
-      <div className="text-xs font-semibold uppercase text-muted-foreground ">
+      <div className="text-xs font-semibold uppercase not-dark:text-black ">
         <div
           className={cn(
             "flex items-center justify-between w-full cursor-pointer",
@@ -59,7 +59,7 @@ const CollapsibleNavItem = ({
           {/* Link for directory title */}
           <a
             className={cn(
-              "text-muted-foreground grow py-2 rounded-md px-2 my-1"
+              "not-dark:text-black grow py-2 rounded-md px-2 my-1"
             )}
             onClick={() => {
               setIsOpen((prev) => !prev);
@@ -142,7 +142,7 @@ export function Sidebar({
                 pathname === itemHref ||
                   (item.slug === "" && pathname === `/${locale}/docs`) // Handle root active state
                   ? "text-white font-medium bg-primary" // Active state background
-                  : "text-muted-foreground hover:bg-gray-100 dark:hover:bg-muted"
+                  : "not-dark:text-black hover:bg-gray-100 dark:hover:bg-muted"
               )}
               onClick={clickTrigger}
             >
@@ -155,7 +155,7 @@ export function Sidebar({
   };
 
   return (
-    <div className="bg-background md:bg-inherit dark:bg-background md:dark:bg-inherit py-4 px-2">
+    <div className="bg-transparent md:bg-inherit md:dark:bg-inherit py-4 px-2">
       <div className="flex flex-col h-full overflow-hidden">
         <nav className="px-2" aria-label={t("sidebar.navigation")}>
           {renderNavItems(navigationItems)}{" "}
