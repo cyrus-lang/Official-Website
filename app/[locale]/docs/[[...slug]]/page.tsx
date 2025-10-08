@@ -31,29 +31,23 @@ async function lookupDocumentContent(
   locale: string
 ): Promise<string | null> {
   const contentBasePath = getContentBasePath(locale);
-  const joinedSlug = slugArray.join(path.sep); // Use path.sep for cross-platform compatibility
-
-  // 1. Check for a direct MDX file (e.g., content/en-docs/tutorial/introduction.mdx)
+  const joinedSlug = slugArray.join(path.sep);
   const directPath = path.join(contentBasePath, `${joinedSlug}.mdx`);
   try {
-    await fs.access(directPath); // Check if file exists and is accessible
+    await fs.access(directPath);
     return directPath;
   } catch (error) {
-    // File doesn't exist or isn't accessible, continue to next check
     console.error(error);
   }
-
-  // 2. Check for an index.mdx within a directory (e.g., content/en-docs/tutorial/introduction/index.mdx)
   const indexPath = path.join(contentBasePath, joinedSlug, "index.mdx");
   try {
     await fs.access(indexPath);
     return indexPath;
   } catch (error) {
-    // Not found in either location
     console.error(error);
   }
 
-  return null; // Document not found
+  return null;
 }
 
 export default async function ShowDocumentPage({
