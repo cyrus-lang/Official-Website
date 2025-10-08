@@ -1,11 +1,12 @@
 import type React from "react";
 import { Inter } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
-import "./globals.css";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
-import { getLocale, getMessages } from "next-intl/server";
+import { getMessages } from "next-intl/server";
+import dynamic from "next/dynamic";
+import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -13,6 +14,9 @@ export const metadata = {
   title: "Cyrus Programming Language",
   description: "A programming language for Aliens.",
 };
+
+// dynamically import client wrapper for splash + top loading bar
+const ClientAppWrapper = dynamic(() => import("@/components/app-loading-wrapper"), { ssr: false });
 
 export default async function RootLayout({
   children,
@@ -36,7 +40,8 @@ export default async function RootLayout({
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <NextIntlClientProvider messages={messages}>
-            {children}
+            {/* Client-side wrapper handles both splash + top loading bar */}
+            <ClientAppWrapper>{children}</ClientAppWrapper>
           </NextIntlClientProvider>
         </ThemeProvider>
       </body>

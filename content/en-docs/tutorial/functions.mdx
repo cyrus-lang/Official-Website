@@ -41,9 +41,6 @@ fn fibonacci(n: int) int {
 }
 ```
 
-- Local functions **cannot be called from outside** their enclosing function.
-- You can call a local function just like any normal function, but only **after its declaration**.
-
 <br />
 
 # Function Access Specifiers
@@ -129,15 +126,9 @@ fn sum_all(nums: int...) int {
 
 fn main() {
     #s: int = sum_all(1, 2, 3, 4, 5);
-    println(s); # Output: 15
+    printf("%d\n", s); // Output: 15
 }
 ```
-<br />
-
-## Anonumous Functions
-
-Coming soon...
-
 <br />
 
 ## Function ABI Name 
@@ -155,3 +146,67 @@ fn main() {
 - The function is **declared as `printf`** at the ABI level, so it links against the real `printf` symbol in the C standard library.
 - Inside Cyrus, however, the function is referred to as **`my_printf`**.
 - This allows you to avoid naming conflicts or to wrap existing library functions under more descriptive names.
+
+<br />
+
+# Lambdas
+
+Lambdas in Cyrus are anonymous functions. They look and behave like normal functions, but they don't need a name. You define them inline, assign them to variables, pass them around, or embed them inside structs.
+
+Unlike closures in some other languages, Cyrus lambdas do not capture the surrounding environment. They are pure function objects defined with a clear, fixed signature.
+
+<br />
+
+### Function Types
+
+Every lambda has a function type, which describes its parameters and return type.
+For example:
+
+```cyrus
+type HandlerFn = fn(int, int) void;
+```
+
+<br />
+
+### Defining a Lambda
+
+The syntax is straightforward:
+
+```cyrus
+fn(x: int, y: int) int {
+    return x + y;
+}
+```
+
+<br />
+
+### Assigning to Variables
+
+You can store lambdas in variables:
+
+```cyrus
+fn main() {
+    #add = fn(x: int, y: int) int {
+        return x + y;
+    };
+
+    printf("%d\n", add(2, 3)); // prints 5
+}
+```
+
+<br />
+
+### No Environment Capture
+
+In Cyrus, **lambdas are not closures**.
+That means they cannot capture variables from their surrounding scope. For example:
+
+```cyrus
+fn main() {
+    #base = 10;
+
+    #adder = fn(x: int) int {
+        return x + base; // ❌ `base` is not accessible here
+    };
+}
+```

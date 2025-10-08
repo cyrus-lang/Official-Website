@@ -61,8 +61,6 @@ fn main() {
 }
 ```
 
-⚠️ You cannot import the same module both as a whole and with selected symbols in the same file. Choose one style.
-
 <br />
 
 ## Importing Multiple Modules
@@ -90,17 +88,17 @@ Renaming avoids conflicts or makes names clearer.
 - Renaming a symbol
 
 ```cyrus
-import user_utils{greet: say_hello};
+import user_utils{greet as greet_renamed};
 
 fn main() {
-  say_hello("Charlie");
+  greet_renamed("Charlie");
 }
 ```
 
 - Renaming a module
 
 ```cyrus
-import my_math: math_ops;
+import math_ops as my_math;
 
 fn main() {
   #result = my_math::mul(4, 6);

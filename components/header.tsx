@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { Menu, X } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
@@ -10,11 +10,12 @@ import Image from "next/image";
 import LogoDark from "@/app/assets/logo-dark.png";
 import LogoLight from "@/app/assets/logo-light.png";
 import { useLocaleInfo } from "@/hooks/use-locale";
-import { useTranslations } from 'next-intl';
-import { usePathname } from 'next/navigation';
+import { useTranslations } from "next-intl";
+import { usePathname } from "next/navigation";
 import MobileSidebar from "./docs/mobile/mobile_sidebar";
 import { DocNavItem } from "@/app/types/doc_nav_item";
 import SearchBar from "./search-bar";
+import { cn } from "@/lib/utils";
 
 export function Logo() {
   const t = useTranslations("Header.logo");
@@ -35,7 +36,22 @@ export function Logo() {
   );
 }
 
-export default function Header({ className, navigationItems }: { className?: string, navigationItems?: DocNavItem[] }) {
+const headerItems: { path: string; content: string; className?: string }[] = [
+  { path: "/blog", content: "navigation.blog" },
+  { path: "/forum", content: "navigation.forum" },
+  { path: "/packages", content: "navigation.packages" },
+  { path: "/playground", content: "navigation.playground" },
+  { path: "/contributors", content: "navigation.contributors" },
+  { path: "/support_us", content: "navigation.supportUs" },
+];
+
+export default function Header({
+  className,
+  navigationItems,
+}: {
+  className?: string;
+  navigationItems?: DocNavItem[];
+}) {
   const t = useTranslations("Header");
   const { fontFamily } = useLocaleInfo();
   const pathname = usePathname();
@@ -59,47 +75,19 @@ export default function Header({ className, navigationItems }: { className?: str
             </Link>
 
             <nav className="hidden xl:flex gap-6 pt-1 ms-3">
-              <Link
-                href="/blog"
-                className="text-sm font-medium hover:text-primary transition-colors"
-              >
-                {t("navigation.blog")}
-              </Link>
-
-              <Link
-                href="/forum"
-                className="text-sm font-medium hover:text-primary transition-colors"
-              >
-                {t("navigation.forum")}
-              </Link>
-
-              <Link
-                href="/packages"
-                className="text-sm font-medium hover:text-primary transition-colors"
-              >
-                {t("navigation.packages")}
-              </Link>
-
-              <Link
-                href="/playground"
-                className="text-sm font-medium hover:text-primary transition-colors"
-              >
-                {t("navigation.playground")}
-              </Link>
-
-              <Link
-                href="/contributors"
-                className="text-sm font-medium hover:text-primary transition-colors"
-              >
-                {t("navigation.contributors")}
-              </Link>
-
-              <Link
-                href="/support_us"
-                className="text-sm font-medium hover:text-primary transition-colors"
-              >
-                {t("navigation.supportUs")}
-              </Link>
+              {headerItems.map((item) => (
+                <Link
+                  key={item.content}
+                  href={item.path}
+                  className={cn(
+                    "text-sm font-medium hover:text-primary transition-colors",
+                    pathname.includes(item.path) && "text-primary",
+                    item?.className
+                  )}
+                >
+                  {t(item.content)}
+                </Link>
+              ))}
             </nav>
           </div>
 
@@ -143,48 +131,20 @@ export default function Header({ className, navigationItems }: { className?: str
                     </SheetTrigger>
                   </div>
 
-                  <nav className="flex flex-col gap-4 mobile-nav">                    
-                    <Link
-                      href="/blog"
-                      className="text-lg font-medium hover:text-primary transition-colors"
-                    >
-                      {t("navigation.blog")}
-                    </Link>
-
-                    <Link
-                      href="/forum"
-                      className="text-lg font-medium hover:text-primary transition-colors"
-                    >
-                      {t("navigation.forum")}
-                    </Link>
-
-                    <Link
-                      href="/packages"
-                      className="text-lg font-medium hover:text-primary transition-colors"
-                    >
-                      {t("navigation.packages")}
-                    </Link>
-
-                    <Link
-                      href="/playground"
-                      className="text-lg font-medium hover:text-primary transition-colors"
-                    >
-                      {t("navigation.playground")}
-                    </Link>
-
-                    <Link
-                      href="/support_us"
-                      className="text-lg font-medium hover:text-primary transition-colors"
-                    >
-                      {t("navigation.supportUs")}
-                    </Link>
-
-                    <Link
-                      href="/contributors"
-                      className="text-lg font-medium hover:text-primary transition-colors"
-                    >
-                      {t("navigation.contributors")}
-                    </Link>
+                  <nav className="flex flex-col gap-4 mobile-nav">
+                    {headerItems.map((item) => (
+                      <Link
+                        key={item.content}
+                        href={item.path}
+                        className={cn(
+                          "text-lg font-medium hover:text-primary transition-colors",
+                          pathname.includes(item.path) && "text-primary",
+                          item?.className
+                        )}
+                      >
+                        {t(item.content)}
+                      </Link>
+                    ))}
                   </nav>
                   <div className="mt-auto flex flex-col gap-2">
                     <div className="flex gap-2 mb-4">
@@ -209,9 +169,9 @@ export default function Header({ className, navigationItems }: { className?: str
           </div>
         </div>
 
-        {isDocsRoute && navigationItems &&
+        {isDocsRoute && navigationItems && (
           <MobileSidebar navigationItems={navigationItems!} />
-        }
+        )}
       </header>
     </>
   );
