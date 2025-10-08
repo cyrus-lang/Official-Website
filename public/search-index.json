@@ -319,7 +319,7 @@
     "title": "نصب",
     "path": "/fa/docs/tutorial/installation",
     "content": "قبل از شروع آموزش، باید سایروس را نصب کنید.",
-    "searchable": "نصب # نصب سایروس قبل از شروع آموزش، باید سایروس را نصب کنید. ## روش‌های نصب ### 1. نصب مستقیم ``\ncurl -fssl https://get.cyrus-lang.org | sh\n``` ### 2. استفاده از پکیج منیجر **ویندوز:** ```powershell\nwinget install cyrus-lang.compiler\n``` **لینوکس:** ```bash\nsudo apt install cyrus-lang  # ubuntu/debian\nsudo dnf install cyrus-lang  # fedora\n``` **مک:** ```bash\nbrew install cyrus-lang\n``` ## تأیید نصب ```bash\ncyrus version\n``` باید خروجی مشابه این ببینید: ```\ncyrus 1.0.0\n```",
+    "searchable": "نصب # نصب سایروس قبل از شروع آموزش، باید سایروس را نصب کنید. ## روش‌های نصب ### 1. نصب مستقیم ``\ncurl -fssl https://get.cyrus-lang.org | sh\n``` ### 2. استفاده از پکیج منیجر **ویندوز:** ```powershell\nwinget install cyrus-lang.compiler\n``` **لینوکس:** ```bash\nsudo apt install cyrus-lang  # ubuntu/debian\nsudo dnf install cyrus-lang  # fedora\n``` **مک:** ```bash\nbrew install cyrus-lang\n``` ## تأیید نصب ```bash\ncyrus version\n``` باید خروجی مشابه این ببینید: ```bash\ncyrus 1.0.0\n```",
     "language": "fa",
     "category": "tutorial"
   },
