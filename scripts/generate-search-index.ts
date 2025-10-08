@@ -10,6 +10,7 @@ interface DocEntry {
   searchable: string;
   language: 'en' | 'fa';
   category: string;
+  weight: number;
 }
 
 const contentDir: string = path.join(process.cwd(), 'content');
@@ -42,11 +43,25 @@ function extractFirstParagraphAfterHeader(body: string): string {
     }
   }
 
-  return body
-    .replace(/[#*`]\w+/, '')
-    .replace(/\n\s*\n/g, ' ')
-    .trim()
-    .substring(0, 500) + '...';
+  return (
+    body
+      .replace(/`{3}[\s\S]*?`{3}/g, '') // remove code blocks
+      .replace(/`([^`]+)`/g, '$1')
+      .replace(/\!\[[^\]]*\]\([^\)]*\)/g, '') // remove images
+      .replace(/\[[^\]]*\]\([^\)]*\)/g, '$1') // keep link text
+      .replace(/#+\s+/g, '')
+      .replace(/\n\s*\n/g, ' ')
+      .trim()
+      .substring(0, 500) + '...'
+  );
+}
+
+function headingWeightFromFilename(file: string): number {
+  // Simple heuristic: introduction/overview/getting-started more important
+  const lower = file.toLowerCase();
+  if (/(introduction|getting-started|overview|hello-world)/.test(lower)) return 3;
+  if (/(guide|tutorial|basics)/.test(lower)) return 2;
+  return 1;
 }
 
 function generateIndex(): void {
@@ -69,29 +84,38 @@ function generateIndex(): void {
         const filePath: string = path.join(categoryPath, file);
         const content: string = fs.readFileSync(filePath, 'utf8');
         const { data: frontmatter, content: body } = matter(content) as {
-          data: { title?: string };
+          data: { title?: string; description?: string; weight?: number };
           content: string;
         };
 
-        const searchableText: string = `${
-          frontmatter.title || file.replace('.mdx', '')
-        } ${body
-          .replace(/[#*`]\w+/, '')
+        const title = frontmatter.title || file.replace('.mdx', '');
+        const description = frontmatter.description || extractFirstParagraphAfterHeader(body);
+        const baseWeight = headingWeightFromFilename(file);
+        const fmWeight = typeof frontmatter.weight === 'number' ? frontmatter.weight : 0;
+        const weight = baseWeight + fmWeight;
+
+        const searchableText: string = `${title} ${description} ${body
+          .replace(/`{3}[\s\S]*?`{3}/g, '')
+          .replace(/`([^`]+)`/g, '$1')
           .replace(/\n\s*\n/g, ' ')
           .trim()}`;
 
         index.push({
           id: `${lang}-${category}-${file.replace('.mdx', '')}`,
-          title: frontmatter.title || file.replace('.mdx', ''),
+          title,
           path: `/${lang}/docs/${category}/${file.replace('.mdx', '')}`,
-          content: extractFirstParagraphAfterHeader(body),
+          content: description,
           searchable: searchableText.toLowerCase(),
           language: lang,
           category: category,
+          weight,
         });
       });
     });
   });
+
+  // Sort by weight desc then title asc for determinism
+  index.sort((a, b) => (b.weight - a.weight) || a.title.localeCompare(b.title));
 
   fs.writeFileSync(outputPath, JSON.stringify(index, null, 2));
   console.log(`Search index generated with ${index.length} entries.`);
