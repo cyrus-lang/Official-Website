@@ -1,11 +1,12 @@
 import type React from "react";
 import { Inter } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
-import "./globals.css";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
-import { getLocale, getMessages } from "next-intl/server";
+import { getMessages } from "next-intl/server";
+import ClientSplashWrapper from "@/components/splash-screen-client-wrapper"; 
+import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -36,7 +37,7 @@ export default async function RootLayout({
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <NextIntlClientProvider messages={messages}>
-            {children}
+            <ClientSplashWrapper>{children}</ClientSplashWrapper>
           </NextIntlClientProvider>
         </ThemeProvider>
       </body>
