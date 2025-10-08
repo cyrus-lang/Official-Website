@@ -1,12 +1,11 @@
+import { redirect } from "@/i18n/navigation";
 import fs from "fs/promises";
-import path from "path";
+import { getLocale, getTranslations } from "next-intl/server";
 import { MDXRemote } from "next-mdx-remote/rsc";
+import path from "path";
+import { useMDXComponents } from "../../../../mdx-components";
 import { getContentBasePath } from "../base_path";
 import { getMdxData } from "../mdx";
-import { useMDXComponents } from "../../../../mdx-components";
-import { redirect } from "next/navigation";
-import { getTranslations } from "next-intl/server";
-import { getLocale } from "next-intl/server";
 
 const DOCS_DEFAULT_PAGE = "/docs/getting-started/introduction";
 
@@ -66,7 +65,7 @@ export default async function ShowDocumentPage({
 
   let filePath: string | null = null;
   if (slug.length === 0) {
-    redirect(`/${locale}${DOCS_DEFAULT_PAGE}`);
+    redirect({ href: `/${DOCS_DEFAULT_PAGE}`, locale });
   } else {
     filePath = await lookupDocumentContent(slug, locale);
   }

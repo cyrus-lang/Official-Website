@@ -1,6 +1,6 @@
 'use client';
 
-import { usePathname } from 'next/navigation';
+import { usePathname } from '@/i18n/navigation';
 import MobileSidebar from './mobile/mobile_sidebar';
 import { Sidebar } from './sidebar';
 import { DocNavItem } from '@/app/types/doc_nav_item';

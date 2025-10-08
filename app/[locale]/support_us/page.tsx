@@ -6,8 +6,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Link } from "@/i18n/navigation";
 import { Mail, Heart, Coffee, DollarSign } from "lucide-react";
-import Link from "next/link";
 import { useTranslations } from "next-intl";
 
 export default function SupportUsPage() {

@@ -1,8 +1,8 @@
 import Image from "next/image";
-import Link from "next/link";
 import { Participant } from "@/app/types/participant";
 import { useTranslations } from "next-intl";
 import { useLocale } from "next-intl";
+import { Link } from "@/i18n/navigation";
 
 export default function Box({ participant }: { participant: Participant }) {
   const t = useTranslations("Contributors.roles");

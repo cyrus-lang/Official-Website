@@ -1,6 +1,6 @@
 "use client";
 import Header from "@/components/header";
-import { usePathname } from "next/navigation";
+import { usePathname } from "@/i18n/navigation";
 import type React from "react";
 
 export default function ForumLayout({

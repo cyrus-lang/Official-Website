@@ -1,22 +1,22 @@
 
+import CodeBlock from "@/components/CodeBlock";
+import Footer from "@/components/footer";
+import Header from "@/components/header";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import socialMedia from "@/content/social_media.json";
+import { Link } from "@/i18n/navigation";
 import {
   Code,
   Cpu,
-  Globe,
   Github,
-  MessageSquare,
+  Globe,
   Layers,
-  Shield,
+  MessageSquare,
   Send,
+  Shield,
 } from "lucide-react";
-import Link from "next/link";
-import Header from "@/components/header";
-import Footer from "@/components/footer";
-import CodeBlock from "@/components/CodeBlock";
-import socialMedia from "@/content/social_media.json";
-import {getTranslations} from 'next-intl/server';
+import { getTranslations } from 'next-intl/server';
 
 export default async function LandingPage() {
   const t = await getTranslations("HomePage");

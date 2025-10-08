@@ -5,17 +5,16 @@ import { ThemeToggle } from "./theme-toggle";
 import { LanguageToggle } from "./language-toggle";
 import { Button } from "./ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
-import Link from "next/link";
 import Image from "next/image";
 import LogoDark from "@/app/assets/logo-dark.png";
 import LogoLight from "@/app/assets/logo-light.png";
 import { useLocaleInfo } from "@/hooks/use-locale";
 import { useTranslations } from "next-intl";
-import { usePathname } from "next/navigation";
 import MobileSidebar from "./docs/mobile/mobile_sidebar";
 import { DocNavItem } from "@/app/types/doc_nav_item";
 import SearchBar from "./search-bar";
 import { cn } from "@/lib/utils";
+import { Link, usePathname } from "@/i18n/navigation";
 
 export function Logo() {
   const t = useTranslations("Header.logo");

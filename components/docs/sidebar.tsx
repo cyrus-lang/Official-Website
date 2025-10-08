@@ -3,10 +3,9 @@
 import { useState } from "react";
 import { DocNavItem } from "@/app/types/doc_nav_item";
 import { cn } from "@/lib/utils";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { useTranslations, useLocale } from "next-intl";
 import { useLocaleInfo } from "@/hooks/use-locale";
+import { Link, usePathname } from "@/i18n/navigation";
 
 export interface SidebarProps {
   navigationItems: DocNavItem[];
@@ -113,7 +112,7 @@ export function Sidebar({ navigationItems }: SidebarProps) {
       // Construct the full href for any item (file or directory's main page)
       // item.slug already contains the full path from /docs/
       const itemHref =
-        item.slug === "" ? `/${locale}/docs` : `/${locale}/docs/${item.slug}`;
+        item.slug === "" ? `/docs` : `/docs/${item.slug}`;
 
       if (item.type === "directory") {
         return (

@@ -1,7 +1,7 @@
-import Link from "next/link";
 import { Code, Github } from "lucide-react";
 import socialMedia from "@/content/social_media.json";
 import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 
 export default function Footer() {
   const t = useTranslations("Footer");

@@ -1,6 +1,5 @@
 "use client"
 
-import Link from "next/link";
 import { X } from "lucide-react";
 import Breadcrumb from "./breadcrumb";
 import { Logo } from "@/components/header";
@@ -10,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Sidebar, SidebarProps } from "../sidebar";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Link } from "@/i18n/navigation";
 
 export default function MobileSidebar({ navigationItems }: SidebarProps) {
   const [open, setOpen] = useState(false);
