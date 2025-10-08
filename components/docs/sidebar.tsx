@@ -59,7 +59,7 @@ const CollapsibleNavItem = ({
           {/* Link for directory title */}
           <a
             className={cn(
-              "text-muted-foreground flex-grow py-2 rounded-md px-2 my-1"
+              "text-muted-foreground grow py-2 rounded-md px-2 my-1"
             )}
             onClick={() => {
               setIsOpen((prev) => !prev);
@@ -149,7 +149,7 @@ export function Sidebar({ navigationItems }: SidebarProps) {
 
   return (
     <div className="bg-background md:bg-inherit dark:bg-background md:dark:bg-inherit py-4 px-2">
-      <div className="flex flex-col h-full overflow-hidden">
+      <div className="flex flex-col h-full">
           <nav className="px-2" aria-label={t("sidebar.navigation")}>
             {renderNavItems(navigationItems)}{" "}
           </nav>

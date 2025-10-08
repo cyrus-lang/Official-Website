@@ -15,7 +15,7 @@ export default function AppLoadingWrapper({ children }: AppLoadingWrapperProps) 
   const [showLoadingBar, setShowLoadingBar] = useState(false);
 
   return (
-    <LoadingBarContainer props={{ color: "hsl(var(--primary))", height: 3 }}>
+    <LoadingBarContainer props={{ color: "var(--color-primary)", height: 3 }}>
       <InnerApp showLoadingBar={showLoadingBar} setShowLoadingBar={setShowLoadingBar}>
         {children}
       </InnerApp>

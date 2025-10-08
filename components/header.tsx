@@ -59,7 +59,11 @@ export default function Header({
   return (
     <>
       <header
-        className={` select-none border-b sticky top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 header-fa ${fontFamily} ${className}`}
+        className={cn(
+          `select-none border-b sticky top-0 left-0 right-0 py-3 z-50 bg-background/95 backdrop-blur-sm supports-backdrop-filter:bg-background/60 border-b-gray-200 header-fa`,
+          fontFamily,
+          className
+        )}
       >
         <div
           className="px-4 flex items-center justify-between"

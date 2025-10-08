@@ -78,7 +78,7 @@ export default function PlaygroundPage() {
 
             {/* Code Editor */}
             <textarea
-              className="w-full h-80 p-4 border rounded-lg font-mono text-sm text-black dark:text-white bg-white border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full h-80 p-4 border rounded-lg font-mono text-sm text-black dark:text-white bg-white border-gray-300 dark:border-gray-700 focus:outline-hidden focus:ring-2 focus:ring-blue-500"
               style={{ backgroundColor: "#121212" }}
               placeholder={t("codeEditor.placeholder")}
               value={code}

@@ -36,7 +36,7 @@ export default function SplashScreen({
   return (
     <div
       className={cn(
-        "fixed inset-0 flex flex-col items-center justify-center transition-opacity !z-[999999] bg-background",
+        "fixed inset-0 flex flex-col items-center justify-center transition-opacity z-999999! bg-background",
         fadeOut
           ? "opacity-0 pointer-events-none"
           : "opacity-100 pointer-events-auto splash-screen",

@@ -28,7 +28,7 @@ export default async function LandingPage() {
       <main className="flex-1">
         {/* Hero Section */}
         <section className="relative py-20 md:py-28 lg:py-36 overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-primary/10 z-0"></div>
+          <div className="absolute inset-0 bg-linear-to-br from-background via-background to-primary/10 z-0"></div>
           <div className="absolute inset-0 bg-[url('/placeholder.svg?height=800&width=1600')] opacity-5 z-0"></div>
           <div className="container relative z-10">
             <div className="max-w-4xl mx-auto text-center space-y-8">
@@ -71,7 +71,7 @@ export default async function LandingPage() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {/* Feature 1 */}
-              <div data-aos="fade-up" data-aos-duration="2000" className="bg-background rounded-lg p-6 shadow-sm border hover:shadow-md transition-shadow">
+              <div data-aos="fade-up" data-aos-duration="2000" className="bg-background rounded-lg p-6 shadow-xs border hover:shadow-md transition-shadow">
                 <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
                   <Code className="h-6 w-6 text-primary" />
                 </div>
@@ -84,7 +84,7 @@ export default async function LandingPage() {
               </div>
 
               {/* Feature 2 */}
-              <div data-aos="fade-up" data-aos-duration="2000" className="bg-background rounded-lg p-6 shadow-sm border hover:shadow-md transition-shadow">
+              <div data-aos="fade-up" data-aos-duration="2000" className="bg-background rounded-lg p-6 shadow-xs border hover:shadow-md transition-shadow">
                 <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
                   <Shield className="h-6 w-6 text-primary" />
                 </div>
@@ -97,7 +97,7 @@ export default async function LandingPage() {
               </div>
 
               {/* Feature 3 */}
-              <div data-aos="fade-up" data-aos-duration="2000" className="bg-background rounded-lg p-6 shadow-sm border hover:shadow-md transition-shadow">
+              <div data-aos="fade-up" data-aos-duration="2000" className="bg-background rounded-lg p-6 shadow-xs border hover:shadow-md transition-shadow">
                 <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
                   <Globe className="h-6 w-6 text-primary" />
                 </div>
@@ -110,7 +110,7 @@ export default async function LandingPage() {
               </div>
 
               {/* Feature 4 */}
-              <div data-aos="fade-up" data-aos-duration="2000" className="bg-background rounded-lg p-6 shadow-sm border hover:shadow-md transition-shadow">
+              <div data-aos="fade-up" data-aos-duration="2000" className="bg-background rounded-lg p-6 shadow-xs border hover:shadow-md transition-shadow">
                 <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
                   <Cpu className="h-6 w-6 text-primary" />
                 </div>
@@ -123,7 +123,7 @@ export default async function LandingPage() {
               </div>
 
               {/* Feature 5 */}
-              <div data-aos="fade-up" data-aos-duration="2000" className="bg-background rounded-lg p-6 shadow-sm border hover:shadow-md transition-shadow">
+              <div data-aos="fade-up" data-aos-duration="2000" className="bg-background rounded-lg p-6 shadow-xs border hover:shadow-md transition-shadow">
                 <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
                   <Layers className="h-6 w-6 text-primary" />
                 </div>
@@ -136,7 +136,7 @@ export default async function LandingPage() {
               </div>
 
               {/* Feature 6 */}
-              <div data-aos="fade-up" data-aos-duration="2000" className="bg-background rounded-lg p-6 shadow-sm border hover:shadow-md transition-shadow">
+              <div data-aos="fade-up" data-aos-duration="2000" className="bg-background rounded-lg p-6 shadow-xs border hover:shadow-md transition-shadow">
                 <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
                   <Github className="h-6 w-6 text-primary" />
                 </div>
@@ -229,7 +229,7 @@ fn example() {
                   {t("why.title")}
                 </h2>
               </div>
-              <div className="bg-background rounded-lg p-8 shadow-sm border">
+              <div className="bg-background rounded-lg p-8 shadow-xs border">
                 <p className="text-lg mb-6">{t("why.paragraph1")}</p>
                 <p className="text-lg mb-6">{t("why.paragraph2")}</p>
                 <p className="text-lg">{t("why.paragraph3")}</p>
@@ -250,7 +250,7 @@ fn example() {
               </p>
             </div>
             <div className="max-w-3xl mx-auto">
-              <div className="bg-background rounded-lg p-8 shadow-sm border">
+              <div className="bg-background rounded-lg p-8 shadow-xs border">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                   <div className="text-center">
                     <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
@@ -314,7 +314,7 @@ fn example() {
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-              <div data-aos="fade-up" data-aos-duration="2000" className="bg-background rounded-lg p-6 shadow-sm border text-center hover:shadow-md transition-shadow">
+              <div data-aos="fade-up" data-aos-duration="2000" className="bg-background rounded-lg p-6 shadow-xs border text-center hover:shadow-md transition-shadow">
                 <Github className="h-12 w-12 mx-auto mb-4 text-primary" />
                 <h3 className="text-xl font-bold mb-2">
                   {t("community.github.title")}
@@ -330,7 +330,7 @@ fn example() {
                   </Button>
                 </Link>
               </div>
-              <div data-aos="fade-up" data-aos-duration="2000" className="bg-background rounded-lg p-6 shadow-sm border text-center hover:shadow-md transition-shadow">
+              <div data-aos="fade-up" data-aos-duration="2000" className="bg-background rounded-lg p-6 shadow-xs border text-center hover:shadow-md transition-shadow">
                 <MessageSquare className="h-12 w-12 mx-auto mb-4 text-primary" />
                 <h3 className="text-xl font-bold mb-2">
                   {t("community.discord.title")}
@@ -346,7 +346,7 @@ fn example() {
                   </Button>
                 </Link>
               </div>
-              <div data-aos="fade-up" data-aos-duration="2000" className="bg-background rounded-lg p-6 shadow-sm border text-center hover:shadow-md transition-shadow">
+              <div data-aos="fade-up" data-aos-duration="2000" className="bg-background rounded-lg p-6 shadow-xs border text-center hover:shadow-md transition-shadow">
                 <Send className="h-12 w-12 mx-auto mb-4 text-primary" />
                 <h3 className="text-xl font-bold mb-2">
                   {t("community.telegram.title")}
@@ -382,7 +382,7 @@ fn example() {
                 <input
                   type="email"
                   placeholder={t("newsletter.placeholder")}
-                  className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50"
+                  className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50"
                 />
                 <Button className="sm:w-auto">{t("newsletter.button")}</Button>
               </form>

@@ -23,7 +23,7 @@ export default function CodeBlock({
   return (
     <div className="my-2 overflow-x-auto">
       <pre
-        className={`!mt-0 !mb-0 rounded-lg text-left ${
+        className={`mt-0! mb-0! rounded-lg text-left ${
           disableBorder ? "" : "border"
         }`}
         dir="ltr"

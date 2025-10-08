@@ -17,9 +17,10 @@ export default function ClientSidebarWrapper({ navigationItems }: ClientSideMobi
         <>
             {pathname.startsWith("/docs") && <MobileSidebar navigationItems={navigationItems} />}
 
-            <ScrollArea className="w-full h-full flex-none">
+            <div className="[&::-webkit-scrollbar]:[width:20px] [&::-webkit-scrollbar-thumb]:bg-gray-400 overflow-y-auto [&::-webkit-scrollbar-thumb]:[border-radius:3px] pb-20 max-h-[100svh] min-h-[100svh]">
+
                 <Sidebar navigationItems={navigationItems} />
-            </ScrollArea>
+            </div>
         </>
     );
 }

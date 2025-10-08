@@ -100,7 +100,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       }
       return (
         <pre
-          className="!mt-0 !mb-0 rounded-lg p-4 bg-gray-50 dark:bg-gray-900 border overflow-x-auto text-left"
+          className="mt-0! mb-0! rounded-lg p-4 bg-gray-50 dark:bg-gray-900 border overflow-x-auto text-left"
           dir="ltr"
           {...props}
         >

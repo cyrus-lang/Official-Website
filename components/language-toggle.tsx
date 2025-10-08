@@ -39,7 +39,7 @@ export function LanguageToggle() {
     >
       <Languages className="h-4 w-4" />
       <span className="absolute -top-1 -right-1 text-xs bg-primary text-primary-foreground rounded-full w-4 h-4 flex items-center justify-center">
-        {locale === "en" ? "ف" : "E"}
+        {locale === "en" ? "fa" : "en"}
       </span>
     </Button>
   );

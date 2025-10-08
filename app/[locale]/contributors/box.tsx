@@ -27,7 +27,7 @@ export default function Box({ participant }: { participant: Participant }) {
   };
 
   return (
-    <div className="border-1 border-gray-100 rounded-sm flex flex-col gap-2">
+    <div className="rounded-sm flex flex-col gap-2">
       <div className="flex flex-col items-start w-full">
         <div className="text-center text-xl font-bold">{getDisplayName()}</div>
         <div className="text-center text-sm text-muted-foreground mt-1">
@@ -46,7 +46,7 @@ export default function Box({ participant }: { participant: Participant }) {
         {participant.github && (
           <Link
             href={participant.github}
-            className="flex justify-center items-center w-10 h-10 "
+            className="flex justify-center items-center w-10 h-10"
           >
             <Image
               src={"/participants/github.svg"}
@@ -60,7 +60,7 @@ export default function Box({ participant }: { participant: Participant }) {
         {participant.mastodon && (
           <Link
             href={participant.mastodon}
-            className="flex justify-center items-center w-10 h-10 "
+            className="flex justify-center items-center w-10 h-10"
           >
             <Image
               src={"/participants/mastodon.svg"}
@@ -74,7 +74,7 @@ export default function Box({ participant }: { participant: Participant }) {
         {participant.daramet && (
           <Link
             href={participant.daramet}
-            className="flex justify-center items-center w-10 h-10 "
+            className="flex justify-center items-center w-10 h-10"
           >
             <Image
               src={"/participants/daramet.svg"}
@@ -88,7 +88,7 @@ export default function Box({ participant }: { participant: Participant }) {
         {participant.telegram && (
           <Link
             href={participant.telegram}
-            className="flex justify-center items-center w-10 h-10 "
+            className="flex justify-center items-center w-10 h-10"
           >
             <Image
               src={"/participants/telegram.svg"}

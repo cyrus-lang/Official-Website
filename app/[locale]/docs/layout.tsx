@@ -30,7 +30,7 @@ export default async function DocsLayout({
         <div className="flex flex-1 rtl">
           <div
             className={cn(
-              "fixed bottom-0 w-64 xl:w-80 border-r z-10 hidden md:flex flex-col",
+              "fixed top-0 w-64 xl:w-80 border-r z-10 hidden md:flex flex-col",
               isRTL ? "right-0" : "left-0"
             )}
             style={{ top: "var(--header-height)" }}
@@ -43,7 +43,7 @@ export default async function DocsLayout({
       </SidebarProvider>
       <div
         className={cn(
-          `relative flex-grow pb-6 overflow-y-auto p-4`,
+          `relative grow pb-6 overflow-y-auto p-4`,
           isRTL ? "md:mr-64 xl:mr-80" : "md:ml-64 xl:ml-80"
         )}
       >
