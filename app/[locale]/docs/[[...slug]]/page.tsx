@@ -60,7 +60,7 @@ export default async function ShowDocumentPage({
 
   let filePath: string | null = null;
   if (slug.length === 0) {
-    redirect({ href: `/${DOCS_DEFAULT_PAGE}`, locale });
+    redirect({ href: `${DOCS_DEFAULT_PAGE}`, locale });
   } else {
     filePath = await lookupDocumentContent(slug, locale);
   }
