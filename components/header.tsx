@@ -133,6 +133,7 @@ export default function Header({
                       <Link
                         key={item.content}
                         href={item.path}
+                        onClick={() => sheetTriggerRef.current?.click()}
                         className={cn(
                           "text-lg font-medium hover:text-primary transition-colors",
                           pathname.includes(item.path) && "text-primary",
