@@ -29,9 +29,10 @@ export default async function DocsLayout({
       <SidebarProvider>
         <div className="flex flex-1 rtl">
           <div
-            className={`fixed bottom-0 w-64 xl:w-80 border-r z-10 hidden md:flex flex-col shadow-md ${
+            className={cn(
+              "fixed bottom-0 w-64 xl:w-80 border-r z-10 hidden md:flex flex-col",
               isRTL ? "right-0" : "left-0"
-            }`}
+            )}
             style={{ top: "var(--header-height)" }}
           >
             <div className="overflow-y-auto h-full">
