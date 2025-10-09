@@ -1,3 +1,4 @@
+"use server";
 // collector.ts (or docs.ts)
 import path from "path";
 import fs from "fs/promises";
