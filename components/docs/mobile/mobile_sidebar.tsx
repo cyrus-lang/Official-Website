@@ -16,14 +16,27 @@ export default function MobileSidebar({ navigationItems }: SidebarProps) {
   const sheetTriggerRef = useRef<HTMLButtonElement | null>(null);
   useEffect(() => {
     if (open) {
-      document.documentElement.style.overflow = "hidden";
+      const scrollY = window.scrollY;
+      document.documentElement.style.position = "fixed";
+      document.documentElement.style.top = `-${scrollY}px`;
+      document.documentElement.style.width = "100%";
     } else {
-      document.documentElement.style.overflow = "";
+      const scrollY = -parseInt(document.documentElement.style.top || "0");
+      document.documentElement.style.position = "";
+      document.documentElement.style.top = "";
+      document.documentElement.style.width = "";
+      window.scrollTo(0, scrollY);
     }
+
     return () => {
-      document.documentElement.style.overflow = "";
+      const scrollY = -parseInt(document.documentElement.style.top || "0");
+      document.documentElement.style.position = "";
+      document.documentElement.style.top = "";
+      document.documentElement.style.width = "";
+      window.scrollTo(0, scrollY);
     };
   }, [open]);
+
   return (
     <div className="md:hidden block">
       <Sheet open={open} onOpenChange={setOpen}>
