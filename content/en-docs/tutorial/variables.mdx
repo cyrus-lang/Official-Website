@@ -1,73 +1,83 @@
 ---
+
 title: Variables
 weight: 3
 ---
 
-# Variables
+# Global Variables
 
-Variables in Cyrus are declared using the # symbol:
-
-```cyrus
-#name: OptionalType = Value;
-```
-
-- **#name** - the variable name, always prefixed with #
-- **OptionalType** - (optional) the type of the variable; if omitted, the compiler infers it
-- **Value** - the initial value assigned to the variable
-
-Example
+Global variables are declared at top-level. They may be **private** (no `pub`) or **public** (`pub`). Use `var` for mutable globals, `const` for immutable globals, and `extern` to declare symbols provided externally (no initializer).
 
 ```cyrus
-#count: int = 42;                   // explicit type annotation
-#message: char* = "Hello, Cyrus!";  // explicit type annotation
-#flag = true;                       // type inferred as bool
+// public globals
+pub var  NAME: OptionalType = Value;
+pub const NAME: OptionalType = Value;
+pub extern NAME: Type; // public external symbol (no initializer)
+
+// private globals
+var  NAME: OptionalType = Value;
+const NAME: OptionalType = Value;
+extern NAME: Type; // private external symbol (no initializer)
 ```
 
-<br />
+* **var**: mutable global (initializer optional; zero-initialized if omitted).
+* **const**: immutable global (must be initialized at declaration).
+* **extern**: declares a symbol provided by the runtime/linker.
 
-## Why Sharp (#)?
+Examples:
 
-The # prefix is unique to Cyrus. It makes variable declarations easy to spot and improves editor syntax highlighting.   
-Using # instead of keywords like var or let keeps code shorter and visually distinct.   
-Type inference works automatically when the type is omitted.    
+```cyrus
+const MY_VAL = 10;                  // private immutable global
+pub var MY_VAR = 10;               // public mutable global
+var COUNTER: int;                   // private mutable global, zero-initialized
+pub const MAX: int = 100;           // explicit type
+pub const VERSION: char* = "1.0";
 
-<br />
+pub extern stdin: void*;            // public external symbol
+extern errno: int;                  // private external symbol
+```
+
+Reassignment rules:
+
+```cyrus
+pub const PI = 3.14159;
+PI = 3.14; // ❌ cannot assign to const variable
+
+pub var CONFIG = 0;
+CONFIG = 1; // ✅ allowed
+```
+
+---
+
+## Local Variables
+
+Local variables inside functions are declared using `var` or `const`.
+
+```cyrus
+var name: OptionalType = Value;
+const name: OptionalType = Value;
+```
+
+Examples:
+
+```cyrus
+fn main() {
+    var a = 10;    // mutable
+    const b = 20;  // immutable
+    var c: int;    // zero-initialized; defaults to 0
+}
+```
+
+---
 
 ## Zero Initialization
 
-Variables that are declared without an initial value are automatically zero-initialized:
+Variables (both globals and locals) declared without an initializer are automatically zero-initialized:
 
 ```cyrus
-#x: int;
-#y: float64;
-#ptr: int*;
+var x: int;
+var y: float64;
 
 printf("%d\n", x);   // prints 0
 printf("%f\n", y);   // prints 0.0
-printf("%p\n", ptr); // prints null / 0
-```
-
-<br />
-
-## Variable Mutability
-
-In Cyrus, variables are mutable by default. You can assign new values to them after their initial declaration:
-
-```cyrus
-#counter: int = 0;
-#counter = 10; // allowed
-```
-
-To declare a **read-only variable**, use the const keyword before the type:
-
-```cyrus
-#pi: const float64 = 3.14159;
-```
-
-- Const Type variables cannot be reassigned after initialization.
-- Must be initialized at the time of declaration; leaving it uninitialized is not allowed.
-
-```cyrus
-#pi: const float64; // ❌ const variable must be initialized
-#pi = 3.14159;      // ❌ cannot assign to const variable
 ```
