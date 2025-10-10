@@ -1,11 +1,10 @@
 "use client";
 
-import { ReactNode, useEffect, useState, useRef } from "react";
-import { LoadingBarContainer, useLoadingBar } from "react-top-loading-bar";
-import ClientSplashWrapper from "./splash-screen-client-wrapper";
 import { usePathname } from "next/navigation";
-import AOS from "aos";
-import "aos/dist/aos.css";
+import { ReactNode, useEffect, useRef, useState } from "react";
+import { LoadingBarContainer, useLoadingBar } from "react-top-loading-bar";
+import { Motion } from "./motion";
+import ClientSplashWrapper from "./splash-screen-client-wrapper";
 
 interface AppLoadingWrapperProps {
   children: ReactNode;
@@ -43,13 +42,6 @@ function InnerApp({
   const pathname = usePathname();
   const firstLoad = useRef(true);
 
-  useEffect(() => {
-    AOS.init({ duration: 1000 });
-    return () => {
-      AOS.refresh();
-    };
-  }, []);
-
   // Handle initial splash timing
   useEffect(() => {
     const splashTotalTime = 2000 + 500;
@@ -69,5 +61,15 @@ function InnerApp({
     return () => clearTimeout(timeout);
   }, [pathname, showLoadingBar, start, complete]);
 
-  return <ClientSplashWrapper>{children}</ClientSplashWrapper>;
+  return (
+    <ClientSplashWrapper>
+      <Motion
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+      >
+        {children}
+      </Motion>
+    </ClientSplashWrapper>
+  );
 }

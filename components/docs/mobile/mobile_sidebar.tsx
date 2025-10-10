@@ -1,29 +1,20 @@
 "use client";
 
-import { X } from "lucide-react";
-import Breadcrumb from "./breadcrumb";
 import { Logo } from "@/components/header";
-import { useState, useEffect, useRef } from "react";
-import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
-import { Sidebar, SidebarProps } from "../sidebar";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Link } from "@/i18n/navigation";
+import { X } from "lucide-react";
+import { useTranslations } from "next-intl";
+import { useRef, useState } from "react";
+import { Sidebar, SidebarProps } from "../sidebar";
+import Breadcrumb from "./breadcrumb";
 export default function MobileSidebar({ navigationItems }: SidebarProps) {
   const [open, setOpen] = useState(false);
   const t = useTranslations("Docs");
   const sheetTriggerRef = useRef<HTMLButtonElement | null>(null);
-  useEffect(() => {
-    if (open) {
-      document.documentElement.style.overflow = "hidden";
-    } else {
-      document.documentElement.style.overflow = "";
-    }
-    return () => {
-      document.documentElement.style.overflow = "";
-    };
-  }, [open]);
+
   return (
     <div className="md:hidden block">
       <Sheet open={open} onOpenChange={setOpen}>
