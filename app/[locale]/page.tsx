@@ -111,7 +111,7 @@ export default async function LandingPage() {
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-primary">
                 {t("hero.title")}
               </h1>
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight text-primary-light relative bottom-4">
+              <h2 className="text-xl text-muted-foreground max-w-2xl mx-auto">
                 <Typewriter
                   words={[
                     t("hero.firstTypeTitle"),
@@ -126,9 +126,9 @@ export default async function LandingPage() {
                   delaySpeed={1250}
                 />
               </h2>
-              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+              {/* <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
                 {t("hero.subtitle")}
-              </p>
+              </p> */}
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link href="/docs">
                   <Button size="lg" className="w-full sm:w-auto">
@@ -166,7 +166,7 @@ export default async function LandingPage() {
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={ {once: false, amount: 0.5 }}
+                  viewport={ {once: false, amount: 0.8 }}
                   transition={{ duration: 0.4, delay: index * 0.1 }}
                   className="bg-background rounded-lg p-6 shadow-xs border hover:scale-[107.5%] transition-transform"
                 >
@@ -211,7 +211,7 @@ export default async function LandingPage() {
                     <Motion
                       initial={{ opacity: 0, y: 10 }}
                       whileInView={{ opacity: 1, y: 0 }}
-                      viewport={ {once: false, amount: 0.5 }}
+                      viewport={ {once: false, amount: 0.8 }}
                       transition={{ duration: 0.3, delay: idx * 0.1 }}
                     >
                       <pre className="font-mono text-sm">
@@ -254,7 +254,7 @@ fn example() {
               <Motion
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={ {once: false, amount: 0.5 }}
+                viewport={ {once: false, amount: 0.8 }}
                 transition={{ duration: 0.4 }}
                 className="bg-background rounded-lg p-8 shadow-xs border"
               >
@@ -285,7 +285,7 @@ fn example() {
                       key={step.number}
                       initial={{ opacity: 0, y: 10 }}
                       whileInView={{ opacity: 1, y: 0 }}
-                      viewport={ {once: false, amount: 0.5 }}
+                      viewport={ {once: false, amount: 0.8 }}
                       transition={{ duration: 0.3, delay: idx * 0.1 }}
                       className="text-center hover:scale-[107.5%] transition-transform"
                     >
@@ -333,7 +333,7 @@ fn example() {
                   key={idx}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={ {once: false, amount: 0.5 }}
+                  viewport={ {once: false, amount: 0.8 }}
                   transition={{ duration: 0.4, delay: idx * 0.1 }}
                   className="bg-background rounded-lg p-6 shadow-xs border text-center hover:scale-[107.5%] transition-transform"
                 >
@@ -359,7 +359,7 @@ fn example() {
             <Motion
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={ {once: false, amount: 0.5 }}
+              viewport={ {once: false, amount: 0.8 }}
               transition={{ duration: 0.4 }}
               className="max-w-3xl mx-auto bg-primary/5 rounded-lg p-8 border border-primary/20"
             >
