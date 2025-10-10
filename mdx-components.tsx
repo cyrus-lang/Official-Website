@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import type { MDXComponents } from "mdx/types";
 import Image, { ImageProps } from "next/image";
 import { Button } from "@/components/ui/button";
@@ -24,7 +24,9 @@ import {
 } from "@/components/ui/table";
 import { ErrorAlert, WarningAlert, InfoAlert } from "@/components/ui/alert";
 import UnderDevelopmentAlert from "@/components/under-development-alert";
+import { LinkIcon } from "lucide-react";
 
+const getTitle = (node: ReactNode) => node?.toString()?.replaceAll(" ", "-");
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
     hr: () => {
@@ -34,26 +36,45 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       const t = useTranslations("DocsContent.introduction");
       const tTutorial = useTranslations("DocsContent.tutorial");
 
-      let translatedText = children;
+      let translatedText = children?.toString();
 
       if (children === "Documentation") {
         translatedText = t("documentation");
       } else if (children === "Turorial into") {
         translatedText = tTutorial("installation.description");
       }
-
+      const title = getTitle(translatedText);
       return (
-        <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-3">
-          {translatedText}
+        <h1 id={title} className="group heading heading-h1">
+          <a href={`#${title}`}>
+            {translatedText}
+            <LinkIcon />
+          </a>
         </h1>
       );
     },
-    h2: ({ children }) => (
-      <h2 className="text-xl md:text-2xl font-bold mb-2">{children}</h2>
-    ),
-    h3: ({ children }) => (
-      <h3 className="text-lg md:text-xl font-bold mb-2">{children}</h3>
-    ),
+    h2: ({ children }) => {
+      const title = getTitle(children);
+      return (
+        <h2 id={title} className="group heading heading-h2">
+          <a href={`#${title}`}>
+            {children}
+            <LinkIcon />
+          </a>
+        </h2>
+      );
+    },
+    h3: ({ children }) => {
+      const title = getTitle(children);
+      return (
+        <h3 id={title} className="group heading heading-h3">
+          <a href={`#${title}`}>
+            {children}
+            <LinkIcon />
+          </a>
+        </h3>
+      );
+    },
     p: ({ children }) => {
       const t = useTranslations("DocsContent.introduction");
       const tTutorial = useTranslations("DocsContent.tutorial");
