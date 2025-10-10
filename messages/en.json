@@ -4,6 +4,9 @@
     "about": "Go to the about page",
     "hero": {
       "title": "Cyrus Programming Language",
+      "firstTypeTitle": "Built For Simplicity",
+      "secondTypeTitle": "Optimized Performance",
+      "thirdTypeTitle": "Developer Happiness",
       "subtitle": "A programming language designed for simplicity, performance, and developer happiness.",
       "getStarted": "Get Started",
       "seeExamples": "See Examples"

@@ -58,6 +58,7 @@
     "next-intl": "^4.3.3",
     "next-mdx-remote": "^5.0.0",
     "next-themes": "latest",
+    "nextjs-simple-typewriter": "^5.2.2",
     "react": "^18",
     "react-day-picker": "8.10.1",
     "react-dom": "^18",

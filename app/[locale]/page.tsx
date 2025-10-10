@@ -1,10 +1,10 @@
-
 import CodeBlock from "@/components/CodeBlock";
 import Footer from "@/components/footer";
 import Header from "@/components/header";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import socialMedia from "@/content/social_media.json";
+import { Typewriter } from "nextjs-simple-typewriter";
 import { Link } from "@/i18n/navigation";
 import {
   Code,
@@ -16,7 +16,7 @@ import {
   Send,
   Shield,
 } from "lucide-react";
-import { getTranslations } from 'next-intl/server';
+import { getTranslations } from "next-intl/server";
 
 export default async function LandingPage() {
   const t = await getTranslations("HomePage");
@@ -32,9 +32,24 @@ export default async function LandingPage() {
           <div className="absolute inset-0 bg-[url('/placeholder.svg?height=800&width=1600')] opacity-5 z-0"></div>
           <div className="container relative z-10">
             <div className="max-w-4xl mx-auto text-center space-y-8">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight">
-                <span className="text-primary">{t("hero.title")}</span>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-primary">
+                {t("hero.title")}
               </h1>
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight text-primary-light relative bottom-4">
+                <Typewriter
+                  words={[
+                    t("hero.firstTypeTitle"),
+                    t("hero.secondTypeTitle"),
+                    t("hero.thirdTypeTitle"),
+                  ]}
+                  loop={0}
+                  cursor
+                  cursorStyle="|"
+                  typeSpeed={50}
+                  deleteSpeed={50}
+                  delaySpeed={1000}
+                />
+              </h2>
               <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
                 {t("hero.subtitle")}
               </p>
@@ -69,9 +84,13 @@ export default async function LandingPage() {
                 {t("features.subtitle")}
               </p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">          
               {/* Feature 1 */}
-              <div data-aos="fade-up" data-aos-duration="2000" className="bg-background rounded-lg p-6 shadow-xs border hover:shadow-md transition-shadow">
+              <div
+                data-aos="fade-up"
+                data-aos-duration="2000"
+                className="bg-background rounded-lg p-6 shadow-xs border hover:shadow-md transition-shadow"
+              >
                 <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
                   <Code className="h-6 w-6 text-primary" />
                 </div>
@@ -84,7 +103,11 @@ export default async function LandingPage() {
               </div>
 
               {/* Feature 2 */}
-              <div data-aos="fade-up" data-aos-duration="2000" className="bg-background rounded-lg p-6 shadow-xs border hover:shadow-md transition-shadow">
+              <div
+                data-aos="fade-up"
+                data-aos-duration="2000"
+                className="bg-background rounded-lg p-6 shadow-xs border hover:shadow-md transition-shadow"
+              >
                 <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
                   <Shield className="h-6 w-6 text-primary" />
                 </div>
@@ -97,7 +120,11 @@ export default async function LandingPage() {
               </div>
 
               {/* Feature 3 */}
-              <div data-aos="fade-up" data-aos-duration="2000" className="bg-background rounded-lg p-6 shadow-xs border hover:shadow-md transition-shadow">
+              <div
+                data-aos="fade-up"
+                data-aos-duration="2000"
+                className="bg-background rounded-lg p-6 shadow-xs border hover:shadow-md transition-shadow"
+              >
                 <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
                   <Globe className="h-6 w-6 text-primary" />
                 </div>
@@ -110,7 +137,11 @@ export default async function LandingPage() {
               </div>
 
               {/* Feature 4 */}
-              <div data-aos="fade-up" data-aos-duration="2000" className="bg-background rounded-lg p-6 shadow-xs border hover:shadow-md transition-shadow">
+              <div
+                data-aos="fade-up"
+                data-aos-duration="2000"
+                className="bg-background rounded-lg p-6 shadow-xs border hover:shadow-md transition-shadow"
+              >
                 <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
                   <Cpu className="h-6 w-6 text-primary" />
                 </div>
@@ -123,7 +154,11 @@ export default async function LandingPage() {
               </div>
 
               {/* Feature 5 */}
-              <div data-aos="fade-up" data-aos-duration="2000" className="bg-background rounded-lg p-6 shadow-xs border hover:shadow-md transition-shadow">
+              <div
+                data-aos="fade-up"
+                data-aos-duration="2000"
+                className="bg-background rounded-lg p-6 shadow-xs border hover:shadow-md transition-shadow"
+              >
                 <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
                   <Layers className="h-6 w-6 text-primary" />
                 </div>
@@ -136,7 +171,11 @@ export default async function LandingPage() {
               </div>
 
               {/* Feature 6 */}
-              <div data-aos="fade-up" data-aos-duration="2000" className="bg-background rounded-lg p-6 shadow-xs border hover:shadow-md transition-shadow">
+              <div
+                data-aos="fade-up"
+                data-aos-duration="2000"
+                className="bg-background rounded-lg p-6 shadow-xs border hover:shadow-md transition-shadow"
+              >
                 <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
                   <Github className="h-6 w-6 text-primary" />
                 </div>
@@ -178,7 +217,10 @@ export default async function LandingPage() {
                 <TabsContent value="hello" className="mt-6">
                   <div>
                     <pre className="font-mono text-sm">
-                      <CodeBlock disableBorder language="typescript">{`import std::io;
+                      <CodeBlock
+                        disableBorder
+                        language="typescript"
+                      >{`import std::io;
 
 fn main() {
   io::println("Hello, World!");
@@ -292,7 +334,7 @@ fn example() {
                       {t("getStarted.installButton")}
                     </Button>
                   </Link>
-                  
+
                   <p className="mt-4 text-sm text-muted-foreground">
                     {t("getStarted.availability")}
                   </p>
@@ -314,7 +356,11 @@ fn example() {
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-              <div data-aos="fade-up" data-aos-duration="2000" className="bg-background rounded-lg p-6 shadow-xs border text-center hover:shadow-md transition-shadow">
+              <div
+                data-aos="fade-up"
+                data-aos-duration="2000"
+                className="bg-background rounded-lg p-6 shadow-xs border text-center hover:shadow-md transition-shadow"
+              >
                 <Github className="h-12 w-12 mx-auto mb-4 text-primary" />
                 <h3 className="text-xl font-bold mb-2">
                   {t("community.github.title")}
@@ -330,7 +376,11 @@ fn example() {
                   </Button>
                 </Link>
               </div>
-              <div data-aos="fade-up" data-aos-duration="2000" className="bg-background rounded-lg p-6 shadow-xs border text-center hover:shadow-md transition-shadow">
+              <div
+                data-aos="fade-up"
+                data-aos-duration="2000"
+                className="bg-background rounded-lg p-6 shadow-xs border text-center hover:shadow-md transition-shadow"
+              >
                 <MessageSquare className="h-12 w-12 mx-auto mb-4 text-primary" />
                 <h3 className="text-xl font-bold mb-2">
                   {t("community.discord.title")}
@@ -346,7 +396,11 @@ fn example() {
                   </Button>
                 </Link>
               </div>
-              <div data-aos="fade-up" data-aos-duration="2000" className="bg-background rounded-lg p-6 shadow-xs border text-center hover:shadow-md transition-shadow">
+              <div
+                data-aos="fade-up"
+                data-aos-duration="2000"
+                className="bg-background rounded-lg p-6 shadow-xs border text-center hover:shadow-md transition-shadow"
+              >
                 <Send className="h-12 w-12 mx-auto mb-4 text-primary" />
                 <h3 className="text-xl font-bold mb-2">
                   {t("community.telegram.title")}
