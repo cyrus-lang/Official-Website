@@ -121,9 +121,9 @@ export default async function LandingPage() {
                   loop={0}
                   cursor
                   cursorStyle="|"
-                  typeSpeed={50}
-                  deleteSpeed={50}
-                  delaySpeed={1000}
+                  typeSpeed={75}
+                  deleteSpeed={75}
+                  delaySpeed={1250}
                 />
               </h2>
               <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
@@ -168,7 +168,7 @@ export default async function LandingPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={ {once: false, amount: 0.5 }}
                   transition={{ duration: 0.4, delay: index * 0.1 }}
-                  className="bg-background rounded-lg p-6 shadow-xs border hover:shadow-md transition-shadow"
+                  className="bg-background rounded-lg p-6 shadow-xs border hover:scale-[107.5%] transition-transform"
                 >
                   <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
                     {feature.icon}
@@ -258,9 +258,9 @@ fn example() {
                 transition={{ duration: 0.4 }}
                 className="bg-background rounded-lg p-8 shadow-xs border"
               >
-                <p className="text-lg mb-6">{t("why.paragraph1")}</p>
-                <p className="text-lg mb-6">{t("why.paragraph2")}</p>
-                <p className="text-lg">{t("why.paragraph3")}</p>
+                <p className="text-lg max-md:text-base mb-6">{t("why.paragraph1")}</p>
+                <p className="text-lg max-md:text-base mb-6">{t("why.paragraph2")}</p>
+                <p className="text-lg max-md:text-base">{t("why.paragraph3")}</p>
               </Motion>
             </div>
           </div>
@@ -287,7 +287,7 @@ fn example() {
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={ {once: false, amount: 0.5 }}
                       transition={{ duration: 0.3, delay: idx * 0.1 }}
-                      className="text-center"
+                      className="text-center hover:scale-[107.5%] transition-transform"
                     >
                       <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
                         <span className="font-bold text-primary">
@@ -335,7 +335,7 @@ fn example() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={ {once: false, amount: 0.5 }}
                   transition={{ duration: 0.4, delay: idx * 0.1 }}
-                  className="bg-background rounded-lg p-6 shadow-xs border text-center hover:shadow-md transition-shadow"
+                  className="bg-background rounded-lg p-6 shadow-xs border text-center hover:scale-[107.5%] transition-transform"
                 >
                   {item.icon}
                   <h3 className="text-xl font-bold mb-2">{item.title}</h3>
