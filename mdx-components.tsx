@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useRef } from "react";
 import type { MDXComponents } from "mdx/types";
 import Image, { ImageProps } from "next/image";
 import { Button } from "@/components/ui/button";
@@ -28,6 +28,7 @@ import { LinkIcon } from "lucide-react";
 
 const getTitle = (node: ReactNode) => node?.toString()?.replaceAll(" ", "-");
 export function useMDXComponents(components: MDXComponents): MDXComponents {
+  const firstH1Rendered = useRef(false);
   return {
     hr: () => {
       return <hr className="my-8" />;
@@ -43,7 +44,20 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       } else if (children === "Turorial into") {
         translatedText = tTutorial("installation.description");
       }
+
       const title = getTitle(translatedText);
+
+      // If first h1, render bold text without link
+      if (!firstH1Rendered.current) {
+        firstH1Rendered.current = true;
+        return (
+          <h1 className="heading heading-h1 rm-underline">
+            <a className="rm-underline font-extrabold" href={`#${title}`}>{translatedText}</a>
+          </h1>
+        );
+      }
+
+      // Subsequent h1s have link
       return (
         <h1 id={title} className="group heading heading-h1">
           <a href={`#${title}`}>

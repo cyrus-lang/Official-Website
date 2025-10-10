@@ -70,6 +70,9 @@
     border-color: var(--color-border);
   }
 }
+html {
+  scroll-behavior: smooth;
+}
 
 html[lang="fa"] body {
   font-family: "Vazir", "Inter", sans-serif;
@@ -95,8 +98,6 @@ body:has(.splash-screen) {
 button:hover {
   cursor: pointer;
 }
-.anchor {
-}
 
 @layer utilities {
   .container {
@@ -111,7 +112,10 @@ button:hover {
   }
   .heading,
   .heading > a {
-    @apply flex items-center gap-2 hover:underline w-max;
+    @apply flex items-center gap-2 hover:underline w-max max-sm:max-w-80 max-lg:max-w-[500px] text-wrap;
+  }
+  .rm-underline {
+    text-decoration: none !important;
   }
   .heading-h1 {
     @apply text-2xl md:text-3xl lg:text-4xl font-bold mb-3;
