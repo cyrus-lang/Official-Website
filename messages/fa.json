@@ -4,6 +4,9 @@
     "about": "Go to the about page",
     "hero": {
       "title": "زبان برنامه‌نویسی سایروس",
+      "firstTypeTitle": "طراحی شده برای سادگی",
+    "secondTypeTitle": "عملکرد بهینه",
+    "thirdTypeTitle": "رضایت توسعه‌دهندگان",
       "subtitle": "زبان برنامه‌نویسی طراحی شده برای سادگی، عملکرد و رضایت توسعه‌دهندگان.",
       "getStarted": "شروع کنید",
       "seeExamples": "مشاهده مثال‌ها"

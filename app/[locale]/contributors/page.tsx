@@ -13,9 +13,7 @@ export default function ContributorsPage() {
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
         {contributors.map((participant) => (
-          <div key={participant.id} className="border rounded-2xl pt-5 px-3">
-            <Box participant={participant} />
-          </div>
+          <Box key={participant.id} participant={participant} />
         ))}
       </div>
     </div>

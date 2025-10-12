@@ -8,96 +8,76 @@ export default function Box({ participant }: { participant: Participant }) {
   const t = useTranslations("Contributors.roles");
   const locale = useLocale();
 
-  // Translate role titles
   const getTranslatedTitle = (title: string) => {
-    if (title === "Creator") {
-      return t("creator");
-    } else if (title === "Contributor") {
-      return t("contributor");
-    }
+    if (title === "Creator") return t("creator");
+    if (title === "Contributor") return t("contributor");
     return title;
   };
 
-  // Get the appropriate name based on locale
-  const getDisplayName = () => {
-    if (locale === "fa" && participant.nameFa) {
-      return participant.nameFa;
-    }
-    return participant.name;
-  };
+  const getDisplayName = () =>
+    locale === "fa" && participant.nameFa
+      ? participant.nameFa
+      : participant.name;
+
+  const socialIcons = [
+    {
+      key: "github",
+      url: participant.github,
+      icon: "/participants/github.svg",
+    },
+    {
+      key: "mastodon",
+      url: participant.mastodon,
+      icon: "/participants/mastodon.svg",
+    },
+    {
+      key: "daramet",
+      url: participant.daramet,
+      icon: "/participants/daramet.svg",
+    },
+    {
+      key: "telegram",
+      url: participant.telegram,
+      icon: "/participants/telegram.svg",
+    },
+  ];
 
   return (
-    <div className="rounded-sm flex flex-col gap-2">
-      <div className="flex flex-col items-start w-full">
-        <div className="text-center text-xl font-bold">{getDisplayName()}</div>
-        <div className="text-center text-sm text-muted-foreground mt-1">
+    <div className="rounded-2xl pt-5 px-3 border hover:scale-105 duration-300 shadow-sm hover:shadow-md transition-all">
+      <div className="flex flex-col items-center w-full gap-2 mb-4">
+        <div className="text-xl font-bold">{getDisplayName()}</div>
+        <div className="text-sm text-muted-foreground">
           {getTranslatedTitle(participant.title)}
         </div>
       </div>
-      <div className="flex justify-center items-center w-full h-[400px] sm:h-[300px] relative ">
+
+      <div className="flex justify-center items-center w-full h-[400px] sm:h-[300px] relative overflow-hidden rounded-lg">
         <Image
           src={participant.picture}
           alt={getDisplayName()}
           fill
-          className="object-cover object-center relative rounded-lg "
+          className="object-cover object-center transition-transform duration-300 hover:scale-105"
         />
       </div>
-      <div className="flex flex-row justify-evenly items-center gap-2 pb-1">
-        {participant.github && (
-          <Link
-            href={participant.github}
-            className="flex justify-center items-center w-10 h-10 "
-          >
-            <Image
-              src={"/participants/github.svg"}
-              alt={getDisplayName()}
-              width={20}
-              height={20}
-              className="object-cover object-center  dark:brightness-100 dark:invert"
-            />
-          </Link>
-        )}
-        {participant.mastodon && (
-          <Link
-            href={participant.mastodon}
-            className="flex justify-center items-center w-10 h-10 "
-          >
-            <Image
-              src={"/participants/mastodon.svg"}
-              alt={getDisplayName()}
-              width={20}
-              height={20}
-              className="object-cover object-center dark:brightness-100 dark:invert"
-            />
-          </Link>
-        )}
-        {participant.daramet && (
-          <Link
-            href={participant.daramet}
-            className="flex justify-center items-center w-10 h-10 "
-          >
-            <Image
-              src={"/participants/daramet.svg"}
-              alt={getDisplayName()}
-              width={20}
-              height={20}
-              className="object-cover object-center dark:brightness-100 dark:invert"
-            />
-          </Link>
-        )}
-        {participant.telegram && (
-          <Link
-            href={participant.telegram}
-            className="flex justify-center items-center w-10 h-10 "
-          >
-            <Image
-              src={"/participants/telegram.svg"}
-              alt={getDisplayName()}
-              width={20}
-              height={20}
-              className="object-cover object-center dark:brightness-100 dark:invert"
-            />
-          </Link>
+
+      <div className="flex flex-row justify-evenly items-center gap-2 mt-3 pb-2">
+        {socialIcons.map(
+          (item) =>
+            item.url && (
+              <Link
+                key={item.key}
+                href={item.url}
+                className="flex justify-center items-center w-10 h-10 rounded-full transition transform duration-300 hover:bg-primary/10"
+              >
+                <Image
+                  src={item.icon}
+                  alt={getDisplayName()}
+                  width={20}
+                  height={20}
+                  className="object-cover object-center dark:brightness-100 dark:invert hover:brightness-125 transition duration-300"
+                />
+              </Link>
+            )
         )}
       </div>
     </div>

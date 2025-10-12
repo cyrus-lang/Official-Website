@@ -8,9 +8,10 @@
 
 @utility container {
   margin-inline: auto;
-  padding-inline: 2rem;
+  padding-inline: 1rem;
   @media (width >= --theme(--breakpoint-sm)) {
     max-width: none;
+    padding-inline: 2rem;
   }
   @media (width >= 1200px) {
     max-width: 1200px;
@@ -51,6 +52,7 @@
   --color-destructive-foreground: hsl(0 0% 98%);
   --color-border: hsl(240 5.9% 90%);
   --color-input: hsl(240 5.9% 90%);
+  --color-primary-light:hsl(20 43% 70%);
   --color-ring: hsl(252 59% 48%);
   --header-height: 70px;
 }
@@ -81,6 +83,9 @@
     border-color: var(--color-border);
   }
 }
+html {
+  scroll-behavior: smooth;
+}
 
 html[lang="fa"] body {
   font-family: "Vazir", "Inter", sans-serif;
@@ -105,4 +110,59 @@ body:has(.splash-screen) {
 }
 button:hover {
   cursor: pointer;
+}
+
+@layer utilities {
+  .container {
+    margin-inline: auto;
+    padding-inline: 2rem;
+    @media (width >= --theme(--breakpoint-sm)) {
+      max-width: none;
+    }
+    @media (width >= 1200px) {
+      max-width: 1200px;
+    }
+  }
+  .heading,
+  .heading > a {
+    @apply flex items-center gap-2 hover:underline w-max max-sm:max-w-80 max-lg:max-w-[500px] text-wrap;
+  }
+  .rm-underline {
+    text-decoration: none !important;
+  }
+  .heading-h1 {
+    @apply text-2xl md:text-3xl lg:text-4xl font-bold mb-3;
+    scroll-margin-top: 150px;
+  }
+  .heading-h2 {
+    @apply text-xl md:text-2xl font-bold mb-2;
+    scroll-margin-top: 140px;
+  }
+  .heading-h3 {
+    @apply text-lg md:text-xl font-bold mb-2;
+    scroll-margin-top: 135px;
+  }
+  @media (min-width: 768px) {
+    .heading-h1 {
+      scroll-margin-top: 100px;
+    }
+    .heading-h2 {
+      scroll-margin-top: 95px;
+    }
+    .heading-h3 {
+      scroll-margin-top: 90px;
+    }
+  }
+  .heading > a > svg {
+    @apply opacity-0 group-hover:opacity-100 transition-opacity duration-300;
+  }
+  .heading-h1 > a > svg {
+    @apply w-8 h-8;
+  }
+  .heading-h2 > a > svg {
+    @apply w-6 h-6;
+  }
+  .heading-h3 > a > svg {
+    @apply w-5 h-5;
+  }
 }
