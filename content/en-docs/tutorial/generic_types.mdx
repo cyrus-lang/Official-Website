@@ -3,4 +3,179 @@ title: Generic Types
 weight: 10
 ---
 
-Coming soon...
+# Generic Types
+
+Cyrus supports **generic types** to create reusable and flexible type constructs. Generics are **compile-time constructs**, enabling **static dispatch**. They can be applied to **enums, structs, unions, and type aliases**.
+
+<br />
+
+## 1. Generic Type Constructs
+
+<br />
+
+### 1.1 Generic Enums
+
+```cyrus
+enum Result<V, E = bool> {
+    Ok(V),
+    Err(E),
+}
+```
+
+* `V` and `E` are **generic type parameters**.
+* `E` has a **default type**, allowing omission during instantiation:
+
+```cyrus
+var r1 = Result.Ok<int>(10);         // V=int, E=bool (default)
+var r2 = Result.Ok<int, string>(10); // V=int, E=string
+```
+
+<br />
+
+### 1.2 Generic Structs
+
+```cyrus
+struct Pair<A, B> {
+    first: A,
+    second: B,
+}
+
+var p = Pair<int, string> { first: 42, second: "hello" };
+```
+
+* Type arguments can be **explicit or inferred** from context:
+
+```cyrus
+var q: Pair<float, float> = Pair { first: 3.14, second: 2.71 };
+```
+
+<br />
+
+### 1.3 Generic Unions
+
+```cyrus
+union ValueOrError<T> {
+    Value(T),
+    Error(string),
+}
+
+var v = ValueOrError.Value<int>(100);
+```
+
+* Works like enums but allows **single-value variants**.
+
+<br />
+
+### 1.4 Type Aliases with Generics
+
+```cyrus
+type Foo<X, Y> = Pair<Y, X>;
+```
+
+* Reorders generic parameters from the original type.
+* Example usage:
+
+```cyrus
+var f: Foo<int, string> = Foo { first: "hello", second: 42 };
+// Foo<int, string> = Pair<string, int>
+```
+
+* Defaults can be used:
+
+```cyrus
+type DefaultPair<A> = Pair<A, bool>;
+
+fn main() {
+    var d: DefaultPair<int> = DefaultPair { first: 10, second: true };
+}
+```
+
+<br />
+
+## 2. Positional and Named Type Arguments
+
+<br />
+
+### 2.1 Positional
+
+```cyrus
+var r1 = Result.Ok<int>(10);          // V=int, E=bool (default)
+var r2 = Result.Ok<int, string>(10);  // V=int, E=string
+```
+
+<br />
+
+### 2.2 Named
+
+```cyrus
+var r3 = Result.Ok<E = string, V = int>(10);
+```
+
+* Named arguments **override defaults** regardless of order.
+* Mix positional and named arguments as needed.
+
+<br />
+
+## 3. Generic Type Inference
+
+```cyrus
+var r4: Result<float> = Result.Ok(3.14); // V=float, E=bool (default)
+```
+
+Compiler resolution order:
+
+- Explicit type arguments
+- Defaults
+- Expected type context
+
+<WarningAlert>
+  If inference fails, the compiler reports an error and requires explicit type arguments.
+</WarningAlert>
+
+<br />
+
+## 4. Combined Example
+
+```cyrus
+struct Pair<A, B> { first: A, second: B }
+type Swap<X, Y> = Pair<Y, X>
+enum Result<V, E = string> { Ok(V), Err(E) }
+
+var p: Swap<int, string> = Swap { first: "hi", second: 42 }
+var r: Result<float> = Result.Ok(3.14)
+var r2: Result<float, bool> = Result.Err(false)
+```
+
+* `Swap<int, string>` = `Pair<string, int>`
+* `Result<float>` uses default `E=string`
+
+<br />
+
+## 5. Compile-Time vs Runtime
+
+**Generic types in Cyrus are compile-time constructs**, also known as **static dispatch**.
+
+* Code for each concrete instantiation is generated at compile time.
+* No runtime type checks for generics.
+* High performance, as calls are **monomorphized**.
+
+<br />
+
+## 6. Runtime Polymorphism (Uncompleted)
+
+* Cyrus also supports **runtime polymorphism** via other mechanisms (interfaces or trait-like structures, in progress).
+* Generic types are **not runtime-polymorphic**; they remain static.
+
+<br />
+
+## 7. Generic Functions (Uncompleted)
+
+* Cyrus supports **generic functions**, similar to generic types.
+* Placeholders:
+
+```cyrus
+fn identity<T>(value: T) T {
+    return value;
+}
+```
+

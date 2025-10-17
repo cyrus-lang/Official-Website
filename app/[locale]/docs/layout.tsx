@@ -41,6 +41,7 @@ export default async function DocsLayout({
           </div>
         </div>
       </SidebarProvider>
+      
       <div
         className={cn(
           `relative grow pb-6 overflow-y-auto p-4`,
