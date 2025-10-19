@@ -1,17 +1,20 @@
+"use client";
 import React, { ReactNode, useRef } from "react";
 import type { MDXComponents } from "mdx/types";
 import Image, { ImageProps } from "next/image";
+import { useTranslations } from "next-intl";
+import { LinkIcon } from "lucide-react";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
   CardHeader,
   CardDescription,
   CardTitle,
+  CardContent,
 } from "@/components/ui/card";
-import { CardContent } from "@/components/ui/card";
 import { Link } from "@/i18n/navigation";
-import { useTranslations } from "next-intl";
-import CodeBlock from "@/components/CodeBlock";
+import CodeBlock from "@/components/code-block";
 import {
   Table,
   TableHeader,
@@ -24,99 +27,99 @@ import {
 } from "@/components/ui/table";
 import { ErrorAlert, WarningAlert, InfoAlert } from "@/components/ui/alert";
 import UnderDevelopmentAlert from "@/components/under-development-alert";
-import { LinkIcon } from "lucide-react";
 
-const getTitle = (node: ReactNode) => node?.toString()?.replaceAll(" ", "-");
-export function useMDXComponents(components: MDXComponents): MDXComponents {
+const getTitleId = (node: ReactNode) => node?.toString()?.replace(/\s+/g, "-");
+
+export function useMDX(components?: MDXComponents): MDXComponents {
   const firstH1Rendered = useRef(false);
+  const tIntro = useTranslations("DocsContent.introduction");
+  const tTutorial = useTranslations("DocsContent.tutorial");
+
   return {
-    hr: () => {
-      return <hr className="my-8" />;
-    },
+    hr: () => <hr className="my-8" />,
+
     h1: ({ children }) => {
-      const t = useTranslations("DocsContent.introduction");
-      const tTutorial = useTranslations("DocsContent.tutorial");
+      const rawText = children?.toString();
+      const translated =
+        rawText === "Documentation"
+          ? tIntro("documentation")
+          : rawText === "Turorial into"
+          ? tTutorial("installation.description")
+          : rawText;
 
-      let translatedText = children?.toString();
+      const id = getTitleId(translated);
 
-      if (children === "Documentation") {
-        translatedText = t("documentation");
-      } else if (children === "Turorial into") {
-        translatedText = tTutorial("installation.description");
-      }
-
-      const title = getTitle(translatedText);
-
-      // If first h1, render bold text without link
       if (!firstH1Rendered.current) {
         firstH1Rendered.current = true;
         return (
           <h1 className="heading heading-h1 rm-underline">
-            <a className="rm-underline font-extrabold" href={`#${title}`}>{translatedText}</a>
+            <a className="rm-underline font-extrabold" href={`#${id}`}>
+              {translated}
+            </a>
           </h1>
         );
       }
 
-      // Subsequent h1s have link
       return (
-        <h1 id={title} className="group heading heading-h1">
-          <a href={`#${title}`}>
-            {translatedText}
+        <h1 id={id} className="group heading heading-h1">
+          <a href={`#${id}`}>
+            {translated}
             <LinkIcon />
           </a>
         </h1>
       );
     },
+
     h2: ({ children }) => {
-      const title = getTitle(children);
+      const id = getTitleId(children);
       return (
-        <h2 id={title} className="group heading heading-h2">
-          <a href={`#${title}`}>
+        <h2 id={id} className="group heading heading-h2">
+          <a href={`#${id}`}>
             {children}
             <LinkIcon />
           </a>
         </h2>
       );
     },
+
     h3: ({ children }) => {
-      const title = getTitle(children);
+      const id = getTitleId(children);
       return (
-        <h3 id={title} className="group heading heading-h3">
-          <a href={`#${title}`}>
+        <h3 id={id} className="group heading heading-h3">
+          <a href={`#${id}`}>
             {children}
             <LinkIcon />
           </a>
         </h3>
       );
     },
-    p: ({ children }) => {
-      const t = useTranslations("DocsContent.introduction");
-      const tTutorial = useTranslations("DocsContent.tutorial");
 
-      let translatedText = children;
+    p: ({ children }) => {
+      let content = children;
 
       if (typeof children === "string") {
         if (children.includes("Welcome to the official documentation")) {
-          translatedText = t("welcome");
+          content = tIntro("welcome");
         } else if (children === "This guide will help you set up.") {
-          translatedText = tTutorial("basicSyntax.description");
+          content = tTutorial("basicSyntax.description");
         }
       }
 
-      return <p className="text-base md:text-lg my-2">{translatedText}</p>;
+      return <p className="text-base md:text-lg my-2">{content}</p>;
     },
+
     ul: ({ children }) => (
-      // Added margin-bottom for spacing after the list and space-y-2 for spacing between list items
       <ul className="list-disc list-inside mb-4 space-y-2">{children}</ul>
     ),
+
     li: ({ children }) => <li className="text-base md:text-lg">{children}</li>,
-    a: (
-      { children, href } // Added 'a' component
-    ) => (
+
+    a: ({ children, href }) => (
       <a href={href} className="text-primary hover:underline">
         {children}
       </a>
     ),
+
     img: (props) => (
       <Image
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
@@ -125,14 +128,14 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         {...(props as ImageProps)}
       />
     ),
+
     pre: ({ children, ...props }) => {
       if (children && typeof children === "object" && "props" in children) {
-        const codeProps = children.props;
-        const className = codeProps.className || "";
+        const { className = "", children: code } = children.props;
         const language = className.replace("language-", "");
-
-        return <CodeBlock language={language}>{codeProps.children}</CodeBlock>;
+        return <CodeBlock language={language}>{code}</CodeBlock>;
       }
+
       return (
         <pre
           className="mt-0! mb-0! rounded-lg p-4 bg-gray-50 dark:bg-gray-900 border overflow-x-auto text-left"
@@ -143,8 +146,9 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         </pre>
       );
     },
+
     code: ({ children, className, ...props }) => {
-      if (className && className.startsWith("language-")) {
+      if (className?.startsWith("language-")) {
         const language = className.replace("language-", "");
         return <CodeBlock language={language}>{children}</CodeBlock>;
       }
@@ -159,6 +163,8 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         </code>
       );
     },
+
+    // Custom components
     UnderDevelopmentAlert,
     ErrorAlert,
     WarningAlert,
