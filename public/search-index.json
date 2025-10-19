@@ -83,8 +83,8 @@
     "id": "en-tutorial-generic_types",
     "title": "Generic Types",
     "path": "/en/docs/tutorial/generic_types",
-    "content": "Coming soon......",
-    "searchable": "generic types coming soon...... coming soon...",
+    "content": "Cyrus supports generic types to create reusable and flexible type constructs. Generics are compile-time constructs, enabling static dispatch. They can be applied to enums, structs, unions, and type aliases.",
+    "searchable": "generic types cyrus supports generic types to create reusable and flexible type constructs. generics are compile-time constructs, enabling static dispatch. they can be applied to enums, structs, unions, and type aliases. # generic types cyrus supports **generic types** to create reusable and flexible type constructs. generics are **compile-time constructs**, enabling **static dispatch**. they can be applied to **enums, structs, unions, and type aliases**. <br /> ## 1. generic type constructs <br /> ### 1.1 generic enums * v and e are **generic type parameters**.\n* e has a **default type**, allowing omission during instantiation: <br /> ### 1.2 generic structs * type arguments can be **explicit or inferred** from context: <br /> ### 1.3 generic unions * works like enums but allows **single-value variants**. <br /> ### 1.4 type aliases with generics * reorders generic parameters from the original type.\n* example usage: * defaults can be used: <br /> ## 2. positional and named type arguments <br /> ### 2.1 positional <br /> ### 2.2 named * named arguments **override defaults** regardless of order.\n* mix positional and named arguments as needed. <br /> ## 3. generic type inference compiler resolution order: - explicit type arguments\n- defaults\n- expected type context if inference fails, the compiler reports an error and requires explicit type arguments. <br /> ## 4. combined example * swap<int, string> = pair<string, int>\n* result<float> uses default e=string <br /> ## 5. compile-time vs runtime **generic types in cyrus are compile-time constructs**, also known as **static dispatch**. * code for each concrete instantiation is generated at compile time.\n* no runtime type checks for generics.\n* high performance, as calls are **monomorphized**. <br /> ## 6. runtime polymorphism (uncompleted) * cyrus also supports **runtime polymorphism** via other mechanisms (interfaces or trait-like structures, in progress).\n* generic types are **not runtime-polymorphic**; they remain static. <br /> ## 7. generic functions (uncompleted) * cyrus supports **generic functions**, similar to generic types.\n* placeholders:",
     "language": "en",
     "category": "tutorial",
     "weight": 11
@@ -260,6 +260,16 @@
     "weight": 4
   },
   {
+    "id": "en-faq-faq",
+    "title": "FAQ",
+    "path": "/en/docs/faq/faq",
+    "content": "...",
+    "searchable": "faq ... ",
+    "language": "en",
+    "category": "faq",
+    "weight": 4
+  },
+  {
     "id": "en-getting-started-getting-started",
     "title": "Getting Started",
     "path": "/en/docs/getting-started/getting-started",
@@ -387,6 +397,16 @@
     "searchable": "basic syntax this article is an introduction to the cyrus programming language. it assumes you already have a basic understanding of programming concepts such as variables, statements, and types. here, you’ll see how familiar ideas are expressed in cyrus, while also being introduced to new concepts that make the language unique. # basic syntax this article is an introduction to the cyrus programming language. it assumes you already have a basic understanding of programming concepts such as variables, statements, and types. here, you’ll see how familiar ideas are expressed in cyrus, while also being introduced to new concepts that make the language unique. if you haven't installed cyrus yet, start with the [getting started](/en/docs/getting-started/install-compiler-binary) guide before continuing. <br /> ## comments comments are pieces of text ignored by the compiler.\nthey're useful for explaining code, leaving notes, or temporarily disabling parts of a program. cyrus supports both single-line and multi-line comments. - single-line comments - multi-line comments <br /> ## const string and character literals string literals in cyrus are enclosed in double quotes **\"xxx\"**, while character literals are enclosed in single quotes **'x'**.\nboth forms represent sequences of unicode characters, but they differ in intent and usage: - string literals produce values of type **char\\***, which can hold arbitrarily many characters.\n- character literals produce values of type **char**, which always represent exactly one unicode scalar value. ### escapes special characters that are difficult to type directly or would otherwise break the syntax can be written using escape sequences. all escape sequences begin with a backslash (\\). common escapes include: - **\\n** - newline (line feed, u+000a)\n- **\\t** - horizontal tab (u+0009)\n- **\\r** - carriage return (u+000d)\n- **\\b** - backspace (u+0008)\n- **\\a** - bell/alert (u+0007)\n- **\\v** - vertical tab (u+000b)\n- **\\f** - form feed (u+000c)\n- **\\\\** - literal backslash\n- **\\\"** - double quote (inside strings)\n- **\\'** - single quote (inside chars or strings) example: <br /> ### unicode and emojis cyrus supports unicode characters directly in string and character literals. you can type emojis, accented letters, or any other unicode characters inside quotes: <br /> ## integer constants numeric constants in cyrus can be written in **decimal**, **hexadecimal**, **octal**, or **binary** formats: - decimal (base 10): - hexadecimal (base 16, prefix with 0x or 0x): - binary (base 2, prefix with 0b or 0b): numeric literals may include underscores **\\_** between digits for readability; these are ignored by the compiler: <br /> ## literal suffixes cyrus allows explicit type suffixes on numeric literals to specify their type.\nthis is useful when the compiler cannot infer the type or when you want to guarantee a specific type. ### integer suffixes valid integer suffixes include: - uintptr\n- intptr\n- size_t\n- int\n- int8\n- int16\n- int32\n- int64\n- int128\n- uint\n- uint8\n- uint16\n- uint32\n- uint64\n- uint128 valid float suffixes include: - float16\n- float32\n- float64\n- float128 example: <br /> ### default type of literals if you don't specify a type suffix, cyrus assigns **int** as the default type for integer literals, and **float64** as the default type for floating-point literals. type suffixes can be used to explicitly control the size and signedness of an integer literal, or to select a different floating-point precision. <br /> ## arrays arrays in cyrus are fixed-size sequences of elements. their size must be known at compile time, similar to c arrays. example: - the array size cannot change at runtime.\n- access elements using indexing, starting from 0. <br /> ## pointers pointers in cyrus behave like c pointers. they store the memory address of another variable. - type\\* - pointer to a value of type\n- &variable - takes the address of a variable example: pointer arithmetic behaves like c (e.g., incrementing a pointer moves it by sizeof(type) bytes). <br /> ## vectors coming soon...",
     "language": "en",
     "category": "tutorial",
+    "weight": 2
+  },
+  {
+    "id": "en-faq-comparisons",
+    "title": "Comparisons",
+    "path": "/en/docs/faq/comparisons",
+    "content": "Coming soon...",
+    "searchable": "comparisons coming soon... # compare with other languages # c  coming soon... <br /> # rust  coming soon... <br /> # zig  coming soon...",
+    "language": "en",
+    "category": "faq",
     "weight": 2
   }
 ]
