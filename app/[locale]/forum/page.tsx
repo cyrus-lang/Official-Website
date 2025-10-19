@@ -1,3 +1,5 @@
+export const dynamic = "force-static";
+
 export default function ForumPage() {
     return (
         <div className="w-full text-center py-10">  

@@ -2,6 +2,8 @@ import { getTranslations } from "next-intl/server";
 import { PlaygroundCodeEditor } from "./_components/playground-code-editor";
 import { PlaygroundTitle } from "./_components/playground-title";
 
+export const dynamic = "force-static";
+
 export default async function PlaygroundPage() {
   const t = await getTranslations("Playground");
 

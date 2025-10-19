@@ -14,6 +14,7 @@ import SearchBar from "../search-bar";
 import { ThemeToggle } from "../theme-toggle";
 import { Button } from "../ui/button";
 import MobileMenu from "./mobile-menu";
+import { HeaderNav } from "./header-nav";
 
 export function Logo() {
   return (
@@ -57,22 +58,7 @@ export default async function Header({
               {t("brand")}
             </span>
           </Link>
-
-          <nav className="hidden xl:flex gap-6 pt-1 ms-3">
-            {headerItems.map((item) => (
-              <Link
-                key={item.content}
-                href={item.path}
-                className={cn(
-                  "text-sm font-medium hover:text-primary transition-colors",
-                  pathname.includes(item.path) && "text-primary",
-                  item?.className
-                )}
-              >
-                {t(item.content)}
-              </Link>
-            ))}
-          </nav>
+          <HeaderNav />
         </div>
 
         <div className="flex items-center gap-4">

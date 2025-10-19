@@ -31,3 +31,47 @@ export async function getDocPath(
 
   return null;
 }
+
+
+
+export async function getAllDocPaths(locale: string) {
+  const contentBasePath = getContentBasePath(locale);
+
+  async function walk(dir: string): Promise<string[]> {
+    const entries = await fs.readdir(dir, { withFileTypes: true });
+    const files: string[] = [];
+
+    for (const entry of entries) {
+      const fullPath = path.join(dir, entry.name);
+      if (entry.isDirectory()) {
+        const subFiles = await walk(fullPath);
+        files.push(...subFiles);
+      } else if (entry.isFile() && entry.name.endsWith(".mdx")) {
+        files.push(fullPath);
+      }
+    }
+
+    return files;
+  }
+
+  const allFiles = await walk(contentBasePath);
+
+  const paths = allFiles.map((fullPath) => {
+    let relativePath = path.relative(contentBasePath, fullPath);
+    relativePath = relativePath.replace(/\\/g, "/");
+    relativePath = relativePath.replace(/\.mdx$/, "");
+
+    if (relativePath.endsWith("/index")) {
+      relativePath = relativePath.slice(0, -"/index".length);
+    }
+
+    const slug = relativePath === "" ? [] : relativePath.split("/");
+
+    return {
+      params: { slug },
+      locale,
+    };
+  });
+
+  return paths;
+}

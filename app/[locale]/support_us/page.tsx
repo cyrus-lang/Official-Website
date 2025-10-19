@@ -4,6 +4,8 @@ import { SupportUsCards } from "./_components/support-us-cards";
 import { WhySupportUs } from "./_components/why-support-us";
 import { SupportUsFooter } from "./_components/support-us-footer";
 
+export const dynamic = "force-static";
+
 const SupportUsPage = async () => {
   const t = await getTranslations("SupportUs");
 
