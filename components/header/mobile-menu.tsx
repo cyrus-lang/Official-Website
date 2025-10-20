@@ -9,6 +9,7 @@ import { LanguageToggle } from "../language-toggle";
 import { ThemeToggle } from "../theme-toggle";
 import { Translation } from "@/types/translation";
 import { HeaderNav } from "./header-nav";
+import { DEFAULT_DOCS_HREF } from "@/app/[locale]/docs/_page";
 
 export default function MobileMenu({
   headerItems,
@@ -50,10 +51,10 @@ export default function MobileMenu({
               <LanguageToggle />
               <ThemeToggle />
             </div>
-            <Link href="/docs" className="w-full">
+            <Link href={DEFAULT_DOCS_HREF} className="w-full">
               <Button className="w-full">{t("buttons.getStarted")}</Button>
             </Link>
-            <Link href="/docs" className="w-full">
+            <Link href={DEFAULT_DOCS_HREF} className="w-full">
               <Button variant="outline" className="w-full">
                 {t("buttons.documentation")}
               </Button>
