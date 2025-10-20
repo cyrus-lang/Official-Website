@@ -79,9 +79,15 @@
     "@types/node": "^22.18.1",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "cz-conventional-changelog": "^3.3.0",
     "postcss": "^8",
     "tailwindcss": "^4.1.14",
     "ts-node": "^10.9.2",
     "typescript": "^5"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
