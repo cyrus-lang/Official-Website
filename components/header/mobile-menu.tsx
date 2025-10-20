@@ -8,6 +8,7 @@ import SearchBar from "../search-bar";
 import { LanguageToggle } from "../language-toggle";
 import { ThemeToggle } from "../theme-toggle";
 import { Translation } from "@/types/translation";
+import { HeaderNav } from "./header-nav";
 
 export default function MobileMenu({
   headerItems,
@@ -41,22 +42,7 @@ export default function MobileMenu({
               </Button>
             </SheetTrigger>
           </div>
-
-          <nav className="flex flex-col gap-4 mobile-nav">
-            {headerItems.map((item) => (
-              <Link
-                key={item.content}
-                href={item.path}
-                className={cn(
-                  "text-lg font-medium hover:text-primary transition-colors",
-                  pathname.includes(item.path) && "text-primary",
-                  item?.className
-                )}
-              >
-                {t(item.content)}
-              </Link>
-            ))}
-          </nav>
+          <HeaderNav type="mobile" />
 
           <div className="mt-auto flex flex-col gap-2">
             <div className="flex gap-2 mb-4">
