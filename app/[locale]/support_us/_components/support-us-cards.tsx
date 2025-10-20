@@ -6,7 +6,11 @@ export const SupportUsCards = async ({ t }: TranslationProps) => {
   return (
     <div className="grid gap-8 md:grid-cols-2">
       {supportUsCardsArray(t).map((item, index) => (
-        <SupportUsCard {...item} index={index} />
+        <SupportUsCard
+          key={"support-us-card-" + index}
+          {...item}
+          index={index}
+        />
       ))}
     </div>
   );
