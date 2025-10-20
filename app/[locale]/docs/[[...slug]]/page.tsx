@@ -1,14 +1,17 @@
-import MDXContent from '@/components/mdx-content';
-import { locales } from '@/i18n/routing';
-import { getAllDocPaths, getDocPath } from '@/lib/get-docs-path';
-import { getMdxData } from '@/lib/get-mdx-data';
+import MDXContent from "@/components/mdx-content";
+import { redirect } from "@/i18n/navigation";
+import { locales } from "@/i18n/routing";
+import { getAllDocPaths, getDocPath } from "@/lib/get-docs-path";
+import { getMdxData } from "@/lib/get-mdx-data";
+import { setRequestLocale } from "next-intl/server";
+import { DEFAULT_DOCS_HREF } from "../_page";
 
 interface ShowDocumentPageProps {
-  params: { slug?: string[] };
+  params: Promise<{ slug?: string[]; locale: string }>;
   searchParams?: { locale?: string };
 }
 
-export const dynamic = 'force-static';
+export const dynamic = "force-static";
 
 export async function generateStaticParams() {
   const allPaths: Array<{ slug: string[] }> = [];
@@ -23,18 +26,23 @@ export async function generateStaticParams() {
   return allPaths;
 }
 
-export default async function ShowDocumentPage({ params, searchParams }: ShowDocumentPageProps) {
-  const slug = params.slug ?? [];
-  const locale = searchParams?.locale ?? 'en';
-
-  const filePath = await getDocPath(slug, locale);
+export default async function ShowDocumentPage({
+  params,
+  searchParams,
+}: ShowDocumentPageProps) {
+  const { locale, slug } = await params;
+  setRequestLocale(locale);
+  if (!slug?.length) {
+    redirect({ href: `/${DEFAULT_DOCS_HREF}`, locale });
+  }
+  const filePath = await getDocPath(slug!!, locale);
   if (!filePath) {
     return <div>Document not found</div>;
   }
 
   try {
     const { content } = await getMdxData(filePath);
-    const relativePath = filePath.replace(`${process.cwd()}/`, '');
+    const relativePath = filePath.replace(`${process.cwd()}/`, "");
 
     return (
       <div className="prose lg:prose-xl mx-auto px-1 py-5 pt-8 text-xl sm:container sm:px-0">
@@ -56,4 +64,3 @@ export default async function ShowDocumentPage({ params, searchParams }: ShowDoc
     return <div>Error loading document</div>;
   }
 }
-

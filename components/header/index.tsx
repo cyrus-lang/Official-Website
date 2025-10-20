@@ -15,6 +15,7 @@ import { ThemeToggle } from "../theme-toggle";
 import { Button } from "../ui/button";
 import MobileMenu from "./mobile-menu";
 import { HeaderNav } from "./header-nav";
+import { DEFAULT_DOCS_HREF } from "@/app/[locale]/docs/_page";
 
 export function Logo() {
   return (
@@ -65,10 +66,10 @@ export default async function Header({
           <SearchBar />
           <LanguageToggle />
           <ThemeToggle />
-          <Link href="/docs" className="hidden xl:inline-flex">
+          <Link href={DEFAULT_DOCS_HREF} className="hidden xl:inline-flex">
             <Button variant="outline">{t("buttons.documentation")}</Button>
           </Link>
-          <Link href="/docs" className="hidden xl:inline-flex">
+          <Link href={DEFAULT_DOCS_HREF} className="hidden xl:inline-flex">
             <Button>{t("buttons.getStarted")}</Button>
           </Link>
           <MobileMenu headerItems={headerItems} pathname={pathname} t={t} />

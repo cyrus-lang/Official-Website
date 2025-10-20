@@ -4,7 +4,7 @@ import { SidebarProvider } from "@/components/ui/sidebar";
 import { isLocaleRTL } from "@/hooks/use-locale";
 import { getBreadcrumbTitle } from "@/lib/get-breadcrumb-title";
 import { cn } from "@/lib/utils";
-import { getLocale } from "next-intl/server";
+import { setRequestLocale } from "next-intl/server";
 import type React from "react";
 
 export default async function DocsLayout({
@@ -13,14 +13,13 @@ export default async function DocsLayout({
   searchParams,
 }: {
   children: React.ReactNode;
-  params: { slug?: string[] };
+  params: Promise<{ slug?: string[]; locale: string }>;
   searchParams?: { locale?: string };
 }) {
-  const locale = await getLocale();
+  const { locale, slug } = await params;
+  setRequestLocale(locale);
   const isRTL = isLocaleRTL(locale);
-
-  const slug = params.slug ?? [];
-  const pathname = "/docs/" + slug.join("/");
+  const pathname = "/docs/" + slug?.join("/");
 
   const { navigationItems } = await getBreadcrumbTitle(pathname);
 

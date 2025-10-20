@@ -1,13 +1,16 @@
-import { ReactNode } from "react";
 import Layout from "@/components/layout";
+import { ReactNode } from "react";
 
-export default function PlaygroundLayout({
+export default async function PlaygroundLayout({
   children,
+  params,
 }: {
   children: ReactNode;
+  params: Promise<{ locale: string }>;
 }) {
+  const { locale } = await params;
   return (
-    <Layout header footer>
+    <Layout locale={locale} footer>
       {children}
     </Layout>
   );

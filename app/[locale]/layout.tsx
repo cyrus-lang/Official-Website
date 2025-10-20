@@ -2,11 +2,12 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/toaster";
 import { routing } from "@/i18n/routing";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
-import { getMessages } from "next-intl/server";
+import { getMessages, setRequestLocale } from "next-intl/server";
 import { Inter } from "next/font/google";
 import { notFound } from "next/navigation";
 import type React from "react";
 import "./globals.css";
+import { cookies } from "next/headers";
 // import SplashScreen from "@/components/splash-bar";
 // import AppLoadingWrapper from "@/components/loading-bar";
 
@@ -17,6 +18,10 @@ export const metadata = {
   description: "A programming language for Aliens.",
 };
 
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
+
 export default async function RootLayout({
   children,
   params,
@@ -25,11 +30,14 @@ export default async function RootLayout({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  if (!hasLocale(routing.locales, locale)) {
+
+  if (!routing.locales.includes(locale)) {
     notFound();
   }
 
-  const messages = await getMessages();
+  setRequestLocale(locale);
+
+  const messages = await getMessages({ locale });
 
   return (
     <html lang={locale} suppressHydrationWarning>
@@ -38,11 +46,10 @@ export default async function RootLayout({
       </head>
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <NextIntlClientProvider messages={messages}>
+          <NextIntlClientProvider locale={locale} messages={messages}>
             {/* <SplashScreen /> */}
             {/* <AppLoadingWrapper /> */}
             <Toaster />
-            {/* Client-side wrapper handles both splash + top loading bar */}
             {children}
           </NextIntlClientProvider>
         </ThemeProvider>

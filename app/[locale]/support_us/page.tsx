@@ -1,12 +1,18 @@
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { SupportUsHeader } from "./_components/suport-us-header";
 import { SupportUsCards } from "./_components/support-us-cards";
 import { WhySupportUs } from "./_components/why-support-us";
 import { SupportUsFooter } from "./_components/support-us-footer";
 
-export const dynamic = "force-static";
+const SupportUsPage = async ({
+  params,
+}: {
+  params: Promise<{ locale: "en" | "fa" }>;
+}) => {
+  const { locale } = await params;
 
-const SupportUsPage = async () => {
+  setRequestLocale(locale);
+
   const t = await getTranslations("SupportUs");
 
   return (

@@ -1,10 +1,17 @@
 import { ReactNode } from "react";
 import Layout from "@/components/layout";
 
-export default function ContributorsLayout({
+export default async function ContributorsLayout({
   children,
+  params,
 }: {
   children: ReactNode;
+  params: Promise<{ locale: string }>;
 }) {
-  return <Layout footer>{children}</Layout>;
+  const { locale } = await params;
+  return (
+    <Layout locale={locale} footer>
+      {children}
+    </Layout>
+  );
 }

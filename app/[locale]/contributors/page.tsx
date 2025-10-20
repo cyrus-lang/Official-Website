@@ -1,10 +1,16 @@
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { ContributorsTitle } from "./_components/contributors-title";
 import { ContributorsCards } from "./_components/contributors-cards";
 
 export const dynamic = "force-static";
 
-export default async function ContributorsPage() {
+export default async function ContributorsPage({
+  params,
+}: {
+  params: Promise<{ locale: "en" | "fa" }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations("Contributors");
 
   return (

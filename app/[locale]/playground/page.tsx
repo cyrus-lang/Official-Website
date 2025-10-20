@@ -1,10 +1,15 @@
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { PlaygroundCodeEditor } from "./_components/playground-code-editor";
 import { PlaygroundTitle } from "./_components/playground-title";
 
-export const dynamic = "force-static";
+export default async function PlaygroundPage({
+  params,
+}: {
+  params: Promise<{ locale: "en" | "fa" }>;
+}) {
+  const { locale } = await params;
 
-export default async function PlaygroundPage() {
+  setRequestLocale(locale);
   const t = await getTranslations("Playground");
 
   return (

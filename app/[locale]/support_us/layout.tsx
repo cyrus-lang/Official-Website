@@ -1,12 +1,16 @@
 import Layout from "@/components/layout";
+import { ReactNode } from "react";
 
-export default function SupportUsLayout({
+export default async function SupportUsLayout({
   children,
+  params,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
+  params: Promise<{ locale: string }>;
 }) {
+  const { locale } = await params;
   return (
-    <Layout footer header>
+    <Layout locale={locale} footer>
       {children}
     </Layout>
   );
