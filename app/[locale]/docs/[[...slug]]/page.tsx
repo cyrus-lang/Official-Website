@@ -12,8 +12,6 @@ interface ShowDocumentPageProps {
   searchParams?: { locale?: string };
 }
 
-export const dynamic = "force-static";
-
 export async function generateStaticParams() {
   const allPaths: Array<{ slug: string[] }> = [];
 
