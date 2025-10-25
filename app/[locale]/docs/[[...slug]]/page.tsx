@@ -1,4 +1,5 @@
 import MDXContent from "@/components/mdx-content";
+import { ScrollToElement } from "@/components/scroll-to-element";
 import { redirect } from "@/i18n/navigation";
 import fs from "fs/promises";
 import { getLocale, getTranslations } from "next-intl/server";
@@ -57,7 +58,6 @@ export default async function ShowDocumentPage({
 }) {
   const locale = await getLocale();
   const slug = params.slug || [];
-
   let filePath: string | null = null;
   if (slug.length === 0) {
     redirect({ href: `${DOCS_DEFAULT_PAGE}`, locale });
@@ -79,10 +79,10 @@ export default async function ShowDocumentPage({
     console.error(`Failed to read MDX file at ${filePath}:`, error);
     return DocumentNotFoundComponent();
   }
-
   return (
     <div className="prose lg:prose-xl sm:container mx-auto sm:px-0 px-1 py-5 pt-8 text-xl">
       <MDXContent source={mdxSource} />
+      <ScrollToElement />
       <div className="mt-8 flex justify-end">
         <a
           className="text-sm text-primary hover:underline"

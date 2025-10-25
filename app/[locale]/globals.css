@@ -52,7 +52,7 @@
   --color-destructive-foreground: hsl(0 0% 98%);
   --color-border: hsl(240 5.9% 90%);
   --color-input: hsl(240 5.9% 90%);
-  --color-primary-light:hsl(20 43% 70%);
+  --color-primary-light: hsl(20 43% 70%);
   --color-ring: hsl(252 59% 48%);
   --header-height: 70px;
 }
@@ -76,6 +76,14 @@
   --color-border: hsl(240 3.7% 15.9%);
   --color-input: hsl(240 3.7% 15.9%);
   --color-ring: hsl(252 59% 54%);
+  * {
+    scrollbar-color: color-mix(
+        in oklab,
+        var(--color-neutral-600) 45%,
+        transparent
+      )
+      transparent;
+  }
 }
 
 @layer base {
@@ -165,4 +173,12 @@ button:hover {
   .heading-h3 > a > svg {
     @apply w-5 h-5;
   }
+}
+* {
+  scrollbar-color: color-mix(
+      in oklab,
+      var(--color-neutral-300) 60%,
+      transparent
+    )
+    transparent;
 }

@@ -20,7 +20,7 @@ export default function ClientSidebarWrapper({
         <MobileSidebar navigationItems={navigationItems} />
       )}
 
-      <div className="[&::-webkit-scrollbar]:[width:6px] [&::-webkit-scrollbar-thumb]:bg-gray-400 overflow-y-auto [&::-webkit-scrollbar-thumb]:[border-radius:3px] min-h-[100svh] max-h-[100svh] pb-14">
+      <div className="[&::-webkit-scrollbar]:[width:6px] dark:[&::-webkit-scrollbar-thumb]:bg-neutral-600/45 [&::-webkit-scrollbar-thumb]:bg-neutral-300/60 overflow-y-auto [&::-webkit-scrollbar-thumb]:[border-radius:3px] min-h-[100svh] max-h-[100svh] pb-14">
         <Sidebar navigationItems={navigationItems} />
       </div>
     </>
