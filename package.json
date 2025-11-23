@@ -7,7 +7,8 @@
     "dev": "npm run generate-index && next dev",
     "build": "npm run generate-index && next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "commit": "cz"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",

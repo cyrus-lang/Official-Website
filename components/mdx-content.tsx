@@ -32,7 +32,7 @@ export default async function MDXContent({
       </div>
       <div className=" xl:col-span-3 2xl:col-span-2 lg:col-span-4 col-span-full max-lg:hidden relative">
         <div className="sticky top-24">
-          <p className="text-lg font-semibold mb-3 text-gray-300">
+          <p className="text-lg font-semibold mb-3 dark:text-gray-300 text-gray-500">
             {t("title")}
           </p>
           <HeadingTree items={headings} />

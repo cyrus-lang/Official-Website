@@ -29,8 +29,8 @@ export function HeadingTree({ items }: { items: Heading[] }) {
               }}
               href={`#${slug}`}
               className={cn(
-                "block py-1 text-gray-400 text-wrap hover:underline",
-                hash === `#${slug}` && "text-primary"
+                "block py-1 text-gray-400 text-wrap hover:underline transition",
+                hash === `#${slug}` ? "text-primary":"hover:text-gray-600 dark:hover:text-gray-300"
               )}
             >
               {h.title}
@@ -39,7 +39,7 @@ export function HeadingTree({ items }: { items: Heading[] }) {
             {h.children && h.children.length > 0 && (
               <div
                 className={cn(
-                  "text-gray-500",
+                  "text-gray-400",
                   locale === "en" ? "ml-2 pl-2" : "mr-2 pr-2"
                 )}
               >
