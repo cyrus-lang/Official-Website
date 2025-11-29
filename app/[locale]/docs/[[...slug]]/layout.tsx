@@ -49,7 +49,7 @@ export default async function DocsLayout({
 
       <div
         className={cn(
-          `relative grow pb-6 overflow-y-auto p-4`,
+          `relative grow pb-6 p-4`,
           isRTL ? "md:mr-64 xl:mr-80" : "md:ml-64 xl:ml-80"
         )}
       >

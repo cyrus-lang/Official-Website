@@ -5,8 +5,8 @@
     "hero": {
       "title": "زبان برنامه‌نویسی سایروس",
       "firstTypeTitle": "طراحی شده برای سادگی",
-    "secondTypeTitle": "عملکرد بهینه",
-    "thirdTypeTitle": "رضایت توسعه‌دهندگان",
+      "secondTypeTitle": "عملکرد بهینه",
+      "thirdTypeTitle": "رضایت توسعه‌دهندگان",
       "subtitle": "زبان برنامه‌نویسی طراحی شده برای سادگی، عملکرد و رضایت توسعه‌دهندگان.",
       "getStarted": "شروع کنید",
       "seeExamples": "مشاهده مثال‌ها"
@@ -177,6 +177,10 @@
     }
   },
   "DocsContent": {
+    "onThisPage": {
+      "title": "فهرست مطالب",
+      "editOnGithub": "ویرایش این صفحه در گیت‌هاب"
+    },
     "introduction": {
       "title": "معرفی",
       "documentation": "مستندات",

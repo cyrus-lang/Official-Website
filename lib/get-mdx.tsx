@@ -26,7 +26,7 @@ import { Link } from "@/i18n/navigation";
 import Image, { ImageProps } from "next/image";
 import { getTranslations } from "next-intl/server";
 
-const getTitleId = (text: string) => text?.replace(/\s+/g, "-");
+export const getTitleId = (text: string) => encodeURIComponent(text?.replace(/\s+/g, "-"));
 
 export async function getMDXComponents(
   components?: MDXComponents

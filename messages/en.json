@@ -177,6 +177,10 @@
     }
   },
   "DocsContent": {
+    "onThisPage": {
+      "title": "On this page",
+      "editOnGithub": "Edit this page on GitHub"
+    },
     "introduction": {
       "title": "Introduction",
       "documentation": "Documentation",

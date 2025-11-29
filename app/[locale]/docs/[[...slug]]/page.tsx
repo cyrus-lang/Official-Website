@@ -9,7 +9,6 @@ import { DEFAULT_DOCS_HREF } from "../_page";
 
 interface ShowDocumentPageProps {
   params: Promise<{ slug?: string[]; locale: string }>;
-  searchParams?: { locale?: string };
 }
 
 export async function generateStaticParams() {
@@ -27,7 +26,6 @@ export async function generateStaticParams() {
 
 export default async function ShowDocumentPage({
   params,
-  searchParams,
 }: ShowDocumentPageProps) {
   const { locale, slug } = await params;
   setRequestLocale(locale);
@@ -44,19 +42,9 @@ export default async function ShowDocumentPage({
     const relativePath = filePath.replace(`${process.cwd()}/`, "");
 
     return (
-      <div className="prose lg:prose-xl mx-auto px-1 py-5 pt-8 text-xl sm:container sm:px-0">
-        <MDXContent source={content} />
+      <div className="px-1 py-5 pt-8 text-xl lg:mx-12 md:mx-6 sm:px-0">
+        <MDXContent source={content} path={relativePath} />
         <ScrollToElement />
-        <div className="mt-8 flex justify-end">
-          <a
-            className="text-primary text-sm hover:underline"
-            href={`https://github.com/cyrus-lang/Official-Website/edit/v2/${relativePath}`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Edit this page on GitHub
-          </a>
-        </div>
       </div>
     );
   } catch (error) {
