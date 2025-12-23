@@ -292,85 +292,6 @@ Parentheses () can be used to explicitly control evaluation order.
   </TableHeader>
   <TableBody>
     <TableRow>
-      <TableCell>Lowest</TableCell>
-      <TableCell>
-        Represents the lowest precedence. Used internally as a default when no
-        other precedence applies.
-      </TableCell>
-      <TableCell style={{ textAlign: "right" }}>Lowest</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>sizeof</TableCell>
-      <TableCell>Returns the size of a type or expression in bytes.</TableCell>
-      <TableCell style={{ textAlign: "right" }}>High / Right-to-left</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>||</TableCell>
-      <TableCell>
-        Logical OR. Returns true if at least one operand is true.
-      </TableCell>
-      <TableCell style={{ textAlign: "right" }}>Low / Left-to-right</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>&amp;&amp;</TableCell>
-      <TableCell>
-        Logical AND. Returns true only if both operands are true.
-      </TableCell>
-      <TableCell style={{ textAlign: "right" }}>Low / Left-to-right</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>==, !=</TableCell>
-      <TableCell>Equality and inequality comparison operators.</TableCell>
-      <TableCell style={{ textAlign: "right" }}>
-        Low-Mid / Left-to-right
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>&gt;, &lt;, &gt;=, &lt;=</TableCell>
-      <TableCell>Relational operators to compare values.</TableCell>
-      <TableCell style={{ textAlign: "right" }}>Mid / Left-to-right</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>+, -</TableCell>
-      <TableCell>Addition and subtraction operators.</TableCell>
-      <TableCell style={{ textAlign: "right" }}>
-        Mid-High / Left-to-right
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>*, /, %</TableCell>
-      <TableCell>Multiplication, division, and modulo operators.</TableCell>
-      <TableCell style={{ textAlign: "right" }}>High / Left-to-right</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>&amp;, |, ~, &amp;~</TableCell>
-      <TableCell>Bitwise AND, OR, NOT, and custom combination (~&).</TableCell>
-      <TableCell style={{ textAlign: "right" }}>High / Left-to-right</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>-X, !X</TableCell>
-      <TableCell>Unary prefix operators: negation and logical NOT.</TableCell>
-      <TableCell style={{ textAlign: "right" }}>High / Right-to-left</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>&amp;</TableCell>
-      <TableCell>
-        Address-of operator. Returns the memory address of its operand.
-      </TableCell>
-      <TableCell style={{ textAlign: "right" }}>
-        Lower than member access / Right-to-left
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>*</TableCell>
-      <TableCell>
-        Dereference operator. Accesses the value pointed to by a pointer.
-      </TableCell>
-      <TableCell style={{ textAlign: "right" }}>
-        Higher than member access / Right-to-left
-      </TableCell>
-    </TableRow>
-    <TableRow>
       <TableCell>my_function(x)</TableCell>
       <TableCell>
         Function call. Evaluates arguments and calls the function.
@@ -407,6 +328,85 @@ Parentheses () can be used to explicitly control evaluation order.
         struct or object.
       </TableCell>
       <TableCell style={{ textAlign: "right" }}>High / Left-to-right</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>*, /, %</TableCell>
+      <TableCell>Multiplication, division, and modulo operators.</TableCell>
+      <TableCell style={{ textAlign: "right" }}>High / Left-to-right</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>&amp;, |, ~, &amp;~</TableCell>
+      <TableCell>Bitwise AND, OR, NOT, and custom combination (~&).</TableCell>
+      <TableCell style={{ textAlign: "right" }}>High / Left-to-right</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>-X, !X</TableCell>
+      <TableCell>Unary prefix operators: negation and logical NOT.</TableCell>
+      <TableCell style={{ textAlign: "right" }}>High / Right-to-left</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>sizeof</TableCell>
+      <TableCell>Returns the size of a type or expression in bytes.</TableCell>
+      <TableCell style={{ textAlign: "right" }}>High / Right-to-left</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>*</TableCell>
+      <TableCell>
+        Dereference operator. Accesses the value pointed to by a pointer.
+      </TableCell>
+      <TableCell style={{ textAlign: "right" }}>
+        Higher than member access / Right-to-left
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>+, -</TableCell>
+      <TableCell>Addition and subtraction operators.</TableCell>
+      <TableCell style={{ textAlign: "right" }}>
+        Mid-High / Left-to-right
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>==, !=</TableCell>
+      <TableCell>Equality and inequality comparison operators.</TableCell>
+      <TableCell style={{ textAlign: "right" }}>
+        Low-Mid / Left-to-right
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>&gt;, &lt;, &gt;=, &lt;=</TableCell>
+      <TableCell>Relational operators to compare values.</TableCell>
+      <TableCell style={{ textAlign: "right" }}>Mid / Left-to-right</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>||</TableCell>
+      <TableCell>
+        Logical OR. Returns true if at least one operand is true.
+      </TableCell>
+      <TableCell style={{ textAlign: "right" }}>Low / Left-to-right</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>&amp;&amp;</TableCell>
+      <TableCell>
+        Logical AND. Returns true only if both operands are true.
+      </TableCell>
+      <TableCell style={{ textAlign: "right" }}>Low / Left-to-right</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>&amp;</TableCell>
+      <TableCell>
+        Address-of operator. Returns the memory address of its operand.
+      </TableCell>
+      <TableCell style={{ textAlign: "right" }}>
+        Lower than member access / Right-to-left
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Lowest</TableCell>
+      <TableCell>
+        Represents the lowest precedence. Used internally as a default when no
+        other precedence applies.
+      </TableCell>
+      <TableCell style={{ textAlign: "right" }}>Lowest</TableCell>
     </TableRow>
   </TableBody>
 </Table>
