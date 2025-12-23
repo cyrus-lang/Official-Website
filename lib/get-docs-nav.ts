@@ -3,7 +3,7 @@
 import path from "path";
 import fs from "fs/promises";
 import { getContentBasePath } from "./get-content-base-path";
-import { DocNavItem } from "@/types/doc_nav_item";
+import { DocNavItem } from "@/types/doc-nav-item";
 import { getMdxData } from "@/lib/get-mdx-data";
 
 /**

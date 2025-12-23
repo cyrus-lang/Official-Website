@@ -1,5 +1,5 @@
 // Sidebar.tsx (Server Component)
-import { DocNavItem } from "@/types/doc_nav_item";
+import { DocNavItem } from "@/types/doc-nav-item";
 import { useLocale } from "next-intl";
 import { CollapsibleNavItemClient } from "./collapsible-nav-item";
 import { SidebarItem } from "./sidebar-item";

@@ -1,4 +1,4 @@
-import { DocNavItem } from "@/types/doc_nav_item";
+import { DocNavItem } from "@/types/doc-nav-item";
 import { Sidebar } from "./sidebar";
 import MobileSidebar from "./mobile-sidebar";
 
