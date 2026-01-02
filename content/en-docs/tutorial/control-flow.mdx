@@ -15,13 +15,17 @@ if (condition) {
 }
 ```
 
+Chained conditions:
+
 ```cyrus
-if (condition1) {
-    // executes if condition1 is true
-} else if (condition2) {
-    // executes if condition1 is false but condition2 is true
+var grade: char;
+
+if (score >= 90) {
+    grade = 'A';
+} else if (score >= 75) {
+    grade = 'B';
 } else {
-    // executes if all previous conditions are false
+    grade = 'C';
 }
 ```
 
@@ -47,9 +51,11 @@ for (initializer; condition; increment) {
 
 ```cyrus
 for (var i = 0; i < 10; i++) {
-    // executes 10 times: i = 0..9
+    printf("%d\n", i);
 }
 ```
+
+Runs with i taking values from `0` to `9`.
 
 <br />
 
@@ -58,7 +64,7 @@ for (var i = 0; i < 10; i++) {
 ```cyrus
 for (var i = 0; i < 10;) {
     // executes while i < 10
-    // you must manually increment i inside the body
+    // you should manually increment i inside the body
     i++;
 }
 ```
@@ -70,21 +76,31 @@ Here, the increment part is omitted. The loop continues until the condition beco
 ### Conditionless Loop with Initializer
 
 ```cyrus
-for (var i = 0;) {
-    // infinite unless you break manually
-    // no condition, no increment
-    if (i > 5) {
-        break; // stop after 6 iterations
+for (var attempts = 0;) {
+    if (attempts > 5) {
+        break;
     }
-    i++;
+
+    tryConnect();
+    attempts++;
 }
 ```
 
-Only the initializer is given. Since there's no condition, the loop is infinite unless explicitly terminated with break or return.
+With no condition provided, the loop is infinite unless exited using break or return.
 
 <br />
 
-### Pure Infinite loop
+### Pure Infinite Loop
+
+<WarningAlert>
+  An infinite loop can also be written as:
+  ```cyrus
+    while (true) {
+        handleEvent();
+    }
+  ```
+  Both forms are semantically equivalent. However, using `for { ... }` is preferred for infinite loops to keep the codebase stylistically consistent and to avoid mixing multiple looping styles for the same concept.
+</WarningAlert>
 
 ```cyrus
 for {
@@ -93,6 +109,8 @@ for {
 }
 ```
 
+This form has no initializer, no condition, and no update. It must be terminated explicitly.
+
 <br />
 
 ### While Statement
@@ -100,20 +118,20 @@ for {
 A while loop repeatedly executes a block of code as long as a condition evaluates to true. The condition is checked before each iteration. If the condition is false at the start, the loop body never runs.
 
 ```cyrus
-while (condition) {
-    // body
+while (isRunning) {
+    tick();
 }
 ```
 
 ```cyrus
-#i = 0;
+var attempts = 0;
 
 while (true) {
-    printf("v: %d\n", i);
-    i++;
+    printf("attempt %d\n", attempts);
+    attempts++;
 
-    if (i == 10) {
-        break; // exit when i reaches 10.
+    if (attempts >= maxRetries) {
+        break;
     }
 }
 ```
@@ -122,54 +140,139 @@ while (true) {
 
 ## Switch Statement
 
-A switch statement allows execution to branch based on the value of an expression. It provides a concise way to compare against multiple possibilities without writing a long chain of if–else if statements.
+<InfoAlert>
+  This is not pattern matching. Cases in Cyrus are always compared against raw
+  values, not structural patterns or conditions.
+</InfoAlert>
 
-⚠️ Note: This is not pattern matching. Cases in Cyrus are always compared against raw values, not structural patterns or conditions.
+The switch statement provides structured control flow based on the value of an expression. It supports enum variants with destructuring, value-based matching, and an optional default branch.
 
-<br />
+The general form is:
 
 ### Basic Form
 
 ```cyrus
-#i: int = 0;
-
-switch (i) {
-    case 0:
-        // This block runs if i is equal to 0.
-        break;
-
-    case 1:
-        // This block runs if i is equal to 1.
-        break;
-
-    default:
-        // This block runs if none of the above cases match.
-        break;
+switch (expression) {
+    case pattern => {
+        // body
+    }
+    default => {
+        // optional fallback
+    }
 }
 ```
 
+Each case is introduced using `=>` and executes its associated block when the pattern matches.  
+Execution does not fall through; exactly one matching branch is executed.
+
 <br />
 
-### Fallthrough behavior
+### Switching on Enums
 
-In Cyrus, switch statements automatically fall through to the next case unless you explicitly use break.
-This is the same behavior as in C and C++, and unlike languages such as Go or Rust where each case ends automatically.
+When switching over enum values, each case matches a specific variant.  
+Variants without payloads match by name, while variants with associated data can destructure their fields directly.
 
 ```cyrus
-#i: int = 2;
+enum Color {
+    Red,
+    Green = "green!",
+    Custom(uint, uint, uint)
+}
 
-switch (i) {
-    case 2:
-        // Runs when i == 2
-        // Execution continues into the next case unless we break.
-    case 3:
-        // This also runs, because there was no break after case 2.
-        break;
+pub fn main() {
+    const color = Color.Green;
+
+    switch (color) {
+        case .Red => {
+            printf("red\n");
+        }
+        case .Green(value) => {
+            printf("%s\n", value);
+        }
+        case .Custom(r, g, b) => {
+            printf("(%d, %d, %d)\n", r, g, b);
+        }
+    }
 }
 ```
 
-<br />
+The switch is exhaustive: all possible variants of Color are handled.
 
-### Enum Variants
+### Switch Enum Without Payloads
 
-Switch statements can also match enum variants, but that will be explained in detail in the future on the Enums page.
+```cyrus
+enum Color {
+    Red,
+    Purple,
+    Black
+}
+
+pub fn main() {
+    const color = Color.Black;
+
+    switch (color) {
+        case .Red => {
+            printf("red\n");
+        }
+        case .Purple => {
+            printf("purple\n");
+        }
+        case .Black => {
+            printf("black\n");
+        }
+    }
+}
+```
+
+Each case matches a concrete enum variant. Since all variants are covered, no default branch is required.
+
+### Destructuring Tagged Values
+
+Enums are commonly used as tagged unions. The switch statement allows safe extraction of the stored value based on the active variant.
+
+```cyrus
+enum Value {
+    Int(int64),
+    Text(char*)
+}
+
+pub fn main() {
+    const value = Value.Text("Cyrus!");
+
+    switch (value) {
+        case .Int(number) => {
+            printf("int_value(%d)\n", number);
+        }
+        case .Text(text) => {
+            printf("text_value(%s)\n", text);
+        }
+    }
+}
+```
+
+Here, the bound variable (number, text) is available only within its corresponding case block.
+
+### Switching On Non-enum Values
+
+Switch can also be used with non-enum expressions such as integers, strings, or other comparable values.
+
+```cyrus
+pub fn main() {
+    const text = "Cyrus!";
+
+    switch (text) {
+        case "Cyrus!" => {
+            printf("Cyrus The Great\n");
+        }
+        default => {
+            printf("unknown\n");
+        }
+    }
+}
+```
+
+In this form:
+
+- Each case compares the switch expression against a concrete value
+- Default is executed when no case matches
+- Matching is value-based, not pattern-based
