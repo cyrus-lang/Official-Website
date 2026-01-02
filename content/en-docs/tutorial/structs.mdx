@@ -5,7 +5,7 @@ weight: 6
 
 # Structs 
 
-Structs in Cyrus are **user-defined composite types** that allow grouping related data together.  They are similar to `struct` in C/C++ but follow Cyrus' type system rules.
+Structs in Cyrus are user-defined composite types that group related data together. They are similar to struct in C/C++ but follow Cyrus' type system rules.
 
 <br />
 
@@ -15,11 +15,15 @@ Use the `struct` keyword, followed by the name and fields:
 
 ```cyrus
 struct User {
-    name: char*;
-    age: uint;
-    king: bool;
+    pub name: char*;
+    pub age: uint;
+    king: bool; // private field
 }
 ```
+
+Fields marked with pub can be accessed from outside the struct. 
+Fields without pub are private and can only be accessed inside the struct or its methods.   
+
 
 <br />
 
@@ -39,40 +43,42 @@ var user = User {
 
 ## Accessing Struct Fields
 
-You can access struct fields using the **dot (`.`) operator**:
+You can access struct fields using the dot operator (`.`):
 
 ```cyrus
-user.name; // Output: Cyrus
-user.age;  // Output: 2500
-user.king; // Output: true
+printf("%s is %d years old.\n", user.name, user.age);
 ```
+
+`user.king` is not accessible outside the struct because it is private.
 
 <br />
 
 ## Methods 
 
-Structs can define functions inside their body, called **methods**.
+Structs can define functions inside their body, called methods. Methods allow structs to encapsulate behavior along with data.  
 
 ```cyrus
-pub struct Logger {
-    pub group: char*;
+struct Counter {
+    pub count: int;
 
-    pub fn new(group: char*) Logger { 
-        Logger.logger_initialized();
-        return Logger { group: group };
+    pub fn new(initial: int) Self {
+        return Self { count: initial };
     }
 
-    inline fn logger_initialized() {
-        libc::fprintf(libc::stdout, "Logger init.\n");
+    pub fn increment(&self) {
+        self->count++;
     }
 
-    pub fn logf(&self, format: char*) {
-        libc::printf("[info][%s] %s\n", self->group, format);
+    pub fn reset(&self) {
+        self->count = 0;
+        printf("Counter reset!\n");
     }
+}
 
-    pub inline fn errorf(self, format: char*) {
-        libc::fprintf(libc::stderr, "[error][%s] %s\n", self->group, format);
-    }
+pub fn main() {
+    var c = Counter.new(10);
+    c.increment(); 
+    c.reset();
 }
 ```
 
@@ -80,11 +86,17 @@ pub struct Logger {
 
 ## Static Methods
 
-Static methods do not require a struct instance. Called on the struct type itself. It often used as constructor or helper functions.
+Static methods do not require a struct instance. They are called on the struct type itself:
 
 ```cyrus
-pub fn new(group: char*) Logger {
-    return Logger { group: group };
+pub struct MathUtils {
+    pub fn square(x: int) int {
+        return x * x;
+    }
+}
+
+pub fn main() {
+    printf("%d\n", MathUtils.square(5)); // prints 25
 }
 ```
 
@@ -92,15 +104,11 @@ pub fn new(group: char*) Logger {
 
 ## Instance Methods
 
-Instance methods operate on a struct instance and can access its fields.
+Instance methods operate on a struct instance and can access its fields:
 
 ```cyrus
-pub fn logf(&self, format: char*) {
-    libc::printf("[info][%s] %s\n", self->group, format);
-}
-
-pub fn errorf(self, format: char*) {
-    libc::fprintf(libc::stderr, "[error][%s] %s\n", self->group, format);
+pub fn describe(&self) {
+    printf("Name: %s, Age: %d\n", self->name, self->age);
 }
 ```
 
@@ -114,15 +122,21 @@ Cyrus allows controlling how instance methods receive the struct:
 - `self` → passes a **copy** of the instance (moves it)
 
 ```cyrus
-pub fn logf(&self, format: char*) { ... } // reference
-pub fn errorf(self, format: char*) { ... } // copy
+pub fn print_name(&self) {
+    printf("%s\n", self->name);
+}
+
+pub fn take_ownership(mut self) {
+    self.name = "Changed";
+}
 ```
 
-Note: Attempting to get a reference (&self) from a const-lvalue is not allowed. The compiler will issue an error to prevent modifying or referencing immutable data.
+Attempting to get a reference (&self) from a const-lvalue is not allowed.   
+The compiler will issue an error to prevent modifying or referencing immutable data.
 
 <br />
 
-## Fat Arrows
+## Pointers and Fat Arrows
 
 In Cyrus, you can have pointers to structs. When accessing fields or calling methods through a pointer, you can use **fat pointers** (fat arrows) which **automatically dereference** the pointer.
 
@@ -130,11 +144,11 @@ In Cyrus, you can have pointers to structs. When accessing fields or calling met
 var user = User { name: "Cyrus", age: 2500 }; 
 var ptr = &user;
 
-ptr->name; // Output: Cyrus
-ptr->age; // Output: 2500
+ptr->name; 
+ptr->age;
 ```
 
-Note: Using **ptr->name** or **ptr->age** is equivalent to **{"(*ptr).name"}** and **{"(*ptr).age"}**.
+Using **ptr->name** or **ptr->age** is equivalent to **{"(*ptr).name"}** and **{"(*ptr).age"}**.
 
 <br />
 
@@ -143,14 +157,14 @@ Note: Using **ptr->name** or **ptr->age** is equivalent to **{"(*ptr).name"}** a
 In Cyrus, structs can also be declared **locally inside functions**. This is useful when the type is only relevant to that function and should not pollute the global scope.
 
 ```cyrus
-fn main() {
+pub fn main() {
     struct User {
         name: char*;
         age: uint;
     }
 
     var user = User { name: "Cyrus", age: 2500 }; 
-    libc::printf("%s is %d years old.\n", user.name, user.age);
+    printf("%s is %d years old.\n", user.name, user.age);
 }
 ```
 
@@ -187,7 +201,7 @@ var state = struct {
 };
 ```
 
-Note: Unnamed structs cannot define methods.
+Unnamed structs cannot define methods.
 
 <br />
 
@@ -196,13 +210,13 @@ Note: Unnamed structs cannot define methods.
 Unnamed structs are not limited to local scope. They can also be declared globally and accessed across functions (if marked public).
 
 ```cyrus
-pub const CONFIG = struct {
+const config = struct {
     host = "127.0.0.1",
     port = 8080
 };
 
-fn main() {
-    printf("host: %s\n", CONFIG.host);
-    printf("port: %d\n", CONFIG.port);
+pub fn main() {
+    printf("host: %s\n", config.host);
+    printf("port: %d\n", config.port);
 }
 ```
