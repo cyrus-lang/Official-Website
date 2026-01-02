@@ -1,5 +1,4 @@
 ---
-
 title: Variables
 weight: 3
 ---
@@ -9,62 +8,52 @@ weight: 3
 Global variables are declared at top-level. They may be **private** (no `pub`) or **public** (`pub`). Use `var` for mutable globals, `const` for immutable globals, and `extern` to declare symbols provided externally (no initializer).
 
 ```cyrus
-// public globals
-pub var  NAME: OptionalType = Value;
-pub const NAME: OptionalType = Value;
-pub extern NAME: Type; // public external symbol (no initializer)
-
-// private globals
-var  NAME: OptionalType = Value;
-const NAME: OptionalType = Value;
-extern NAME: Type; // private external symbol (no initializer)
-```
-
-* **var**: mutable global (initializer optional; zero-initialized if omitted).
-* **const**: immutable global (must be initialized at declaration).
-* **extern**: declares a symbol provided by the runtime/linker.
-
-Examples:
-
-```cyrus
-const MY_VAL = 10;                  // private immutable global
-pub var MY_VAR = 10;               // public mutable global
-var COUNTER: int;                   // private mutable global, zero-initialized
-pub const MAX: int = 100;           // explicit type
-pub const VERSION: char* = "1.0";
-
-pub extern stdin: void*;            // public external symbol
-extern errno: int;                  // private external symbol
+const version = "1.0"; // private immutable global
+pub var requestCount = 0; // public mutable global
+var activeUsers: int; // zero-initialized
+pub const maxConnections: int = 100; // public immutable global
+pub extern stdin: void*; // public external symbol
+extern errno: int; // private external symbol
 ```
 
 Reassignment rules:
 
 ```cyrus
-pub const PI = 3.14159;
-PI = 3.14; // ❌ cannot assign to const variable
+const pi = 3.14159;
 
-pub var CONFIG = 0;
-CONFIG = 1; // ✅ allowed
+fn main() {
+    pi = 3.14; // cannot assign to const variable
+}
 ```
 
----
+```cyrus
+var counter = 0;
+
+pub fn main() {
+    counter = 1; // allowed
+    counter++; // allowed
+}
+```
+
+<br />
 
 ## Local Variables
 
 Local variables inside functions are declared using `var` or `const`.
 
 ```cyrus
-var name: OptionalType = Value;
-const name: OptionalType = Value;
+pub fn main() {
+    var name = "Cyrus";
+    const timeoutMs = 500;
+}
 ```
 
-Examples:
+If the type matters:
 
 ```cyrus
-fn main() {
-    var a = 10;    // mutable
-    const b = 20;  // immutable
-    var c: int;    // zero-initialized; defaults to 0
+pub fn main() {
+    var retries: int; // zero-initialized
+    const epsilon: float64 = 0.001;
 }
 ```
 
@@ -75,9 +64,13 @@ fn main() {
 Variables (both globals and locals) declared without an initializer are automatically zero-initialized:
 
 ```cyrus
-var x: int;
-var y: float64;
+pub fn main() {
+    var x: int;
+    var y: float64;
+    var z: void*;
 
-printf("%d\n", x);   // prints 0
-printf("%f\n", y);   // prints 0.0
+    printf("%d\n", x); // prints 0
+    printf("%f\n", y); // prints 0.0
+    printf("%d\n", z); // prints null
+}
 ```
