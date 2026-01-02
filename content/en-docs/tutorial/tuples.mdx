@@ -21,8 +21,8 @@ var t = (10, 20);
 You can access tuple elements using numeric indices starting from `0`:
 
 ```cyrus
-printf("%d\n", t.0); // 10
-printf("%d\n", t.1); // 20
+printf("%d\n", t.0); // prints 10
+printf("%d\n", t.1); // prints 20
 ```
 
 <br />
@@ -36,7 +36,7 @@ fn pair(x: int, y: int) (int, int) {
     return (x, y);
 }
 
-fn main() {
+pub fn main() {
     var (a, b) = pair(10, 20);
     printf("%d %d\n", a, b);
 }
@@ -50,9 +50,9 @@ Tuples can be **destructured** into individual variables in a single declaration
 Each element in the tuple pattern receives the corresponding element from the right-hand side.
 
 ```cyrus
-fn main() {
+pub fn main() {
     var (x, y) = (10, 20);
-    printf("%d %d\n", x, y); // 10 20
+    printf("%d %d\n", x, y); // prints 10 20
 }
 ```
 
@@ -64,9 +64,9 @@ Tuples can contain other tuples.
 Destructuring works recursively and matches the shape of the right-hand side:
 
 ```cyrus
-fn main() {
+pub fn main() {
     var (x, (y, z)) = (1, (2, 3));
-    printf("%d %d %d\n", x, y, z); // 1 2 3
+    printf("%d %d %d\n", x, y, z); // prints 1, 2, 3
 }
 ```
 
@@ -111,8 +111,7 @@ var (p, q) = (7, 8);   // both mutable
 Example of invalid code:
 
 ```cyrus
-// Tuple export without RHS is not allowed.
-var (a, (b, c));
+var (a, (b, c)); // tuple export without rhs is not allowed
 ```
 
 Tuples in Cyrus are designed to be type-safe, efficient, and compiler-optimized.

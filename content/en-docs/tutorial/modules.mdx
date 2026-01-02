@@ -37,7 +37,7 @@ To use a module in another file, you import it.
 ```cyrus
 import user_utils;
 
-fn main() {
+pub fn main() {
   user_utils::greet("Cyrus");
 }
 ```
@@ -56,7 +56,7 @@ You can import only a single symbol instead of the whole module:
 ```cyrus
 import user_utils{greet};
 
-fn main() {
+pub fn main() {
   greet("Alice"); // no need for module path prefix
 }
 ```
@@ -73,7 +73,7 @@ import (
   user_utils{greet}
 );
 
-fn main() {
+pub fn main() {
   var sum = math_ops::add(3, 5);
   greet("Bob");
 }
@@ -90,7 +90,7 @@ Renaming avoids conflicts or makes names clearer.
 ```cyrus
 import user_utils{greet as greet_renamed};
 
-fn main() {
+pub fn main() {
   greet_renamed("Charlie");
 }
 ```
@@ -100,7 +100,7 @@ fn main() {
 ```cyrus
 import math_ops as my_math;
 
-fn main() {
+pub fn main() {
   var result = my_math::mul(4, 6);
 }
 ```
