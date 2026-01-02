@@ -18,12 +18,14 @@ export const HomeCommunityCard = ({
     {item.icon}
     <h3 className="text-xl font-bold mb-2">{item.title}</h3>
     <p className="text-muted-foreground mb-4">{item.desc}</p>
-    <Link href={item.link} passHref legacyBehavior>
-      <Button variant="outline" className="w-full" asChild>
-        <a target="_blank" rel="noopener noreferrer">
-          {item.button}
-        </a>
-      </Button>
-    </Link>
+    <Button variant="outline" className="w-full" asChild>
+      <Link
+        href={item.link}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {item.button}
+      </Link>
+    </Button>
   </Motion>
 );
