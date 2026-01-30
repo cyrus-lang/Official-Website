@@ -15,9 +15,9 @@ Cyrus is designed for developers who want the power of low-level control without
 
 ### Why Cyrus?
 
-- Expressiveness - Code should feel natural to read and write, without unnecessary ceremony.
-- Performance - The compiler generates optimized native code, making Cyrus suitable for demanding workloads.
 - Simplicity - A small but powerful core, with a standard library that grows with your needs, not against them.
+- Performance - The compiler generates optimized native code, making Cyrus suitable for demanding workloads.
+- Expressiveness - Code should feel natural to read and write, without unnecessary ceremony.
 
 <br />
 
@@ -26,11 +26,11 @@ Cyrus is designed for developers who want the power of low-level control without
 Here's a glimpse of what Cyrus code looks like:
 
 ```cyrus
-import std::libc;
+import std::libc{printf};
 
 pub fn main() {
   const msg: char* = "Hello, Cyrus!";
-  libc::printf("%s\n", msg);
+  printf("%s\n", msg);
 }
 ```
 

@@ -9,10 +9,14 @@ export const HomeCommunityCard = ({
 }: HomeCommunityType & { index: number }) => (
   <Motion
     key={index}
-    initial={{ opacity: 0, y: 20 }}
-    whileInView={{ opacity: 1, y: 0 }}
+    initial={{ opacity: 0 }}
+    whileInView={{ opacity: 1 }}
     viewport={{ once: true, amount: 0.8 }}
-    transition={{ duration: 0.4, delay: index * 0.1 }}
+    transition={{
+      duration: 0.6,
+      delay: index * 0.08,
+      ease: [0.25, 0.1, 0.25, 1.0]
+    }}
     className="bg-background rounded-lg p-6 shadow-xs border text-center hover:scale-[107.5%] transition-transform"
   >
     {item.icon}

@@ -11,21 +11,6 @@ export const HomeHero = ({ t }: TranslationProps) => (
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-primary">
           {t("hero.title")}
         </h1>
-        {/* <h2 className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                    <Typewriter
-                      words={[
-                        t("hero.firstTypeTitle"),
-                        t("hero.secondTypeTitle"),
-                        t("hero.thirdTypeTitle"),
-                      ]}
-                      loop={0}
-                      cursor
-                      cursorStyle="|"
-                      typeSpeed={75}
-                      deleteSpeed={75}
-                      delaySpeed={1250}
-                    />
-                  </h2> */}
         <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
           {t("hero.subtitle")}
         </p>
