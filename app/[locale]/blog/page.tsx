@@ -89,7 +89,7 @@ export default async function BlogPage({
         {featuredPost && (
           <section className="mb-16">
             <Link href={`/${locale}/blog/${featuredPost.slug}`} className="group block">
-              <div className="grid gap-8 overflow-hidden rounded-[2.5rem] bg-secondary/20 border border-border p-6 md:grid-cols-2 md:p-10 transition-all hover:border-primary/50 hover:shadow-lg">
+              <div className="grid gap-8 overflow-hidden rounded-md bg-secondary/20 border border-border p-6 md:grid-cols-2 md:p-10 transition-all hover:border-primary/50 hover:shadow-lg">
                 <div className="relative aspect-video w-full overflow-hidden rounded-3xl md:aspect-auto">
                   <img
                     src={featuredPost.image}
@@ -131,8 +131,8 @@ export default async function BlogPage({
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {regularPosts.map((post) => (
             <Link key={post.slug} href={`/${locale}/blog/${post.slug}`} className="group h-full">
-              <Card className="h-full flex flex-col overflow-hidden rounded-[2rem] border-border bg-card transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-primary/50">
-                <div className="aspect-[16/10] w-full overflow-hidden bg-muted">
+              <Card className="h-full flex flex-col overflow-hidden rounded-md border-border bg-card transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-primary/50">
+                <div className="aspect-16/10 w-full overflow-hidden bg-muted">
                   <img
                     src={post.image}
                     alt={post.title}

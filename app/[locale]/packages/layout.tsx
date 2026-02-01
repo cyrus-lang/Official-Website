@@ -13,7 +13,7 @@ export default async function PacakgesLayout({
 
   setRequestLocale(locale);
   return (
-    <Layout locale={locale} className="flex flex-col min-h-screen">
+    <Layout locale={locale} footer>
       {children}
     </Layout>
   );

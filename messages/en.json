@@ -314,5 +314,20 @@
     "readTime": "min read",
     "readButton": "Read",
     "emptyState": "No posts found. Check back later!"
+  },
+  "Packages": {
+    "title": "Packages",
+    "subtitle": "Explore and install libraries built by the Cyrus community.",
+    "searchPlaceholder": "Search packages (e.g. 'http', 'json')...",
+    "stats": {
+      "downloads": "Downloads",
+      "version": "Version",
+      "updated": "Updated",
+      "license": "License"
+    },
+    "empty": "No packages found matching your search.",
+    "install": "Install",
+    "documentation": "Documentation",
+    "dependencies": "Dependencies"
   }
 }
