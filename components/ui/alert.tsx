@@ -1,3 +1,5 @@
+import { DetailedHTMLProps, HTMLAttributes } from "react";
+
 type AlertProps = {
   title?: string;
   children?: React.ReactNode;
@@ -15,13 +17,20 @@ function BaseAlert({ title, children, color, icon, defaultTitle }: AlertProps) {
 
   const circleColors: Record<string, string> = {
     red: "border-red-100 bg-red-200 text-red-800 dark:border-red-950 dark:bg-red-800 dark:text-red-100",
-    yellow: "border-yellow-100 bg-yellow-200 text-yellow-800 dark:border-yellow-900 dark:bg-yellow-700 dark:text-yellow-100",
+    yellow:
+      "border-yellow-100 bg-yellow-200 text-yellow-800 dark:border-yellow-900 dark:bg-yellow-700 dark:text-yellow-100",
     blue: "border-blue-100 bg-blue-200 text-blue-800 dark:border-blue-950 dark:bg-blue-800 dark:text-blue-100",
   };
 
   return (
     <div
       className={`${bgColors[color]} border-t-4 p-3 md:p-4 mb-4 rounded-md alert-parent`}
+      style={
+        { "--code-block-color": color } as DetailedHTMLProps<
+          HTMLAttributes<HTMLDivElement>,
+          HTMLDivElement
+        >
+      }
       role="alert"
     >
       <div className="flex flex-col sm:flex-row">
@@ -45,7 +54,10 @@ function BaseAlert({ title, children, color, icon, defaultTitle }: AlertProps) {
   );
 }
 
-export function ErrorAlert(props: { title?: string; children?: React.ReactNode }) {
+export function ErrorAlert(props: {
+  title?: string;
+  children?: React.ReactNode;
+}) {
   return (
     <BaseAlert
       {...props}
@@ -67,7 +79,10 @@ export function ErrorAlert(props: { title?: string; children?: React.ReactNode }
   );
 }
 
-export function WarningAlert(props: { title?: string; children?: React.ReactNode }) {
+export function WarningAlert(props: {
+  title?: string;
+  children?: React.ReactNode;
+}) {
   return (
     <BaseAlert
       {...props}
@@ -89,7 +104,10 @@ export function WarningAlert(props: { title?: string; children?: React.ReactNode
   );
 }
 
-export function InfoAlert(props: { title?: string; children?: React.ReactNode }) {
+export function InfoAlert(props: {
+  title?: string;
+  children?: React.ReactNode;
+}) {
   return (
     <BaseAlert
       {...props}
