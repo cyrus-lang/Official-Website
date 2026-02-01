@@ -10,10 +10,11 @@ import {
 import { playgroundVersionsArray } from "@/content/playground/playground-versions";
 import { Code, Keyboard, Play } from "lucide-react";
 import { Fragment, useState } from "react";
+import { Textarea } from "./ui/textarea";
 
 export const CodeEditor = ({
   placeholder,
-  outputPlacehoder,
+  outputPlaceholder,
   shortcuts,
   outputTitle,
   runButtonLabel,
@@ -21,18 +22,18 @@ export const CodeEditor = ({
   placeholder: string;
   shortcuts: { title: string; keys: string[]; seprator?: string };
   outputTitle: string;
-  outputPlacehoder: string;
+  outputPlaceholder: string;
   runButtonLabel: string;
 }) => {
   const [code, setCode] = useState("");
-  const [output, setOutput] = useState(outputPlacehoder);
+  const [output, setOutput] = useState(outputPlaceholder);
   const [selectedVersion, setSelectedVersion] = useState(
     playgroundVersionsArray[0].value
   );
 
   const handleRunCode = () => {
     setOutput(
-      `Running code on version: ${selectedVersion}\n\n${outputPlacehoder}`
+      `Running code on version: ${selectedVersion}\n\n${outputPlaceholder}`
     );
   };
 
@@ -48,7 +49,7 @@ export const CodeEditor = ({
           value={selectedVersion}
           onValueChange={(value) => setSelectedVersion(value)}
         >
-          <SelectTrigger className="w-[180px]">
+          <SelectTrigger className="w-45">
             <SelectValue placeholder="Select version" />
           </SelectTrigger>
           <SelectContent>
@@ -63,17 +64,14 @@ export const CodeEditor = ({
           </SelectContent>
         </Select>
 
-        <Button
-          onClick={handleRunCode}
-          className="bg-blue-600 hover:bg-blue-700 text-white"
-        >
+        <Button onClick={handleRunCode}>
           <Play className="h-4 w-4 mr-2" />
           {runButtonLabel}
         </Button>
       </div>
 
-      <textarea
-        className="w-full min-h-40 h-80 p-4 border rounded-lg font-mono text-sm bg-gray-200 dark:text-white text-neutral-800 border-gray-300 dark:border-gray-700 focus:outline-hidden focus:ring-2 focus:ring-blue-500 dark:bg-[#121212]"
+      <Textarea
+        className="min-h-48"
         placeholder={placeholder}
         value={code}
         onChange={(e) => setCode(e.target.value)}
@@ -104,9 +102,12 @@ export const CodeEditor = ({
           <Code className="h-5 w-5 text-green-600" />
           {outputTitle}
         </h3>
-        <div className="w-full h-52 overflow-scroll p-4 border rounded-lg font-mono text-sm bg-gray-200 dark:text-white/60 text-neutral-800/60 dark:bg-[#121212] border-gray-300 dark:border-gray-700">
-          {output}
-        </div>
+        <Textarea
+          value={output}
+          className="min-h-52 max-h-72 focus-visible:ring-0 cursor-default"
+          onChange={() => { }}
+          readOnly
+        />
       </div>
     </>
   );

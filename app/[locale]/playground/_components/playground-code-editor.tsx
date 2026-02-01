@@ -8,12 +8,13 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Code } from "lucide-react";
+
 export const PlaygroundCodeEditor = ({ t }: TranslationProps) => {
   return (
     <Card className="shadow-lg">
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
-          <Code className="h-5 w-5 text-blue-600" />
+          <Code className="h-5 w-5 text-primary" />
           {t("codeEditor.title")}
         </CardTitle>
         <CardDescription>{t("subtitle")}</CardDescription>
@@ -21,7 +22,7 @@ export const PlaygroundCodeEditor = ({ t }: TranslationProps) => {
       <CardContent className="space-y-6">
         <CodeEditor
           runButtonLabel={t("codeEditor.runButton")}
-          outputPlacehoder={t("output.placeholder")}
+          outputPlaceholder={t("output.placeholder")}
           outputTitle={t("output.title")}
           placeholder={t("codeEditor.placeholder")}
           shortcuts={{
