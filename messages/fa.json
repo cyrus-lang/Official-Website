@@ -314,5 +314,22 @@
     "readTime": "دقیقه مطالعه",
     "readButton": "مطالعه مطلب",
     "emptyState": "مطلبی یافت نشد. بعداً دوباره سر بزنید!"
+  },
+  "Packages": {
+    "title": "بسته ها",
+    "headerTitle": { "normal": "سایروس", "colored": "بسته‌ها" },
+    "subtitle": "کتابخانه‌های ساخته‌شده توسط جامعه سایروس را بررسی و نصب کنید.",
+    "searchPlaceholder": "جستجوی بسته‌ها (مثلاً 'http' یا 'json')...",
+    "stats": {
+      "downloads": "دانلودها",
+      "author": "توسعه‌دهنده",
+      "version": "نسخه",
+      "updated": "آخرین بروزرسانی",
+      "license": "لایسنس"
+    },
+    "empty": "هیچ پکیجی مطابق جستجوی شما پیدا نشد.",
+    "install": "نصب",
+    "documentation": "مستندات",
+    "dependencies": "وابستگی‌ها"
   }
 }

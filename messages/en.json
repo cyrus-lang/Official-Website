@@ -317,10 +317,12 @@
   },
   "Packages": {
     "title": "Packages",
+    "headerTitle": { "normal": "Cyrus", "colored": "Packages" },
     "subtitle": "Explore and install libraries built by the Cyrus community.",
     "searchPlaceholder": "Search packages (e.g. 'http', 'json')...",
     "stats": {
       "downloads": "Downloads",
+      "author": "Author",
       "version": "Version",
       "updated": "Updated",
       "license": "License"
