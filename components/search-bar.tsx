@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useMemo } from "react";
 import { Search, X, ExternalLink } from "lucide-react";
-import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog";
+import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -81,10 +81,17 @@ export default function SearchBar() {
       </DialogTrigger>
 
       <DialogContent
-        className="max-w-[90vw] sm:max-w-[600px] max-h-[80vh] sm:max-h-[60vh] p-0 rounded-lg"
+        className="max-w-[90vw] sm:max-w-150 max-h-[80vh] sm:max-h-[60vh] p-0 rounded-lg"
         dir={locale === "fa" ? "rtl" : "ltr"}
         closeButton={false}
       >
+        <DialogHeader className="sr-only">
+          <DialogTitle>{t("search.ariaLabel") || "Search"}</DialogTitle>
+          <DialogDescription>
+            Search documentation and site content
+          </DialogDescription>
+        </DialogHeader>
+
         <div className="relative flex-1 px-4 pt-4">
           <Search
             className={`h-5 w-5 text-muted-foreground absolute top-[calc(50%+8px)] transform -translate-y-1/2
@@ -123,7 +130,7 @@ export default function SearchBar() {
                   dir={locale === "fa" ? "rtl" : "ltr"}
                   className="p-4 bg-card rounded-lg border border-border shadow-xs 
             transition-all duration-200 cursor-pointer group
-            hover:shadow-md hover:-translate-y-[2px] 
+            hover:shadow-md hover:-translate-y-0.5 
             hover:bg-accent/40 dark:hover:bg-accent/30"
                 >
                   <Link
@@ -131,9 +138,8 @@ export default function SearchBar() {
                     className="block no-underline hover:no-underline focus:no-underline"
                   >
                     <div
-                      className={`flex items-center justify-between ${
-                        locale === "fa" ? "flex-row-reverse text-right" : ""
-                      }`}
+                      className={`flex items-center justify-between ${locale === "fa" ? "flex-row-reverse text-right" : ""
+                        }`}
                     >
                       {locale === "fa" ? (
                         <>
@@ -157,9 +163,8 @@ export default function SearchBar() {
                     </div>
 
                     <p
-                      className={`text-sm text-muted-foreground mt-2 line-clamp-2 ${
-                        locale === "fa" ? "text-right" : ""
-                      }`}
+                      className={`text-sm text-muted-foreground mt-2 line-clamp-2 ${locale === "fa" ? "text-right" : ""
+                        }`}
                     >
                       {result.content}
                     </p>
@@ -167,11 +172,10 @@ export default function SearchBar() {
                     <div
                       className={`flex items-center gap-2 mt-3 text-sm text-primary/80 
                           group-hover:text-primary transition-colors duration-200
-                          ${
-                            locale === "fa"
-                              ? "flex-row-reverse justify-end"
-                              : ""
-                          }`}
+                          ${locale === "fa"
+                          ? "flex-row-reverse justify-end"
+                          : ""
+                        }`}
                     >
                       <ExternalLink className="h-4 w-4" />
                       {t("search.goToPage") || "Go to page"}

@@ -1,7 +1,5 @@
-// app/components/header.tsx
 import LogoDark from "@/app/assets/logo-dark.png";
 import LogoLight from "@/app/assets/logo-light.png";
-import { headerItems } from "@/content/header-items";
 import { Link } from "@/i18n/navigation";
 import { getBreadcrumbTitle } from "@/lib/get-breadcrumb-title";
 import { getLocaleInfo } from "@/lib/get-locale-info";
@@ -51,7 +49,7 @@ export default async function Header({
         className
       )}
     >
-      <div className="px-4 flex items-center justify-between h-[var(--header-height)]">
+      <div className="px-4 flex items-center justify-between h-(--header-height)">
         <div className="flex items-center">
           <Link href="/" className="flex items-center gap-2">
             <Logo />
@@ -72,7 +70,9 @@ export default async function Header({
           <Link href={DEFAULT_DOCS_HREF} className="hidden xl:inline-flex">
             <Button>{t("buttons.getStarted")}</Button>
           </Link>
-          <MobileMenu headerItems={headerItems} pathname={pathname} t={t} />
+
+
+          <MobileMenu />
         </div>
       </div>
       {isDocsRoute && navigationItems && (

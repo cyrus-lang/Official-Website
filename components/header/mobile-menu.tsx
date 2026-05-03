@@ -1,25 +1,36 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Link } from "@/i18n/navigation";
-import { cn } from "@/lib/utils";
-import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
+import { Sheet, SheetContent, SheetTrigger, SheetClose, SheetTitle, SheetDescription } from "../ui/sheet";
 import { Button } from "../ui/button";
 import { Logo } from "../header";
 import SearchBar from "../search-bar";
 import { LanguageToggle } from "../language-toggle";
 import { ThemeToggle } from "../theme-toggle";
-import { Translation } from "@/types/translation";
 import { HeaderNav } from "./header-nav";
 import { DEFAULT_DOCS_HREF } from "@/app/[locale]/docs/_page";
+import { useTranslations } from "next-intl";
+import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
 
-export default function MobileMenu({
-  headerItems,
-  pathname,
-  t,
-}: {
-  headerItems: { path: string; content: string; className?: string }[];
-  pathname: string;
-  t: Translation;
-}) {
+export default function MobileMenu() {
+  const t = useTranslations("Header");
+
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return (
+      <Button variant="outline" size="icon" className="xl:hidden">
+        <Menu className="h-6 w-6" />
+      </Button>
+    );
+  }
+
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -30,19 +41,26 @@ export default function MobileMenu({
       </SheetTrigger>
 
       <SheetContent side="right" className="w-full fixed inset-0 ml-auto">
+        <VisuallyHidden.Root>
+          <SheetTitle>{t("buttons.toggleMenu")}</SheetTitle>
+          <SheetDescription>Mobile navigation menu</SheetDescription>
+        </VisuallyHidden.Root>
+
         <div className="flex flex-col h-full">
           <div className="flex items-center justify-between mb-6">
             <Link href="/" className="flex items-center gap-2">
               <Logo />
               <span className="text-xl font-bold brand-text">{t("brand")}</span>
             </Link>
-            <SheetTrigger asChild>
+
+            <SheetClose asChild>
               <Button variant="outline" size="icon">
                 <X className="h-6 w-6" />
                 <span className="sr-only">{t("buttons.closeMenu")}</span>
               </Button>
-            </SheetTrigger>
+            </SheetClose>
           </div>
+
           <HeaderNav type="mobile" />
 
           <div className="mt-auto flex flex-col gap-2">
