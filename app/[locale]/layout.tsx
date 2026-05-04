@@ -14,7 +14,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
   title: "Cyrus Programming Language",
-  description: "A programming language for Aliens.",
+  description: "Cyrus is a mid-level systems programming language built on LLVM, featuring manual memory management, static typing, C-like semantics, and predictable high-performance execution."
 };
 
 export function generateStaticParams() {

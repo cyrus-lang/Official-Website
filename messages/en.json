@@ -4,7 +4,7 @@
     "about": "Go to the about page",
     "hero": {
       "title": "Cyrus Programming Language",
-      "subtitle": "A programming language engineered for simplicity, performance, and easy migration, minimizing maintenance costs and maximizing developer joy",
+      "subtitle": "A systems programming language designed for simplicity, high performance, and low cognitive overhead, reducing long-term maintenance costs while keeping full control in the hands of the developer.",
       "getStarted": "Get Started",
       "seeExamples": "See Examples"
     },
@@ -52,9 +52,9 @@
     },
     "why": {
       "title": "Ancient Wisdom, Modern Power",
-      "paragraph1": "Cyrus combines timeless engineering principles with cutting-edge compiler technology to create a language that is both intuitive and powerfully efficient.",
-      "paragraph2": "In a crowded landscape of programming languages, Cyrus stands out by offering a carefully balanced blend of simplicity and control. It is designed for developers who value both productivity and raw performance, without forcing compromises. Its clean, expressive syntax lowers the barrier to entry, while its high-performance compiler ensures your programs run with predictable efficiency.",
-      "paragraph3": "Cyrus is built on a philosophy of minimalism and predictable abstraction. It provides deterministic low-level control and a transparent execution model, giving developers the confidence to write robust, efficient code without hidden runtime mechanisms. Whether you are prototyping a new idea or building high-performance systems, Cyrus ensures your code remains fast, clear, and maintainable. With support for modern programming paradigms, a straightforward module system, and an unwavering focus on simplicity, Cyrus empowers developers for everything from small scripts to complex, large-scale software."
+      "paragraph1": "Cyrus combines proven systems programming principles with a modern compiler foundation to deliver a language that is both intuitive and deeply efficient.",
+      "paragraph2": "In a crowded landscape of programming languages, Cyrus takes a different path. It focuses on clarity, control, and predictability—without layering complexity on top of the developer. It is designed for those who value understanding their code as much as running it fast. Its clean and familiar syntax reduces unnecessary cognitive overhead, allowing you to focus on logic rather than language mechanics. At the same time, its LLVM-based compiler ensures consistent and reliable performance.",
+      "paragraph3": "Cyrus follows a philosophy of minimal and controlled abstraction. It provides deterministic low-level control and a transparent execution model, without hidden runtime behavior or implicit systems working behind the scenes. Memory, performance, and behavior remain visible and under your control. Rather than introducing new paradigms, Cyrus builds on concepts that systems programmers already understand. The result is a language that feels natural to read and write while remaining powerful enough for performance-critical software."
     },
     "getStarted": {
       "title": "Get Started with Cyrus Programming Language",
@@ -134,7 +134,7 @@
   },
   "Footer": {
     "brand": "Cyrus",
-    "description": "A modern programming language designed for simplicity, performance, and developer happiness.",
+    "description": "A systems programming language designed for simplicity, high performance, and low cognitive overhead, reducing long-term maintenance costs while keeping full control in the hands of the developer.",
     "sections": {
       "resources": {
         "title": "Resources",
