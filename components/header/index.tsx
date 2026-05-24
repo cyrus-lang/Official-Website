@@ -115,6 +115,7 @@ export default async function Header({
           <MobileMenu isTransparent={isTransparent} />
         </div>
       </div>
+      
       {isDocsRoute && navigationItems && (
         <MobileSidebar
           pathname={pathname}

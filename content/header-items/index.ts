@@ -6,7 +6,10 @@ export const headerItems: {
   { path: "/blog", content: "navigation.blog" },
   { path: "/forum", content: "navigation.forum" },
   { path: "/packages", content: "navigation.packages" },
-  { path: "/playground", content: "navigation.playground" },
+
+  // DISABLED
+  // { path: "/playground", content: "navigation.playground" }, 
+  
   { path: "/contributors", content: "navigation.contributors" },
   { path: "/support_us", content: "navigation.supportUs" },
   { path: "/philosophy", content: "navigation.philosophy" },

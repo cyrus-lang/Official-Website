@@ -4,6 +4,7 @@ import { headerItems } from "@/content/header-items";
 import { Link, usePathname } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
+
 export const HeaderNav = ({
   type = "desktop",
 }: {
