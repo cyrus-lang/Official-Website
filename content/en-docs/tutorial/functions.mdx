@@ -67,8 +67,6 @@ Cyrus classifies function modifiers into distinct semantic groups. This separati
 
 ### Visibility
 
-{/* TODO Mention that why main function must be public. */}
-
 Controls where the function can be referenced from.
 
 ```cyrus
@@ -283,6 +281,46 @@ pub fn main() {
 }
 ```
 
+Lambdas can be returned from functions or assigned to variables like any other type:
+
+```cyrus
+fn make_double_handler() fn(float64) float64 {
+    return fn(x: float64) float64 {
+        return x * 2.0;
+    };
+}
+
+pub fn main() {
+    const handler = make_double_handler();
+    const result = handler(15.3);
+}
+```
+
+Global or local variables can also hold lambda definitions:
+
+```cyrus
+var handler = fn(x: float64, y: float64) float64 {
+    return 1.5;
+};
+
+pub fn main() {
+    const compute_handler = fn(cond: bool) fn(float64, float64) float64 {
+        if (cond) {
+            return fn(x: float64, y: float64) float64 {
+                return y + x;
+            };
+        } else {
+            return fn(x: float64, y: float64) float64 {
+                return -y * 2.0;
+            };
+        }
+    };
+
+    printf("%f ", (compute_handler(true))(2.0, 3.5)); // result: 5.500000 
+    printf("%f ", (compute_handler(false))(2.0, 3.5)); // result: -7.000000
+}
+```
+
 <br />
 
 ### Assigning to Variables
@@ -315,3 +353,44 @@ fn main() {
     };
 }
 ```
+
+### The main Entry Point
+
+Every Cyrus program starts execution from a special entry-point function named main.
+This function is discovered by the linker at the ABI level and used as the process start symbol.
+
+To ensure that main is visible as a symbol outside its defining module (so the linker can bind it as the program entry), it must be declared as a public function:
+
+```cyrus
+pub fn main() {
+    // program entry point
+}
+```
+
+{/* TODO: Explain about ARGV, ARGC access */}
+
+{/* TODO: You can bypass Cyrus's abstraction of program entry point by using by:
+
+extern fn main(argc: c_int, argv: c_char\*\*) c_int {
+// program entry point
+return 0;
+}
+
+This allows you to write C-like code readily in Cyrus (optional!) */}
+
+### Parameter Constness
+
+By default, function parameters in Cyrus are immutable.
+However, you can explicitly use the const keyword in the parameter list to enforce and document that the value of the argument cannot be modified within the function body.
+
+```cyrus
+fn sum(const x: int, const y: int) int {
+    x = 10; // ERROR!
+
+    return x + y;
+}
+```
+
+- Immutability: When a parameter is marked const, any attempt to reassign its value inside the function will result in a compile-time error.
+- Intent: This explicitly signals to both the compiler and other developers that the function treats these inputs as read-only.
+- Optimization: Explicit constness allows the compiler to make stronger assumptions about the data flow, potentially leading to better register allocation and optimization.

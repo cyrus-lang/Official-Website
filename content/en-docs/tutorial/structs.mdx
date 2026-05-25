@@ -3,9 +3,9 @@ title: Structs
 weight: 6
 ---
 
-# Structs 
+# Structs
 
-Structs in Cyrus are user-defined composite types that group related data together. They are similar to struct in C/C++ but follow Cyrus' type system rules.
+Structs in Cyrus are user-defined composite types that group related data together. They are similar to struct in C/C++ but follow Cyrus's type system rules.
 
 <br />
 
@@ -15,15 +15,14 @@ Use the `struct` keyword, followed by the name and fields:
 
 ```cyrus
 struct User {
-    pub name: char*;
-    pub age: uint;
+    pub name: char*; // public field
+    pub age: uint; // public field
     king: bool; // private field
 }
 ```
 
-Fields marked with pub can be accessed from outside the struct. 
-Fields without pub are private and can only be accessed inside the struct or its methods.   
-
+Fields marked with pub can be accessed from outside the struct.
+Fields without pub are private and can only be accessed inside the struct or its methods.
 
 <br />
 
@@ -53,16 +52,16 @@ printf("%s is %d years old.\n", user.name, user.age);
 
 <br />
 
-## Methods 
+## Methods
 
-Structs can define functions inside their body, called methods. Methods allow structs to encapsulate behavior along with data.  
+Structs can define functions inside their body, called methods. Methods allow structs to encapsulate behavior along with data.
 
 ```cyrus
-struct Counter {
+struct SimpleCounter {
     pub count: int;
 
-    pub fn new(initial: int) Self {
-        return Self { count: initial };
+    pub fn new(count: int) Self {
+        return Self { count };
     }
 
     pub fn increment(&self) {
@@ -71,13 +70,13 @@ struct Counter {
 
     pub fn reset(&self) {
         self->count = 0;
-        printf("Counter reset!\n");
     }
 }
 
 pub fn main() {
-    var c = Counter.new(10);
-    c.increment(); 
+    var c = SimpleCounter.new(10);
+
+    c.increment();
     c.reset();
 }
 ```
@@ -118,7 +117,7 @@ pub fn describe(&self) {
 
 Cyrus allows controlling how instance methods receive the struct:
 
-- `&self` → passes a **reference** to the instance (does not copy)  
+- `&self` → passes a **reference** to the instance (does not copy)
 - `self` → passes a **copy** of the instance (moves it)
 
 ```cyrus
@@ -131,7 +130,7 @@ pub fn take_copy(self) {
 }
 ```
 
-Attempting to get a reference (&self) from a const-lvalue is not allowed.   
+Attempting to get a reference (&self) from a const-lvalue is not allowed.  
 The compiler will issue an error to prevent modifying or referencing immutable data.
 
 <br />
@@ -141,32 +140,14 @@ The compiler will issue an error to prevent modifying or referencing immutable d
 In Cyrus, you can have pointers to structs. When accessing fields or calling methods through a pointer, you can use **fat pointers** (fat arrows) which **automatically dereference** the pointer.
 
 ```cyrus
-var user = User { name: "Cyrus", age: 2500 }; 
+var user = User { name: "Cyrus", age: 2500 };
 var ptr = &user;
 
-ptr->name; 
+ptr->name;
 ptr->age;
 ```
 
 Using `ptr->name` or `ptr->age` is equivalent to `{"(*ptr).name"}` and `{"(*ptr).age"}`.
-
-<br />
-
-## Local Structs
-
-In Cyrus, structs can also be declared **locally inside functions**. This is useful when the type is only relevant to that function and should not pollute the global scope.
-
-```cyrus
-pub fn main() {
-    struct User {
-        name: char*;
-        age: uint;
-    }
-
-    var user = User { name: "Cyrus", age: 2500 }; 
-    printf("%s is %d years old.\n", user.name, user.age);
-}
-```
 
 <br />
 
@@ -177,27 +158,16 @@ Unnamed structs are struct values declared inline without defining a named type.
 ```cyrus
 fn main() {
     var state = struct {
-        name = "Cyrus",
-        counter = 0,
+        name: "Cyrus",
+        counter: 0,
     };
 
-    config.name; 
-    state.counter += 1;
+    state.counter += 5;
 }
 ```
 
-Field types are inferred automatically.
-
-You can also specify field types explicitly:
-
-```cyrus
-var state = struct {
-    name: char* = "Cyrus",
-    counter: int = 0,
-};
-```
-
-Unnamed structs cannot define methods.
+- Unnamed structs cannot define methods.
+- All fields in an unnamed struct are public by default and their visibility cannot be changed.
 
 <br />
 
@@ -206,7 +176,7 @@ Unnamed structs cannot define methods.
 Unnamed structs are not limited to local scope. They can also be declared globally and accessed across functions (if marked public).
 
 ```cyrus
-const config = struct {
+pub const config = struct {
     host = "127.0.0.1",
     port = 8080
 };
@@ -214,5 +184,75 @@ const config = struct {
 pub fn main() {
     printf("host: %s\n", config.host);
     printf("port: %d\n", config.port);
+}
+```
+
+<br />
+
+## Named & Unnamed Structs Compatibility
+
+Named and unnamed structs are considered compatible if they possess the exact same field names and corresponding field types.
+This compatibility allows for fluid conversion between formal struct types and inline structures.
+
+```cyrus
+struct MyStruct {
+    pub a: int;
+    pub b: float64;
+    pub c: char;
+}
+
+pub fn main() {
+    const obj = MyStruct { a: 10, b: 3.14, c: 'z' };
+
+    // compatible because field names and types match exactly!
+    const temp: struct { a: int, b: float64, c: char } = obj;
+
+    printf("%d %f %c", temp.a, temp.b, temp.c);
+}
+```
+
+Similarly, an unnamed struct value can be used to initialize or be assigned to a named struct instance:
+
+```cyrus
+pub fn main() {
+    const inst: MyStruct = struct {
+        a: 10,
+        b: 3.14,
+        c: 'z'
+    };
+
+    printf("%d %f %c", inst.a, inst.b, inst.c);
+}
+```
+
+<br />
+
+## Method Parameter Constness
+
+In Cyrus, you can enforce immutability for both the instance pointer and the individual arguments within a method.
+Using `&const self` ensures that the method cannot modify any fields of the struct, effectively making it a read-only method.
+
+```cyrus
+struct Wallet {
+    pub balance: float64;
+
+    pub fn calculate_projection(&const self, const adjustment: float64) float64 {
+        self->balance += adjustment; // ERROR!
+        adjustment = 0.0;            // ERROR!
+
+        return self->balance + adjustment;
+    }
+
+    pub fn deposit(&self, amount: float64) {
+        self->balance += amount; // ALLOWED
+    }
+}
+
+pub fn main() {
+    const my_wallet = Wallet { balance: 1000.0 };
+
+    const next_month = my_wallet.calculate_projection(500.0); // ALLOWED
+
+    my_wallet.deposit(50.0); // ERROR: cannot call mutable method on a const instance
 }
 ```
