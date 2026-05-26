@@ -18,10 +18,10 @@ fn identity_pair<T>(values: T[2]) T[2] {
 }
 
 pub fn main() {
-    // implicitly inferred
+    // Inferred
     const p1 = identity_pair({1, 2});
 
-    // explicit type args
+    // Explicit type args
     const p2 = identity_pair<int>({3, 4});
 
     printf("%d %d\n", p1[0], p2[0]);
@@ -225,7 +225,7 @@ pub fn main() {
     // static_sum<uint> identifies the method specialization
     const result = InfixCalc<int64>.static_sum<uint>(10, 20);
     printf("%d\n", result);
-    
+
     // Also you could let the compiler infer it:
     const result = InfixCalc.static_sum(10, 20);
     printf("%d\n", result);
