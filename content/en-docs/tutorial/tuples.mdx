@@ -10,8 +10,6 @@ They are lightweight and useful for grouping, returning, or destructuring multip
 
 <br />
 
-## Tuple Literals
-
 Tuples are written using parentheses, with elements separated by commas:
 
 ```cyrus
@@ -92,12 +90,43 @@ Type annotations ensure the tuple on the right-hand side matches the declared st
 
 ## Mutability
 
+By default, the leading keyword (var or const) applies to the entire tuple. However, Cyrus allows you to override the mutability of specific elements within the pattern.
+
 The `var` keyword makes all destructured elements mutable,
 while `const` makes all of them immutable:
 
 ```cyrus
-const (x, y) = (5, 6); // both immutable
-var (p, q) = (7, 8);   // both mutable
+const (x, y) = (5, 6); // both x and y are immutable
+var (p, q) = (7, 8);   // both p and q are mutable
+```
+
+Mixed mutability:
+
+```cyrus
+var (const a, b, c) = (1, 2, 3);
+// a is const (immutable)
+// b and c are var (mutable)
+```
+
+```cyrus
+const (a, var b, c) = (1, 2, 3);
+// a and c are const (immutable)
+// b is var (mutable)
+```
+
+<br />
+
+## Type Annotation
+
+In addition to mixed mutability, you can explicitly annotate the type of individual elements within a destructuring pattern.
+This is particularly useful when you want to enforce a specific type.
+
+```cyrus
+const (var a: int32, (var b: int32, c: int32)) = (1, (2, 3));
+
+// a is a mutable int32
+// b is a mutable int32
+// c is an immutable int32 (inherits const from the root)
 ```
 
 <br />
@@ -114,5 +143,13 @@ Example of invalid code:
 var (a, (b, c)); // tuple export without rhs is not allowed
 ```
 
-Tuples in Cyrus are designed to be type-safe, efficient, and compiler-optimized.
-Especially when destructuring nested or function-returned tuples.
+- Tuple destructuring is only allowed inside functions or local scopes.
+- Initialization required: Destructuring without a right-hand side (e.g., var (a, b);) is not allowed.
+- Keyword Redundancy: You cannot repeat the leading mutability keyword inside the tuple pattern. This is considered invalid syntax to keep the grammar clean.
+
+```cyrus
+const (const a, _) = (1, 2); // ERROR!: leading keyword cannot be repeated inside
+var (var a, _) = (1, 2);     // ERROR!: leading keyword cannot be repeated inside
+
+var (a, (b, c));             // ERROR!
+```

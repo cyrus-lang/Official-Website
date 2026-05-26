@@ -104,6 +104,8 @@ Output (on little-endian systems):
 78 56 34 12
 ```
 
+<br />
+
 ## Unnamed Union Initialization
 
 Similar to structs, you can use unnamed unions for inline data layout or initialization of named union types. This is particularly useful for temporary low-level buffers.
@@ -123,9 +125,11 @@ pub fn main() {
 
 Only one field can be initialized in a union value. Providing multiple fields will result in a compile-time error.
 
+<br />
+
 ## Union Pointer Aliasing
 
-Since every field in a union shares the same base address, taking a reference to a specific field provides a typed pointer to the union’s shared memory block. This allows for pointer aliasing, where you can manipulate the union's raw data through pointers of different types.
+Since every field in a union shares the same base address, taking a reference to a specific field provides a typed pointer to the union's shared memory block. This allows for pointer aliasing, where you can manipulate the union's raw data through pointers of different types.
 
 This is a powerful feature for systems programming, enabling direct memory manipulation without explicit casting at every step.
 
