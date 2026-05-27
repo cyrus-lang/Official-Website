@@ -20,8 +20,8 @@ export const homeFeaturesArray = (t: Translation): HomeFeatureType[] => [
   },
   {
     icon: <Cpu className="h-6 w-6 text-primary" />,
-    title: t("features.concurrency.title"),
-    desc: t("features.concurrency.description"),
+    title: t("features.lowCognitiveLoad.title"),
+    desc: t("features.lowCognitiveLoad.description"),
   },
   {
     icon: <Layers className="h-6 w-6 text-primary" />,

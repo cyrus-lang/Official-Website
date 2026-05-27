@@ -14,39 +14,37 @@
     },
     "features": {
       "title": "Key Features",
-      "subtitle": "Cyrus combines the best aspects of modern programming languages with innovative features designed for today's development challenges.",
+      "subtitle": "Cyrus combines familiar systems-level control with a highly predictable, minimalist design that gets out of your way.",
       "cleanSyntax": {
-        "title": "Clean and Readable Syntax",
-        "description": "Designed with readability in mind, Cyrus's syntax is intuitive and reduces cognitive load."
+        "title": "Syntax-First Simplicity",
+        "description": "Minimal, predictable syntax designed so you can read and understand code immediately, without mentally simulating complex compiler rules."
       },
       "typeSystem": {
-        "title": "Strong Type System",
-        "description": "Catch errors at compile time with a powerful type system that provides safety without verbosity."
+        "title": "Explicit Type System",
+        "description": "Prevents silent bugs with strict integer semantics and no implicit conversions, using monomorphized generics for zero-cost static dispatch."
       },
       "crossPlatform": {
-        "title": "Cross-platform Compatibility",
-        "description": "Write once, run anywhere. Cyrus works seamlessly across all major operating systems."
+        "title": "LLVM-Backed Portability",
+        "description": "Compiles ahead-of-time (AOT) via LLVM to high-performance machine code, offering native speed and full C ABI compatibility."
       },
-      "concurrency": {
-        "title": "Built-in Concurrency",
-        "description": "First-class support for concurrent and parallel programming with intuitive primitives."
+      "lowCognitiveLoad": {
+        "title": "Controlled Cognitive Load",
+        "description": "Avoids paradigm mixing, heavy object hierarchies, and hidden compiler magic, keeping your focus entirely on procedural logic."
       },
       "standardLibrary": {
-        "title": "Extensive Standard Library",
-        "description": "A rich, well-documented standard library that covers most common programming needs."
+        "title": "Explicit Memory Control",
+        "description": "No garbage collection or complex ownership rules. Features manual memory management, custom allocators, and structured cleanup via defer."
       },
       "openSource": {
-        "title": "Open-source & Community-driven",
-        "description": "Developed in the open with contributions from developers around the world."
+        "title": "Open-Source & Community-driven",
+        "description": "Developed in the open for developers who value absolute control, performance, and deterministic runtime characteristics."
       }
     },
     "examples": {
       "title": "Elegant by Design",
       "subtitle": "Cyrus's syntax is designed to be intuitive, expressive, and easy to read.",
       "tabs": {
-        "helloWorld": "Hello World",
-        "concurrency": "Concurrency",
-        "httpServer": "Http Server"
+        "helloWorld": "Hello World"
       },
       "comingSoon": "Coming soon"
     },

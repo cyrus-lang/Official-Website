@@ -20,13 +20,16 @@ export const HomeCodeExamples = ({ t }: TranslationProps) => (
       </div>
       <div className="max-w-4xl mx-auto">
         <Tabs defaultValue="hello" className="w-full">
-          <TabsList className="grid w-full grid-cols-3">
-            {homeExamplesCodeTabs.map(({ value, translationKey }) => (
-              <TabsTrigger key={value} value={value}>
-                {t(translationKey)}
-              </TabsTrigger>
-            ))}
-          </TabsList>
+          {homeExamplesCodeTabs.length > 1 ?
+            <TabsList className="grid w-full grid-cols-3">
+              {homeExamplesCodeTabs.map(({ value, translationKey }) => (
+                <TabsTrigger key={value} value={value}>
+                  {t(translationKey)}
+                </TabsTrigger>
+              ))}
+            </TabsList> : undefined
+          }
+
 
           {homeExamplesCodeTabs.map(({ value }, idx) => (
             <TabsContent value={value} key={value} className="mt-6">
