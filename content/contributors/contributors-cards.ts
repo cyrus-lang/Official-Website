@@ -24,15 +24,6 @@ export const contributorsArray: Contributor[] = [
   },
   {
     id: 3,
-    name: "MaxBase",
-    nameFa: "مکس بیس",
-    title: "Contributor",
-    picture: "https://avatars.githubusercontent.com/u/2658040?v=4",
-    github: "https://github.com/BaseMax",
-    telegram: "https://t.me/MAX_BASE",
-  },
-  {
-    id: 4,
     name: "Saeed Dayani",
     nameFa: "سعید دیانی",
     title: "Contributor",
@@ -41,7 +32,7 @@ export const contributorsArray: Contributor[] = [
     telegram: "https://t.me/talionsd",
   },
   {
-    id: 5,
+    id: 4,
     name: "MrPi",
     nameFa: "مستر پی",
     title: "Contributor",
@@ -50,7 +41,7 @@ export const contributorsArray: Contributor[] = [
     telegram: "https://t.me/imMrPi",
   },
   {
-    id: 6,
+    id: 5,
     name: "meshya",
     nameFa: "مشیا",
     title: "Contributor",
@@ -61,7 +52,7 @@ export const contributorsArray: Contributor[] = [
     telegram: "https://t.me/meshyah",
   },
   {
-    id: 7,
+    id: 6,
     name: "Mahdi Rahmani",
     nameFa: "مهدی رحمانی",
     title: "Contributor",
@@ -72,7 +63,7 @@ export const contributorsArray: Contributor[] = [
     telegram: "https://t.me/Mahdy_l",
   },
   {
-    id: 8,
+    id: 7,
     name: "dallas",
     nameFa: "دالاس",
     title: "Contributor",
@@ -81,7 +72,7 @@ export const contributorsArray: Contributor[] = [
     telegram: "https://t.me/dll_as",
   },
   {
-    id: 9,
+    id: 8,
     name: "CluvexStudio",
     nameFa: "کلاوکس",
     title: "Contributor",
@@ -89,4 +80,13 @@ export const contributorsArray: Contributor[] = [
     github: "https://github.com/CluvexStudio",
     telegram: "https://t.me/CluvexStudio",
   },
+  {
+    id: 9,
+    name: "MaxBase",
+    nameFa: "مکس بیس",
+    title: "Contributor",
+    picture: "https://avatars.githubusercontent.com/u/2658040?v=4",
+    github: "https://github.com/BaseMax",
+    telegram: "https://t.me/MAX_BASE",
+  }
 ];
