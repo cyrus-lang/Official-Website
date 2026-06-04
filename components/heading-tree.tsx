@@ -1,11 +1,9 @@
 "use client";
-import { usePathname } from "@/i18n/navigation";
 import { getTitleId } from "@/lib/get-mdx";
 import { Heading } from "@/lib/heading-parser";
 import { cn } from "@/lib/utils";
 import { useLocale } from "next-intl";
-import { usePathname as useE } from "next/navigation";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export function HeadingTree({
   items,

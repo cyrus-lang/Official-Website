@@ -107,7 +107,7 @@ html {
   scroll-behavior: smooth;
 }
 
-html[lang="fa"] body {
+html[lang="fa"] * {
   font-family: "Vazir", "Inter", sans-serif;
   direction: rtl;
 }

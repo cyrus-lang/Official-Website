@@ -45,7 +45,7 @@ export default function PhilosophyPage() {
           quality={100}
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-black/75" />
+        <div className="absolute inset-0 dark:bg-black/75 bg-black/20" />
       </div>
 
       {/* HERO */}
@@ -64,7 +64,7 @@ export default function PhilosophyPage() {
             {t("hero.subtitle")}
           </p>
 
-          <p className="mt-10 text-lg md:text-xl text-gray-400 max-w-3xl mx-auto leading-8">
+          <p className="mt-10 text-lg md:text-xl dark:text-gray-400 text-white  max-w-3xl mx-auto leading-8">
             {t("hero.description")}
           </p>
         </motion.div>
