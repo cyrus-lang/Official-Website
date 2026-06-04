@@ -7,8 +7,10 @@ import { useTranslations } from "next-intl";
 
 export const HeaderNav = ({
   type = "desktop",
+  isPhilosophy = false,
 }: {
   type?: "mobile" | "desktop";
+  isPhilosophy?: boolean;
 }) => {
   const t = useTranslations("Header");
   const pathname = usePathname();
@@ -17,7 +19,7 @@ export const HeaderNav = ({
       className={cn(
         type == "mobile"
           ? "flex flex-col gap-4 mobile-nav"
-          : "hidden xl:flex gap-6 pt-1 ms-3"
+          : "hidden xl:flex gap-6 pt-1 ms-3",
       )}
     >
       {headerItems.map((item) => (
@@ -25,9 +27,14 @@ export const HeaderNav = ({
           key={item.content}
           href={item.path}
           className={cn(
-            "text-sm font-medium hover:text-primary transition-colors",
-            pathname.includes(item.path) && "text-primary",
-            item?.className
+            "text-sm font-medium hover:text-primary transition-colors ",
+            isPhilosophy && "text-white",
+            pathname.includes(item.path)
+              ? isPhilosophy
+                ? "dark:text-[#ff9967] text-[#ff9967]"
+                : "dark:text-primary text-primary"
+              : "",
+            item?.className,
           )}
         >
           {t(item.content)}

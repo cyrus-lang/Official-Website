@@ -1,3 +1,4 @@
+import { DEFAULT_DOCS_HREF } from "@/app/[locale]/docs/_page";
 import LogoDark from "@/app/assets/logo-dark.png";
 import LogoLight from "@/app/assets/logo-light.png";
 import { Link } from "@/i18n/navigation";
@@ -11,19 +12,12 @@ import { LanguageToggle } from "../language-toggle";
 import SearchBar from "../search-bar";
 import { ThemeToggle } from "../theme-toggle";
 import { Button } from "../ui/button";
-import MobileMenu from "./mobile-menu";
 import { HeaderNav } from "./header-nav";
-import { DEFAULT_DOCS_HREF } from "@/app/[locale]/docs/_page";
+import MobileMenu from "./mobile-menu";
 
 export function Logo({ forceLightMode = false }: { forceLightMode?: boolean }) {
   if (forceLightMode) {
-    return (
-      <Image
-        src={LogoLight}
-        className="w-8 h-8"
-        alt="logo-light"
-      />
-    );
+    return <Image src={LogoLight} className="w-8 h-8" alt="logo-light" />;
   }
 
   return (
@@ -33,11 +27,7 @@ export function Logo({ forceLightMode = false }: { forceLightMode?: boolean }) {
         className="dark:block hidden w-8 h-8"
         alt="logo-dark"
       />
-      <Image
-        src={LogoLight}
-        className="dark:hidden block w-8"
-        alt="logo"
-      />
+      <Image src={LogoLight} className="dark:hidden block w-8" alt="logo" />
     </>
   );
 }
@@ -74,7 +64,7 @@ export default async function Header({
 
         // variants
         variant === "default" &&
-        "bg-background/95 backdrop-blur-sm supports-backdrop-filter:bg-background/60",
+          "bg-background/95 backdrop-blur-sm supports-backdrop-filter:bg-background/60",
 
         variant === "transparent" && "bg-transparent backdrop-blur-0",
 
@@ -86,13 +76,19 @@ export default async function Header({
     >
       <div className="px-4 flex items-center justify-between h-(--header-height)">
         <div className="flex items-center">
-          <Link href="/" className="flex items-center gap-2">
+          <Link
+            href="/"
+            className={cn(
+              "flex items-center gap-2",
+              pathname.includes("philosophy") && "invert dark:invert-0",
+            )}
+          >
             <Logo forceLightMode={false} />
             <span className="text-md font-bold brand-text text-black dark:text-white pt-1">
               {t("brand")}
             </span>
           </Link>
-          <HeaderNav />
+          <HeaderNav isPhilosophy={pathname.includes("philosophy")} />
         </div>
 
         <div className="flex items-center gap-4">
@@ -115,7 +111,7 @@ export default async function Header({
           <MobileMenu isTransparent={isTransparent} />
         </div>
       </div>
-      
+
       {isDocsRoute && navigationItems && (
         <MobileSidebar
           pathname={pathname}
