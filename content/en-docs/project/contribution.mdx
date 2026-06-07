@@ -3,3 +3,202 @@ title: Contribution
 weight: 1
 ---
 
+# Contributing to Cyrus
+
+Cyrus is an open source project licensed under the [MIT license](https://github.com/cyrus-lang/Cyrus/blob/initial-compiler/LICENSE).  
+Every contribution is welcome and appreciated, regardless of its scale or importance.
+
+We value correctness, clarity, and long-term maintainability over speed or volume of contributions.
+
+## What Counts as a Contribution?
+
+Contributions include, but are not limited to:
+
+- Documentation improvements
+- Compiler code improvements
+- Bug fixes
+- Performance work
+- Tooling (VSCode extension, Emacs plugin, language servers, etc.)
+- Website improvements
+- Issue triage and discussion participation
+
+## AI-Generated Code Policy
+
+Cyrus has a **strict but pragmatic policy** regarding AI-assisted contributions.
+
+### Compiler (STRICT RULE)
+
+AI-generated or AI-authored code is **NOT allowed in the compiler codebase**.
+
+This includes:
+
+- core compiler logic
+- parser / lexer
+- type system
+- optimizer
+- codegen / backend
+- runtime / standard library
+
+If a pull request is found to contain AI-generated compiler code:
+
+> It will be closed immediately without merging.
+
+We do this because the compiler is a correctness-critical system where:
+
+- subtle logical errors are unacceptable
+- authorship must be traceable
+- long-term maintainability depends on human reasoning
+
+### Tools & Ecosystem (ALLOWED)
+
+AI-assisted contributions are allowed in:
+
+- VSCode extension
+- Emacs plugin
+- language tooling
+- website
+- documentation
+- examples and tutorials
+
+However, contributors are still responsible for correctness, licensing, and originality.
+
+## Before Filing an Issue
+
+Please check if a similar issue already exists to avoid duplicates.
+
+## Filing an Issue
+
+When you encounter a problem or have a suggestion, please include:
+
+### 1. Clear Title
+
+A short and descriptive summary of the issue.
+
+### 2. Problem Description
+
+Include:
+
+- Expected behavior
+- Actual behavior
+- Steps to reproduce
+- Environment details (OS, version, configuration)
+
+### 3. Supporting Information
+
+If relevant:
+
+- logs
+- screenshots
+- minimal reproduction cases
+
+### 4. Labels
+
+Use appropriate labels such as:
+
+- bug
+- enhancement
+- question
+
+## Pull Request Requirements
+
+All submitted PRs must follow these rules:
+
+### 1. Review Requirement (STRICT)
+
+A PR must be approved by:
+
+- the project creator, OR
+- at least **two independent maintainers**
+
+No single-review merges for non-trivial changes.
+
+### 2. CI / Tests (MANDATORY)
+
+All tests must pass before review or merge.
+
+- failing CI = PR is not eligible for merge
+- partial fixes must be clearly marked as WIP
+
+### 3. Breaking Changes Policy
+
+Breaking changes must be discussed **before implementation**.
+
+Acceptable discussion channels:
+
+- GitHub Issues
+- Community discussions
+- Maintainer coordination channels
+
+Do not submit breaking changes without prior agreement.
+
+## Submitting a Draft PR
+
+Draft PRs are strongly encouraged for early feedback.
+
+### Steps:
+
+1. Create a branch from `initial-compiler`
+2. Implement your changes incrementally
+3. Push to your fork
+4. Open a Pull Request as **Draft**
+5. Clearly describe:
+
+   - what problem you are solving
+   - your design approach
+   - any trade-offs or uncertainties
+
+Draft PRs are the preferred way to propose non-trivial changes.
+
+## Reviewing & Iteration
+
+Once your PR is in review:
+
+- respond to feedback constructively
+- make small, focused commits
+- avoid mixing unrelated changes
+- ensure CI remains green at all times
+
+When ready:
+
+- mark PR as “Ready for review”
+- wait for final approval
+
+## AI Misuse in PRs (IMPORTANT ENFORCEMENT)
+
+If a PR targeting the **compiler codebase** is found to contain AI-generated or AI-assisted code:
+
+- it will be closed immediately
+- maintainers are not required to provide detailed review feedback
+- repeated violations may lead to contribution restrictions
+
+This rule exists to protect the integrity of Cyrus as a systems-level compiler project.
+
+## Code Quality Expectations
+
+We expect contributions to:
+
+- be minimal and purposeful
+- avoid unnecessary abstraction
+- match existing code style
+- prioritize correctness over cleverness
+- remain understandable to future maintainers
+
+## Submitting a Final PR
+
+Before marking a PR ready:
+
+- ensure all CI checks pass
+- update documentation if needed
+- verify no unrelated changes are included
+- ensure commit messages are meaningful
+
+## Respectful Collaboration
+
+We maintain a professional and constructive environment.
+
+All contributors are expected to:
+
+- communicate clearly
+- respect differing technical opinions
+- avoid personal arguments
+- focus on technical merit
