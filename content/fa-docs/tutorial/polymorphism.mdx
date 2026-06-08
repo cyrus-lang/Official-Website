@@ -1,0 +1,335 @@
+---
+title: Polymorphism
+weight: 14
+---
+
+# Polymorphism
+
+## 1. Core Principles & Lexical Conventions
+
+Cyrus rejects implicit type coercion and hidden performance penalties. Polymorphism is split strictly between static parameters and explicit dynamic abstractions, following clear module scoping boundaries.
+
+### 1.1 Vocabulary & Taxonomy
+
+- **Concrete Type:** A fully resolved `struct` or `enum` defined within a module namespace.
+- **Generic Type Parameter:** A compile-time placeholder (`T`) bounded by an interface constraint.
+- **Interface:** A named contract defining a collection of function signatures.
+- **Interface Object:** A runtime structural data type (fat pointer) generated explicitly via the `dynamic` operator.
+
+### 1.2 Module-Bound Syntax
+
+Interfaces, structs, and enums follow standard Cyrus module visibility rules. Symbols are private by default unless marked with `pub`.
+
+```cyrus
+// shape_types.cyrus
+import std::libc{printf};
+
+pub interface Shape<T> {
+    fn area(&const self) T;
+}
+
+// Structs declare interface adherence using a colon `:`
+pub struct Square : Shape<float64> {
+    side: float64;
+
+    pub fn new(const side: float64) Self {
+        return Self { side };
+    }
+
+    pub fn area(&const self) float64 {
+        return self->side * self->side;
+    }
+}
+
+```
+
+## 2. Dual Dispatch Architecture
+
+Cyrus implements two completely distinct strategies for code reuse and polymorphism. The developer guides the compiler using explicit syntax at the declaration boundary.
+
+### 2.1 Call-Site Monomorphization (Static Generics)
+
+When a function binds polymorphism via type constraints (e.g., `<T: Interface>`), the compiler uses **Call-Site Monomorphization**.
+
+```cyrus
+// Static-dispatch: Resolved completely at compile-time
+pub fn compute_area<T: Shape<float64>>(shape: T) -> float64 {
+    return shape.area();
+}
+
+```
+
+- **Compilation Strategy:** The compiler duplicates the abstract syntax tree (AST) of `compute_area` for every unique concrete type passed to it across the entire module graph.
+- **Performance:** Direct, unindirected function calls. Allows complete optimization passes (inlining, loop unrolling, dead code elimination).
+- **Downside:** Can lead to binary bloat if applied indiscriminately across large codebases.
+
+### 2.2 Creation-Site Monomorphization (Dynamic Interfaces)
+
+When a function accepts an interface name directly as a parameter type without generic brackets, it expects an **Interface Object**.
+
+```cyrus
+// Dynamic-dispatch: Resolved at runtime via a fat pointer
+pub fn print_area(shape: Shape<float64>) {
+    // Indirect jump via the object's local vtable
+    printf("%f\n", shape.area());
+}
+
+```
+
+- **Compilation Strategy:** The compiler treats `Shape<float64>` as a concrete structural type consisting of a data pointer and an explicit virtual table pointer.
+- **Performance:** Single indirection penalty. Prevents binary bloat by generating precisely one type-erased signature.
+
+## 3. The Runtime Layout & The dynamic Operator
+
+Interface Objects are never created implicitly. To convert a concrete struct or enum instance into an interface-conforming abstraction, developers must use the explicit `dynamic` expression.
+
+### 3.1 Binary Representation
+
+An Interface Object is implemented directly as a fixed-size structural pair (Fat Pointer):
+
+```rust
+struct InterfaceObject {
+    const data_ptr: void*;      // Raw pointer to the instance memory heap/stack
+    const vtable_ptr: void*;    // Pointer to the creation-site generated vtable
+}
+```
+
+### 3.2 The Creation-Site Generation Lifecycle
+
+When the compiler parses an expression like `const obj: Shape<float64> = dynamic Square.new(10.3);`, it triggers a localized compilation lifecycle:
+
+1. **Verification:** The compiler confirms `Square` fully satisfies the requirements of `Shape<float64>`.
+2. **Local Monomorphization:** The compiler ensures that code addresses exist for all required methods of `Square` bound to `Shape<float64>`.
+3. **Vtable Allocation:** A static, thread-safe virtual table containing specific function pointers is embedded in the data segment of the compiling module.
+4. **Fat Pointer Construction:** A 2-word stack value is assembled, packing the address of the concrete instance with the unique address of the local vtable.
+
+```
+Interface Object (Fat Pointer)
+┌───────────────────────────┐
+│ data_ptr                  ├──────► [ Square Instance Data (side: 10.3) ]
+├───────────────────────────┤
+│ vtable_ptr                ├──────► [ Monomorphized Vtable ]
+└───────────────────────────┘
+```
+
+## 4. Coercion-Based Static Optimization
+
+While runtime dispatch guarantees type flexibility, the Cyrus semantic analyzer continuously tracks concrete type mappings within local lexical scopes. If an `InterfaceObject` is queried within a trackable scope, the virtual call is **coerced** back into a direct static call.
+
+### 4.1 Optimization Scenarios
+
+```cyrus
+import std::libc{printf};
+import shape_types{Shape, Square};
+
+pub fn main() {
+    // Context 1: Local variable initialization
+    const shape: Shape<float64> = dynamic Square.new(10.3);
+
+    // OPTIMIZED: The semantic analyzer knows 'shape' is deterministically a 'Square'
+    printf("%f\n", shape.area());
+
+    // Context 2: Scope boundaries (Loss of local type knowledge)
+    const shapes = Shape<float64>[2] {
+        dynamic Square.new(10.3),
+        shape
+    };
+
+    // UNOPTIMIZED: Array index variance makes static evaluation impossible
+    // Compiler outputs: indirect call via vtable_ptr
+    for (var i = 0; i < 2; i++) {
+        printf("%f\n", shapes[i].area());
+    }
+}
+```
+
+### 4.2 Optimization Rule Engine
+
+<br />
+
+<Table>
+  <TableHeader>
+    <TableRow>
+      <TableHead className="w-48">Context Expression</TableHead>
+      <TableHead className="w-32">Resolution Path</TableHead>
+      <TableHead>Optimization Action</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell className="font-mono font-medium">
+        local_variable.method()
+      </TableCell>
+      <TableCell className="font-bold text-green-600">Static</TableCell>
+      <TableCell>
+        Bypasses vtable lookup completely. Transforms into an immediate direct
+        call.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell className="font-mono font-medium">
+        inline_function(interface_obj)
+      </TableCell>
+      <TableCell className="font-bold text-green-600">Static</TableCell>
+      <TableCell>
+        Inlines function scope, preserving local type metadata optimization.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell className="font-mono font-medium">
+        standard_function(interface_obj)
+      </TableCell>
+      <TableCell className="font-bold text-blue-600">Dynamic</TableCell>
+      <TableCell>
+        Type info is dropped at the parameter boundary; relies on runtime vtable
+        indices.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell className="font-mono font-medium">
+        array_index[i].method()
+      </TableCell>
+      <TableCell className="font-bold text-blue-600">Dynamic</TableCell>
+      <TableCell>
+        Run-time structural indices bypass linear lookup logic. Always dynamic.
+      </TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+## 5. Code Examples & Compiler Behavior
+
+The following examples demonstrate how the Cyrus compiler processes polymorphism across different scenarios, from static generics to runtime interface objects.
+
+### 5.1 Enums and the Two Dispatch Paths
+
+This example shows how both struct and enum types can implement interfaces, and highlights how the compiler picks either a direct static call or a dynamic vtable lookup based on how you pass the data.
+
+```cyrus
+import std::libc{printf};
+
+interface MyConstraint {
+    fn foo(&self, x: int) int;
+    fn bar(&self) char*;
+}
+
+struct Object : MyConstraint {
+    name: char*;
+
+    pub fn new(name: char*) Self {
+        return Self { name };
+    }
+    pub fn foo(&self, x: int) int {
+        return (x * 10) + 2;
+    }
+    pub fn bar(&self) char* {
+        return self->name;
+    }
+}
+
+enum Choice : MyConstraint {
+    A,
+    B,
+
+    pub fn foo(&self, x: int) int {
+        return -x;
+    }
+    pub fn bar(&self) char* {
+        return "Choice";
+    }
+}
+
+// Call-Site Monomorphization: Erased completely into specialized static jumps
+fn constraint_bar<T: MyConstraint>(object: T) {
+    printf("%s %d | ", object.bar(), object.foo(3));
+}
+
+// Creation-Site Dynamic Dispatch: Receives a uniform fat pointer layout
+fn dynamic_interface(object: MyConstraint) {
+    printf("%s %d | ", object.bar(), object.foo(5));
+}
+
+pub fn main() {
+    const object1 = Object.new("Cyrus");
+    const object2 = Choice.B;
+
+    // 1. Static Polymorphism
+    constraint_bar(object1);
+    constraint_bar(object2);
+
+    // 2. Dynamic Polymorphism
+    const dynamic1: MyConstraint = dynamic object1;
+    dynamic_interface(dynamic1);
+    dynamic_interface(dynamic object1);
+}
+```
+
+### 5.2 Decoupled Interface Instantiation with Generic Constraints
+
+Demonstrates a generic validator component handling explicit concrete primitives across a dynamic boundary.
+
+```cyrus
+import std::libc{printf};
+
+interface IValidator<T> {
+    fn validate(&const self, value: T) bool;
+}
+
+struct NumberValidator: IValidator<int> {
+	pub fn validate(&const self, value: int) bool {
+		if (value > 5) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+}
+
+pub fn main() {
+	const validator: IValidator<int> = dynamic NumberValidator{};
+
+	if (validator.validate(10)) {
+		printf("yes\n");
+	} else {
+		printf("no\n");
+	}
+}
+```
+
+### 5.3 Low-Level Interoperability (System Memory Layout Allocators)
+
+Demonstrates that Cyrus interfaces operate safely at the lowest level of physical systems programming, directly managing heap resources via manual system pointers without an underlying runtime container.
+
+```cyrus
+import std::libc{printf, malloc, free};
+
+interface Allocator {
+    fn alloc(&self, size: usize) void*;
+    fn free(&self, ptr: void*) void;
+}
+
+struct HeapAllocator : Allocator {
+    pub fn new() Self {
+        return Self {};
+    }
+
+    pub fn alloc(&const self, size: usize) void* {
+        return malloc(size);
+    }
+
+    pub fn free(&const self, ptr: void*) void {
+        free(ptr);
+    }
+}
+
+pub fn main() {
+    const allocator = HeapAllocator.new();
+
+    var ptr: int* = allocator.alloc(4);
+
+    *ptr = 5;
+    printf("%d\n", *ptr);
+
+    allocator.free(ptr);
+}
+```
