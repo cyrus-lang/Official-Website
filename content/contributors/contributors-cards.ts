@@ -79,14 +79,5 @@ export const contributorsArray: Contributor[] = [
     picture: "https://avatars.githubusercontent.com/CluvexStudio",
     github: "https://github.com/CluvexStudio",
     telegram: "https://t.me/CluvexStudio",
-  },
-  {
-    id: 9,
-    name: "MaxBase",
-    nameFa: "مکس بیس",
-    title: "Contributor",
-    picture: "https://avatars.githubusercontent.com/u/2658040?v=4",
-    github: "https://github.com/BaseMax",
-    telegram: "https://t.me/MAX_BASE",
   }
 ];
