@@ -5,7 +5,7 @@ weight: 2
 
 # Design Goals
 
-Cyrus is an **experimental systems programming language** that combines low-level machine control with modern language ergonomics, prioritizing **developer authority**, **explicit semantics**, and **long-term maintainability** — without relying on a runtime, garbage collector, or borrow checker.
+Cyrus is a systems programming language for building infrastructure that must run for years — explicit about every machine-level decision, without hidden costs, runtime, or compiler guardianship.
 
 ## Philosophy
 
@@ -15,7 +15,7 @@ Cyrus is built on a strict principle:
 
 It does not attempt to eliminate all bugs through compiler-enforced safety systems, nor does it introduce novel paradigms or heavy abstraction layers. Instead, it selects proven concepts from systems programming and refines them into a consistent, explicit form where every mutability decision, allocation, indirection, and dispatch strategy is declared in the code rather than inferred.
 
-Cyrus is not a replacement for C. It is a modern reinterpretation of familiar systems ideas, designed so that the machine model is apparent from reading the source.
+Cyrus builds on the same machine model as C, designed so that everything happening at the hardware level is apparent from reading the source.
 
 ## Explicit Semantics
 
@@ -75,68 +75,252 @@ The `defer` keyword ensures cleanup runs at scope exit — in reverse declaratio
 
 ```cyrus
 pub fn main() {
-    defer log(100);         // runs last at function exit
+    defer log(100);        // runs last at function exit
 
     {
-        defer log(10 + 1);  // runs when inner scope exits
+        defer log(10 + 1); // runs when inner scope exits
         defer log(10 + 2);
         log(2);
     }
 }
 ```
 
-## Developer Authority, Not Compiler Guardianship
+### Integer Conversions are Strict
 
-Cyrus trusts the developer to understand the system they are working with. It provides tools and guarantees where they meaningfully reduce common mistakes, but it does not attempt to enforce correctness through heavy restrictions.
+Cyrus enforces strict integer correctness to eliminate the silent truncation and sign-mismatch bugs that plague C codebases:
 
-### What Cyrus Prevents
+- No implicit narrowing conversions — a `int64` value cannot silently become `int32`
+- Signedness must match — mixing signed and unsigned requires an explicit `@cast`
+- Safe widening is automatic — `int32` to `int64` with matching signedness converts implicitly
+- Mismatched signedness requires explicit `@cast` even when widening
 
-- Ambiguous or misleading syntax common in C
-- Implicit and unsafe type conversions
-- Silent integer truncation or signedness issues
-- Hidden control flow or implicit behavior
-- Non-exhaustive enum matching (when all variants are known)
+```cyrus
+const a: int32 = 300;
+const b: int64 = a;               // OK: safe widening, matching signedness
+const c: int32 = @cast(int32, b); // explicit: narrowing requires cast
 
-### What Cyrus Does Not Prevent
+const u: uint32 = 10;
+const i: int64 = @cast(int64, u); // explicit: signedness mismatch requires cast
+```
 
-The following are still possible by design — they are considered **the cost of control**:
+This prevents the classic C bugs where:
+
+- A loop counter silently wraps because it was stored in a smaller type
+- A comparison between signed and unsigned produces unexpected results
+- A 64-bit file size is truncated when assigned to a 32-bit variable
+
+## What You Can Do
+
+Cyrus trusts you to understand the system you're working with. Rather than restricting what you can express, it gives you the tools to control the machine directly — and takes responsibility for the consequences.
+
+**Write your own memory allocator** — custom allocators are first-class citizens via the `Allocator` interface, with stack, bump, and libc-backed implementations provided in the standard library:
+
+```cyrus
+pub struct BumpAllocator : Allocator {
+    ptr: void*,
+    cap: usize,
+    offset: usize,
+
+    pub fn alloc(&self, size: usize) void* {
+        const current = self->offset;
+        const next = current + size;
+        if (next > self->cap) return null;
+        self->offset = next;
+        return @cast(void*, @cast(uintptr, self->ptr) + current);
+    }
+
+    pub fn free(&self, ptr: void*) void {
+        // no-op: bump allocators don't free individually
+    }
+}
+```
+
+**Interpret raw memory as different types** — unions allow type punning without casts:
+
+```cyrus
+union IntBytes {
+    value: int;
+    bytes: uint8[4];
+}
+
+var data = IntBytes{ value: 0x12345678 };
+// data.bytes[0] == 0x78 on little-endian,
+// same memory, different type
+```
+
+**Control layout, alignment, and padding** — packed structs, explicit field alignment, and ABI attributes for precise memory mapping.
+
+**Use pointer arithmetic for performance-critical paths** — Cyrus fully supports GEP-based indexing and pointer difference:
+
+```cyrus
+const arr: int32[10];
+const ptr: int32* = &arr[0];
+var ptr2: int32* = ptr + 5; // pointer arithmetic
+*ptr2 = 99;
+```
+
+**Interface directly with hardware, kernel, or bare-metal targets** — inline assembly, `extern` for C ABI, `naked` functions, and custom calling conventions are all available:
+
+```cyrus
+extern fn printf(fmt: const char*, ...) int32;
+naked fn interrupt_handler() void { /* no prologue/epilogue */ }
+```
+
+### The Cost of Control
+
+Because Cyrus does not interpose a safety layer between you and the machine, the following are still possible:
 
 - Reading or writing invalid memory
-- Use-after-free
-- Double free
+- Use-after-free and double free
 - Dangling pointers
 - Data races
 
-This tradeoff is intentional: a language that prevents every memory error must restrict what the developer can express. Cyrus chooses to keep the developer in control and provides **runtime sanitizers** to assist debugging during development.
+These are the **cost of control** — a consequence of giving you direct access to the machine, not a failure of the language. Runtime sanitizers are available during development to help catch these issues.
 
-## Modern Ergonomics on a C Foundation
+A language that prevented every memory error would have to restrict what you can express. Cyrus chooses the opposite tradeoff.
 
-Cyrus takes the C execution model — manual memory, raw pointers, procedural control flow — and adds modern type system features that make common patterns safer and more maintainable without changing the underlying machine model.
+## Data Model
 
-### Algebraic Enum Types
+Cyrus programs are built from three core data structure primitives — each chosen for a specific purpose, with no hidden object model or class hierarchy.
 
-Enums in Cyrus are true sum types, not just named integers. Each variant can carry its own payload, and the compiler enforces exhaustive matching:
+### Struct
+
+Named fields, methods, and explicit visibility:
 
 ```cyrus
-enum Option<T> {
-    Some(T),
-    None
+struct User {
+    pub name: char*;
+    pub age: uint;
+    role: char*; // private field
 }
 
-fn display_option<T>(opt: Option<T>) {
-    switch (opt) {
-        case .Some(value) => printf("some(%d) ", value);
-        case .None => printf("none ");
-    }
-    // compiler error if any variant is missing
+pub fn main() {
+  var user = User { name: "Cyrus", age: 2500, role: "founder" };
+
+  user.name; // OK: public
+  // user.role; // ERROR: private outside the struct module
 }
+```
+
+Cyrus also supports unnamed (anonymous) structs for one-off groupings, and structural compatibility between named and unnamed structs with identical field layouts:
+
+```cyrus
+var point = struct { x: 10, y: 20 }; // unnamed struct, type inferred
+
+pub const config = struct { // unnamed struct
+    host = "127.0.0.1",
+    port = 8080
+};
+
+pub fn main() {
+  point.x += 5;
+
+  const temp: struct { a: int, b: float64 } = obj; // compatible with named struct
+}
+```
+
+### Enum
+
+Enums in Cyrus are true algebraic sum types — each variant can carry its own payload, and the compiler enforces exhaustive matching. Four variant forms are supported:
+
+**Unit variants** — simple tags with no data:
+
+```cyrus
+enum ConnectionState {
+  Disconnected,
+  Connected,
+  Failed
+}
+```
+
+**Tuple variants** — positional payload:
+
+```cyrus
+enum Task {
+  Delay(uint32),
+  Timeout(uint32, const char*)
+}
+```
+
+**Struct variants** — named-field payload:
+
+```cyrus
+enum Error {
+    NotFound { id: uint32, msg: const char* },
+    PermissionDenied { resource: const char* }
+}
+```
+
+**Valued (scalar) variants** — constant-value association:
+
+```cyrus
+enum HttpStatus {
+  OK = 200,
+  NotFound = 404,
+  InternalError = 500
+}
+```
+
+Matching is exhaustive — the compiler checks that all variants are handled:
+
+```cyrus
+switch (err) {
+    case .NotFound { id, msg } => printf("%u: %s", id, msg);
+    case .PermissionDenied { resource } => printf("denied: %s", resource);
+}
+// compiler error if any variant is missing
 ```
 
 This replaces the C pattern of `enum` + untagged `union` + manual discriminant tracking with a single construct where the compiler manages the tag and enforces correctness.
 
-### Generic Data Structures
+Unnamed enums can be declared inline at the use site without a named type:
 
-Generics are monomorphized at compile time with zero runtime overhead:
+```cyrus
+var mode: enum { Off = 0, On = 1 } = .On;
+
+switch (mode) {
+    case .On(value) => printf("on: %d", value);
+    case .Off(value) => printf("off: %d", value);
+}
+```
+
+### Union
+
+Unions provide unchecked type punning — all fields share the same memory address, and reading a field that was not most recently written is undefined behavior:
+
+```cyrus
+union Payload {
+    i: int64;
+    s: char*;
+}
+
+var data = Payload{ s: "Cyrus" };
+// data.i is gone, writing to s now overwrites stale memory
+
+var iptr: int64* = &data.i; // pointer aliasing: same address as data.s
+*iptr = 2500;
+```
+
+Use unions when you need memory-efficient data representation or C interop. For safe tagged unions, use `enum` instead.
+
+Unnamed unions can be used inline for temporary layout or initialization of named union types:
+
+```cyrus
+union Payload {
+  i: int64,
+  s: char*
+}
+
+pub fn main() {
+    const layout: Payload = union { s: "Cyrus!" };
+
+    printf("%s\n", layout.s);
+}
+```
+
+### Generics
+
+Structs, enums, unions, and functions can all be parameterized by type. Generics are monomorphized at compile time with zero runtime overhead — the compiler generates a separate specialized copy for each concrete type combination:
 
 ```cyrus
 struct Triple<A, B, C> {
@@ -150,44 +334,165 @@ struct Triple<A, B, C> {
 }
 
 pub fn main() {
-    const triple = Triple.new(3, 4.5, "hello");
+    const triple = Triple.new(3, 4.5, "hello"); // implicit var type
+    const triple2: Triple<int, float64, char*> = Triple.new(3, 4.5, "hello"); // explicit var type
 
-    printf(
-        "%d %f %s\n",
-        triple.first,
-        triple.second,
-        triple.third
-    );
+    printf("%d %f %s\n", triple.first, triple.second, triple.third);
 }
 ```
 
-The compiler generates a separate specialized copy for each concrete type combination. No boxing, no type erasure, no runtime dispatch — the generic code is as efficient as hand-written per-type code.
+### Controlled Polymorphism
 
-### Controlled Polymorphism with Dual Dispatch
+Cyrus provides two dispatch strategies, each explicitly chosen at the use site:
 
-Cyrus provides two dispatch strategies, each explicitly chosen by the developer:
-
-**Static dispatch** (via generic constraints) — guaranteed monomorphization, zero indirection:
+**Static dispatch** — guaranteed monomorphization, zero indirection:
 
 ```cyrus
-fn process_dog<T: Speaker>(animal: T) {
-    printf("%s\n", animal.speak()); // direct call, no vtable
+fn process<T: Speaker>(animal: T) {
+    printf("%s\n", animal.speak());  // direct call, no vtable
 }
 ```
 
-**Dynamic dispatch** (via `dynamic` keyword) — explicit fat-pointer construction when runtime polymorphism is needed:
+**Dynamic dispatch** — fat-pointer with vtable, explicitly constructed via `dynamic`:
 
 ```cyrus
-pub fn main() {
-    const dog = Dog{};
-    const cat = Cat{};
-
-    const speakers = Speaker[2]{dynamic dog, dynamic cat};
-    printf("%s %s\n", speakers[0].speak(), speakers[1].speak());
-}
+const speakers = Speaker[2]{dynamic dog, dynamic cat};
+printf("%s %s\n", speakers[0].speak(), speakers[1].speak());
 ```
 
 The `dynamic` keyword makes vtable construction visible at the creation site. A reader can see exactly where runtime polymorphism enters the system.
+
+## Methods and Encapsulation
+
+Methods are functions defined inside a struct body. They follow consistent rules with no inheritance or virtual dispatch by default.
+
+### Instance Methods
+
+Methods receive the struct instance through an explicit receiver parameter:
+
+```cyrus
+struct SimpleCounter {
+    pub count: int;
+
+    pub fn new(initial: int) Self {
+        return Self{ count: initial };
+    }
+
+    pub fn increment(&self) { // mutable reference receiver
+        self->count++;
+    }
+
+    pub fn describe(&const self) { // const reference receiver
+        printf("count: %d\n", self->count);
+    }
+
+    pub fn into_value(self) int { // by-value (consuming) receiver
+        return self.count;        // self is a copy
+    }
+}
+```
+
+Three receiver forms:
+
+<Table>
+  <TableHeader>
+    <TableRow>
+      <TableHead className="w-30">Form</TableHead>
+      <TableHead>Semantics</TableHead>
+      <TableHead className="w-30">Can mutate?</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell className="font-medium">
+        <code>&self</code>
+      </TableCell>
+      <TableCell>Mutable pointer to self</TableCell>
+      <TableCell>Yes</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell className="font-medium">
+        <code>&const self</code>
+      </TableCell>
+      <TableCell>Immutable pointer to self</TableCell>
+      <TableCell>No</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell className="font-medium">
+        <code>self</code>
+      </TableCell>
+      <TableCell>By-value copy</TableCell>
+      <TableCell>Yes (local copy only)</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+### Method Calling / Member Access Conventions
+
+Methods are called using dot syntax on values, or `->` on pointers:
+
+```cyrus
+var c = SimpleCounter.new(10);
+c.increment(); // value receiver
+
+var ptr = &c;
+ptr->increment(); // pointer receiver
+```
+
+### Static Methods
+
+Methods without a receiver parameter are called on the type itself:
+
+```cyrus
+pub struct MathUtils {
+    pub fn square(x: int) int {
+        return x * x;
+    }
+}
+
+pub fn main() {
+    printf("%d\n", MathUtils.square(5));
+}
+```
+
+### Encapsulation
+
+- Fields and methods are private by default; `pub` exposes them
+- Methods cannot be added to a struct outside its defining module — no monkey-patching, no scattered behavior
+- No inheritance — composition over hierarchy
+
+## Type System Rules
+
+Cyrus is statically typed with strict rules designed for predictability.
+
+### Type Inference
+
+Type inference works within fully declared contexts — every variable must have a known type at the point of declaration, either from an initializer or an explicit annotation:
+
+```cyrus
+const object: Box<int> = Box.new(10);  // OK: explicit type annotation
+const value = Box.new(10);             // OK: type inferred from initializer
+// const object;                       // ERROR: type cannot be inferred later
+```
+
+### Type Aliases
+
+The `type` keyword creates named aliases — the compiler expands them transparently:
+
+```cyrus
+type rune = uint32;
+type Handler = fn(int, int) void;
+```
+
+### Zero Initialization
+
+Any variable declared without an explicit initial value is automatically zero-initialized:
+
+```cyrus
+var x: int; // initialized to 0
+var p: void*; // initialized to null
+var arr: int[10]; // all elements set to 0
+```
 
 ## Predictable Performance Model
 
@@ -250,8 +555,8 @@ These exclusions are by design, not limitation:
     <TableRow>
       <TableCell>No concurrency model</TableCell>
       <TableCell>
-        The problem space is too broad for a single built-in solution; let
-        libraries and the OS provide concurrency
+        Under design — evaluating options; libraries and OS primitives serve
+        current needs
       </TableCell>
     </TableRow>
     <TableRow>
@@ -275,6 +580,17 @@ These exclusions are by design, not limitation:
     </TableRow>
   </TableBody>
 </Table>
+
+## Where Cyrus Fits
+
+Every language makes tradeoffs. Cyrus is an alternative philosophy: explicit control, minimal abstraction, maximum authority for the developer.
+
+- **If C frustrates you** because it doesn't offer enough language features for modern programming and lacks a proper module system, Cyrus gives you the same level of control with better ergonomics.
+- **If Rust's borrow checker solves problems you don't have** and the annotation burden doesn't fit your use case, Cyrus gives you control without the lifetime system.
+- **If Zig's comptime and metaprogramming** is unnecessary complexity for your project, Cyrus keeps the execution model simple and predictable.
+- **If Go's runtime and GC** is unsuitable for your systems project and you want richer data structures (enums, generics, interfaces) with manual memory control, Cyrus gives you those tools.
+
+Cyrus is not trying to replace any of these languages. It is a different point on the same spectrum.
 
 ## Who Cyrus Is For
 
@@ -309,7 +625,7 @@ These exclusions are by design, not limitation:
       <TableCell>Automatic memory management</TableCell>
     </TableRow>
     <TableRow>
-      <TableCell>Modern type system (enums, generics, interfaces)</TableCell>
+      <TableCell>Algebraic types with zero-cost generics (enums, structs, interfaces)</TableCell>
       <TableCell>Advanced abstraction layers</TableCell>
     </TableRow>
     <TableRow>
@@ -323,9 +639,19 @@ These exclusions are by design, not limitation:
   </TableBody>
 </Table>
 
-## Design Constraint: Familiar Ground
+## Design Constraint: Proven Ideas
 
-Cyrus does not invent new programming concepts. Every feature is derived from existing, well-understood systems programming ideas. The goal is not novelty — it is a consistent, explicit, and maintainable synthesis of proven tools.
+Cyrus does not pursue novelty for its own sake. Every feature earns its place by solving a real problem in systems programming — proven by decades of use in C-family languages, refined into a consistent and explicit form.
+
+The goal is not to invent. The goal is to curate: select the best ideas, integrate them coherently, and remove the complexity that comes from ad-hoc evolution.
+
+## Features We're Still Exploring
+
+Cyrus is under active development. The following features are being researched and designed, and will be shaped according to the same principles when they arrive:
+
+- **Concurrency model** — evaluating options including fibers, coroutines, and async I/O; no decision has been made yet
+- **Macro/metaprogramming system** — exploring compile-time code generation approaches
+- **Package management** — investigating dependency resolution and distribution mechanisms
 
 ## Final Note
 
@@ -338,3 +664,5 @@ It is trying to be:
 - **Maintainable** — so code written today is still understandable years from now.
 
 A language where the developer remains in charge — without pretending the machine isn't there.
+
+> **Cyrus: systems infrastructure, explicit control.**
