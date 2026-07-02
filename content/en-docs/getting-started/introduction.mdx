@@ -7,15 +7,7 @@ weight: 1
 
 # Documentation
 
-Welcome to the official documentation for Cyrus. Here you'll find everything you need to get started with our modern, expressive, and efficient programming language.
-
-Cyrus is designed for developers who want the power of low-level control without sacrificing clarity. Its syntax is concise and approachable, while its compiler ensures performance and safety through modern optimizations. Whether you’re building high-performance systems, experimenting with algorithms, or exploring creative projects, Cyrus gives you the tools to express ideas cleanly and run them efficiently.
-
-### Why Cyrus?
-
-- Simplicity - A small but powerful core, with a standard library that grows with your needs, not against them.
-- Performance - The compiler generates optimized native code, making Cyrus suitable for demanding workloads.
-- Expressiveness - Code should feel natural to read and write, without unnecessary ceremony.
+Welcome to the official documentation for Cyrus. Cyrus is a systems programming language for building infrastructure that must run for years — explicit about every machine-level decision, without hidden costs, runtime, or compiler guardianship.
 
 ## A Quick Taste
 
@@ -25,7 +17,7 @@ Here's a glimpse of what Cyrus code looks like:
 import std::libc{printf};
 
 pub fn main() {
-  const name: char* = "Cyrus";
+  const msg: char* = "Cyrus";
 
   printf("Hello, %s!\n", msg);
 }
