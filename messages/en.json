@@ -4,7 +4,7 @@
     "about": "Go to the about page",
     "hero": {
       "title": "Cyrus Programming Language",
-      "subtitle": "A systems programming language designed for simplicity, high performance, and low cognitive overhead, reducing long-term maintenance costs while keeping full control in the hands of the developer.",
+      "subtitle": "Cyrus is a high-performance systems programming language with explicit syntax and semantics, minimal abstraction and runtime, and manual memory management.",
       "getStarted": "Get Started",
       "seeExamples": "See Examples"
     },
@@ -132,7 +132,7 @@
   },
   "Footer": {
     "brand": "Cyrus",
-    "description": "A systems programming language designed for simplicity, high performance, and low cognitive overhead, reducing long-term maintenance costs while keeping full control in the hands of the developer.",
+    "description": "Cyrus is a high-performance systems programming language with explicit syntax and semantics, minimal abstraction and runtime, and manual memory management.",
     "sections": {
       "resources": {
         "title": "Resources",

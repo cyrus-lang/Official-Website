@@ -15,8 +15,33 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Cyrus Programming Language",
-  description: "Cyrus is a systems programming language designed for simplicity, high performance, and low cognitive overhead, reducing long-term maintenance costs while keeping full control in the hands of the developer."
+  title: {
+    default: "Cyrus Programming Language",
+    template: "%s | Cyrus Programming Language"
+  },
+  description: "Cyrus is a high-performance systems programming language with explicit syntax and semantics, minimal abstraction and runtime, and manual memory management.",
+  keywords: ["Cyrus", "programming language", "systems programming", "high-performance", "manual memory management", "minimal runtime", "explicit syntax"],
+  authors: [{ name: "Cyrus Language Team" }],
+  openGraph: {
+    title: "Cyrus Programming Language",
+    description: "Cyrus is a high-performance systems programming language with explicit syntax and semantics, minimal abstraction and runtime, and manual memory management.",
+    type: "website",
+    locale: "en_US",
+    alternateLocale: "fa_IR",
+  },
+  alternates: {
+    languages: {
+      'en': '/en',
+      'fa': '/fa',
+    },
+  },
+
+  // Persian metadata
+  other: {
+    'fa-title': "زبان برنامه‌نویسی کوروش",
+    'fa-description': "کوروش یک زبان برنامه‌نویسی سیستمی با کارایی بالا است که دارای سینتکس و سمانتیک صریح، انتزاع و رانتایم حداقلی، و مدیریت حافظه دستی است.",
+    'fa-keywords': "کوروش، زبان برنامه‌نویسی، برنامه‌نویسی سیستمی، کارایی بالا، مدیریت حافظه دستی، رانتایم حداقلی، سینتکس صریح",
+  },
 };
 
 export function generateStaticParams() {
