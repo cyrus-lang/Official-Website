@@ -1,15 +1,15 @@
 ---
-title: Functions
+title: توابع
 weight: 5
 ---
 
-# Functions
+# توابع
 
-Functions in Cyrus are defined using the fn keyword, followed by the function name, parameter list, and return type. Functions are private by default and may be annotated with access specifiers to control visibility, linkage, and optimization behavior.
+توابع در کوروش با استفاده از کلیدواژه fn، به دنبال آن نام تابع، لیست پارامترها و نوع بازگشتی تعریف می‌شوند. توابع به طور پیش‌فرض خصوصی هستند و می‌توانند با مشخص‌کننده‌های دسترسی برای کنترل دید، پیوند (linkage) و رفتار بهینه‌سازی حاشیه‌نویسی شوند.
 
-## Basic Function Definition
+## تعریف تابع پایه
 
-A simple function that adds two integers:
+یک تابع ساده که دو عدد صحیح را جمع می‌کند:
 
 ```cyrus
 fn sum(x: int, y: int) int {
@@ -17,13 +17,13 @@ fn sum(x: int, y: int) int {
 }
 ```
 
-- Parameters are explicitly typed.
-- Return type appears after the parameter list.
-- Return is required for non-void functions.
+- پارامترها به صورت صریح تایپ شده‌اند.
+- نوع بازگشتی بعد از لیست پارامترها قرار می‌گیرد.
+- return برای توابع غیر void الزامی است.
 
-## Recursion
+## بازگشت (Recursion)
 
-Functions may call themselves recursively.
+توابع می‌توانند به صورت بازگشتی خود را فراخوانی کنند.
 
 ```cyrus
 fn fibonacci(n: int) int {
@@ -41,99 +41,99 @@ pub fn main() {
 }
 ```
 
-Recursion follows normal call semantics and stack behavior.
+بازگشت از معنای معمول فراخوانی و رفتار پشته پیروی می‌کند.
 
-# Function Modifiers
+# اصلاح‌کننده‌های تابع
 
-After defining a function's visibility and linkage (such as with extern), Cyrus allows functions to be further refined using function modifiers.
+پس از تعریف دید و پیوند یک تابع (مانند extern)، کوروش اجازه می‌دهد توابع با استفاده از اصلاح‌کننده‌های تابع بیشتر اصلاح شوند.
 
-Function modifiers control how a function is:
+اصلاح‌کننده‌های تابع کنترل می‌کنند که یک تابع چگونه:
 
-- linked
-- inlined
-- called at the ABI level
-- placed in the binary
-- optimized or constrained by the compiler
+- پیوند (link) می‌یابد
+- درون‌خطی (inline) می‌شود
+- در سطح ABI فراخوانی می‌شود
+- در باینری قرار می‌گیرد
+- توسط کامپایلر بهینه‌سازی یا محدود می‌شود
 
-Cyrus classifies function modifiers into distinct semantic groups. This separation is intentional: it keeps the language orthogonal and prevents ambiguous combinations.
+کوروش اصلاح‌کننده‌های تابع را به گروه‌های معنایی متمایز طبقه‌بندی می‌کند. این تفکیک عمدی است: زبان را متعامد نگه می‌دارد و از ترکیب‌های مبهم جلوگیری می‌کند.
 
-### Visibility
+### دید (Visibility)
 
-Controls where the function can be referenced from.
+کنترل می‌کند که تابع از کجا قابل ارجاع است.
 
 ```cyrus
 pub fn compute() int { ... }
 ```
 
-If no visibility modifier is specified, the function is private to its module.
+اگر هیچ اصلاح‌کننده دیدی مشخص نشود، تابع نسبت به ماژول خود خصوصی است.
 
-### Linkage
+### پیوند (Linkage)
 
-Controls how the function symbol is resolved by the linker.
+کنترل می‌کند که نماد تابع چگونه توسط پیونددهنده (linker) حل شود.
 
 ```cyrus
 extern fn printf(fmt: const char*, ...) int32;
 ```
 
-Additional linkage forms exist for advanced use cases:
+فرم‌های پیوند اضافی برای موارد استفاده پیشرفته وجود دارد:
 
-- `extern`: symbol defined outside the module
-- `weak`: weak linkage
-- `linkonce`: link-once semantics (typically for deduplicated code)
+- `extern`: نماد خارج از ماژول تعریف شده است
+- `weak`: پیوند ضعیف
+- `linkonce`:语义 پیوند یک‌بار (معمولاً برای کدهای حذف تکراری)
 
-Only one linkage modifier may be specified per function.
+فقط یک اصلاح‌کننده پیوند ممکن است در هر تابع مشخص شود.
 
-### Inlining
+### درون‌خطی‌سازی (Inlining)
 
-Hints how the compiler should treat calls to the function.
+راهنمایی می‌کند که کامپایلر چگونه با فراخوانی‌های تابع رفتار کند.
 
 ```cyrus
 inline fn add(a: int, b: int) int { ... }
 ```
 
-Supported inlining modifiers:
+اصلاح‌کننده‌های درون‌خطی‌سازی پشتیبانی‌شده:
 
-- `inline`: prefer inlining
-- `noinline`: forbid inlining
-- `alwaysinline`: force inlining when possible
+- `inline`: ترجیح درون‌خطی‌سازی
+- `noinline`: منع درون‌خطی‌سازی
+- `alwaysinline`: اجبار درون‌خطی‌سازی در صورت امکان
 
-Inlining modifiers affect optimization but do not change semantics.
+اصلاح‌کننده‌های درون‌خطی‌سازی بر بهینه‌سازی تأثیر می‌گذارند اما معنای کد را تغییر نمی‌دهند.
 
-### Prologue Control
+### کنترل پرولوگ (Prologue Control)
 
-Controls whether the compiler emits a function prologue and epilogue.
+کنترل می‌کند که آیا کامپایلر یک پرولوگ و اپیلوگ برای تابع تولید می‌کند.
 
 ```cyrus
 naked fn interrupt_handler() void { ... }
 ```
 
-Naked emits no stack setup or teardown.
-This is intended for low-level code such as interrupt handlers or hand-written assembly bridges.
+Naked هیچ راه‌اندازی یا پاک‌سازی پشته تولید نمی‌کند.
+این برای کدهای سطح پایین مانند هندلرهای وقفه یا پل‌های اسمبلی دست‌نویس در نظر گرفته شده است.
 
-### Export Modifiers
+### اصلاح‌کننده‌های خروجی (Export Modifiers)
 
-Control how the function is exported across binary boundaries.
+نحوه خروجی تابع را در سراسر مرزهای باینری کنترل می‌کنند.
 
 ```cyrus
 pub dllexport fn api_entry() void { ... }
 ```
 
-Supported export kinds:
+انواع خروجی پشتیبانی‌شده:
 
 - dllimport
 - dllexport
 
-These modifiers are platform-specific and primarily used when producing shared libraries.
+این اصلاح‌کننده‌ها مختص سکو (platform) هستند و عمدتاً هنگام تولید کتابخانه‌های مشترک استفاده می‌شوند.
 
-### Calling Convention
+### قرارداد فراخوانی (Calling Convention)
 
-Specifies the ABI calling convention used when invoking the function.
+قرارداد فراخوانی ABI مورد استفاده هنگام فراخوانی تابع را مشخص می‌کند.
 
 ```cyrus
 callconv(fastcall) fn memcpy(dst: void*, src: void*, n: uint) void;
 ```
 
-Supported calling conventions include:
+قراردادهای فراخوانی پشتیبانی‌شده عبارتند از:
 
 - c
 - system
@@ -149,47 +149,47 @@ Supported calling conventions include:
 - cold
 - fast
 
-Only one calling convention may be specified per function.
+فقط یک قرارداد فراخوانی ممکن است در هر تابع مشخص شود.
 
-### Optional Function Flags
+### پرچم‌های اختیاری تابع
 
-Optional flags provide additional semantic or optimization hints.  
-Multiple optional flags may be applied to the same function.
+پرچم‌های اختیاری راهنمایی‌های معنایی یا بهینه‌سازی اضافی ارائه می‌دهند.  
+چندین پرچم اختیاری ممکن است روی یک تابع اعمال شود.
 
 ```cyrus
 noreturn cold fn fatal_error(msg: char*) void { ... }
 ```
 
-Supported optional flags include:
+پرچم‌های اختیاری پشتیبانی‌شده عبارتند از:
 
-- `noreturn`: function never returns
-- `nounwind`: function does not unwind the stack
-- `cold`: unlikely to be executed
-- `hot`: performance-critical path
-- `optsize`: optimize for size
-- `optnone`: disable optimizations
-- `nosanitize(name)`: disable a specific sanitizer
+- `noreturn`: تابع هرگز بازنمی‌گردد
+- `nounwind`: تابع پشته را unwind نمی‌کند
+- `cold`: احتمال اجرا کم است
+- `hot`: مسیر بحرانی از نظر عملکرد
+- `optsize`: بهینه‌سازی برای اندازه
+- `optnone`: غیرفعال کردن بهینه‌سازی‌ها
+- `nosanitize(name):` غیرفعال کردن یک sanitizer خاص
 
-The compiler validates combinations to prevent contradictory flags.
+کامپایلر ترکیب‌ها را برای جلوگیری از پرچم‌های متضاد اعتبارسنجی می‌کند.
 
-### Section Placement
+### قراردهی در بخش (Section Placement)
 
-Functions may be placed into specific binary sections.
+توابع ممکن است در بخش‌های خاص باینری قرار داده شوند.
 
 ```cyrus
 section(".init") fn early_init() void { ... }
 ```
 
-Multiple placement attributes may be specified when supported by the target.  
-This is typically used for kernel code, embedded systems, or fine-grained linker control.
+هنگامی که توسط هدف پشتیبانی می‌شود، ممکن است چندین ویژگی قراردهی مشخص شود.  
+این معمولاً برای کد هسته، سیستم‌های نهفته یا کنترل دقیق پیونددهنده استفاده می‌شود.
 
-## Variadic Arguments
+## آرگومان‌های متغیر (Variadic Arguments)
 
-Cyrus supports two kinds of variadic arguments, allowing functions to accept a variable number of parameters.
+کوروش از دو نوع آرگومان متغیر پشتیبانی می‌کند که به توابع امکان می‌دهد تعداد متغیری از پارامترها را بپذیرند.
 
-### C-style Variadic Arguments
+### آرگومان‌های متغیر به سبک C
 
-C-style variadic functions use the `...` notation, just like in C. These are typically used for **interfacing with C libraries** (e.g., `printf`) or when type safety is not a concern.
+توابع متغیر به سبک C از نشانه‌گذاری `...` درست مانند C استفاده می‌کنند. اینها معمولاً برای **ارتباط با کتابخانه‌های C** (مانند `printf`) یا زمانی که ایمنی نوع مطرح نیست استفاده می‌شوند.
 
 ```cyrus
 extern fn printf(format: const char*, ...) int;
@@ -199,13 +199,13 @@ fn main() {
 }
 ```
 
-- Use this style primarily for compatibility with C and low-level APIs.
+- از این سبک عمدتاً برای سازگاری با C و APIهای سطح پایین استفاده کنید.
 
-To access and iterate over the variable arguments from within your function, see the Builtins section in the documentation for details on `@va_list`, `@va_start`, `@va_arg`, and `@va_end`.
+برای دسترسی و پیمایش روی آرگومان‌های متغیر از درون تابع خود، بخش Builtins در مستندات را برای جزئیات در مورد `@va_list`، `@va_start`، `@va_arg` و `@va_end` ببینید.
 
-## Function Name
+## نام تابع
 
-Cyrus allows you to specify a **different ABI-level (linker) name** for a function than its Cyrus name. This is done using the `as` keyword after the declaration.
+کوروش به شما امکان می‌دهد یک **نام متفاوت در سطح ABI (لینکر)** برای یک تابع نسبت به نام کوروشی آن مشخص کنید. این کار با استفاده از کلیدواژه `as` بعد از اعلان انجام می‌شود.
 
 ```cyrus
 extern fn printf(fmt: string, ...) int as my_printf;
@@ -215,29 +215,29 @@ fn main() {
 }
 ```
 
-- The function is **declared as `printf`** at the ABI level, so it links against the real `printf` symbol in the C standard library.
-- Inside Cyrus, however, the function is referred to as **`my_printf`**.
-- This allows you to avoid naming conflicts or to wrap existing library functions under more descriptive names.
+- تابع در سطح ABI به عنوان **`printf`** اعلان می‌شود، بنابراین با نماد واقعی `printf` در کتابخانه استاندارد C پیوند می‌خورد.
+- در داخل کوروش، با این حال، تابع به عنوان **`my_printf`** ارجاع داده می‌شود.
+- این به شما امکان می‌دهد از تداخل نام‌ها جلوگیری کنید یا توابع کتابخانه موجود را با نام‌های توصیفی‌تر بپیچید.
 
-# Lambdas
+# لامبداها
 
-Lambdas in Cyrus are anonymous functions. They look and behave like normal functions, but they don't need a name. You define them inline, assign them to variables, pass them around, or embed them inside structs.
+لامبداها در کوروش توابع بی‌نام هستند. آنها شبیه توابع معمولی به نظر می‌رسند و رفتار می‌کنند، اما نیازی به نام ندارند. شما آنها را به صورت درون‌خطی تعریف می‌کنید، به متغیرها تخصیص می‌دهید، جابه‌جا می‌کنید یا درون structها جاسازی می‌کنید.
 
-Unlike closures in some other languages, Cyrus lambdas do not capture the surrounding environment. They are pure function objects defined with a clear, fixed signature.
+برخلاف closures در برخی زبان‌های دیگر، لامبداهای کوروش محیط اطراف را capture نمی‌کنند. آنها اشیاء تابع خالص هستند که با یک امضای ثابت و مشخص تعریف می‌شوند.
 
-### Function Types
+### انواع تابع
 
-Every lambda has a function type, which describes its parameters and return type.
+هر لامبدا یک نوع تابع دارد که پارامترها و نوع بازگشتی آن را توصیف می‌کند.
 
-Example:
+مثال:
 
 ```cyrus
 type HandlerFn = fn(int, int) void;
 ```
 
-### Defining a Lambda
+### تعریف یک لامبدا
 
-The syntax is straightforward:
+نحو ساده است:
 
 ```cyrus
 pub fn main() {
@@ -249,7 +249,7 @@ pub fn main() {
 }
 ```
 
-Lambdas can be returned from functions or assigned to variables like any other type:
+لامبداها می‌توانند از توابع بازگردانده شوند یا مانند هر نوع دیگری به متغیرها تخصیص یابند:
 
 ```cyrus
 fn make_double_handler() fn(float64) float64 {
@@ -264,7 +264,7 @@ pub fn main() {
 }
 ```
 
-Global or local variables can also hold lambda definitions:
+متغیرهای سراسری یا محلی نیز می‌توانند تعاریف لامبدا را نگه دارند:
 
 ```cyrus
 var handler = fn(x: float64, y: float64) float64 {
@@ -289,9 +289,9 @@ pub fn main() {
 }
 ```
 
-### Assigning to Variables
+### تخصیص به متغیرها
 
-You can store lambdas in variables:
+می‌توانید لامبداها را در متغیرها ذخیره کنید:
 
 ```cyrus
 pub fn main() {
@@ -303,10 +303,10 @@ pub fn main() {
 }
 ```
 
-### No Environment Capture
+### عدم Capture محیط
 
-In Cyrus, **lambdas are not closures**.
-That means they do not capture variables from their surrounding scope. For example:
+در کوروش، **لامبداها closures نیستند**.
+این بدان معناست که آنها متغیرهای scope اطراف خود را capture نمی‌کنند. برای مثال:
 
 ```cyrus
 fn main() {
@@ -318,12 +318,12 @@ fn main() {
 }
 ```
 
-### The main Entry Point
+### نقطه ورودی main
 
-Every Cyrus program starts execution from a special entry-point function named main.
-This function is discovered by the linker at the ABI level and used as the process start symbol.
+هر برنامه کوروش اجرای خود را از یک تابع نقطه ورودی ویژه به نام main آغاز می‌کند.
+این تابع توسط پیونددهنده در سطح ABI کشف شده و به عنوان نماد شروع فرآیند استفاده می‌شود.
 
-To ensure that main is visible as a symbol outside its defining module (so the linker can bind it as the program entry), it must be declared as a public function:
+برای اطمینان از اینکه main به عنوان یک نماد خارج از ماژول تعریف‌کننده خود قابل مشاهده است (تا پیونددهنده بتواند آن را به عنوان ورودی برنامه bind کند)، باید به عنوان یک تابع عمومی اعلان شود:
 
 ```cyrus
 pub fn main() {
@@ -342,10 +342,10 @@ return 0;
 
 This allows you to write C-like code readily in Cyrus (optional!) */}
 
-### Parameter Constness
+### ثابت‌بودن پارامترها
 
-By default, function parameters in Cyrus are immutable.
-However, you can explicitly use the const keyword in the parameter list to enforce and document that the value of the argument cannot be modified within the function body.
+به طور پیش‌فرض، پارامترهای توابع در کوروش تغییرناپذیر (immutable) هستند.
+با این حال، می‌توانید به طور صریح از کلیدواژه const در لیست پارامترها استفاده کنید تا اعمال و مستند کنید که مقدار آرگومان نمی‌تواند درون بدنه تابع تغییر کند.
 
 ```cyrus
 fn sum(const x: int, const y: int) int {
@@ -355,6 +355,6 @@ fn sum(const x: int, const y: int) int {
 }
 ```
 
-- Immutability: When a parameter is marked const, any attempt to reassign its value inside the function will result in a compile-time error.
-- Intent: This explicitly signals to both the compiler and other developers that the function treats these inputs as read-only.
-- Optimization: Explicit constness allows the compiler to make stronger assumptions about the data flow, potentially leading to better register allocation and optimization.
+- تغییرناپذیری: وقتی یک پارامتر const علامت‌گذاری می‌شود، هر تلاش برای تخصیص مجدد مقدار آن درون تابع منجر به خطای زمان کامپایل می‌شود.
+- قصد: این به طور صریح به کامپایلر و سایر توسعه‌دهندگان signal می‌دهد که تابع این ورودی‌ها را فقط خواندنی در نظر می‌گیرد.
+- بهینه‌سازی: const بودن صریح به کامپایلر اجازه می‌دهد فرضیات قوی‌تری درباره جریان داده داشته باشد که به طور بالقوه منجر به تخصیص بهتر ثبات و بهینه‌سازی می‌شود.

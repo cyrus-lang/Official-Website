@@ -1,16 +1,16 @@
 ---
-title: Variables
+title: متغیرها
 weight: 3
 ---
 
-# Global Variables
+# متغیرهای سراسری
 
-Global variables are declared at the top-level scope. They are accessible throughout the module or package, depending on their visibility modifier.
+متغیرهای سراسری در سطح بالاترین scope اعلان می‌شوند. آنها بسته به اصلاح‌کننده دید خود، در سراسر ماژول یا بسته قابل دسترسی هستند.
 
-### Visibility
+### دید (Visibility)
 
-- **Private**: Declared without a modifier; accessible only within the current module.
-- **Public (`pub`)**: Accessible from other modules or files.
+- **خصوصی (Private)**: بدون اصلاح‌کننده اعلان می‌شود؛ فقط درون ماژول جاری قابل دسترسی است.
+- **عمومی (`pub`)**: از سایر ماژول‌ها یا فایل‌ها قابل دسترسی است.
 
 ```cyrus
 const VERSION = "1.0"; // private, immutable
@@ -20,10 +20,10 @@ const VERSION = "1.0"; // private, immutable
 pub const COUNTER = 0; // public, immutable
 ```
 
-### Mutability
+### تغییرپذیری (Mutability)
 
-- **`const`**: Immutable after declaration. Attempting to reassign will cause a compile error.
-- **`var`**: Mutable; the value can be changed throughout the program lifecycle.
+- **`const`**: پس از اعلان تغییرناپذیر است. تلاش برای تخصیص مجدد باعث خطای کامپایل می‌شود.
+- **`var`**: تغییرپذیر است؛ مقدار می‌تواند در طول چرخه حیات برنامه تغییر کند.
 
 ```cyrus
 const PI = 3.14159;
@@ -31,9 +31,9 @@ const PI = 3.14159;
 PI = 3.14; // ERROR!
 ```
 
-### External Symbols
+### نمادهای خارجی (External Symbols)
 
-Use the `extern` keyword to declare symbols defined in external libraries or other translation units. These do not include an initializer.
+از کلیدواژه `extern` برای اعلان نمادهایی که در کتابخانه‌های خارجی یا واحدهای ترجمه دیگر تعریف شده‌اند استفاده کنید. این اعلان‌ها شامل مقداردهنده اولیه نیستند.
 
 ```cyrus
 extern errno: int; // private external symbol
@@ -43,9 +43,9 @@ extern errno: int; // private external symbol
 pub extern stdin: void*; // public external symbol
 ```
 
-## Local Variables
+## متغیرهای محلی
 
-Local variables are declared within function bodies using `var` or `const`. Their scope is restricted to the block in which they are defined.
+متغیرهای محلی درون بدنه توابع با استفاده از `var` یا `const` اعلان می‌شوند. scope آنها به بلوکی که در آن تعریف شده‌اند محدود می‌شود.
 
 ```cyrus
 pub fn main() {
@@ -55,7 +55,7 @@ pub fn main() {
 }
 ```
 
-If you need to ensure a specific type, you can annotate the declaration:
+اگر نیاز به اطمینان از یک نوع خاص دارید، می‌توانید اعلان را حاشیه‌نویسی کنید:
 
 ```cyrus
 pub fn main() {
@@ -65,9 +65,9 @@ pub fn main() {
 }
 ```
 
-## Zero Initialization
+## مقداردهی اولیه صفر (Zero Initialization)
 
-In Cyrus, any variable declared without an explicit initial value is automatically zero-initialized.
+در کوروش، هر متغیری که بدون مقدار اولیه صریح اعلان شود، به طور خودکار با صفر مقداردهی اولیه می‌شود.
 
 ```cyrus
 pub fn main() {
@@ -79,14 +79,14 @@ pub fn main() {
 }
 ```
 
-## No Late Type Inference
+## عدم استنتاج نوع دیرهنگام
 
-Cyrus does not allow late type inference. Every variable must have its type known at the point of declaration, either:
+کوروش استنتاج نوع دیرهنگام را 허용 نمی‌کند. هر متغیر باید نوع خود را در نقطه اعلان مشخص داشته باشد، یا:
 
-- Via an initializer (expression has a known type)
-- Via an explicit type annotation
+- از طریق یک مقداردهنده اولیه (عبارت دارای نوع مشخصی است)
+- از طریق یک حاشیه‌نویسی نوع صریح
 
-Declaring a variable without a type and without an initializer is not allowed, even if you assign to it later:
+اعلان یک متغیر بدون نوع و بدون مقداردهنده اولیه مجاز نیست، حتی اگر بعداً به آن مقدار تخصیص دهید:
 
 ```cyrus
 var x; // ERROR!
@@ -94,13 +94,13 @@ var x; // ERROR!
 x = 10;
 ```
 
-You must either write:
+شما باید یا بنویسید:
 
 ```cyrus
 var x = 10; // type inferred as int
 ```
 
-Or:
+یا:
 
 ```cyrus
 var x: int; // explicit type, zero-initialized to 0

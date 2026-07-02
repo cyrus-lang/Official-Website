@@ -1,36 +1,36 @@
 ---
-title: Types
+title: انواع
 weight: 2
 ---
 
-# Type System
+# سیستم نوع
 
-Cyrus features a **strong and expressive type system**. The compiler performs **implicit type conversions** when it is safe, and requires **explicit casts** when conversions could be unsafe or lossy.
+کوروش دارای **یک سیستم نوع قوی و گویا** است. کامپایلر **تبدیل نوع ضمنی** را زمانی که ایمن باشد انجام می‌دهد و زمانی که تبدیل‌ها می‌توانند ناایمن یا همراه با اتلاف اطلاعات باشند، نیاز به **cast صریح** دارد.
 
-## Safe Implicit Casting
+## تبدیل ضمنی ایمن
 
-If a type can be safely converted to another type without losing information, Cyrus will perform the conversion automatically.
+اگر یک نوع بتواند بدون از دست دادن اطلاعات به طور ایمن به نوع دیگری تبدیل شود، کوروش تبدیل را به طور خودکار انجام می‌دهد.
 
 ```cyrus
 var a: int32 = 42;
 var b: int64 = a; // implicit cast from int32 to int64
 ```
 
-- `int32` (32-bit signed integer) can always fit into `int64` (64-bit signed integer).
-- The compiler handles this **implicitly**, so no special syntax is required.
+- `int32` (عدد صحیح علامت‌دار ۳۲ بیتی) همیشه می‌تواند در `int64` (عدد صحیح علامت‌دار ۶۴ بیتی) جای بگیرد.
+- کامپایلر این کار را **به صورت ضمنی** انجام می‌دهد، بنابراین به نحو خاصی نیاز نیست.
 
-## Unsafe / Explicit Casting
+## تبدیل ناایمن / صریح
 
-If a conversion **could be unsafe**, the compiler requires an **explicit cast** using the `cast` keyword.
+اگر یک تبدیل **می‌تواند ناایمن باشد**، کامپایلر نیاز به **cast صریح** با استفاده از کلیدواژه `cast` دارد.
 
 ```cyrus
 var u: uint32 = 10;
 var i: int64 = @cast(int64, u); // Explicit unsafe cast from uint32 to int64.
 ```
 
-# Basic Types
+# انواع پایه
 
-Cyrus provides a set of built-in types for numbers, characters, booleans, and special-purpose values. These are the fundamental building blocks of your programs.
+کوروش مجموعه‌ای از انواع داخلی را برای اعداد، نویسه‌ها، مقادیر بولی و اهداف ویژه ارائه می‌دهد. اینها بلوک‌های سازنده اساسی برنامه‌های شما هستند.
 
 <Table>
   <TableHeader>
@@ -141,7 +141,7 @@ Cyrus provides a set of built-in types for numbers, characters, booleans, and sp
   </TableBody>
 </Table>
 
-### Floating-Point Types
+### انواع ممیز شناور
 
 <Table>
   <TableHeader>
@@ -175,7 +175,7 @@ Cyrus provides a set of built-in types for numbers, characters, booleans, and sp
   </TableBody>
 </Table>
 
-### Character and Boolean Types
+### انواع نویسه و بولی
 
 <Table>
   <TableHeader>
@@ -208,7 +208,7 @@ Cyrus provides a set of built-in types for numbers, characters, booleans, and sp
   </TableBody>
 </Table>
 
-### Special Types
+### انواع ویژه
 
 <Table>
   <TableHeader>
@@ -230,9 +230,9 @@ Cyrus provides a set of built-in types for numbers, characters, booleans, and sp
   </TableBody>
 </Table>
 
-### Type Aliases
+### نام‌های مستعار نوع (Type Aliases)
 
-You can create aliases for existing types. The compiler automatically expands these whenever the alias is used.
+می‌توانید برای انواع موجود نام مستعار ایجاد کنید. کامپایلر به طور خودکار این نام‌ها را هنگام استفاده گسترش می‌دهد.
 
 ```cyrus
 type rune = uint32;
@@ -244,4 +244,4 @@ pub fn main() {
 }
 ```
 
-Note: Type aliases cannot be declared locally. Their scope and declaration rules will be covered in more detail later in these documents.
+توجه: نام‌های مستعار نوع را نمی‌توان به صورت محلی اعلان کرد. scope و قوانین اعلان آنها بعداً در این اسناد با جزئیات بیشتری پوشش داده خواهد شد.

@@ -1,15 +1,15 @@
 ---
-title: Structs
+title: ساختارها
 weight: 6
 ---
 
-# Structs
+# ساختارها
 
-Structs in Cyrus are user-defined composite types that group related data together. They are similar to struct in C/C++ but follow Cyrus's type system rules.
+ساختارها (structs) در کوروش انواع ترکیبی تعریف‌شده توسط کاربر هستند که داده‌های مرتبط را گروه‌بندی می‌کنند. آنها مشابه struct در C/C++ هستند اما از قوانین سیستم نوع کوروش پیروی می‌کنند.
 
-## Defining a Struct
+## تعریف یک ساختار
 
-Use the `struct` keyword, followed by the name and fields:
+از کلیدواژه `struct` به همراه نام و فیلدها استفاده کنید:
 
 ```cyrus
 struct User {
@@ -19,12 +19,12 @@ struct User {
 }
 ```
 
-Fields marked with pub can be accessed from outside the struct.
-Fields without pub are private and can only be accessed inside the struct or its methods.
+فیلدهای علامت‌گذاری شده با pub می‌توانند از خارج struct قابل دسترسی باشند.
+فیلدهای بدون pub خصوصی هستند و فقط درون struct یا متدهای آن قابل دسترسی می‌باشند.
 
-## Initializing a Struct
+## مقداردهی اولیه یک ساختار
 
-Structs can be initialized using **struct literals**:
+ساختارها می‌توانند با استفاده از **لیترال‌های struct** مقداردهی اولیه شوند:
 
 ```cyrus
 var user = User {
@@ -34,19 +34,19 @@ var user = User {
 };
 ```
 
-## Accessing Struct Fields
+## دسترسی به فیلدهای ساختار
 
-You can access struct fields using the dot operator (`.`):
+می‌توانید با استفاده از عملگر نقطه (`.`) به فیلدهای struct دسترسی پیدا کنید:
 
 ```cyrus
 printf("%s is %d years old.\n", user.name, user.age);
 ```
 
-`user.king` is not accessible outside the struct because it is private.
+`user.king` در خارج از struct قابل دسترسی نیست زیرا خصوصی است.
 
-## Methods
+## متدها
 
-Structs can define functions inside their body, called methods. Methods allow structs to encapsulate behavior along with data.
+ساختارها می‌توانند توابعی را درون بدنه خود تعریف کنند که متد (method) نامیده می‌شوند. متدها به structها اجازه می‌دهند رفتار را همراه با داده محصور کنند.
 
 ```cyrus
 struct SimpleCounter {
@@ -73,9 +73,9 @@ pub fn main() {
 }
 ```
 
-## Static Methods
+## متدهای ایستا (Static Methods)
 
-Static methods do not require a struct instance. They are called on the struct type itself:
+متدهای ایستا به یک نمونه struct نیاز ندارند. آنها بر روی خود نوع struct فراخوانی می‌شوند:
 
 ```cyrus
 pub struct MathUtils {
@@ -89,9 +89,9 @@ pub fn main() {
 }
 ```
 
-## Instance Methods
+## متدهای نمونه (Instance Methods)
 
-Instance methods operate on a struct instance and can access its fields:
+متدهای نمونه روی یک نمونه struct عمل می‌کنند و می‌توانند به فیلدهای آن دسترسی داشته باشند:
 
 ```cyrus
 pub fn describe(&self) {
@@ -99,12 +99,12 @@ pub fn describe(&self) {
 }
 ```
 
-## Reference vs Copy
+## ارجاع در مقابل کپی
 
-Cyrus allows controlling how instance methods receive the struct:
+کوروش امکان کنترل نحوه دریافت struct توسط متدهای نمونه را فراهم می‌کند:
 
-- `&self` → passes a **reference** to the instance (does not copy)
-- `self` → passes a **copy** of the instance (moves it)
+- `&self` → یک **ارجاع (reference)** به نمونه ارسال می‌کند (کپی نمی‌کند)
+- `self` → یک **کپی** از نمونه ارسال می‌کند (آن را جابه‌جا می‌کند)
 
 ```cyrus
 pub fn print_name(&self) {
@@ -116,12 +116,12 @@ pub fn take_copy(self) {
 }
 ```
 
-Attempting to get a reference (&self) from a const-lvalue is not allowed.  
-The compiler will issue an error to prevent modifying or referencing immutable data.
+تلاش برای دریافت ارجاع (&self) از یک const-lvalue مجاز نیست.  
+کامپایلر برای جلوگیری از تغییر یا ارجاع به داده‌های تغییرناپذیر خطا صادر می‌کند.
 
-## Pointers and Fat Arrows
+## اشاره‌گرها و پیکان‌های چاق (Fat Arrows)
 
-In Cyrus, you can have pointers to structs. When accessing fields or calling methods through a pointer, you can use **fat pointers** (fat arrows) which **automatically dereference** the pointer.
+در کوروش، می‌توانید اشاره‌گرهایی به structها داشته باشید. هنگام دسترسی به فیلدها یا فراخوانی متدها از طریق یک اشاره‌گر، می‌توانید از **پیکان‌های چاق (fat pointers/arrows)** استفاده کنید که به طور **خودکار اشاره‌گر را dereference** می‌کنند.
 
 ```cyrus
 var user = User { name: "Cyrus", age: 2500 };
@@ -131,11 +131,11 @@ ptr->name;
 ptr->age;
 ```
 
-Using `ptr->name` or `ptr->age` is equivalent to `{"(*ptr).name"}` and `{"(*ptr).age"}`.
+استفاده از `ptr->name` یا `ptr->age` معادل `{"(*ptr).name"}` و `{"(*ptr).age"}` است.
 
-## Unnamed Structs
+## ساختارهای بی‌نام (Unnamed Structs)
 
-Unnamed structs are struct values declared inline without defining a named type. They are useful for quick, one-off configurations or temporary data holders.
+ساختارهای بی‌نام مقادیر structی هستند که بدون تعریف یک نوع نام‌دار به صورت درون‌خطی اعلان می‌شوند. آنها برای پیکربندی‌های سریع و یک‌بار مصرف یا نگهدارنده‌های موقت داده مفید هستند.
 
 ```cyrus
 fn main() {
@@ -148,12 +148,12 @@ fn main() {
 }
 ```
 
-- Unnamed structs cannot define methods.
-- All fields in an unnamed struct are public by default and their visibility cannot be changed.
+- ساختارهای بی‌نام نمی‌توانند متد تعریف کنند.
+- همه فیلدها در یک struct بی‌نام به طور پیش‌فرض عمومی هستند و دید آنها قابل تغییر نیست.
 
-## Global Unnamed Structs
+## ساختارهای بی‌نام سراسری
 
-Unnamed structs are not limited to local scope. They can also be declared globally and accessed across functions (if marked public).
+ساختارهای بی‌نام محدود به scope محلی نیستند. آنها همچنین می‌توانند به صورت سراسری اعلان شوند و در سراسر توابع قابل دسترسی باشند (در صورت عمومی علامت‌گذاری).
 
 ```cyrus
 pub const config = struct {
@@ -167,10 +167,10 @@ pub fn main() {
 }
 ```
 
-## Named & Unnamed Structs Compatibility
+## سازگاری ساختارهای نام‌دار و بی‌نام
 
-Named and unnamed structs are considered compatible if they possess the exact same field names and corresponding field types.
-This compatibility allows for fluid conversion between formal struct types and inline structures.
+ساختارهای نام‌دار و بی‌نام در صورتی سازگار در نظر گرفته می‌شوند که دارای نام فیلدها و انواع فیلدهای متناظر دقیقاً یکسانی باشند.
+این سازگاری امکان تبدیل روان بین انواع struct رسمی و ساختارهای درون‌خطی را فراهم می‌کند.
 
 ```cyrus
 struct MyStruct {
@@ -189,7 +189,7 @@ pub fn main() {
 }
 ```
 
-Similarly, an unnamed struct value can be used to initialize or be assigned to a named struct instance:
+به طور مشابه، یک مقدار struct بی‌نام می‌تواند برای مقداردهی اولیه یا تخصیص به یک نمونه struct نام‌دار استفاده شود:
 
 ```cyrus
 pub fn main() {
@@ -203,10 +203,10 @@ pub fn main() {
 }
 ```
 
-## Method Parameter Constness
+## ثابت‌بودن پارامترهای متد
 
-In Cyrus, you can enforce immutability for both the instance pointer and the individual arguments within a method.
-Using `&const self` ensures that the method cannot modify any fields of the struct, effectively making it a read-only method.
+در کوروش، می‌توانید تغییرناپذیری را هم برای اشاره‌گر نمونه و هم برای آرگومان‌های منفرد در یک متد اعمال کنید.
+استفاده از `&const self` تضمین می‌کند که متد نمی‌تواند هیچ فیلدی از struct را تغییر دهد و عملاً آن را به یک متد فقط‌خواندنی تبدیل می‌کند.
 
 ```cyrus
 struct Wallet {

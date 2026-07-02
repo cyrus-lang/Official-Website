@@ -1,57 +1,57 @@
 ---
-title: Install compiler binary
+title: نصب باینری کامپایلر
 weight: 4
 ---
 
-# Install compiler binary
+# نصب باینری کامپایلر
 
-Cyrus provides prebuilt binaries for major platforms, available on our [GitHub releases](https://github.com/cyrus-lang/Cyrus/releases/) page.
+کوروش باینری‌های از پیش ساخته شده را برای پلتفرم‌های اصلی، که در صفحه [انتشارات گیت‌هاب](https://github.com/cyrus-lang/Cyrus/releases/) در دسترس هستند، ارائه می‌دهد.
 
-## 1. Download the Latest Release
+## ۱. دریافت آخرین نسخه
 
-Head over to the releases page and grab the archive for your platform:
+به صفحه انتشارات مراجعه کرده و بایگانی مخصوص پلتفرم خود را دریافت کنید:
 
-- Linux (x86_64 / ARM64)
-- Windows (x86_64)
-- MacOS (Intel / Apple Silicon)
+- لینوکس (x86_64 / ARM64)
+- ویندوز (x86_64)
+- مک‌اواس (Intel / Apple Silicon)
 
-## 2. Extract the Zip file
+## ۲. استخراج فایل زیپ
 
-After downloading the release archive from GitHub releases, you need to extract it.
+پس از دانلود بایگانی انتشار از گیت‌هاب، باید آن را استخراج کنید.
 
-So you can run Cyrus from anywhere, move the binary to a directory in your PATH:
+برای اینکه بتوانید کوروش را از هر مکانی اجرا کنید، باینری را به دایرکتوری در PATH خود منتقل کنید:
 
 ```bash
 sudo mv cyrus /usr/local/bin
 ```
 
-Cyrus requires access to its standard library. Copy it to a known location (e.g. ~/.cyrus_stdlib):
+کوروش برای دسترسی به کتابخانه استاندارد خود نیاز دارد. آن را به یک مکان مشخص کپی کنید (مثلاً ~/.cyrus_stdlib):
 
 ```bash
 cp -r ./stdlib ~/.cyrus_stdlib
 ```
 
-Then export the path in your shell config (~/.bashrc, ~/.zshrc, etc.):
+سپس مسیر را در پیکربندی شل خود (مثلاً ~/.bashrc، ~/.zshrc و غیره) تعریف کنید:
 
 ```bash
 export CYRUS_STDLIB_PATH=~/.cyrus_stdlib
 ```
 
-Apply the changes:
+تغییرات را اعمال کنید:
 
 ```bash
-source ~/.bashrc # or source ~/.zshrc
+source ~/.bashrc # یا source ~/.zshrc
 ```
 
-## 3. Verify the Installation
+## ۳. تأیید نصب
 
-Check the compiler works:
+بررسی کنید که کامپایلر کار می‌کند:
 
 ```bash
 cyrus version
 ```
 
-Expected output:
+خروجی مورد انتظار:
 
 ```bash
 Cyrus vX.Y.Z

@@ -1,16 +1,16 @@
 ---
-title: Expressions
+title: عبارات
 weight: 3
 ---
 
-# Operators
+# عملگرها
 
-Operators in Cyrus work similarly to those in C. They are categorized by their functionality and precedence.
-Operators are evaluated based on their precedence (priority) and associativity (left-to-right or right-to-left).
+عملگرها در کوروش مشابه C کار می‌کنند. آنها بر اساس функциональность و اولویت دسته‌بندی می‌شوند.
+عملگرها بر اساس اولویت (priority) و انجمنی‌بودن (associativity) (چپ‌به‌راست یا راست‌به‌چپ) ارزیابی می‌شوند.
 
-## Arithmetic Operators
+## عملگرهای حسابی
 
-Arithmetic operators perform mathematical calculations between numeric operands.
+عملگرهای حسابی محاسبات ریاضی را بین عملوندهای عددی انجام می‌دهند.
 
 <Table>
   <TableHeader>
@@ -93,9 +93,9 @@ Arithmetic operators perform mathematical calculations between numeric operands.
   </TableBody>
 </Table>
 
-## Comparison Operators
+## عملگرهای مقایسه‌ای
 
-Comparison operators evaluate the relationship between two operands and return a **bool** result (true or false).
+عملگرهای مقایسه‌ای رابطه بین دو عملوند را ارزیابی کرده و یک نتیجه **bool** (true یا false) برمی‌گردانند.
 
 <Table>
   <TableHeader>
@@ -146,9 +146,9 @@ Comparison operators evaluate the relationship between two operands and return a
   </TableBody>
 </Table>
 
-## Logical Operators
+## عملگرهای منطقی
 
-Logical operators are used to combine or invert boolean values. They always operate on true and false values and return a boolean result.
+عملگرهای منطقی برای ترکیب یا معکوس کردن مقادیر بولی استفاده می‌شوند. آنها همواره روی مقادیر true و false عمل کرده و یک نتیجه بولی برمی‌گردانند.
 
 <Table>
   <TableHeader>
@@ -181,10 +181,10 @@ Logical operators are used to combine or invert boolean values. They always oper
   </TableBody>
 </Table>
 
-## Assignment Operators
+## عملگرهای انتساب
 
-Assignment operators are used to assign values to variables.
-The simplest form is **=**, but there are also compound assignments that perform an operation and assignment in one step.
+عملگرهای انتساب برای تخصیص مقادیر به متغیرها استفاده می‌شوند.
+ساده‌ترین شکل **=** است، اما انتساب‌های ترکیبی نیز وجود دارند که یک عملیات و انتساب را در یک مرحله انجام می‌دهند.
 
 <Table>
   <TableHeader>
@@ -265,9 +265,9 @@ The simplest form is **=**, but there are also compound assignments that perform
   </TableBody>
 </Table>
 
-## Operator Precedence & Associativity
+## اولویت و انجمنی‌بودن عملگرها
 
-Associativity determines how operators of the same precedence are grouped: left-to-right or right-to-left.
+انجمنی‌بودن تعیین می‌کند که عملگرهای با اولویت یکسان چگونه گروه‌بندی می‌شوند: چپ‌به‌راست یا راست‌به‌چپ.
 
 <Table>
   <TableHeader>
@@ -400,12 +400,12 @@ Associativity determines how operators of the same precedence are grouped: left-
   </TableBody>
 </Table>
 
-## Unary Operators
+## عملگرهای یکانی
 
-Unary operators operate on a single operand and modify its value by **1**.
+عملگرهای یکانی روی یک عملوند واحد عمل کرده و مقدار آن را به میزان **۱** تغییر می‌دهند.
 
-**Prefix** (`++i`, `--i`) updates the variable **before** it's used in an expression.  
-**Postfix** (`i++`, `i--`) updates the variable **after** it's used in an expression.
+**پیشوندی** (`++i`, `--i`) متغیر را **قبل** از استفاده در عبارت به‌روزرسانی می‌کند.  
+**پسوندی** (`i++`, `i--`) متغیر را **بعد** از استفاده در عبارت به‌روزرسانی می‌کند.
 
 <Table>
   <TableHeader>
@@ -452,14 +452,14 @@ Unary operators operate on a single operand and modify its value by **1**.
   </TableBody>
 </Table>
 
-- Works only on mutable lvalues; using on constants or rvalues is considered a compile error.
-- Avoid relying on multiple increments of the same variable within a single expression.
+- فقط روی lvalueهای تغییرپذیر کار می‌کند؛ استفاده روی ثابت‌ها یا rvalueها خطای کامپایل محسوب می‌شود.
+- از تکیه بر افزایش‌های چندگانه یک متغیر در یک عبارت واحد خودداری کنید.
 
-## Null-Coalescing Operator
+## عملگر ادغام تهی (Null-Coalescing)
 
-The null-coalescing operator `||` is used with pointers to select the first non-null value from a chain of operands.  
-It evaluates operands from left to right and returns the first pointer that is not null.  
-If all operands are null, the result is null.
+عملگر ادغام تهی `||` با اشاره‌گرها برای انتخاب اولین مقدار غیرتهی از زنجیره‌ای از عملوندها استفاده می‌شود.  
+این عملگر عملوندها را از چپ به راست ارزیابی کرده و اولین اشاره‌گری را که null نیست برمی‌گرداند.  
+اگر همه عملوندها null باشند، نتیجه null است.
 
 ```cyrus
 var p1: int* = null;

@@ -1,22 +1,22 @@
 ---
-title: Enums
+title: شمارش‌ها
 weight: 7
 ---
 
-# Enums
+# شمارش‌ها
 
-Enums in Cyrus define a type that can be one of several **variants**. Each variant is tagged and may optionally carry data (payload). Enums are central for modeling sum types, error handling, and finite-state values.
+شمارش‌ها (enums) در کوروش نوعی را تعریف می‌کنند که می‌تواند یکی از چندین **variant** باشد. هر variant برچسب‌گذاری شده و ممکن است به صورت اختیاری داده (payload) همراه داشته باشد. Enums برای مدل‌سازی انواع مجموع (sum types)، مدیریت خطا و مقادیر حالت محدود مرکزی هستند.
 
-Cyrus supports:
+کوروش از موارد زیر پشتیبانی می‌کند:
 
-- **Unit variants** (no payload)
-- **Tuple variants** (tuple payload)
-- **Struct variants** (named-field payload)
-- **Valued variants** (scalar/constant-like)
+- **Variantهای واحد (Unit variants)** (بدون payload)
+- **Variantهای چندتایی (Tuple variants)** (payload چندتایی)
+- **Variantهای ساختاری (Struct variants)** (payload فیلددار)
+- **Variantهای مقداری (Valued variants)** (شبه‌ثابت/اسکالر)
 
-## Basic Enum Declaration
+## اعلان پایه Enum
 
-Use the `enum` keyword with a named variant list:
+از کلیدواژه `enum` با یک لیست variant نام‌دار استفاده کنید:
 
 ```cyrus
 enum Color {
@@ -27,7 +27,7 @@ enum Color {
 }
 ```
 
-Construct values either with the enum name or using the short `.Variant` syntax:
+مقادیر را یا با نام enum یا با استفاده از نحو کوتاه `.Variant` بسازید:
 
 ```cyrus
 var c1 = Color.Red;
@@ -36,11 +36,11 @@ var c2 = Color.Custom(1, 2, 3);
 var c3: Color = .Green;
 ```
 
-## Variant Kinds
+## انواع Variant
 
-### Unit Variants
+### Variantهای واحد (Unit Variants)
 
-Unit variants are simple tags representing distinct states without any extra data.
+Variantهای واحد برچسب‌های ساده‌ای هستند که حالت‌های مجزا را بدون هیچ داده اضافی نشان می‌دهند.
 
 ```cyrus
 enum ConnectionState {
@@ -62,9 +62,9 @@ fn is_online(state: ConnectionState) bool {
 }
 ```
 
-### Tuple Variants
+### Variantهای چندتایی (Tuple Variants)
 
-Tuple variants carry unnamed positional data, like a typed tuple attached to the variant.
+Variantهای چندتایی داده‌های موقعیتی بدون نام را حمل می‌کنند، مانند یک tuple تایپ‌شده متصل به variant.
 
 ```cyrus
 enum Task {
@@ -105,9 +105,9 @@ pub fn main() {
 }
 ```
 
-### Struct Variants
+### Variantهای ساختاری (Struct Variants)
 
-Struct variants define an inline struct layout directly inside the variant declaration. Instead of wrapping an existing type, the variant itself acts as a schema, providing named, typed fields.
+Variantهای ساختاری یک طرح struct درون‌خطی را مستقیماً درون اعلان variant تعریف می‌کنند. به جای پیچیدن یک نوع موجود، خود variant به عنوان یک طرحواره عمل می‌کند و فیلدهای نام‌دار و تایپ‌شده را فراهم می‌کند.
 
 ```cyrus
 enum Error {
@@ -134,12 +134,12 @@ pub fn main() {
 }
 ```
 
-- `Custom { ... }` is a **struct variant** with named payload fields.
-- `NotFound` here uses a **valued struct** payload (see below).
+- `Custom { ... }` یک **struct variant** با فیلدهای payload نام‌دار است.
+- `NotFound` در اینجا از یک **payload struct مقداری** استفاده می‌کند (به زیر مراجعه کنید).
 
-### Valued Variants (Scalar / Constant-like)
+### Variantهای مقداری (Valued Variants / Scalar / Constant-like)
 
-Valued variants are a special case where each variant has an associated constant value. This is typically used for **scalar enums**.
+Variantهای مقداری یک حالت خاص هستند که در آن هر variant یک مقدار ثابت مرتبط دارد. این معمولاً برای **enumهای اسکالر** استفاده می‌شود.
 
 ```cyrus
 type Kind = enum { Unknown = 0, Known = 1 };
@@ -175,13 +175,13 @@ pub fn main() {
 }
 ```
 
-The compiler infers that all `ScalarEnum` variants are integer-valued and lowers the enum as a compact integral type (`int32` by default) in codegen.
+کامپایلر استنتاج می‌کند که همه variantهای `ScalarEnum` مقدار صحیح دارند و enum را به عنوان یک نوع انتگرال فشرده (`int32` به طور پیش‌فرض) در تولید کد پایین‌می‌آورد.
 
-Valued variants are also allowed to carry richer payloads (e.g., `NotFound = struct { ... }` in the previous example).
+Variantهای مقداری همچنین مجاز به حمل payloadهای غنی‌تر هستند (مانند `NotFound = struct { ... }` در مثال قبلی).
 
-## Tag Type and Scalar Enums
+## نوع برچسب (Tag Type) و Enumهای اسکالر
 
-You can explicitly specify the **underlying tag type** of an enum:
+می‌توانید به طور صریح **نوع برچسب زیربنایی** یک enum را مشخص کنید:
 
 ```cyrus
 enum ScalarEnum(uint32) {
@@ -191,21 +191,21 @@ enum ScalarEnum(uint32) {
 }
 ```
 
-For unnamed scalar enums:
+برای enumهای اسکالر بی‌نام:
 
 ```cyrus
 const a: enum(bool) { A = true, B = false } = .A;
 ```
 
-The tag type controls the ABI-level representation of the variant tag, which can be useful for FFI and low-level layout constraints.
+نوع برچسب، نمایش سطح ABI برچسب variant را کنترل می‌کند که می‌تواند برای FFI و محدودیت‌های چیدمان سطح پایین مفید باشد.
 
-## Named vs Unnamed Enums
+## Enumهای نام‌دار در مقابل بی‌نام
 
-Cyrus supports both **named** and **unnamed** enums.
+کوروش از هر دو enum **نام‌دار** و **بی‌نام** پشتیبانی می‌کند.
 
-### Named Enums
+### Enumهای نام‌دار
 
-Named enums define a reusable type:
+Enumهای نام‌دار یک نوع قابل استفاده مجدد تعریف می‌کنند:
 
 ```cyrus
 enum Option<T> {
@@ -222,11 +222,11 @@ pub fn main() {
 }
 ```
 
-Note: Generics (`<T>`) are introduced in detail in a later section.
+توجه: ژنریک‌ها (`<T>`) در بخش بعدی به طور مفصل معرفی می‌شوند.
 
-### Unnamed Enums
+### Enumهای بی‌نام
 
-Unnamed enums can be declared inline at the use-site:
+Enumهای بی‌نام می‌توانند در محل استفاده به صورت درون‌خطی اعلان شوند:
 
 ```cyrus
 const mode: enum { Off = 0, On = 1 } = .On;
@@ -237,11 +237,11 @@ switch (mode) {
 }
 ```
 
-This is useful for one-off tagged values where defining a top-level name would be overkill.
+این برای مقادیر برچسب‌دار یک‌بار مصرف که تعریف یک نام سطح بالا در آن افراطی است مفید می‌باشد.
 
-## Heterogeneous Variants
+## Variantهای ناهمگن (Heterogeneous Variants)
 
-Cyrus enums are “sum types” that allow each variant to define its own unique payload structure. You can freely combine unit variants, valued variants, tuple variants, and struct variants in a single declaration.
+Enumهای کوروش «انواع مجموع» (sum types) هستند که به هر variant اجازه می‌دهند ساختار payload منحصر‌به‌فرد خود را تعریف کند. شما می‌توانید آزادانه variantهای واحد، variantهای مقداری، variantهای چندتایی و variantهای ساختاری را در یک اعلان واحد ترکیب کنید.
 
 ```cyrus
 import std::libc{printf};
@@ -269,13 +269,13 @@ pub fn main() {
 }
 ```
 
-- Variant Autonomy: The compiler manages the memory layout, ensuring enough space for the largest possible payload while tracking the current active variant via a hidden tag.
-- Unified Matching: The switch statement handles these heterogeneous payloads seamlessly, providing the appropriate bindings based on the variant's specific definition.
-- Type Safety: The compiler ensures that you only attempt to access payloads that exist for the specific variant you are matching.
+- استقلال Variant: کامپایلر چیدمان حافظه را مدیریت می‌کند و فضای کافی برای بزرگترین payload ممکن را تضمین می‌کند، در حالی که variant فعال فعلی را از طریق یک برچسب پنهان tracking می‌کند.
+- تطبیق یکپارچه: دستور switch این payloadهای ناهمگن را به طور یکپارچه مدیریت می‌کند و bindings مناسب را بر اساس تعریف خاص variant فراهم می‌کند.
+- ایمنی نوع: کامپایلر تضمین می‌کند که شما فقط سعی می‌کنید به payloadهایی دسترسی پیدا کنید که برای variant خاصی که با آن مطابقت دارید وجود دارند.
 
-## Matching on Enums
+## تطبیق روی Enumها
 
-`switch` is the primary way to deconstruct and inspect enums. Pattern syntax depends on the variant kind.
+`switch` راه اصلی برای تخریب و بازرسی enumها است. نحو الگو به نوع variant بستگی دارد.
 
 ```cyrus
 import std::libc{printf};
@@ -302,14 +302,14 @@ pub fn main() {
 }
 ```
 
-- Unit variants: `case .Variant => { ... }`
-- Tuple variants: `case .Variant(payload) => { ... }`
-- Struct variants: `case .Variant { field1, field2 } => { ... }`
-- Valued/scalar variants: `case .Variant(value) => { ... }`
+- Variantهای واحد: `case .Variant => { ... }`
+- Variantهای چندتایی: `case .Variant(payload) => { ... }`
+- Variantهای ساختاری: `case .Variant { field1, field2 } => { ... }`
+- Variantهای مقداری/اسکالر: `case .Variant(value) => { ... }`
 
-`default` can be used as a catch-all arm when not all variants are listed.
+`default` می‌تواند به عنوان یک شاخه catch-all زمانی که همه variantها لیست نشده‌اند استفاده شود.
 
-For struct variants, patterns support ignoring, eliding, and renaming fields:
+برای variantهای ساختاری، الگوها از نادیده گرفتن، حذف و تغییر نام فیلدها پشتیبانی می‌کنند:
 
 ```cyrus
 switch (err) {

@@ -1,21 +1,21 @@
 ---
-title: Modules
+title: ماژول‌ها
 weight: 11
 ---
 
-# Modules
+# ماژول‌ها
 
-Cyrus features a **powerful module system** designed for **incremental compilation** and efficient caching. Modules provide clear boundaries for scoping, code organization, and reusability.
+کوروش دارای **یک سیستم ماژول قدرتمند** است که برای **کامپایل افزایشی (incremental compilation)** و ذخیره‌سازی کارا طراحی شده است. ماژول‌ها مرزهای واضحی برای حوزه‌بندی، سازماندهی کد و قابلیت استفاده مجدد فراهم می‌کنند.
 
-## Module Files
+## فایل‌های ماژول
 
-In Cyrus, **every file is a module**.
+در کوروش، **هر فایل یک ماژول است**.
 
-- **Naming**: Files must use `snake_case`.
-- **Extension**: Files must end in `.cyrus`.
-- **Visibility**: By default, everything is private. Only symbols marked with the `pub` keyword are exported and accessible to other modules.
+- **نام‌گذاری**: فایل‌ها باید از `snake_case` استفاده کنند.
+- **پسوند**: فایل‌ها باید به `.cyrus` ختم شوند.
+- **قابلیت مشاهده**: به طور پیش‌فرض، همه چیز خصوصی است. فقط نمادهایی که با کلمه کلیدی `pub` علامت‌گذاری شده‌اند، صادر شده و برای سایر ماژول‌ها قابل دسترسی هستند.
 
-Example: `auth_utils.cyrus` defines a module named `auth_utils`.
+مثال: `auth_utils.cyrus` یک ماژول به نام `auth_utils` تعریف می‌کند.
 
 ```cyrus
 // auth_utils.cyrus
@@ -24,17 +24,17 @@ pub fn login(user: char*) {
 }
 
 fn internal_helper() {
-    // Not visible outside this file
+    // خارج از این فایل قابل مشاهده نیست
 }
 ```
 
-## Importing Modules
+## وارد کردن ماژول‌ها
 
-You use the `import` keyword to bring other modules or specific symbols into scope.
+از کلمه کلیدی `import` برای آوردن سایر ماژول‌ها یا نمادهای خاص به حوزه جاری استفاده می‌کنید.
 
-### Basic Import
+### Import پایه
 
-Imports the entire module. Symbols are accessed via the `::` namespace separator.
+کل ماژول را وارد می‌کند. نمادها از طریق جداکننده فضای نام `::` قابل دسترسی هستند.
 
 ```cyrus
 import auth_utils;
@@ -44,9 +44,9 @@ pub fn main() {
 }
 ```
 
-### Single & Named Symbols
+### نمادهای تکی و نام‌دار
 
-You can selectively import symbols to avoid repeating the module name.
+می‌توانید به‌صورت انتخابی نمادها را وارد کنید تا از تکرار نام ماژول جلوگیری شود.
 
 ```cyrus
 import auth_utils{login};
@@ -56,9 +56,9 @@ pub fn main() {
 }
 ```
 
-### Grouped Imports
+### Importهای گروهی
 
-For better readability, Cyrus supports grouping multiple imports. It is idiomatic to separate standard library/libc imports from local project modules.
+برای خوانایی بهتر، کوروش از گروه‌بندی چندین import پشتیبانی می‌کند. جدا کردن importهای کتابخانه استاندارد/libc از ماژول‌های پروژه محلی، ایدئوماتیک است.
 
 ```cyrus
 import (
@@ -72,78 +72,78 @@ import (
 );
 ```
 
-### Renaming (Aliasing)
+### تغییر نام (نام‌گذاری مستعار)
 
-Use the `as` keyword to rename modules or symbols to resolve naming conflicts.
+از کلمه کلیدی `as` برای تغییر نام ماژول‌ها یا نمادها به منظور حل تداخل‌های نام‌گذاری استفاده کنید.
 
 ```cyrus
-import math_ops as m;           // Rename a module
-import user_utils{greet as hi}; // Rename a symbol
+import math_ops as m;           // تغییر نام یک ماژول
+import user_utils{greet as hi}; // تغییر نام یک نماد
 ```
 
-## Module Resolution
+## وضوح‌بخشی ماژول
 
-Cyrus resolves imports based on the environment and project configuration:
+کوروش importها را بر اساس محیط و پیکربندی پروژه وضوح می‌بخشد:
 
-### 1. Single File Compilation
+### ۱. کامپایل تک‌فایل
 
-If you are compiling a single file directly, modules are resolved relative to the **directory of that file**.
+اگر مستقیماً یک فایل واحد را کامپایل می‌کنید، ماژول‌ها نسبت به **دایرکتوری آن فایل** وضوح می‌یابند.
 
-### 2. Project Compilation
+### ۲. کامپایل پروژه
 
-When compiling a project containing a `Project.toml`, the compiler resolves imports using the paths defined in the `sources` key.
+هنگام کامپایل یک پروژه که حاوی `Project.toml` است، کامپایلر importها را با استفاده از مسیرهای تعریف‌شده در کلید `sources` وضوح می‌بخشد.
 
 ```toml
 [compiler]
 sources = ["./src", "./vendor"]
 ```
 
-If you import `my_mod`, the compiler will search for `my_mod.cyrus` inside `./src` and then `./vendor`.
+اگر `my_mod` را import کنید، کامپایلر ابتدا در `./src` و سپس در `./vendor` به دنبال `my_mod.cyrus` می‌گردد.
 
-### 3. The `std` Namespace
+### ۳. فضای نام `std`
 
-Modules starting with `std::` (like `std::libc` or `std::math`) are reserved for the Cyrus Standard Library and are resolved from the compiler's built-in library paths.
+ماژول‌هایی که با `std::` شروع می‌شوند (مانند `std::libc` یا `std::math`) برای کتابخانه استاندارد کوروش محفوظ هستند و از مسیرهای کتابخانه داخلی کامپایلر وضوح می‌یابند.
 
-The **entry file** (the file passed to the compiler as the main entry point) is considered the **Root Module**. While the root can import other modules, it cannot be imported by them to prevent circular dependencies at the top level.
+**فایل ورودی (فایلی که به عنوان نقطه ورودی اصلی به کامپایلر ارسال می‌شود)** به عنوان **ماژول ریشه (Root Module)** در نظر گرفته می‌شود. در حالی که ریشه می‌تواند ماژول‌های دیگر را import کند، نمی‌تواند توسط آنها import شود تا از وابستگی‌های حلقوی در سطح بالا جلوگیری گردد.
 
-## Nested Paths and Full Qualification
+## مسیرهای تودرتو و واجد شرایط کامل
 
-Cyrus supports importing nested modules using the `::` separator. You can also use the **fully qualified path** of a module directly in your code if you have imported its parent or the module itself.
+کوروش از import کردن ماژول‌های تودرتو با استفاده از جداکننده `::` پشتیبانی می‌کند. همچنین می‌توانید از **مسیر کاملاً واجد شرایط (fully qualified path)** یک ماژول مستقیماً در کد خود استفاده کنید، اگر والد یا خود ماژول را import کرده‌اید.
 
 ```cyrus
 import std::libc;
 
 pub fn main() {
-    // Accessing via the full path
+    // دسترسی از طریق مسیر کامل
     std::libc::printf("Hello World\n");
 }
 
-// Importing a specific symbol from a deep path
+// import کردن یک نماد خاص از یک مسیر عمیق
 import graphics::utils::canvas{draw_rect};
 ```
 
-## Internal Namespaces
+## فضاهای نام داخلی
 
-While every file is a module, you can further organize code within a single file using the `mod` keyword. This creates a nested namespace.
+در حالی که هر فایل یک ماژول است، می‌توانید کد را درون یک فایل واحد با استفاده از کلمه کلیدی `mod` بیشتر سازماندهی کنید. این کار یک فضای نام تودرتو ایجاد می‌کند.
 
-- **`pub mod`**: Accessible from outside the file.
-- **`mod`**: Private to the file where it is defined.
+- **`pub mod`**: از خارج فایل قابل دسترسی است.
+- **`mod`**: خصوصی برای فایلی است که در آن تعریف شده است.
 
-Example: `foo.cyrus`
+مثال: `foo.cyrus`
 
 ```cyrus
 import std::libc;
 
 pub mod graphics {
-    // Available only inside the 'graphics' namespace
+    // فقط در داخل فضای نام 'graphics' در دسترس است
     const INTERNAL_SCALE = 1.0;
 
-    // Available externally
+    // از خارج قابل دسترسی است
     pub const DEFAULT_COLOR = 0xFFFFFF;
 
     pub fn render() {
         libc::printf("Rendering...\n");
-        prepare(); // Internal call
+        prepare(); // فراخوانی داخلی
     }
 
     fn prepare() {
@@ -152,13 +152,13 @@ pub mod graphics {
 }
 
 mod internal_logic {
-    // This whole namespace is private to foo.cyrus
+    // کل این فضای نام برای foo.cyrus خصوصی است
 }
 ```
 
-### Accessing Namespaces
+### دسترسی به فضاهای نام
 
-When importing a file, you can bring its internal namespaces into scope just like any other symbol.
+هنگام import یک فایل، می‌توانید فضاهای نام داخلی آن را دقیقاً مانند هر نماد دیگری به حوزه جاری بیاورید.
 
 ```cyrus
 // main.cyrus
@@ -169,17 +169,17 @@ pub fn main() {
     graphics::render();
     const c = graphics::DEFAULT_COLOR;
 
-    // graphics::prepare();      // ERROR: prepare is not public
-    // graphics::INTERNAL_SCALE; // ERROR: INTERNAL_SCALE is not public
-    // foo::internal_logic;      // ERROR: internal_logic is private to foo.cyrus
+    // graphics::prepare();      // خطا: prepare عمومی نیست
+    // graphics::INTERNAL_SCALE; // خطا: INTERNAL_SCALE عمومی نیست
+    // foo::internal_logic;      // خطا: internal_logic برای foo.cyrus خصوصی است
 }
 ```
 
-## Module Uniqueness and Conflicts
+## یکتایی ماژول و تداخل‌ها
 
-Cyrus enforces a strict naming rule to prevent ambiguity in the module tree. A module name must be unique within its parent directory regardless of whether it is a file or a folder.
+کوروش یک قانون نام‌گذاری سختگیرانه را برای جلوگیری از ابهام در درخت ماژول اعمال می‌کند. نام یک ماژول باید در دایرکتوری والد خود یکتا باشد، صرف‌نظر از اینکه فایل باشد یا پوشه.
 
-**A module cannot exist as both a file and a directory simultaneously.**
+**یک ماژول نمی‌تواند به طور همزمان به صورت فایل و دایرکتوری وجود داشته باشد.**
 
 ```text
 project/
@@ -188,18 +188,18 @@ project/
        └── index.cyrus
 
 
-ERROR: Conflict detected!
+خطا: تداخل تشخیص داده شد!
 ```
 
-If the compiler finds both `auth.cyrus` and a directory named `auth/`, it will trigger a **Compile Error** because the import path `import auth;` would be ambiguous.
+اگر کامپایلر هم `auth.cyrus` و هم یک دایرکتوری به نام `auth/` پیدا کند، یک **خطای کامپایل** ایجاد می‌کند، زیرا مسیر import یعنی `import auth;` مبهم خواهد بود.
 
-## Directory Modules
+## ماژول‌های دایرکتوری
 
-Cyrus allows you to treat a directory as a single module by using an `index.cyrus` file. This is useful for organizing a large module into multiple sub-files while exposing a clean top-level API.
+کوروش به شما اجازه می‌دهد با استفاده از یک فایل `index.cyrus`، یک دایرکتوری را به عنوان یک ماژول واحد در نظر بگیرید. این برای سازماندهی یک ماژول بزرگ به چندین فایل زیرمجموعه و در عین حال ارائه یک API تمیز در سطح بالا مفید است.
 
-If a directory contains an `index.cyrus`, the directory name becomes the module name.
+اگر یک دایرکتوری حاوی `index.cyrus` باشد، نام دایرکتوری به نام ماژول تبدیل می‌شود.
 
-Example Structure:
+ساختار مثال:
 
 ```text
 my_lib/
@@ -208,7 +208,7 @@ my_lib/
   └── internal_io.cyrus
 ```
 
-Inside `my_lib/index.cyrus`, you might export or define symbols:
+در داخل `my_lib/index.cyrus`، می‌توانید نمادها را صادر یا تعریف کنید:
 
 ```cyrus
 // my_lib/index.cyrus
@@ -216,14 +216,14 @@ import my_lib::internal_math{add};
 pub fn run() { ... }
 ```
 
-When you import `my_lib`, you are actually interacting with the contents of `index.cyrus`:
+هنگامی که `my_lib` را import می‌کنید، در واقع با محتویات `index.cyrus` تعامل دارید:
 
 ```cyrus
 import my_lib;
 
 pub fn main() {
-    my_lib::run(); // Accesses code from index.cyrus
+    my_lib::run(); // دسترسی به کد از index.cyrus
 }
 ```
 
-This pattern is ideal for "facade" modules, where `index.cyrus` imports internal logic from other files in the same directory and re-exports the public API.
+این الگو برای ماژول‌های «نما (facade)» ایده‌آل است، جایی که `index.cyrus` منطق داخلی را از سایر فایل‌های همان دایرکتوری import کرده و API عمومی را مجدداً صادر می‌کند.

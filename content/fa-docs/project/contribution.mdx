@@ -1,204 +1,204 @@
 ---
-title: Contribution
+title: مشارکت
 weight: 1
 ---
 
-# Contributing to Cyrus
+# مشارکت در کوروش
 
-Cyrus is an open source project licensed under the [MIT license](https://github.com/cyrus-lang/Cyrus/blob/initial-compiler/LICENSE).  
-Every contribution is welcome and appreciated, regardless of its scale or importance.
+کوروش یک پروژه متن‌باز است که تحت [مجوز MIT](https://github.com/cyrus-lang/Cyrus/blob/initial-compiler/LICENSE) منتشر شده است.  
+هرگونه مشارکت، صرف‌نظر از وسعت یا اهمیت آن، مورد استقبال و قدردانی قرار می‌گیرد.
 
-We value correctness, clarity, and long-term maintainability over speed or volume of contributions.
+ما به صحت، وضوح، و قابلیت نگهداری بلندمدت بیش از سرعت یا حجم مشارکت‌ها ارزش می‌نهیم.
 
-## What Counts as a Contribution?
+## چه مواردی مشارکت محسوب می‌شود؟
 
-Contributions include, but are not limited to:
+مشارکت‌ها شامل موارد زیر است، اما به آن‌ها محدود نمی‌شود:
 
-- Documentation improvements
-- Compiler code improvements
-- Bug fixes
-- Performance work
-- Tooling (VSCode extension, Emacs plugin, language servers, etc.)
-- Website improvements
-- Issue triage and discussion participation
+- بهبود مستندات
+- بهبود کد کامپایلر
+- رفع اشکالات
+- بهینه‌سازی عملکرد
+- ابزارسازی (افزونه VSCode، افزونه Emacs، سرورهای زبان، و غیره)
+- بهبود وب‌سایت
+- بررسی مسائل و مشارکت در بحث‌ها
 
-## AI-Generated Code Policy
+## سیاست کد تولیدشده توسط هوش مصنوعی
 
-Cyrus has a **strict but pragmatic policy** regarding AI-assisted contributions.
+کوروش **سیاستی سختگیرانه اما عمل‌گرایانه** در قبال مشارکت‌های کمکی هوش مصنوعی دارد.
 
-### Compiler (STRICT RULE)
+### کامپایلر (قاعده سختگیرانه)
 
-AI-generated or AI-authored code is **NOT allowed in the compiler codebase**.
+کد تولیدشده یا تألیف‌شده توسط هوش مصنوعی در **پایگاه کد کامپایلر مجاز نیست**.
 
-This includes:
+این شامل موارد زیر می‌شود:
 
-- core compiler logic
-- parser / lexer
-- type system
-- optimizer
-- codegen / backend
-- runtime / standard library
+- منطق اصلی کامپایلر
+- تجزیه‌گر / تحلیلگر واژگانی
+- سیستم نوع‌ها
+- بهینه‌ساز
+- تولید کد / پشتیبان
+- زمان اجرا / کتابخانه استاندارد
 
-If a pull request is found to contain AI-generated compiler code:
+اگر مشخص شود که یک درخواست کشش (pull request) حاوی کد تولیدشده توسط هوش مصنوعی برای کامپایلر است:
 
-> It will be closed immediately without merging.
+> بدون ادغام فوراً بسته خواهد شد.
 
-We do this because the compiler is a correctness-critical system where:
+ما این کار را به این دلیل انجام می‌دهیم که کامپایلر سیستمی حیاتی از نظر صحت است که در آن:
 
-- subtle logical errors are unacceptable
-- authorship must be traceable
-- long-term maintainability depends on human reasoning
+- خطاهای منطقی جزئی غیرقابل قبول هستند
+- انتساب اثر باید قابل ردیابی باشد
+- قابلیت نگهداری بلندمدت به استدلال انسانی وابسته است
 
-### Tools & Ecosystem (ALLOWED)
+### ابزارها و اکوسیستم (مجاز)
 
-AI-assisted contributions are allowed in:
+مشارکت‌های کمکی هوش مصنوعی در موارد زیر مجاز است:
 
-- VSCode extension
-- Emacs plugin
-- language tooling
-- website
-- documentation
-- examples and tutorials
+- افزونه VSCode
+- افزونه Emacs
+- ابزارهای زبانی
+- وب‌سایت
+- مستندات
+- مثال‌ها و آموزش‌ها
 
-However, contributors are still responsible for correctness, licensing, and originality.
+با این حال، مشارکت‌کنندگان همچنان مسئول صحت، مجوز، و اصالت اثر هستند.
 
-## Before Filing an Issue
+## پیش از ثبت مسئله
 
-Please check if a similar issue already exists to avoid duplicates.
+لطفاً بررسی کنید که آیا مسئله مشابهی از قبل وجود دارد تا از ثبت تکراری جلوگیری شود.
 
-## Filing an Issue
+## ثبت مسئله
 
-When you encounter a problem or have a suggestion, please include:
+هنگامی که با مشکلی روبرو می‌شوید یا پیشنهادی دارید، لطفاً موارد زیر را ذکر کنید:
 
-### 1. Clear Title
+### ۱. عنوان واضح
 
-A short and descriptive summary of the issue.
+خلاصه‌ای کوتاه و توصیفی از مسئله.
 
-### 2. Problem Description
+### ۲. شرح مشکل
 
-Include:
+شامل موارد زیر:
 
-- Expected behavior
-- Actual behavior
-- Steps to reproduce
-- Environment details (OS, version, configuration)
+- رفتار مورد انتظار
+- رفتار واقعی
+- مراحل بازتولید
+- جزئیات محیط (سیستم‌عامل، نسخه، پیکربندی)
 
-### 3. Supporting Information
+### ۳. اطلاعات پشتیبان
 
-If relevant:
+در صورت لزوم:
 
-- logs
-- screenshots
-- minimal reproduction cases
+- گزارش‌ها
+- تصاویر صفحه
+- موارد بازتولید حداقلی
 
-### 4. Labels
+### ۴. برچسب‌ها
 
-Use appropriate labels such as:
+از برچسب‌های مناسب استفاده کنید مانند:
 
 - bug
 - enhancement
 - question
 
-## Pull Request Requirements
+## الزامات درخواست کشش
 
-All submitted PRs must follow these rules:
+تمامی درخواست‌های کشش (PR) ارسالی باید از این قوانین پیروی کنند:
 
-### 1. Review Requirement (STRICT)
+### ۱. نیاز به بررسی (سختگیرانه)
 
-A PR must be approved by:
+یک PR باید توسط موارد زیر تأیید شود:
 
-- the project creator, OR
-- at least **two independent maintainers**
+- ایجادکننده پروژه، یا
+- حداقل **دو نگهدارنده مستقل**
 
-No single-review merges for non-trivial changes.
+ادغام با یک بررسی برای تغییرات غیرجزئی مجاز نیست.
 
-### 2. CI / Tests (MANDATORY)
+### ۲. یکپارچه‌سازی مداوم / آزمایش‌ها (اجباری)
 
-All tests must pass before review or merge.
+تمام آزمایش‌ها باید قبل از بررسی یا ادغام با موفقیت گذرانده شوند.
 
-- failing CI = PR is not eligible for merge
-- partial fixes must be clearly marked as WIP
+- CI ناموفق = PR واجد شرایط ادغام نیست
+- رفع‌های جزئی باید به وضوح به عنوان WIP علامت‌گذاری شوند
 
-### 3. Breaking Changes Policy
+### ۳. سیاست تغییرات بنیادین
 
-Breaking changes must be discussed **before implementation**.
+تغییرات بنیادین باید **پیش از پیاده‌سازی** مورد بحث قرار گیرند.
 
-Acceptable discussion channels:
+کانال‌های قابل قبول برای بحث:
 
-- GitHub Issues
-- Community discussions
-- Maintainer coordination channels
+- مسائل گیت‌هاب
+- بحث‌های اجتماعی
+- کانال‌های هماهنگی نگهدارندگان
 
-Do not submit breaking changes without prior agreement.
+تغییرات بنیادین را بدون توافق قبلی ارسال نکنید.
 
-## Submitting a Draft PR
+## ارسال PR پیش‌نویس
 
-Draft PRs are strongly encouraged for early feedback.
+PRهای پیش‌نویس به شدت برای دریافت بازخورد زودهنگام توصیه می‌شوند.
 
-### Steps:
+### مراحل:
 
-1. Create a branch from `initial-compiler`
-2. Implement your changes incrementally
-3. Push to your fork
-4. Open a Pull Request as **Draft**
-5. Clearly describe:
+1. یک شاخه از `initial-compiler` ایجاد کنید
+2. تغییرات خود را به تدریج پیاده‌سازی کنید
+3. به انشعاب (fork) خود push کنید
+4. یک درخواست کشش به عنوان **پیش‌نویس** باز کنید
+5. به وضوح شرح دهید:
 
-   - what problem you are solving
-   - your design approach
-   - any trade-offs or uncertainties
+   - چه مسئله‌ای را حل می‌کنید
+   - رویکرد طراحی شما
+   - هرگونه بده‌بستان یا عدم قطعیت
 
-Draft PRs are the preferred way to propose non-trivial changes.
+PRهای پیش‌نویس روش ترجیحی برای ارائه تغییرات غیرجزئی هستند.
 
-## Reviewing & Iteration
+## بررسی و تکرار
 
-Once your PR is in review:
+هنگامی که PR شما در مرحله بررسی است:
 
-- respond to feedback constructively
-- make small, focused commits
-- avoid mixing unrelated changes
-- ensure CI remains green at all times
+- به بازخوردها به صورت سازنده پاسخ دهید
+- commitهای کوچک و متمرکز انجام دهید
+- از مخلوط کردن تغییرات نامرتبط خودداری کنید
+- اطمینان حاصل کنید CI همواره سبز باقی می‌ماند
 
-When ready:
+هنگامی که آماده شدید:
 
-- mark PR as “Ready for review”
-- wait for final approval
+- PR را به عنوان "آماده برای بررسی" علامت‌گذاری کنید
+- منتظر تأیید نهایی باشید
 
-## AI Misuse in PRs (IMPORTANT ENFORCEMENT)
+## سوءاستفاده از هوش مصنوعی در PRها (اجرای مهم)
 
-If a PR targeting the **compiler codebase** is found to contain AI-generated or AI-assisted code:
+اگر مشخص شود که یک PR با هدف **پایگاه کد کامپایلر** حاوی کد تولیدشده یا کمکی هوش مصنوعی است:
 
-- it will be closed immediately
-- maintainers are not required to provide detailed review feedback
-- repeated violations may lead to contribution restrictions
+- فوراً بسته خواهد شد
+- نگهدارندگان ملزم به ارائه بازخورد بررسی دقیق نیستند
+- تخلفات مکرر ممکن است منجر به محدودیت مشارکت شود
 
-This rule exists to protect the integrity of Cyrus as a systems-level compiler project.
+این قاعده برای حفظ یکپارچگی کوروش به عنوان یک پروژه کامپایلر سطح سیستم وجود دارد.
 
-## Code Quality Expectations
+## انتظارات کیفیت کد
 
-We expect contributions to:
+ما انتظار داریم مشارکت‌ها موارد زیر را رعایت کنند:
 
-- be minimal and purposeful
-- avoid unnecessary abstraction
-- match existing code style
-- prioritize correctness over cleverness
-- remain understandable to future maintainers
+- حداقلی و هدفمند باشند
+- از انتزاع غیرضروری پرهیز کنند
+- با سبک کد موجود هماهنگ باشند
+- صحت را بر هوشمندی ترجیح دهند
+- برای نگهدارندگان آینده قابل فهم باقی بمانند
 
-## Submitting a Final PR
+## ارسال PR نهایی
 
-Before marking a PR ready:
+پیش از علامت‌گذاری PR به عنوان آماده:
 
-- ensure all CI checks pass
-- update documentation if needed
-- verify no unrelated changes are included
-- ensure commit messages are meaningful
+- اطمینان حاصل کنید تمام بررسی‌های CI با موفقیت گذرانده شده‌اند
+- در صورت لزوم مستندات را به‌روز کنید
+- تأیید کنید که هیچ تغییر نامرتبطی شامل نشده است
+- اطمینان حاصل کنید پیام‌های commit معنادار هستند
 
-## Respectful Collaboration
+## همکاری محترمانه
 
-We maintain a professional and constructive environment.
+ما محیطی حرفه‌ای و سازنده را حفظ می‌کنیم.
 
-All contributors are expected to:
+از همه مشارکت‌کنندگان انتظار می‌رود:
 
-- communicate clearly
-- respect differing technical opinions
-- avoid personal arguments
-- focus on technical merit
+- به وضوح ارتباط برقرار کنند
+- به نظرات فنی متفاوت احترام بگذارند
+- از بحث‌های شخصی پرهیز کنند
+- بر شایستگی فنی تمرکز کنند

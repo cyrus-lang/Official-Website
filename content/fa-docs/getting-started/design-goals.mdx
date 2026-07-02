@@ -1,544 +1,664 @@
 ---
-title: Design Goals
+title: اهداف طراحی
 weight: 2
 ---
 
-# Design Goals
+# اهداف طراحی
 
-Cyrus is a systems programming language shaped by a simple observation: modern languages often demand too much attention from the developer—not to the problem being solved, but to the language itself.
+کوروش یک زبان برنامه‌نویسی سیستمی برای ساخت زیرساخت‌هایی است که باید برای سال‌ها اجرا شوند — زبانی که درباره هر تصمیم سطح ماشین صریح است، بدون هزینه‌های پنهان، زمان اجرا (runtime)، یا قیمومیت کامپایلر.
 
-Cyrus exists to reverse that relationship.
+## فلسفه
 
-It is designed so that once you understand its structure, your focus shifts entirely to logic, not syntax, not hidden rules, and not language-specific mental overhead.
+کوروش بر اساس یک اصل سختگیرانه بنا شده است:
 
-## Philosophy
+> توسعه‌دهنده مسئول است. زبان باید هر نقطه کنترل را قابل مشاهده کند، نه اینکه تصمیمات را پشت قوانین خودکار پنهان کند.
 
-Cyrus is built on a strict principle:
+این زبان سعی نمی‌کند همه باگ‌ها را از طریق سیستم‌های ایمنی اعمال‌شده توسط کامپایلر حذف کند، و نه پارادایم‌های جدید یا لایه‌های انتزاع سنگین معرفی می‌کند. در عوض، مفاهیم اثبات‌شده از برنامه‌نویسی سیستمی را انتخاب کرده و آن‌ها را به شکلی سازگار و صریح بهبود می‌بخشد، جایی که هر تصمیم درباره تغییرپذیری (mutability)، تخصیص حافظه، غیرمستقیم‌سازی (indirection) و استراتژی توزیع (dispatch) در کد اعلام می‌شود، نه اینکه استنباط گردد.
 
-> A language should not compete with your thinking.
+کوروش بر همان مدل ماشینی C بنا شده است، به‌گونه‌ای طراحی شده که هر اتفاقی در سطح سخت‌افزار از خواندن کد آشکار باشد.
 
-It does not attempt to introduce new paradigms, invent novel abstractions, or redefine how systems programming should work. Instead, it carefully selects proven concepts and refines them into a consistent, minimal, and readable form.
+## معناشناسی صریح
 
-If you are familiar with C-like semantics, Cyrus should feel natural within days—not weeks.
+کوروش با الزام توسعه‌دهندگان به بیان مستقیم قصد خود، کنترل را قابل مشاهده می‌کند و هیچ ابهامی درباره عملکرد کد باقی نمی‌گذارد.
 
-Cyrus is not a replacement for C, nor does it attempt to be fully compatible with it. It is a modern reinterpretation of familiar ideas, designed for clarity and control.
+### تغییرپذیری صریح است
 
-## Syntax-First Simplicity
+هر متغیر تغییرپذیری خود را در نقطه تعریف اعلام می‌کند:
 
-Cyrus is designed from the ground up with readability and cognitive control in mind.
-
-- Minimal syntax, without sacrificing expressiveness
-- No "magic" rules that change how code behaves behind the scenes
-- Predictable structure across the entire language
-
-The goal is straightforward:  
-you should be able to read Cyrus code and understand it immediately, without needing to mentally simulate the compiler.
-
-Cyrus avoids introducing new or unfamiliar constructs. Every feature is grounded in concepts that are already widely understood in systems programming.
-
-## Controlled Cognitive Load
-
-Cyrus intentionally limits abstraction.
-
-It does not attempt to compress logic into clever constructs or dense expressions. Instead, it favors clarity, even when it requires slightly more explicit code.
-
-- No paradigm mixing
-- No functional-style abstractions
-- No heavy object-oriented hierarchies
-
-Cyrus is procedural at its core. It embraces composition over inheritance and provides a clear, direct way to structure programs without layering unnecessary complexity.
-
-## Type System
-
-Cyrus uses a statically typed system with semantics similar to C, refined for consistency and safety.
-
-- Strong type inference reduces redundancy
-- Variable types must be known at declaration time
-- No delayed or implicit type mutation
-- Predictable and explicit typing rules
-
-Generics are fully supported and designed to remain transparent:
-
-- Monomorphization for performance-critical code
-- Constraint-based generics via `interface`
-- No hidden runtime cost when using constraint-based generics (static dispatch)
-
-The type system is designed to assist—not obstruct—the developer.
-
-## Memory Management
-
-Cyrus provides full, deterministic control over memory.
-
-- No garbage collector
-- Manual memory management, similar to C
-- Support for custom allocators
-- `defer` for structured cleanup
-
-Unlike ownership-heavy systems, Cyrus avoids introducing complex rules that must be constantly reasoned about.
-
-The goal is clear:
-
-> Give developers control without forcing them to fight the language.
-
-Memory behavior is explicit, predictable, and visible in the code.
-
-## Low-Level Control
-
-Cyrus is designed for systems-level programming, where control over memory and execution is essential.
-
-- Direct access to memory and stack behavior
-- Raw pointers as first-class primitives
-- Pointer arithmetic is fully supported
-- Explicit dereferencing using the `->` operator
-- No reference types—only pointers exist
-- Optional inline assembly support
-- C ABI compatibility for seamless interoperability
-
-Cyrus does not abstract away the machine. It exposes it in a controlled and readable way.
-
-What you write closely reflects what executes, without hidden high-level transformations.
-
-Raw pointer operations provide full flexibility, but they come with responsibility. Invalid access, incorrect arithmetic, or misuse of pointers may lead to undefined behavior.
-
-## Module System
-
-Cyrus provides a clean and expressive module system without unnecessary tooling complexity.
-
-- Simple and readable imports
-- Clear dependency boundaries
-- No build system overhead leaking into the language
-
-The structure of a project should be obvious from the code itself.
-
-## Performance by Design
-
-Cyrus is built on top of LLVM, leveraging a mature and high-performance backend.
-
-- Ahead-of-time (AOT) compilation
-- Predictable runtime characteristics
-- Zero-cost abstractions where applicable
-
-Performance is not an afterthought—it is a foundational requirement.
-
-## Design Tradeoffs and Guarantees
-
-Cyrus is intentionally opinionated about what it provides—and what it does not.
-
-Every design decision in Cyrus is a tradeoff. The language prioritizes simplicity, predictability, and developer control over heavy safety systems and implicit behavior.
-
-### Safety Model
-
-Cyrus does not attempt to eliminate all classes of bugs.
-
-There is:
-
-- No borrow checker
-- No garbage collector
-- No built-in runtime safety guarantees
-
-Cyrus performs compile-time checks where they are clear and reliable, and provides limited runtime diagnostics where appropriate.
-
-For example:
-
-- Certain runtime errors, such as index out-of-range access, are detected and reported during execution
-
-Beyond these checks, the language does not attempt to enforce safety through complex systems or hidden mechanisms.
-
-Instead, Cyrus focuses on **reducing obvious and avoidable mistakes**, while leaving full control—and responsibility—in the hands of the developer.
-
-#### What Cyrus Prevents
-
-- Ambiguous or misleading syntax (common in C)
-- Implicit and unsafe type conversions
-- Silent integer truncation or signedness issues
-- Hidden control flow or implicit behavior
-
-#### What Cyrus Does Not Prevent
-
-The following are still possible by design:
-
-- Reading or writing invalid memory
-- Use-after-free
-- Double free
-- Dangling pointers
-- Data races (when concurrency is introduced externally)
-
-These are considered **the cost of control**, not failures of the language.
-
-To assist debugging, Cyrus supports runtime sanitizers that help detect these issues during development.
-
-### Trust-Based Design
-
-Cyrus is built on a trust-based model.
-
-The language provides tools and guarantees where they meaningfully reduce common mistakes, but it does not attempt to enforce correctness through heavy restrictions or complex safety systems.
-
-Instead, Cyrus assumes that the developer understands the system they are working with and is responsible for writing correct code.
-
-This philosophy is reflected throughout the language:
-
-- Memory management is explicit and manual
-- Raw pointers are first-class and unrestricted
-- Undefined behavior is possible when low-level operations are misused
-- Safety mechanisms are limited to clear, enforceable cases
-
-Cyrus does not attempt to prevent every possible error. Doing so would require introducing layers of abstraction and rules that increase cognitive load and obscure program behavior.
-
-Instead, the language focuses on:
-
-- Making intent visible in the code
-- Preventing obvious and common mistakes
-- Avoiding misleading or ambiguous constructs
-
-Beyond that, responsibility remains with the developer.
-
-This model leads to a clear tradeoff:
-
-- You gain control, simplicity, and performance
-- You accept responsibility for correctness and safety
-
-Cyrus trusts you to use that control wisely.
-
-## Memory Management
-
-Cyrus provides explicit and deterministic control over memory.
-
-- No garbage collector
-- Manual memory management, similar to C
-- First-class support for custom allocators
-- `defer` for structured and predictable cleanup
-
-Unlike ownership-heavy systems, Cyrus avoids introducing complex rules that must be constantly tracked by the developer. Memory management remains direct, visible, and under user control.
-
-The core principle is simple:
-
-> The code that performs allocation is responsible for ensuring the resource is eventually freed, unless ownership is explicitly transferred.
-
-Memory behavior is explicit and observable in the code. However, incorrect usage—such as invalid memory access or double free—can still result in undefined behavior.
-
-#### Key Characteristics
-
-- Manual allocation and deallocation
-- `defer` enables structured and predictable cleanup
-- Custom allocators are first-class
-
-Examples of allocators include:
-
-- `LibcAllocator`
-- `HeapAllocator` (provided by Cyrus)
-- `BumpAllocator`
-
-Allocators are not required to be explicitly passed in every case, but all memory operations conceptually occur through an allocator.
-
-#### Undefined Behavior
-
-Invalid memory operations result in undefined behavior, including:
-
-- Double free
-- Invalid pointer dereference
-- Memory corruption
-
-Cyrus does not attempt to guard against these at compile time.
-
-### Type System Boundaries
-
-Cyrus uses a statically typed system with strict and predictable rules.
-
-#### Type Inference
-
-Cyrus supports strong type inference, but only within **fully declared contexts**.
-
-Valid:
-
-```c
-const object: Box<int> = Box.new(10);
+```cyrus
+const max_retries = 5; // immutable
+var current_try = 0;   // mutable
 ```
 
-Invalid:
+یک binding از نوع `const` هرگز نمی‌تواند دوباره مقداردهی شود — کامپایلر این را اعمال می‌کند. یک binding از نوع `var` به خواننده نشان می‌دهد که این مقدار در طول عمر خود تغییر می‌کند. نیازی به جستجوی عقب‌گرد برای بررسی اینکه آیا یک نام با `let` یا `let mut` اعلام شده است نیست؛ نشانه در اولین token هر اعلان قرار دارد.
 
-```c
-const object; // type cannot be inferred later
+### تبدیل نوع قابل مشاهده است
+
+در جایی که C تبدیل‌های ضمنی خاموشی انجام می‌دهد که می‌توانند اطلاعات را از دست بدهند، کوروش نیاز به cast صریح دارد:
+
+```cyrus
+const a: int32 = @cast(int32, 0xFFFFFFFF);
+const b: int16 = @cast(int16, 0xFFFFFFFF);
 ```
 
-Type inference does not defer or propagate across unknown declarations.  
-All types must be known at the point of declaration.
+تبدیل‌های گسترشی (مثلاً `int32` به `int64` با علامت یکسان) به‌طور ضمنی مجاز هستند زیرا همیشه ایمن هستند. هر Narrowing یا عدم تطابق علامت نیاز به یک `@cast` قابل مشاهده دارد. این کار یک دسته کامل از باگ‌هایی را که در آن C به‌طور خاموش مقادیر را کوتاه یا بازتفسیر می‌کند، حذف می‌نماید.
 
-#### Integer Semantics
+### غیرمستقیم‌سازی اشاره‌گر قابل پیگیری است
 
-Cyrus enforces strict integer correctness:
+کوروش بین دسترسی مستقیم (`.`) و دسترسی از طریق اشاره‌گر (`->`) تمایز قائل می‌شود و هر dereference را در محل فراخوانی قابل مشاهده می‌کند:
 
-- No implicit narrowing conversions
-- Signedness must match
-- Safe widening is allowed when:
-  - RHS size < LHS size
-  - Signedness is identical
-- Mismatched signedness requires explicit conversion
+```cyrus
+var box = Box { value: 1 };
 
-This eliminates a large class of silent numeric bugs common in C.
-
-### Generics and Polymorphism
-
-Cyrus supports generics and polymorphism with a model that remains predictable while allowing both static and dynamic dispatch.
-
-- Monomorphization for zero-cost abstractions
-- Constraint-based generics via `interface`
-- Both static and dynamic dispatch are supported, with well-defined rules
-
-#### Dispatch Semantics
-
-Cyrus determines dispatch strategy based on how `interface` is used and what the compiler can prove at compile time.
-
-**1. Interface as Constraint (Generics)**
-
-When an `interface` is used as a constraint on a function or method:
-
-- The compiler guarantees **monomorphization**
-- Dispatch is always **static**
-- No runtime overhead is introduced
-
-This is the preferred model for performance-critical code.
-
-**2. Interface as a Standalone Type**
-
-When an `interface` is used as a type:
-
-```c
-const obj: MyInterface = ...;
+var box2 = box.methodA(5)->methodB(50); // thin arrow means we're going through a pointer
 ```
 
-Dispatch behavior depends on compile-time knowledge:
+عملگر `->` به خواننده می‌گوید «اینجا غیرمستقیم‌سازی رخ می‌دهد» بدون اینکه نیاز باشد نوع سمت چپ را به‌صورت ذهنی تشخیص دهد.
 
-- If the concrete type is known within the same lexical scope and at the call site, the compiler will strongly attempt to resolve the call using **static dispatch**, eliminating any runtime overhead.
-- If the concrete type cannot be determined at compile time, the compiler falls back to **dynamic dispatch**, invoking the method through a vtable (`vtable_ptr`).
+### مدیریت حافظه دستی و قابل مشاهده است
 
-This allows Cyrus to balance flexibility and performance without requiring explicit annotations in most cases.
+هر تخصیص و آزادسازی حافظه در کد صریح است:
 
-#### Design Intent
+```cyrus
+import std::mem{Allocator, LibcAllocator};
 
-Cyrus does not force a single dispatch model.
+pub fn main() {
+    const allocator = LibcAllocator.new();
+    var buffer: int* = allocator.alloc(64 * @sizeof(int));
+    defer allocator.free(buffer); // cleanup is visible and scoped
 
-Instead, it provides:
-
-- **Static dispatch by guarantee** when using generics with constraints
-- **Opportunistic static dispatch** when type information is available
-- **Dynamic dispatch as a fallback**, not the default assumption
-
-This design keeps polymorphism:
-
-- Transparent in behavior
-- Predictable in performance
-- Free from unnecessary abstraction overhead
-
-There is no attempt to unify multiple paradigms. Generics and polymorphism remain explicit, mechanical, and close to how the compiler operates.
-
-### Data Model
-
-All abstractions in Cyrus are built on three core constructs:
-
-- `struct`
-- `union`
-- `enum`
-
-Enums support multiple variant forms:
-
-- Unit
-- Tuple
-- Struct
-- Valued
-
-There are no hidden object models or class hierarchies.
-
-Cyrus does not support traditional object-oriented programming:
-
-- No inheritance
-- No class system
-- No method injection outside the defining module
-
-Instead, it promotes:
-
-> Composition over inheritance.
-
-### Methods and Encapsulation
-
-Methods in Cyrus are:
-
-- Defined alongside their data structures
-- Not extendable outside their defining module
-
-This ensures:
-
-- Clear ownership of behavior
-- No hidden extensions or scattered implementations
-- Improved readability and maintainability
-
-### Module System Semantics
-
-Cyrus uses a simple and explicit module system.
-
-- Each file is a module
-- Visibility is limited to:
-  - `public`
-  - `private`
-
-Imports are resolved through **absolute path calculation**, avoiding ambiguity and hidden resolution rules.
-
-Namespaces can be formed using the `mod` keyword to group related declarations.
-
-The system is designed to remain:
-
-- Predictable
-- Lightweight
-- Free from build-system complexity
-
-### No Hidden Language Features
-
-Cyrus strictly avoids implicit or hidden behavior:
-
-- No macros (unless explicitly introduced later with strict constraints)
-- No implicit allocations
-- No compiler-inserted logic beyond what is visible
-- No hidden control flow transformations
-
-What you write is what executes.
-
-### What Cyrus Refuses to Do
-
-Cyrus explicitly avoids several common language features—not due to limitation, but by design.
-
-- No garbage collection
-- No borrow checker
-- No concurrency model (at this stage)
-- No full object-oriented system
-- No method extension outside defining modules
-- No paradigm mixing (e.g., functional features in a procedural core)
-
-These exclusions reduce complexity and keep the language focused.
-
-### Tradeoff Summary
-
-Cyrus makes a clear exchange:
-
-You gain:
-
-- Simplicity
-- Predictability
-- Low cognitive overhead
-- Full control over memory and execution
-- High performance
-
-You give up:
-
-- Strong compile-time safety guarantees
-- Automatic memory management
-- Advanced abstraction systems
-- Built-in concurrency primitives
-
-### Design Constraint: No New Concepts
-
-Cyrus follows a strict constraint:
-
-> The language does not invent new programming concepts.
-
-Every feature is derived from existing, well-understood systems programming ideas. This ensures that:
-
-- The learning curve remains shallow
-- Code remains readable across teams
-- Developers spend time solving problems, not learning the language
-
-### Final Perspective
-
-Cyrus is not trying to be the safest language.  
-It is not trying to be the most abstract.  
-It is not trying to cover every paradigm.
-
-It is trying to be:
-
-- Clear
-- Honest
-- Controllable
-
-A language where the developer remains in charge—without unnecessary friction.
-
-## Abstractions, Carefully Applied
-
-Cyrus believes in minimal and controlled abstraction.
-
-- No full object-oriented model
-- No inheritance hierarchies
-- Composition as the primary structuring tool
-- Interfaces for controlled polymorphism
-
-Abstractions exist only where they improve clarity—not where they obscure behavior.
-
-## Preventing Common Mistakes
-
-Cyrus is designed to reduce common errors found in C-style programming, particularly those caused by ambiguous or misleading syntax.
-
-For example, a well-known issue in C:
-
-```c
-if (a = b) {
-    // unintended assignment instead of comparison
+    buffer[0] = 369;
 }
 ```
 
-Cyrus avoids this class of mistake through stricter and more intentional syntax rules, ensuring that such ambiguities are either disallowed or clearly visible.
+کلیدواژه `defer` تضمین می‌کند که پاک‌سازی در هنگام خروج از scope اجرا می‌شود — به ترتیب معکوس اعلان (LIFO) — و طول عمر منابع را قطعی و قابل مشاهده می‌کند بدون نیاز به تو در تو کردن (nesting):
 
-The goal is not to restrict the developer—but to eliminate avoidable errors.
+```cyrus
+pub fn main() {
+    defer log(100);        // runs last at function exit
 
-## A Language That Stays Out of Your Way
+    {
+        defer log(10 + 1); // runs when inner scope exits
+        defer log(10 + 2);
+        log(2);
+    }
+}
+```
 
-Cyrus is intentionally mid-level.
+### تبدیل اعداد صحیح سخت‌گیرانه است
 
-It does not attempt to abstract away the system, nor does it overwhelm you with low-level complexity. Instead, it provides a balanced layer where:
+کوروش صحت اعداد صحیح را به‌طور سخت‌گیرانه اعمال می‌کند تا باگ‌های کوتاه‌شدن خاموش و عدم تطابق علامت که کدهای C را آزار می‌دهد حذف کند:
 
-- You retain full control
-- You write predictable code
-- You reason about behavior directly
+- عدم وجود تبدیل Narrowing ضمنی — یک مقدار `int64` نمی‌تواند به‌طور خاموش به `int32` تبدیل شود
+- علامت باید مطابقت داشته باشد — ترکیاعداد علامت‌دار و بدون علامت نیاز به `@cast` صریح دارد
+- گسترش ایمن خودکار است — `int32` به `int64` با علامت یکسان به‌طور ضمنی تبدیل می‌شود
+- عدم تطابق علامت حتی در گسترش نیاز به `@cast` صریح دارد
 
-You work with the machine—without fighting the language.
+```cyrus
+const a: int32 = 300;
+const b: int64 = a;               // OK: safe widening, matching signedness
+const c: int32 = @cast(int32, b); // explicit: narrowing requires cast
 
-## Who Cyrus Is For
+const u: uint32 = 10;
+const i: int64 = @cast(int64, u); // explicit: signedness mismatch requires cast
+```
 
-Cyrus is designed for developers who value control, clarity, and performance:
+این کار از باگ‌های کلاسیک C جلوگیری می‌کند که در آن‌ها:
 
-- Systems programmers familiar with C
-- Developers seeking a simpler alternative to Rust
-- Compiler and toolchain developers
-- Network and backend engineers building high-performance systems
-- Embedded and low-level developers
+- یک شمارنده حلقه به‌طور خاموش می‌پیچد زیرا در نوع کوچک‌تری ذخیره شده است
+- یک مقایسه بین علامت‌دار و بدون علامت نتایج غیرمنتظره ایجاد می‌کند
+- اندازه فایل ۶۴ بیتی هنگام انتساب به یک متغیر ۳۲ بیتی کوتاه می‌شود
 
-## Who Cyrus Is Not For
+## آنچه می‌توانید انجام دهید
 
-Cyrus is not designed for:
+کوروش به شما اعتماد دارد که سیستمی را که با آن کار می‌کنید درک می‌کنید. به جای محدود کردن آنچه می‌توانید بیان کنید، ابزارهایی را در اختیار شما قرار می‌دهد تا ماشین را مستقیماً کنترل کنید — و مسئولیت عواقب آن را بر عهده می‌گیرد.
 
-- Absolute beginners without systems programming background
-- Developers expecting automatic memory management
-- Those seeking heavy runtime safety or complex compile-time guarantees without understanding memory behavior
+**تخصیص‌دهنده حافظه خود را بنویسید** — تخصیص‌دهنده‌های سفارشی شهروندان درجه یک از طریق واسط `Allocator` هستند، با پیاده‌سازی‌های stack، bump و libc-backed که در کتابخانه استاندارد ارائه شده‌اند:
 
-Cyrus assumes that the developer is willing to understand the system they are working with.
+```cyrus
+pub struct BumpAllocator : Allocator {
+    ptr: void*,
+    cap: usize,
+    offset: usize,
 
-## Current Status
+    pub fn alloc(&self, size: usize) void* {
+        const current = self->offset;
+        const next = current + size;
+        if (next > self->cap) return null;
+        self->offset = next;
+        return @cast(void*, @cast(uintptr, self->ptr) + current);
+    }
 
-Cyrus is under active development and evolving rapidly.
+    pub fn free(&self, ptr: void*) void {
+        // no-op: bump allocators don't free individually
+    }
+}
+```
 
-Its design is being refined with a strong emphasis on consistency, simplicity, and long-term maintainability.
+**حافظه خام را به انواع مختلف تفسیر کنید** — unionها امکان type punning بدون cast را فراهم می‌کنند:
 
-For ongoing progress and planned features, refer to the public [public roadmap](https://github.com/orgs/cyrus-lang/projects/1).
+```cyrus
+union IntBytes {
+    value: int;
+    bytes: uint8[4];
+}
 
-## Final Note
+var data = IntBytes{ value: 0x12345678 };
+// data.bytes[0] == 0x78 on little-endian,
+// same memory, different type
+```
 
-Cyrus respects your attention.
+**طرح، تراز و padding را کنترل کنید** — structهای فشرده (packed)، تراز فیلد صریح و ویژگی‌های ABI برای نگاشت دقیق حافظه.
 
-It does not try to impress with complexity, nor does it attempt to hide the machine behind layers of abstraction.
+**از حساب اشاره‌گرها برای مسیرهای بحرانی از نظر عملکرد استفاده کنید** — کوروش به‌طور کامل از نمایه‌سازی مبتنی بر GEP و تفاوت اشاره‌گرها پشتیبانی می‌کند:
 
-It gives you a language that is:
+```cyrus
+const arr: int32[10];
+const ptr: int32* = &arr[0];
+var ptr2: int32* = ptr + 5; // pointer arithmetic
+*ptr2 = 99;
+```
 
-- Predictable
-- Readable
-- Performant
-- Honest
+**مستقیماً با سخت‌افزار، هسته یا اهداف bare-metal ارتباط برقرار کنید** — اسمبلی درون‌خطی، `extern` برای ABI زبان C، توابع `naked` و قراردادهای فراخوانی سفارشی همگی در دسترس هستند:
 
-And yes—
+```cyrus
+extern fn printf(fmt: const char*, ...) int32;
+naked fn interrupt_handler() void { /* no prologue/epilogue */ }
+```
 
-we love semicolons. They've earned their place. =)
+### بهای کنترل
+
+از آنجایی که کوروش یک لایه ایمنی بین شما و ماشین قرار نمی‌دهد، موارد زیر همچنان ممکن هستند:
+
+- خواندن یا نوشتن حافظه نامعتبر
+- استفاده پس از آزادسازی (use-after-free) و آزادسازی مضاعف (double free)
+- اشاره‌گرهای آویزان (dangling pointers)
+- شرایط مسابقه (data races)
+
+این‌ها **بهای کنترل** هستند — نتیجه دسترسی مستقیم به ماشین، نه شکست زبان. ابزارهای sanitizer زمان اجرا در طول توسعه برای کمک به شناسایی این مشکلات در دسترس هستند.
+
+زبانی که از هر خطای حافظه جلوگیری کند باید آنچه را که می‌توانید بیان کنید محدود کند. کوروش معامله معکوس را انتخاب می‌کند.
+
+## مدل داده
+
+برنامه‌های کوروش از سه ساختار داده اصلی ساخته شده‌اند — هر یک برای هدف خاصی انتخاب شده، بدون مدل شیء پنهان یا سلسله‌مراتب کلاس.
+
+### Struct
+
+فیلدهای نام‌گذاری شده، متدها و دید صریح:
+
+```cyrus
+struct User {
+    pub name: char*;
+    pub age: uint;
+    role: char*; // private field
+}
+
+pub fn main() {
+  var user = User { name: "Cyrus", age: 2500, role: "founder" };
+
+  user.name; // OK: public
+  // user.role; // ERROR: private outside the struct module
+}
+```
+
+کوروش همچنین از structهای بی‌نام (anonymous) برای گروه‌بندی‌های یک‌بار مصرف و سازگاری ساختاری بین structهای نام‌دار و بی‌نام با طرح‌های فیلد یکسان پشتیبانی می‌کند:
+
+```cyrus
+var point = struct { x: 10, y: 20 }; // unnamed struct, type inferred
+
+pub const config = struct { // unnamed struct
+    host = "127.0.0.1",
+    port = 8080
+};
+
+pub fn main() {
+  point.x += 5;
+
+  const temp: struct { a: int, b: float64 } = obj; // compatible with named struct
+}
+```
+
+### Enum
+
+Enumها در کوروش انواع جمع جبری واقعی (algebraic sum types) هستند — هر variant می‌تواند بار (payload) خود را حمل کند و کامپایلر تطابق جامع (exhaustive matching) را اعمال می‌کند. چهار شکل variant پشتیبانی می‌شود:
+
+**Variantهای واحد (Unit)** — برچسب‌های ساده بدون داده:
+
+```cyrus
+enum ConnectionState {
+  Disconnected,
+  Connected,
+  Failed
+}
+```
+
+**Variantهای تاپلی (Tuple)** — بار موقعیتی:
+
+```cyrus
+enum Task {
+  Delay(uint32),
+  Timeout(uint32, const char*)
+}
+```
+
+**Variantهای ساختاری (Struct)** — بار با فیلدهای نام‌گذاری شده:
+
+```cyrus
+enum Error {
+    NotFound { id: uint32, msg: const char* },
+    PermissionDenied { resource: const char* }
+}
+```
+
+**Variantهای مقداری (scalar)** — ارتباط با مقدار ثابت:
+
+```cyrus
+enum HttpStatus {
+  OK = 200,
+  NotFound = 404,
+  InternalError = 500
+}
+```
+
+تطابق جامع است — کامپایلر بررسی می‌کند که همه variantها مدیریت شده‌اند:
+
+```cyrus
+switch (err) {
+    case .NotFound { id, msg } => printf("%u: %s", id, msg);
+    case .PermissionDenied { resource } => printf("denied: %s", resource);
+}
+// compiler error if any variant is missing
+```
+
+این کار جایگزین الگوی C شامل `enum` + `union` بدون برچسب + ردیابی دستی discriminant با یک ساختار واحد می‌شود که در آن کامپایلر برچسب را مدیریت کرده و صحت را اعمال می‌کند.
+
+enumهای بی‌نام را می‌توان بدون نوع نام‌دار به‌صورت درون‌خطی در محل استفاده اعلام کرد:
+
+```cyrus
+var mode: enum { Off = 0, On = 1 } = .On;
+
+switch (mode) {
+    case .On(value) => printf("on: %d", value);
+    case .Off(value) => printf("off: %d", value);
+}
+```
+
+### Union
+
+Unionها type punning بدون بررسی را فراهم می‌کنند — همه فیلدها آدرس حافظه یکسانی را به اشتراک می‌گذارند و خواندن فیلدی که به تازگی نوشته نشده است، رفتار تعریف‌نشده (undefined behavior) محسوب می‌شود:
+
+```cyrus
+union Payload {
+    i: int64;
+    s: char*;
+}
+
+var data = Payload{ s: "Cyrus" };
+// data.i is gone, writing to s now overwrites stale memory
+
+var iptr: int64* = &data.i; // pointer aliasing: same address as data.s
+*iptr = 2500;
+```
+
+زمانی از union استفاده کنید که به نمایش داده کارآمد از نظر حافظه یا قابلیت همکاری با C نیاز دارید. برای unionهای دارای برچسب ایمن، به جای آن از `enum` استفاده کنید.
+
+unionهای بی‌نام را می‌توان به‌صورت درون‌خطی برای طرح موقت یا مقداردهی انواع union نام‌دار استفاده کرد:
+
+```cyrus
+union Payload {
+  i: int64,
+  s: char*
+}
+
+pub fn main() {
+    const layout: Payload = union { s: "Cyrus!" };
+
+    printf("%s\n", layout.s);
+}
+```
+
+### جنریک‌ها
+
+structها، enumها، unionها و توابع همه می‌توانند با نوع پارامتریزه شوند. جنریک‌ها در زمان کامپایل با هزینه زمان اجرای صفر مونومورفایز می‌شوند (monomorphized) — کامپایلر یک کپی تخصصی جداگانه برای هر ترکیب نوع مشخص تولید می‌کند:
+
+```cyrus
+struct Triple<A, B, C> {
+    pub first: A,
+    pub second: B,
+    pub third: C,
+
+    pub fn new(a: A, b: B, c: C) Self {
+        return Self { first: a, second: b, third: c };
+    }
+}
+
+pub fn main() {
+    const triple = Triple.new(3, 4.5, "hello"); // implicit var type
+    const triple2: Triple<int, float64, char*> = Triple.new(3, 4.5, "hello"); // explicit var type
+
+    printf("%d %f %s\n", triple.first, triple.second, triple.third);
+}
+```
+
+### چندریختی کنترل‌شده
+
+کوروش دو استراتژی توزیع (dispatch) ارائه می‌دهد که هر یک به‌طور صریح در محل استفاده انتخاب می‌شوند:
+
+**توزیع ایستا (Static dispatch)** — مونومورفایزیشن تضمینی، بدون غیرمستقیم‌سازی:
+
+```cyrus
+fn process<T: Speaker>(animal: T) {
+    printf("%s\n", animal.speak());  // direct call, no vtable
+}
+```
+
+**توزیع پویا (Dynamic dispatch)** — اشاره‌گر چاق (fat pointer) با vtable، که به‌طور صریح از طریق `dynamic` ساخته می‌شود:
+
+```cyrus
+const speakers = Speaker[2]{dynamic dog, dynamic cat};
+printf("%s %s\n", speakers[0].speak(), speakers[1].speak());
+```
+
+کلیدواژه `dynamic` ساخت vtable را در محل ایجاد قابل مشاهده می‌کند. خواننده می‌تواند دقیقاً ببیند که چندریختی زمان اجرا از کجا وارد سیستم می‌شود.
+
+## متدها و کپسوله‌سازی
+
+متدها توابعی هستند که در بدنه struct تعریف می‌شوند. آن‌ها قوانین سازگاری بدون وراثت یا توزیع مجازی پیش‌فرض را دنبال می‌کنند.
+
+### متدهای نمونه
+
+متدها نمونه struct را از طریق یک پارامتر گیرنده صریح دریافت می‌کنند:
+
+```cyrus
+struct SimpleCounter {
+    pub count: int;
+
+    pub fn new(initial: int) Self {
+        return Self{ count: initial };
+    }
+
+    pub fn increment(&self) { // mutable reference receiver
+        self->count++;
+    }
+
+    pub fn describe(&const self) { // const reference receiver
+        printf("count: %d\n", self->count);
+    }
+
+    pub fn into_value(self) int { // by-value (consuming) receiver
+        return self.count;        // self is a copy
+    }
+}
+```
+
+سه شکل گیرنده:
+
+<Table>
+  <TableHeader>
+    <TableRow>
+      <TableHead className="w-30">شکل</TableHead>
+      <TableHead>معناشناسی</TableHead>
+      <TableHead className="w-30">می‌تواند تغییر دهد؟</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell className="font-medium">
+        <code>&self</code>
+      </TableCell>
+      <TableCell>اشاره‌گر تغییرپذیر به self</TableCell>
+      <TableCell>بله</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell className="font-medium">
+        <code>&const self</code>
+      </TableCell>
+      <TableCell>اشاره‌گر تغییرناپذیر به self</TableCell>
+      <TableCell>خیر</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell className="font-medium">
+        <code>self</code>
+      </TableCell>
+      <TableCell>کپی به‌وسیله مقدار</TableCell>
+      <TableCell>بله (فقط کپی محلی)</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+### فراخوانی متد / قوانین دسترسی به اعضا
+
+متدها با استفاده از نقطه (dot syntax) روی مقادیر یا `->` روی اشاره‌گرها فراخوانی می‌شوند:
+
+```cyrus
+var c = SimpleCounter.new(10);
+c.increment(); // value receiver
+
+var ptr = &c;
+ptr->increment(); // pointer receiver
+```
+
+### متدهای ایستا
+
+متدهای بدون پارامتر گیرنده روی خود نوع فراخوانی می‌شوند:
+
+```cyrus
+pub struct MathUtils {
+    pub fn square(x: int) int {
+        return x * x;
+    }
+}
+
+pub fn main() {
+    printf("%d\n", MathUtils.square(5));
+}
+```
+
+### کپسوله‌سازی
+
+- فیلدها و متدها به‌طور پیش‌فرض خصوصی هستند؛ `pub` آن‌ها را عمومی می‌کند
+- متدها را نمی‌توان به struct خارج از ماژول تعریف‌کننده آن اضافه کرد — هیچ monkey-patching یا رفتار پراکنده‌ای وجود ندارد
+- بدون وراثت — ترکیب به جای سلسله‌مراتب
+
+## قوانین سیستم نوع
+
+کوروش به‌طور ایستا تایپ‌شده (statically typed) با قوانین سختگیرانه طراحی شده برای پیش‌بینی‌پذیری است.
+
+### استنتاج نوع
+
+استنتاج نوع در بافت‌های کاملاً اعلام شده کار می‌کند — هر متغیر باید در نقطه اعلان دارای یک نوع شناخته شده باشد، چه از طریق مقداردهنده یا یک حاشیه‌نویسی صریح:
+
+```cyrus
+const object: Box<int> = Box.new(10);  // OK: explicit type annotation
+const value = Box.new(10);             // OK: type inferred from initializer
+// const object;                       // ERROR: type cannot be inferred later
+```
+
+### نام‌های مستعار نوع
+
+کلیدواژه `type` نام‌های مستعار ایجاد می‌کند — کامپایلر آن‌ها را به‌طور شفاف گسترش می‌دهد:
+
+```cyrus
+type rune = uint32;
+type Handler = fn(int, int) void;
+```
+
+### مقداردهی صفر
+
+هر متغیری که بدون مقدار اولیه صریح اعلام شود به‌طور خودکار با صفر مقداردهی می‌شود:
+
+```cyrus
+var x: int; // initialized to 0
+var p: void*; // initialized to null
+var arr: int[10]; // all elements set to 0
+```
+
+## مدل عملکرد قابل پیش‌بینی
+
+کوروش بر روی LLVM ساخته شده و به‌صورت ahead-of-time کامپایل می‌شود. مدل عملکرد ساده است:
+
+- **بدون تخصیص پنهان**: کوروش هرگز از طرف شما حافظه تخصیص نمی‌دهد. هر تخصیص صریح است (`malloc`، تخصیص‌دهنده سفارشی، تخصیص stack).
+- **بدون کپی پنهان**: معناشناسی عبور ساختارها صریح است (کپی به‌وسیله مقدار، به‌وسیله اشاره‌گر). کامپایلر بهینه‌سازی خواهد کرد اما مدل پیش‌فرض قابل مشاهده است.
+- **جنریک‌های با هزینه صفر**: مونومورفایزیشن کدی معادل تخصصی‌سازی‌های دست نویس تولید می‌کند.
+- **استراتژی توزیع صریح**: توزیع ایستا برای جنریک‌های محدود شده تضمین می‌شود؛ توزیع پویا نیاز به کلیدواژه `dynamic` دارد.
+
+آنچه می‌نویسید به‌طور نزدیک منعکس‌کننده آن چیزی است که اجرا می‌شود. هیچ انتزاع زمان اجرای درج‌شده توسط کامپایلر، شمارش مرجع، یا چرخه‌های جمع‌آوری زباله برای محاسبه وجود ندارد.
+
+## سیستم ماژول
+
+ماژول‌های کوروش فایل‌هایی هستند که با مسیر حل می‌شوند و دید صریح دارند:
+
+```cyrus
+// auth_utils.cyrus
+pub fn login(user: char*) { /* visible outside */ }
+fn internal_helper() { /* private to this file */ }
+```
+
+```cyrus
+// main.cyrus
+import auth_utils{login};
+
+pub fn main() {
+    login("Cyrus"); // imported by name
+}
+```
+
+هیچ پیش‌پردازنده‌ای، هیچ گنجاندن متنی، هیچ include guard وجود ندارد — فقط importهای معنایی با مرزهای وابستگی واضح.
+
+## آنچه کوروش از انجام آن خودداری می‌کند
+
+این استثناها عمدی هستند، نه محدودیت:
+
+<Table>
+  <TableHeader>
+    <TableRow>
+      <TableHead className="w-50">شامل نمی‌شود</TableHead>
+      <TableHead>دلیل</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>بدون جمع‌آوری زباله</TableCell>
+      <TableCell>
+        GC زمان‌های توقف غیرقابل پیش‌بینی اضافه می‌کند و تخصیص را از توسعه‌دهنده پنهان می‌کند
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>بدون بررسی‌کننده وام (borrow checker)</TableCell>
+      <TableCell>
+        بررسی وام قوانین پیچیده‌ای را تحمیل می‌کند که آنچه را توسعه‌دهنده می‌تواند بیان کند محدود می‌کند
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>بدون مدل همروندی</TableCell>
+      <TableCell>
+        در دست طراحی — در حال ارزیابی گزینه‌ها؛ کتابخانه‌ها و primitivesهای سیستم‌عامل نیازهای فعلی را برآورده می‌کنند
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>بدون سیستم کامل شی‌گرایی</TableCell>
+      <TableCell>
+        سلسله‌مراتب وراثت جریان داده را مبهم می‌کند؛ ترکیب صریح است
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>بدون拡انش متد در خارج از ماژول‌ها</TableCell>
+      <TableCell>
+        همه رفتارهای متصل به یک نوع در یک ماژول قرار دارند — بدون پراکندگی
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>بدون ترکیب پارادایم</TableCell>
+      <TableCell>
+        کوروش در هسته خود رویه‌ای (procedural) است؛ انتزاعات تابعی و عبارات متراکم اجتناب می‌شوند
+      </TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+## جایگاه کوروش
+
+هر زبانی بده‌بینی‌هایی دارد. کوروش یک فلسفه جایگزین است: کنترل صریح، حداقل انتزاع، حداکثر اختیار برای توسعه‌دهنده.
+
+- **اگر C شما را ناامید می‌کند** زیرا ویژگی‌های زبانی کافی برای برنامه‌نویسی مدرن ارائه نمی‌دهد و فاقد سیستم ماژول مناسب است، کوروش همان سطح کنترل را با ارگونومی بهتر به شما می‌دهد.
+- **اگر بررسی‌کننده وام راست مشکلاتی را حل می‌کند که شما ندارید** و بار حاشیه‌نویسی با مورد استفاده شما سازگار نیست، کوروش کنترل را بدون سیستم طول عمر به شما می‌دهد.
+- **اگر comptime و متاپروگرمینگ زیگ** برای پروژه شما پیچیدگی غیرضروری است، کوروش مدل اجرا را ساده و قابل پیش‌بینی نگه می‌دارد.
+- **اگر زمان اجرا و GC گو** برای پروژه سیستمی شما نامناسب است و ساختارهای داده غنی‌تر (enum، جنریک، واسط) با کنترل دستی حافظه می‌خواهید، کوروش آن ابزارها را در اختیار شما قرار می‌دهد.
+
+کوروش سعی در جایگزینی هیچ‌یک از این زبان‌ها ندارد. این یک نقطه متفاوت در همان طیف است.
+
+## کوروش برای چه کسانی است
+
+- برنامه‌نویسان سیستمی آشنا با C که ارگونومی بهتری بدون از دست دادن کنترل می‌خواهند
+- توسعه‌دهندگانی که زیرساخت سطح پایین می‌سازند (runtimeها، هسته‌ها، سیستم‌های نهفته، شبکه)
+- تیم‌هایی که قابلیت نگهداری بلندمدت و کد صریح را بر ویژگی‌های راحت‌طلبانه اولویت می‌دهند
+- هر کسی که ترجیح می‌دهد مستقیماً درباره مدل ماشین استدلال کند تا از طریق یک لایه ایمنی
+
+## کوروش برای چه کسانی نیست
+
+- مبتدیان مطلق بدون پیشینه برنامه‌نویسی سیستمی
+- توسعه‌دهندگانی که انتظار مدیریت خودکار حافظه دارند
+- کسانی که به دنبال تضمین‌های ایمنی زمان کامپایل قوی بدون درک ماشین زیرین هستند
+- کاربردهایی که اثبات ایمنی حافظه به‌صورت ایستا یک نیاز سخت است
+
+## خلاصه بده‌بینی
+
+<Table>
+  <TableHeader>
+    <TableRow>
+      <TableHead className="w-50">به دست می‌آورید</TableHead>
+      <TableHead>از دست می‌دهید</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>کنترل صریح و قابل مشاهده بر هر عملیات</TableCell>
+      <TableCell>تضمین‌های ایمنی قوی زمان کامپایل</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>مدل عملکرد قابل پیش‌بینی</TableCell>
+      <TableCell>مدیریت خودکار حافظه</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>انواع جبری با جنریک‌های هزینه صفر (enum، struct، واسط)</TableCell>
+      <TableCell>لایه‌های انتزاع پیشرفته</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>قابلیت نگهداری بلندمدت کد</TableCell>
+      <TableCell>اثبات‌های ایمنی در سطح بررسی‌کننده وام</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>بدون زمان اجرا یا GC پنهان</TableCell>
+      <TableCell>primitivesهای همروندی داخلی</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+## محدودیت طراحی: ایده‌های اثبات‌شده
+
+کوروش به دنبال تازگی به خاطر تازگی نیست. هر ویژگی جایگاه خود را با حل یک مشکل واقعی در برنامه‌نویسی سیستمی به دست می‌آورد — اثبات شده توسط دهه‌ها استفاده در زبان‌های خانواده C، بهبود یافته به شکلی سازگار و صریح.
+
+هدف اختراع نیست. هدف گزینش است: بهترین ایده‌ها را انتخاب کنید، آن‌ها را به‌طور منسجم یکپارچه کنید، و پیچیدگی ناشی از تکامل موردی را حذف کنید.
+
+## ویژگی‌هایی که هنوز در حال بررسی هستند
+
+کوروش در حال توسعه فعال است. ویژگی‌های زیر در حال تحقیق و طراحی هستند و زمانی که arrive شوند بر اساس همان اصول شکل خواهند گرفت:
+
+- **مدل همروندی** — در حال ارزیابی گزینه‌ها از جمله فیبرها، کوروتین‌ها و I/O ناهمگام؛ هنوز تصمیمی گرفته نشده است
+- **سیستم ماکرو/متاپروگرمینگ** — بررسی رویکردهای تولید کد زمان کامپایل
+- **مدیریت بسته** — بررسی مکانیزم‌های حل وابستگی و توزیع
+
+## سخن پایانی
+
+کوروش سعی نمی‌کند امن‌ترین زبان، انتزاعی‌ترین یا نوآورانه‌ترین زبان باشد.
+
+آن تلاش می‌کند این گونه باشد:
+
+- **صریح** — تا بتوانید بدون خواندن ذهن کامپایلر ببینید کد چه می‌کند.
+- **قابل کنترل** — تا بتوانید ماشین را به آنچه نیاز دارید وادار کنید، بدون جنگیدن با زبان.
+- **قابل نگهداری** — تا کد امروز سال‌های بعد همچنان قابل فهم باشد.
+
+زبانی که در آن توسعه‌دهنده مسئول باقی می‌ماند — بدون تظاهر به اینکه ماشین وجود ندارد.
+
+> **کوروش: زیرساخت سیستمی، کنترل صریح.**

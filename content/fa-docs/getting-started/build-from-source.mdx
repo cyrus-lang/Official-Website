@@ -1,21 +1,21 @@
 ---
-title: Build from source
+title: ساخت از مبدأ
 weight: 5
 ---
 
-# Build from source
+# ساخت از مبدأ
 
-Sometimes you want the freshest bits—whether to contribute to Cyrus itself, test bleeding-edge features, or just peek under the compiler’s hood. Building from source is straightforward and gives you full control over the toolchain.
+گاهی اوقات می‌خواهید تازه‌ترین قطعات را داشته باشید—چه برای مشارکت در خود کوروش، چه برای آزمایش ویژگی‌های پیشرفته، یا صرفاً برای نگاهی به درون کامپایلر. ساخت از مبدأ ساده است و کنترل کامل بر زنجیره ابزار (toolchain) را به شما می‌دهد.
 
-### Prerequisites
+### پیش‌نیازها
 
-Before you begin, make sure you have the following installed:
+قبل از شروع، مطمئن شوید که موارد زیر را نصب کرده‌اید:
 
-- Git - to fetch the source code.
+- Git — برای دریافت کد منبع.
 - Rust 1.87-nightly.
 - LLVM 18.
 
-Also these native libraries are required:
+همچنین این کتابخانه‌های بومی مورد نیاز هستند:
 
 - glibc
 - clang - clang-tools
@@ -25,15 +25,15 @@ Also these native libraries are required:
 - isl
 - libxml2
 
-## On Linux
+## در لینوکس
 
-Update your package index first:
+ابتدا فهرست بسته‌های خود را به‌روزرسانی کنید:
 
 ```bash
 sudo apt update
 ```
 
-Install the dependencies:
+وابستگی‌ها را نصب کنید:
 
 ```bash
 sudo apt install -y git \
@@ -48,7 +48,7 @@ sudo apt install -y git \
     libc6-dev
 ```
 
-Install Rust using rustup:
+Rust را با استفاده از rustup نصب کنید:
 
 ```bash
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
@@ -57,7 +57,7 @@ rustup toolchain install nightly-2025-01-01
 rustup default nightly-2025-01-01
 ```
 
-Verify installation:
+نصب را تأیید کنید:
 
 ```bash
 git --version
@@ -65,9 +65,9 @@ rustc --version
 llvm-config --version
 ```
 
-## MacOS (via Homebrew):
+## مک‌اواس (از طریق Homebrew):
 
-Install dependencies via Homebrew:
+وابستگی‌ها را از طریق Homebrew نصب کنید:
 
 ```bash
 brew install git \
@@ -78,13 +78,13 @@ brew install git \
     libxml2
 ```
 
-Ensure Homebrew’s LLVM is in your path (add to ~/.zshrc or ~/.bashrc):
+مطمئن شوید LLVM هوم‌برو در مسیر شما قرار دارد (به ~/.zshrc یا ~/.bashrc اضافه کنید):
 
 ```bash
 export PATH="/opt/homebrew/opt/llvm@18/bin:$PATH"
 ```
 
-Install Rust using rustup:
+Rust را با استفاده از rustup نصب کنید:
 
 ```bash
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
@@ -93,7 +93,7 @@ rustup toolchain install nightly-2025-01-01
 rustup default nightly-2025-01-01
 ```
 
-Verify installation:
+نصب را تأیید کنید:
 
 ```bash
 git --version
@@ -101,21 +101,21 @@ rustc --version
 llvm-config --version
 ```
 
-## On Windows:
+## در ویندوز:
 
-Coming soon...
+به زودی...
 
-# Clone the Repository
+# کلون کردن مخزن
 
 ```bash
 git clone --depth=1 https://github.com/cyrus-lang/Cyrus.git
 cd Cyrus
 ```
 
-From the project root:
+از ریشه پروژه:
 
 ```bash
 cargo build -j24
 ```
 
-This will produce the Cyrus compiler binary in **target/release/cyrus**.
+این دستور باینری کامپایلر کوروش را در **target/release/cyrus** تولید می‌کند.

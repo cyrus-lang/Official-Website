@@ -1,24 +1,24 @@
 ---
-title: Polymorphism
+title: چندریختی
 weight: 14
 ---
 
-# Polymorphism
+# چندریختی
 
-## 1. Core Principles & Lexical Conventions
+## ۱. اصول بنیادین و قراردادهای واژگانی
 
-Cyrus rejects implicit type coercion and hidden performance penalties. Polymorphism is split strictly between static parameters and explicit dynamic abstractions, following clear module scoping boundaries.
+کوروش از تبدیل ضمنی نوع (implicit type coercion) و جریمه‌های پنهان کارایی جلوگیری می‌کند. چندریختی (Polymorphism) به‌طور دقیق بین پارامترهای ایستا و انتزاع‌های پویای صریح تقسیم می‌شود و از مرزهای مشخص حوزه ماژول پیروی می‌کند.
 
-### 1.1 Vocabulary & Taxonomy
+### ۱.۱ واژگان و طبقه‌بندی
 
-- **Concrete Type:** A fully resolved `struct` or `enum` defined within a module namespace.
-- **Generic Type Parameter:** A compile-time placeholder (`T`) bounded by an interface constraint.
-- **Interface:** A named contract defining a collection of function signatures.
-- **Interface Object:** A runtime structural data type (fat pointer) generated explicitly via the `dynamic` operator.
+- **نوع انضمامی (Concrete Type):** یک `struct` یا `enum` کاملاً وضوح‌یافته که در فضای نام یک ماژول تعریف شده است.
+- **پارامتر نوع جنریک (Generic Type Parameter):)** یک مکان‌نشان زمان کامپایل (`T`) که با یک محدودیت رابط (interface constraint) مقید شده است.
+- **رابط (Interface):** یک قرارداد نام‌دار که مجموعه‌ای از امضای توابع را تعریف می‌کند.
+- **شیء رابط (Interface Object):) یک نوع داده ساختاری زمان اجرا (اشاره‌گر چاق یا fat pointer) که به‌طور صریح توسط عملگر `dynamic` تولید می‌شود.
 
-### 1.2 Module-Bound Syntax
+### ۱.۲ نحو محدود به ماژول
 
-Interfaces, structs, and enums follow standard Cyrus module visibility rules. Symbols are private by default unless marked with `pub`.
+رابط‌ها، structها و enumها از قوانین دید استاندارد ماژول در کوروش پیروی می‌کنند. نمادها به طور پیش‌فرض خصوصی هستند مگر اینکه با `pub` علامت‌گذاری شوند.
 
 ```cyrus
 // shape_types.cyrus
@@ -28,7 +28,7 @@ pub interface Shape<T> {
     fn area(&const self) T;
 }
 
-// Structs declare interface adherence using a colon `:`
+// Structها با استفاده از دو نقطه `:` پایبندی به رابط را اعلام می‌کنند
 pub struct Square : Shape<float64> {
     side: float64;
 
@@ -43,116 +43,116 @@ pub struct Square : Shape<float64> {
 
 ```
 
-## 2. Dual Dispatch Architecture
+## ۲. معماری دوگانه توزیع
 
-Cyrus implements two completely distinct strategies for code reuse and polymorphism. The developer guides the compiler using explicit syntax at the declaration boundary.
+کوروش دو استراتژی کاملاً مجزا برای بازاستفاده کد و چندریختی پیاده‌سازی می‌کند. توسعه‌دهنده با استفاده از نحوی صریح در مرز اعلان، کامپایلر را هدایت می‌کند.
 
-### 2.1 Call-Site Monomorphization (Static Generics)
+### ۲.۱ تک‌شکلی در محل فراخوانی (جنریک‌های ایستا)
 
-When a function binds polymorphism via type constraints (e.g., `<T: Interface>`), the compiler uses **Call-Site Monomorphization**.
+هنگامی که یک تابع چندریختی را از طریق محدودیت‌های نوع (مانند `<T: Interface>`) متصل می‌کند، کامپایلر از **تک‌شکلی در محل فراخوانی (Call-Site Monomorphization)** استفاده می‌کند.
 
 ```cyrus
-// Static-dispatch: Resolved completely at compile-time
+// توزیع ایستا: کاملاً در زمان کامپایل وضوح می‌یابد
 pub fn compute_area<T: Shape<float64>>(shape: T) -> float64 {
     return shape.area();
 }
 
 ```
 
-- **Compilation Strategy:** The compiler duplicates the abstract syntax tree (AST) of `compute_area` for every unique concrete type passed to it across the entire module graph.
-- **Performance:** Direct, unindirected function calls. Allows complete optimization passes (inlining, loop unrolling, dead code elimination).
-- **Downside:** Can lead to binary bloat if applied indiscriminately across large codebases.
+- **استراتژی کامپایل:** کامپایلر درخت نحو انتزاعی (AST) تابع `compute_area` را برای هر نوع انضمامی منحصربه‌فردی که در سراسر گراف ماژول به آن ارسال می‌شود، تکثیر می‌کند.
+- **کارایی:** فراخوانی‌های تابع مستقیم و بدون واسطه. امکان بهینه‌سازی‌های کامل (درون‌خطی‌سازی، باز کردن حلقه، حذف کد مرده) را فراهم می‌کند.
+- **معایب:** در صورت اعمال بی‌رویه در سراسر پایگاه‌های کد بزرگ، می‌تواند منجر به حجیم شدن باینری شود.
 
-### 2.2 Creation-Site Monomorphization (Dynamic Interfaces)
+### ۲.۲ تک‌شکلی در محل ایجاد (رابط‌های پویا)
 
-When a function accepts an interface name directly as a parameter type without generic brackets, it expects an **Interface Object**.
+هنگامی که یک تابع نام یک رابط را مستقیماً به عنوان نوع پارامتر بدون براکت‌های جنریک می‌پذیرد، یک **شیء رابط (Interface Object)** را انتظار دارد.
 
 ```cyrus
-// Dynamic-dispatch: Resolved at runtime via a fat pointer
+// توزیع پویا: در زمان اجرا از طریق یک اشاره‌گر چاق وضوح می‌یابد
 pub fn print_area(shape: Shape<float64>) {
-    // Indirect jump via the object's local vtable
+    // پرش غیرمستقیم از طریق جدول مجازی محلی شیء
     printf("%f\n", shape.area());
 }
 
 ```
 
-- **Compilation Strategy:** The compiler treats `Shape<float64>` as a concrete structural type consisting of a data pointer and an explicit virtual table pointer.
-- **Performance:** Single indirection penalty. Prevents binary bloat by generating precisely one type-erased signature.
+- **استراتژی کامپایل:** کامپایلر با `Shape<float64>` به عنوان یک نوع ساختاری انضمامی متشکل از یک اشاره‌گر داده و یک اشاره‌گر جدول مجازی صریح رفتار می‌کند.
+- **کارایی:** جریمه یک واسطه‌گری واحد. با تولید دقیقاً یک امضای پاک‌شده از نوع، از حجیم شدن باینری جلوگیری می‌کند.
 
-## 3. The Runtime Layout & The dynamic Operator
+## ۳. چیدمان زمان اجرا و عملگر dynamic
 
-Interface Objects are never created implicitly. To convert a concrete struct or enum instance into an interface-conforming abstraction, developers must use the explicit `dynamic` expression.
+اشیاء رابط هرگز به‌طور ضمنی ایجاد نمی‌شوند. برای تبدیل یک struct یا enum انضمامی به یک انتزاع منطبق با رابط، توسعه‌دهندگان باید از عبارت صریح `dynamic` استفاده کنند.
 
-### 3.1 Binary Representation
+### ۳.۱ بازنمایی دودویی
 
-An Interface Object is implemented directly as a fixed-size structural pair (Fat Pointer):
+یک شیء رابط مستقیماً به عنوان یک جفت ساختاری با اندازه ثابت (اشاره‌گر چاق) پیاده‌سازی می‌شود:
 
 ```rust
 struct InterfaceObject {
-    const data_ptr: void*;      // Raw pointer to the instance memory heap/stack
-    const vtable_ptr: void*;    // Pointer to the creation-site generated vtable
+    const data_ptr: void*;      // اشاره‌گر خام به حافظه نمونه (هپ/پشته)
+    const vtable_ptr: void*;    // اشاره‌گر به vtable تولیدشده در محل ایجاد
 }
 ```
 
-### 3.2 The Creation-Site Generation Lifecycle
+### ۳.۲ چرخه عمر تولید در محل ایجاد
 
-When the compiler parses an expression like `const obj: Shape<float64> = dynamic Square.new(10.3);`, it triggers a localized compilation lifecycle:
+هنگامی که کامپایلر عبارتی مانند `const obj: Shape<float64> = dynamic Square.new(10.3);` را تجزیه می‌کند، یک چرخه عمر کامپایل محلی را فعال می‌کند:
 
-1. **Verification:** The compiler confirms `Square` fully satisfies the requirements of `Shape<float64>`.
-2. **Local Monomorphization:** The compiler ensures that code addresses exist for all required methods of `Square` bound to `Shape<float64>`.
-3. **Vtable Allocation:** A static, thread-safe virtual table containing specific function pointers is embedded in the data segment of the compiling module.
-4. **Fat Pointer Construction:** A 2-word stack value is assembled, packing the address of the concrete instance with the unique address of the local vtable.
+1. **تأیید:** کامپایلر تأیید می‌کند که `Square` به‌طور کامل الزامات `Shape<float64>` را برآورده می‌کند.
+2. **تک‌شکلی محلی:** کامپایلر اطمینان حاصل می‌کند که آدرس‌های کد برای تمام متدهای مورد نیاز `Square` که به `Shape<float64>` مقید شده‌اند، وجود دارند.
+3. **تخصیص Vtable:** یک جدول مجازی ایستا و ایمن از نظر نخ که حاوی اشاره‌گرهای تابع خاص است، در بخش داده ماژول در حال کامپایل جاسازی می‌شود.
+4. **ساخت اشاره‌گر چاق:** یک مقدار پشته‌ای ۲-کلمه‌ای مونتاژ می‌شود که آدرس نمونه انضمامی را با آدرس منحصربه‌فرد vtable محلی بسته‌بندی می‌کند.
 
 ```
-Interface Object (Fat Pointer)
+شیء رابط (اشاره‌گر چاق)
 ┌───────────────────────────┐
-│ data_ptr                  ├──────► [ Square Instance Data (side: 10.3) ]
+│ data_ptr                  ├──────► [ داده‌های نمونه Square (side: 10.3) ]
 ├───────────────────────────┤
-│ vtable_ptr                ├──────► [ Monomorphized Vtable ]
+│ vtable_ptr                ├──────► [ Vtable تک‌شکلی‌شده ]
 └───────────────────────────┘
 ```
 
-## 4. Coercion-Based Static Optimization
+## ۴. بهینه‌سازی ایستا مبتنی بر اجبار
 
-While runtime dispatch guarantees type flexibility, the Cyrus semantic analyzer continuously tracks concrete type mappings within local lexical scopes. If an `InterfaceObject` is queried within a trackable scope, the virtual call is **coerced** back into a direct static call.
+در حالی که توزیع زمان اجرا انعطاف‌پذیری نوع را تضمین می‌کند، تحلیلگر معنایی کوروش به‌طور مداوم نگاشت‌های نوع انضمامی را در حوزه‌های واژگانی محلی ردیابی می‌کند. اگر یک `InterfaceObject` در یک حوزه قابل ردیابی مورد پرسش قرار گیرد، فراخوانی مجازی **اجباراً (coerced)** به یک فراخوانی ایستای مستقیم بازگردانده می‌شود.
 
-### 4.1 Optimization Scenarios
+### ۴.۱ سناریوهای بهینه‌سازی
 
 ```cyrus
 import std::libc{printf};
 import shape_types{Shape, Square};
 
 pub fn main() {
-    // Context 1: Local variable initialization
+    // بافت ۱: مقداردهی متغیر محلی
     const shape: Shape<float64> = dynamic Square.new(10.3);
 
-    // OPTIMIZED: The semantic analyzer knows 'shape' is deterministically a 'Square'
+    // بهینه‌سازی شده: تحلیلگر معنایی می‌داند 'shape' به‌طور قطعی یک 'Square' است
     printf("%f\n", shape.area());
 
-    // Context 2: Scope boundaries (Loss of local type knowledge)
+    // بافت ۲: مرزهای حوزه (از دست دادن دانش نوع محلی)
     const shapes = Shape<float64>[2] {
         dynamic Square.new(10.3),
         shape
     };
 
-    // UNOPTIMIZED: Array index variance makes static evaluation impossible
-    // Compiler outputs: indirect call via vtable_ptr
+    // بهینه‌سازی نشده: تغییرپذیری اندیس آرایه ارزیابی ایستا را غیرممکن می‌کند
+    // کامپایلر خروجی می‌دهد: فراخوانی غیرمستقیم از طریق vtable_ptr
     for (var i = 0; i < 2; i++) {
         printf("%f\n", shapes[i].area());
     }
 }
 ```
 
-### 4.2 Optimization Rule Engine
+### ۴.۲ موتور قوانین بهینه‌سازی
 
 <br />
 
 <Table>
   <TableHeader>
     <TableRow>
-      <TableHead className="w-48">Context Expression</TableHead>
-      <TableHead className="w-32">Resolution Path</TableHead>
-      <TableHead>Optimization Action</TableHead>
+      <TableHead className="w-48">عبارت بافت</TableHead>
+      <TableHead className="w-32">مسیر وضوح</TableHead>
+      <TableHead>اقدام بهینه‌سازی</TableHead>
     </TableRow>
   </TableHeader>
   <TableBody>
@@ -160,50 +160,48 @@ pub fn main() {
       <TableCell className="font-mono font-medium">
         local_variable.method()
       </TableCell>
-      <TableCell className="font-bold text-green-600">Static</TableCell>
+      <TableCell className="font-bold text-green-600">ایستا</TableCell>
       <TableCell>
-        Bypasses vtable lookup completely. Transforms into an immediate direct
-        call.
+        جستجوی vtable را کاملاً دور می‌زند. به یک فراخوانی مستقیم بی‌واسطه تبدیل می‌شود.
       </TableCell>
     </TableRow>
     <TableRow>
       <TableCell className="font-mono font-medium">
         inline_function(interface_obj)
       </TableCell>
-      <TableCell className="font-bold text-green-600">Static</TableCell>
+      <TableCell className="font-bold text-green-600">ایستا</TableCell>
       <TableCell>
-        Inlines function scope, preserving local type metadata optimization.
+        حوزه تابع را درون‌خطی می‌کند و فراداده بهینه‌سازی نوع محلی را حفظ می‌نماید.
       </TableCell>
     </TableRow>
     <TableRow>
       <TableCell className="font-mono font-medium">
         standard_function(interface_obj)
       </TableCell>
-      <TableCell className="font-bold text-blue-600">Dynamic</TableCell>
+      <TableCell className="font-bold text-blue-600">پویا</TableCell>
       <TableCell>
-        Type info is dropped at the parameter boundary; relies on runtime vtable
-        indices.
+        اطلاعات نوع در مرز پارامتر رها می‌شود؛ به اندیس‌های vtable زمان اجرا متکی است.
       </TableCell>
     </TableRow>
     <TableRow>
       <TableCell className="font-mono font-medium">
         array_index[i].method()
       </TableCell>
-      <TableCell className="font-bold text-blue-600">Dynamic</TableCell>
+      <TableCell className="font-bold text-blue-600">پویا</TableCell>
       <TableCell>
-        Run-time structural indices bypass linear lookup logic. Always dynamic.
+        اندیس‌های ساختاری زمان اجرا منطق جستجوی خطی را دور می‌زنند. همیشه پویا.
       </TableCell>
     </TableRow>
   </TableBody>
 </Table>
 
-## 5. Code Examples & Compiler Behavior
+## ۵. مثال‌های کد و رفتار کامپایلر
 
-The following examples demonstrate how the Cyrus compiler processes polymorphism across different scenarios, from static generics to runtime interface objects.
+مثال‌های زیر نحوه پردازش چندریختی توسط کامپایلر کوروش را در سناریوهای مختلف، از جنریک‌های ایستا تا اشیاء رابط زمان اجرا، نشان می‌دهند.
 
-### 5.1 Enums and the Two Dispatch Paths
+### ۵.۱ Enumها و دو مسیر توزیع
 
-This example shows how both struct and enum types can implement interfaces, and highlights how the compiler picks either a direct static call or a dynamic vtable lookup based on how you pass the data.
+این مثال نشان می‌دهد که چگونه انواع struct و enum هر دو می‌توانند رابط‌ها را پیاده‌سازی کنند، و برجسته می‌کند که کامپایلر بر اساس نحوه ارسال داده، یا یک فراخوانی ایستای مستقیم یا یک جستجوی vtable پویا را انتخاب می‌کند.
 
 ```cyrus
 import std::libc{printf};
@@ -239,12 +237,12 @@ enum Choice : MyConstraint {
     }
 }
 
-// Call-Site Monomorphization: Erased completely into specialized static jumps
+// تک‌شکلی در محل فراخوانی: کاملاً به پرش‌های ایستای تخصصی‌شده پاک‌سازی می‌شود
 fn constraint_bar<T: MyConstraint>(object: T) {
     printf("%s %d | ", object.bar(), object.foo(3));
 }
 
-// Creation-Site Dynamic Dispatch: Receives a uniform fat pointer layout
+// توزیع پویای محل ایجاد: یک چیدمان اشاره‌گر چاق یکنواخت دریافت می‌کند
 fn dynamic_interface(object: MyConstraint) {
     printf("%s %d | ", object.bar(), object.foo(5));
 }
@@ -253,20 +251,20 @@ pub fn main() {
     const object1 = Object.new("Cyrus");
     const object2 = Choice.B;
 
-    // 1. Static Polymorphism
+    // ۱. چندریختی ایستا
     constraint_bar(object1);
     constraint_bar(object2);
 
-    // 2. Dynamic Polymorphism
+    // ۲. چندریختی پویا
     const dynamic1: MyConstraint = dynamic object1;
     dynamic_interface(dynamic1);
     dynamic_interface(dynamic object1);
 }
 ```
 
-### 5.2 Decoupled Interface Instantiation with Generic Constraints
+### ۵.۲ نمونه‌سازی رابط جدا شده با محدودیت‌های جنریک
 
-Demonstrates a generic validator component handling explicit concrete primitives across a dynamic boundary.
+نمایش یک مؤلفه اعتبارسنج جنریک که انواع اولیه انضمامی صریح را در یک مرز پویا مدیریت می‌کند.
 
 ```cyrus
 import std::libc{printf};
@@ -296,9 +294,9 @@ pub fn main() {
 }
 ```
 
-### 5.3 Low-Level Interoperability (System Memory Layout Allocators)
+### ۵.۳ قابلیت تعامل سطح پایین (تخصیص‌دهنده‌های چیدمان حافظه سیستم)
 
-Demonstrates that Cyrus interfaces operate safely at the lowest level of physical systems programming, directly managing heap resources via manual system pointers without an underlying runtime container.
+نشان می‌دهد که رابط‌های کوروش به‌طور ایمن در پایین‌ترین سطح برنامه‌نویسی سیستمی فیزیکی عمل می‌کنند و منابع هپ را مستقیماً از طریق اشاره‌گرهای سیستمی دستی بدون یک محفظه زمان اجرا مدیریت می‌نمایند.
 
 ```cyrus
 import std::libc{printf, malloc, free};

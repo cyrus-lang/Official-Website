@@ -1,36 +1,36 @@
 ---
-title: Generics
+title: جنریک‌ها
 weight: 10
 ---
 
-# Generics
+# جنریک‌ها
 
-Generics allow you to write code that is independent of specific types. In Cyrus, **only named types and functions** can be generic. Unnamed types (like raw tuples) and anonymous functions (lambdas) do not support generic parameters.
+جنریک‌ها (Generics) به شما امکان می‌دهند کدی بنویسید که مستقل از انواع خاص باشد. در کوروش، **فقط انواع نام‌دار و توابع** می‌توانند جنریک باشند. انواع بدون نام (مانند تاپل‌های خام) و توابع ناشناس (lambdas) از پارامترهای جنریک پشتیبانی نمی‌کنند.
 
-## Generic Functions
+## توابع جنریک
 
-A function becomes generic by adding type parameters within angle brackets `<T>`.
+یک تابع با افزودن پارامترهای نوع درون براکت‌های زاویه‌ای `<T>` جنریک می‌شود.
 
 ```cyrus
-// A simple identity function for a fixed-size array
+// یک تابع همانی ساده برای آرایه‌ای با اندازه ثابت
 fn identity_pair<T>(values: T[2]) T[2] {
     return values;
 }
 
 pub fn main() {
-    // Inferred
+    // استنتاج خودکار
     const p1 = identity_pair({1, 2});
 
-    // Explicit type args
+    // آرگومان‌های نوع صریح
     const p2 = identity_pair<int>({3, 4});
 
     printf("%d %d\n", p1[0], p2[0]);
 }
 ```
 
-### Recursive Generics
+### جنریک‌های بازگشتی
 
-Generic functions in Cyrus support recursion, provided the logic allows for termination.
+توابع جنریک در کوروش از بازگشت پشتیبانی می‌کنند، به شرطی که منطق امکان خاتمه را فراهم کند.
 
 ```cyrus
 fn count_to_five<T>(x: T) {
@@ -42,13 +42,13 @@ fn count_to_five<T>(x: T) {
 }
 ```
 
-## Generic Structs and Enums
+## Structها و Enumهای جنریک
 
-Structs, Unions, and Enums can all take type parameters.
+Structها، Unionها و Enumها همگی می‌توانند پارامترهای نوع دریافت کنند.
 
-### Structs and Type Inference (`_`)
+### Structها و استنتاج نوع (`_`)
 
-You can use the underscore `_` to tell the compiler to infer a specific type argument while you manually provide others.
+می‌توانید از زیرخط `_` استفاده کنید تا به کامپایلر بگویید یک آرگومان نوع خاص را استنتاج کند در حالی که شما سایر آرگومان‌ها را به‌طور دستی ارائه می‌دهید.
 
 ```cyrus
 struct Pair<K, V> {
@@ -57,7 +57,7 @@ struct Pair<K, V> {
 }
 
 pub fn main() {
-    // Explicit K (uint), but let compiler infer V
+    // K به صورت صریح (uint)، اما اجازه دهید کامپایلر V را استنتاج کند
     const entry = Pair<uint, _> {
         key: 1,
         value: "Cyrus"
@@ -65,9 +65,9 @@ pub fn main() {
 }
 ```
 
-### Generic Enums
+### Enumهای جنریک
 
-Generics are powerful when combined with enums for representing optional values or results.
+جنریک‌ها هنگامی که با enumها برای نمایش مقادیر اختیاری یا نتایج ترکیب می‌شوند، قدرتمند هستند.
 
 ```cyrus
 enum Option<T> {
@@ -87,13 +87,13 @@ fn print_opt(opt: Option<int>) {
 }
 ```
 
-## Generic Methods
+## متدهای جنریک
 
-Even if a struct is not generic, its methods can be. If a struct is generic, its methods can introduce additional_type parameters.
+حتی اگر یک struct جنریک نباشد، متدهای آن می‌توانند جنریک باشند. اگر یک struct جنریک باشد، متدهای آن می‌توانند پارامترهای نوع اضافی معرفی کنند.
 
 ```cyrus
 struct Math {
-    // A generic method in a non-generic struct
+    // یک متد جنریک در یک struct غیر جنریک
     pub fn add<T>(x: T, y: T) T {
         return x + y;
     }
@@ -102,16 +102,16 @@ struct Math {
 struct Box<T> {
     value: T;
 
-    // 'Self' refers to Box<T>
+    // 'Self' به Box<T> اشاره دارد
     pub fn new(val: T) Self {
         return Self { value: val };
     }
 }
 ```
 
-## Default Type Parameters
+## پارامترهای نوع پیش‌فرض
 
-You can provide default types for generic parameters. If the type cannot be inferred and isn't provided, the compiler falls back to the default.
+می‌توانید انواع پیش‌فرض برای پارامترهای جنریک ارائه دهید. اگر نوع نتواند استنتاج شود و ارائه نشود، کامپایلر به نوع پیش‌فرض بازگشت می‌کند.
 
 ```cyrus
 struct Result<V, E = uint64> {
@@ -120,14 +120,14 @@ struct Result<V, E = uint64> {
 }
 
 pub fn main() {
-    // Uses default uint64 for E
+    // از uint64 پیش‌فرض برای E استفاده می‌کند
     var res = Result<char*, _> { value: "Success", error_code: 0 };
 }
 ```
 
-## Generic Type Aliases
+## نام‌های مستعار نوع جنریک
 
-Type aliases can be used to create "shorthands" for complex generic types, or they can be generic themselves.
+از نام‌های مستعار نوع (type aliases) می‌توان برای ایجاد «اختصار» برای انواع جنریک پیچیده استفاده کرد، یا خودشان می‌توانند جنریک باشند.
 
 ```cyrus
 struct Pair<K, V> {
@@ -135,10 +135,10 @@ struct Pair<K, V> {
     value: V;
 }
 
-// Non-generic alias for a specific generic instance
+// نام مستعار غیر جنریک برای یک نمونه جنریک خاص
 type IntPair = Pair<int, int>;
 
-// A generic alias
+// یک نام مستعار جنریک
 type Handler<T> = fn(T) void;
 
 pub fn main() {
@@ -148,11 +148,11 @@ pub fn main() {
 }
 ```
 
-## Generic Interfaces
+## رابط‌های جنریک
 
-Interfaces can define generic contracts. A struct can implement a specific instantiation of a generic interface or be generic itself to satisfy it.
+رابط‌ها (Interfaces) می‌توانند قراردادهای جنریک تعریف کنند. یک struct می‌تواند یک نمونه‌سازی خاص از یک رابط جنریک را پیاده‌سازی کند یا خودش جنریک باشد تا آن را برآورده سازد.
 
-Struct implementing a specific version:
+struct پیاده‌سازی یک نسخه خاص:
 
 ```cyrus
 interface IValidator<T> {
@@ -166,7 +166,7 @@ struct AgeValidator : IValidator<int> {
 }
 ```
 
-A generic struct implementing a generic interface:
+یک struct جنریک که یک رابط جنریک را پیاده‌سازی می‌کند:
 
 ```cyrus
 interface Shape<T> {
@@ -183,12 +183,12 @@ struct Rectangle<T> : Shape<T> {
 }
 ```
 
-## Separating Type Arguments
+## جداسازی آرگومان‌های نوع
 
-When calling a generic method on a generic type, the type arguments are split between the **type constructor** and the **method call**.
+هنگام فراخوانی یک متد جنریک روی یک نوع جنریک، آرگومان‌های نوع بین **سازنده نوع (type constructor)** و **فراخوانی متد (method call)** تقسیم می‌شوند.
 
-1.  **Type Parameters**: Belong to the struct/enum/union itself and are provided after the type name.
-2.  **Method Parameters**: Belong to the specific method and are provided after the method name.
+1.  **پارامترهای نوع**: متعلق به struct/enum/union هستند و پس از نام نوع ارائه می‌شوند.
+2.  **پارامترهای متد**: متعلق به متد خاص هستند و پس از نام متد ارائه می‌شوند.
 
 ```cyrus
 struct InfixCalc<T> {
@@ -199,12 +199,12 @@ struct InfixCalc<T> {
         return Self { x, y };
     }
 
-    // Generic method within a generic struct
+    // متد جنریک درون یک struct جنریک
     pub fn add_to_x<V>(&self, const val: V) {
         self->x += @cast(T, val);
     }
 
-    // Static generic method
+    // متد استاتیک جنریک
     pub fn static_sum<K>(const a: T, const b: K) T {
         return a + @cast(T, b);
     }
@@ -213,23 +213,23 @@ struct InfixCalc<T> {
 pub fn main() {
     var calc = InfixCalc.new(5, 7);
 
-    // Provide type arg for the method only
-    // If you add type arg to instance would lead to compile time error.
+    // ارائه آرگومان نوع فقط برای متد
+    // اگر به نمونه آرگومان نوع اضافه کنید، منجر به خطای زمان کامپایل می‌شود
     calc.add_to_x<uint32>(1);
     calc.add_to_x<uint64>(2);
 
     printf("%d\n", calc.x);
 
-    // For static calls, you may need to provide both:
-    // InfixCalc<int64> identifies the type
-    // static_sum<uint> identifies the method specialization
+    // برای فراخوانی‌های استاتیک، ممکن است نیاز به ارائه هر دو داشته باشید:
+    // InfixCalc<int64> نوع را مشخص می‌کند
+    // static_sum<uint> تخصصی‌سازی متد را مشخص می‌کند
     const result = InfixCalc<int64>.static_sum<uint>(10, 20);
     printf("%d\n", result);
 
-    // Also you could let the compiler infer it:
+    // همچنین می‌توانید اجازه دهید کامپایلر آن را استنتاج کند:
     const result = InfixCalc.static_sum(10, 20);
     printf("%d\n", result);
 }
 ```
 
-This clear separation ensures that the compiler knows exactly which part of the generic hierarchy you are specializing at any given time.
+این تفکیک واضح اطمینان می‌دهد که کامپایلر دقیقاً می‌داند در هر لحظه کدام بخش از سلسله‌مراتب جنریک را تخصصی‌سازی می‌کنید.

@@ -1,29 +1,29 @@
 ---
-title: Tuples
+title: تاپل‌ها
 weight: 9
 ---
 
-# Tuples
+# تاپل‌ها
 
-A **tuple** is an ordered, fixed-size collection of values of possibly different types.  
-They are lightweight and useful for grouping, returning, or destructuring multiple values without defining a struct.
+یک **تاپل (tuple)** مجموعه‌ای مرتب و با اندازه ثابت از مقادیری با انواع احتمالی متفاوت است.  
+تاپل‌ها سبک‌وزن هستند و برای گروه‌بندی، بازگرداندن یا تجزیه (destructure) چندین مقدار بدون نیاز به تعریف یک struct مفید می‌باشند.
 
-Tuples are written using parentheses, with elements separated by commas:
+تاپل‌ها با استفاده از پرانتز نوشته می‌شوند و عناصر با کاما از یکدیگر جدا می‌گردند:
 
 ```cyrus
 var t = (10, 20);
 ```
 
-You can access tuple elements using numeric indices starting from `0`:
+می‌توانید با استفاده از اندیس‌های عددی که از `0` شروع می‌شوند به عناصر تاپل دسترسی پیدا کنید:
 
 ```cyrus
-printf("%d\n", t.0); // prints 10
-printf("%d\n", t.1); // prints 20
+printf("%d\n", t.0); // چاپ 10
+printf("%d\n", t.1); // چاپ 20
 ```
 
-## Returning Tuples from Functions
+## بازگرداندن تاپل از توابع
 
-Functions can return multiple values by specifying a tuple type as the return type:
+توابع می‌توانند با مشخص کردن یک نوع تاپل به عنوان نوع بازگشتی، چندین مقدار را بازگردانند:
 
 ```cyrus
 fn pair(x: int, y: int) (int, int) {
@@ -36,35 +36,33 @@ pub fn main() {
 }
 ```
 
-## Tuple Destructuring
+## تجزیه تاپل
 
-Tuples can be **destructured** into individual variables in a single declaration.
-Each element in the tuple pattern receives the corresponding element from the right-hand side.
+تاپل‌ها را می‌توان در یک عبارت اعلان واحد به متغیرهای مجزا **تجزیه (destructure)** کرد. هر عنصر در الگوی تاپل، عنصر متناظر خود را از سمت راست دریافت می‌کند.
 
 ```cyrus
 pub fn main() {
     var (x, y) = (10, 20);
-    printf("%d %d\n", x, y); // prints 10 20
+    printf("%d %d\n", x, y); // چاپ 10 20
 }
 ```
 
-## Nested Tuples
+## تاپل‌های تودرتو
 
-Tuples can contain other tuples.
-Destructuring works recursively and matches the shape of the right-hand side:
+تاپل‌ها می‌توانند شامل تاپل‌های دیگری باشند. تجزیه به صورت بازگشتی کار می‌کند و با ساختار سمت راست مطابقت دارد:
 
 ```cyrus
 pub fn main() {
     var (x, (y, z)) = (1, (2, 3));
-    printf("%d %d %d\n", x, y, z); // prints 1, 2, 3
+    printf("%d %d %d\n", x, y, z); // چاپ 1, 2, 3
 }
 ```
 
-This form can be arbitrarily nested and follows the same destructuring logic for all levels.
+این فرم می‌تواند به صورت دلخواه تودرتو باشد و از منطق تجزیه یکسانی برای تمام سطوح پیروی می‌کند.
 
-## Explicit Tuple Types
+## انواع تاپل صریح
 
-You can explicitly annotate tuple types to make destructuring clearer or enforce type constraints:
+می‌توانید انواع تاپل را به‌طور صریح حاشیه‌نویسی کنید تا تجزیه واضح‌تر شود یا محدودیت‌های نوع را اعمال نمایید:
 
 ```cyrus
 var (a, (b, c)): (int, (int, char*)) = (10, (20, "Cyrus"));
@@ -74,66 +72,65 @@ printf("%d\n", b); // 20
 printf("%s\n", c); // Cyrus
 ```
 
-Type annotations ensure the tuple on the right-hand side matches the declared structure.
+حاشیه‌نویسی‌های نوع اطمینان حاصل می‌کنند که تاپل سمت راست با ساختار اعلان‌شده مطابقت دارد.
 
-## Mutability
+## تغییرپذیری
 
-By default, the leading keyword (var or const) applies to the entire tuple. However, Cyrus allows you to override the mutability of specific elements within the pattern.
+به طور پیش‌فرض، کلمه کلیدی آغازین (var یا const) برای کل تاپل اعمال می‌شود. با این حال، کوروش به شما امکان می‌دهد تغییرپذیری عناصر خاصی را درون الگو بازنویسی کنید.
 
-The `var` keyword makes all destructured elements mutable,
-while `const` makes all of them immutable:
+کلمه کلیدی `var` تمام عناصر تجزیه‌شده را تغییرپذیر می‌کند،
+در حالی که `const` همه آنها را تغییرناپذیر می‌سازد:
 
 ```cyrus
-const (x, y) = (5, 6); // both x and y are immutable
-var (p, q) = (7, 8);   // both p and q are mutable
+const (x, y) = (5, 6); // هر دو x و y تغییرناپذیر هستند
+var (p, q) = (7, 8);   // هر دو p و q تغییرپذیر هستند
 ```
 
-Mixed mutability:
+تغییرپذیری ترکیبی:
 
 ```cyrus
 var (const a, b, c) = (1, 2, 3);
-// a is const (immutable)
-// b and c are var (mutable)
+// a از نوع const (تغییرناپذیر) است
+// b و c از نوع var (تغییرپذیر) هستند
 ```
 
 ```cyrus
 const (a, var b, c) = (1, 2, 3);
-// a and c are const (immutable)
-// b is var (mutable)
+// a و c از نوع const (تغییرناپذیر) هستند
+// b از نوع var (تغییرپذیر) است
 ```
 
-## Type Annotation
+## حاشیه‌نویسی نوع
 
-In addition to mixed mutability, you can explicitly annotate the type of individual elements within a destructuring pattern.
-This is particularly useful when you want to enforce a specific type.
+علاوه بر تغییرپذیری ترکیبی، می‌توانید نوع عناصر مجزا را درون یک الگوی تجزیه به‌طور صریح حاشیه‌نویسی کنید. این امر به‌ویژه زمانی مفید است که می‌خواهید یک نوع خاص را اعمال کنید.
 
 ```cyrus
 const (var a: int32, (var b: int32, c: int32)) = (1, (2, 3));
 
-// a is a mutable int32
-// b is a mutable int32
-// c is an immutable int32 (inherits const from the root)
+// a یک int32 تغییرپذیر است
+// b یک int32 تغییرپذیر است
+// c یک int32 تغییرناپذیر است (const را از ریشه به ارث می‌برد)
 ```
 
-## Restrictions
+## محدودیت‌ها
 
-- Tuple destructuring is only allowed inside **functions** or **local scopes**.
-- Destructuring without a right-hand side (e.g., `var (a, b);`) is **not allowed**,
-  because tuple exports without initialization are meaningless in Cyrus.
+- تجزیه تاپل فقط در داخل **توابع** یا **حوزه‌های محلی** مجاز است.
+- تجزیه بدون سمت راست (مانند `var (a, b);`) **مجاز نیست**،
+  زیرا صدور تاپل بدون مقداردهی در کوروش بی‌معناست.
 
-Example of invalid code:
+مثال کد نامعتبر:
 
 ```cyrus
-var (a, (b, c)); // tuple export without rhs is not allowed
+var (a, (b, c)); // صدور تاپل بدون rhs مجاز نیست
 ```
 
-- Tuple destructuring is only allowed inside functions or local scopes.
-- Initialization required: Destructuring without a right-hand side (e.g., var (a, b);) is not allowed.
-- Keyword Redundancy: You cannot repeat the leading mutability keyword inside the tuple pattern. This is considered invalid syntax to keep the grammar clean.
+- تجزیه تاپل فقط در داخل توابع یا حوزه‌های محلی مجاز است.
+- مقداردهی الزامی است: تجزیه بدون سمت راست (مانند var (a, b);) مجاز نیست.
+- افزونگی کلمه کلیدی: نمی‌توانید کلمه کلیدی تغییرپذیری آغازین را درون الگوی تاپل تکرار کنید. این امر برای حفظ تمیزی دستور زبان، نحوی نامعتبر محسوب می‌شود.
 
 ```cyrus
-const (const a, _) = (1, 2); // ERROR!: leading keyword cannot be repeated inside
-var (var a, _) = (1, 2);     // ERROR!: leading keyword cannot be repeated inside
+const (const a, _) = (1, 2); // خطا!: کلمه کلیدی آغازین نمی‌تواند در داخل تکرار شود
+var (var a, _) = (1, 2);     // خطا!: کلمه کلیدی آغازین نمی‌تواند در داخل تکرار شود
 
-var (a, (b, c));             // ERROR!
+var (a, (b, c));             // خطا!
 ```

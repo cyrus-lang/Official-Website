@@ -1,26 +1,23 @@
 ---
-title: Unions
+title: اتحادها
 weight: 8
 ---
 
-# Unions
+# اتحادها
 
-A Union in Cyrus is a low-level composite type where all member fields share the exact same base memory address. Unlike a struct, which allocates distinct offsets for each field, a union provides a way to interpret a single block of raw memory as multiple different types.
+اتحاد (Union) در کوروش یک نوع ترکیبی سطح پایین است که در آن تمام فیلدهای عضو آدرس حافظه پایه یکسانی را به اشتراک می‌گذارند. برخلاف struct که آفست‌های مجزایی برای هر فیلد اختصاص می‌دهد، union روشی برای تفسیر یک بلوک واحد از حافظه خام به عنوان چندین نوع متفاوت فراهم می‌کند.
 
-The size of a union is determined by the size of its largest member. Writing to any field overlaps and overwrites the memory occupied by all other fields, effectively providing a mechanism for memory aliasing.
+اندازه یک union با اندازه بزرگ‌ترین عضو آن تعیین می‌شود. نوشتن در هر فیلدی باعث هم‌پوشانی و بازنویسی حافظه اشغال‌شده توسط سایر فیلدها می‌شود و عملاً مکانیزمی برای نام‌گذاری مستعار حافظه (memory aliasing) فراهم می‌کند.
 
-<WarningAlert title="Unions Are Not Memory-Safe">
-  Unions in Cyrus are not memory-safe. Reading a field that was not most
-  recently written is undefined behavior, just like in C. Use unions only when
-  you explicitly need memory-efficient, low-level data representations.
+<WarningAlert title="اتحادها ایمن از نظر حافظه نیستند">
+  اتحادها در کوروش ایمن از نظر حافظه نیستند. خواندن فیلدی که آخرین بار نوشته نشده است، رفتاری نامعین (undefined behavior) محسوب می‌شود، دقیقاً مانند زبان C. تنها زمانی از union استفاده کنید که به‌طور مشخص به بازنمایی داده‌ای سطح پایین و بهینه از نظر حافظه نیاز دارید.
 </WarningAlert>
 
-<InfoAlert title="Safe Alternative">
-  If you want a memory-safe way to store different types of values, use an enum,
-  which enforces at compile time which variant is active.
+<InfoAlert title="جایگزین ایمن">
+  اگر به روشی ایمن از نظر حافظه برای ذخیره مقادیر انواع مختلف نیاز دارید، از enum استفاده کنید که در زمان کامپایل مشخص می‌کند کدام نوع فعال است.
 </InfoAlert>
 
-## Defining a Union
+## تعریف یک Union
 
 ```cyrus
 union DataUnion {
@@ -35,43 +32,43 @@ fn main() {
 }
 ```
 
-## Using a Union
+## استفاده از Union
 
-You can create a union instance and assign fields directly:
+می‌توانید یک نمونه union ایجاد کرده و مستقیماً به فیلدها مقداردهی کنید:
 
 ```cyrus
 fn main() {
     var raw = DataUnion;
 
-    raw.a = 42;       // set the integer field
-    raw.b = 3.14;     // overwrites the same memory with a float
+    raw.a = 42;       // مقداردهی فیلد صحیح
+    raw.b = 3.14;     // بازنویسی همان حافظه با یک عدد اعشاری
 }
 ```
 
-After `raw.b = 3.14`, the value of `raw.a` is no longer valid.
+پس از `raw.b = 3.14`، مقدار `raw.a` دیگر معتبر نیست.
 
-## Union Initialization
+## مقداردهی اولیه Union
 
-Unions can be initialized using a Union Initializer, specifying which field to set at creation:
+اتحادها را می‌توان با استفاده از یک مقداردهنده اولیه union (Union Initializer) مقداردهی کرد و مشخص نمود که کدام فیلد در زمان ایجاد تنظیم شود:
 
 ```cyrus
 var un: DataUnion = DataUnion { a: 10 };
 ```
 
-Rules:
+قوانین:
 
-- Only one field should be initialized.
-- The union's memory will be set according to that field.
+- فقط یک فیلد باید مقداردهی شود.
+- حافظه union مطابق با آن فیلد تنظیم خواهد شد.
 
-## Practical Use Cases
+## موارد استفاده عملی
 
-Unions are low-level tools, mainly used in systems programming:
+اتحادها ابزارهایی سطح پایین هستند که عمدتاً در برنامه‌نویسی سیستمی استفاده می‌شوند:
 
-- Type punning: reinterpret the same memory as different types.
-- Interfacing with C libraries: many C APIs expose unions in their structs.
-- Memory efficiency: when you know only one of several large fields will be used at once.
+- نوع‌پانینگ (Type punning): تفسیر مجدد همان حافظه به عنوان انواع مختلف.
+- ارتباط با کتابخانه‌های C: بسیاری از APIهای C در structهای خود از union استفاده می‌کنند.
+- کارایی حافظه: زمانی که می‌دانید تنها یکی از چندین فیلد بزرگ در یک زمان استفاده خواهد شد.
 
-Example: Interpreting the same 32-bit data as either an integer or raw bytes.
+مثال: تفسیر داده ۳۲ بیتی مشابه به صورت یک عدد صحیح یا بایت‌های خام.
 
 ```cyrus
 import std::libc{printf};
@@ -88,15 +85,15 @@ fn main() {
 }
 ```
 
-Output (on little-endian systems):
+خروجی (در سیستم‌های little-endian):
 
 ```text
 78 56 34 12
 ```
 
-## Unnamed Union Initialization
+## مقداردهی اولیه Union بدون نام
 
-Similar to structs, you can use unnamed unions for inline data layout or initialization of named union types. This is particularly useful for temporary low-level buffers.
+مشابه structها، می‌توانید از unionهای بدون نام برای چیدمان داده درون‌خطی یا مقداردهی اولیه انواع union نام‌دار استفاده کنید. این مورد به‌ویژه برای بافرهای موقت سطح پایین مفید است.
 
 ```cyrus
 union Payload {
@@ -111,13 +108,13 @@ pub fn main() {
 }
 ```
 
-Only one field can be initialized in a union value. Providing multiple fields will result in a compile-time error.
+فقط یک فیلد می‌تواند در یک مقدار union مقداردهی شود. ارائه چندین فیلد منجر به خطای زمان کامپایل خواهد شد.
 
-## Union Pointer Aliasing
+## نام‌گذاری مستعار اشاره‌گر در Union
 
-Since every field in a union shares the same base address, taking a reference to a specific field provides a typed pointer to the union's shared memory block. This allows for pointer aliasing, where you can manipulate the union's raw data through pointers of different types.
+از آنجا که هر فیلد در یک union آدرس پایه یکسانی را به اشتراک می‌گذارد، گرفتن ارجاع (reference) به یک فیلد خاص، یک اشاره‌گر تایپ‌شده به بلوک حافظه مشترک union فراهم می‌کند. این امکان نام‌گذاری مستعار اشاره‌گر (pointer aliasing) را فراهم می‌سازد، به این معنا که می‌توانید داده‌های خام union را از طریق اشاره‌گرهایی از انواع مختلف دستکاری کنید.
 
-This is a powerful feature for systems programming, enabling direct memory manipulation without explicit casting at every step.
+این ویژگی قدرتمندی برای برنامه‌نویسی سیستمی است که امکان دستکاری مستقیم حافظه را بدون نیاز به cast صریح در هر مرحله فراهم می‌کند.
 
 ```cyrus
 union DataStore {
@@ -126,17 +123,17 @@ union DataStore {
 }
 
 pub fn main() {
-    // Initialize the union via the pointer field
+    // مقداردهی union از طریق فیلد اشاره‌گر
     var inst = DataStore { p: null };
 
-    // Obtain a pointer to the integer field
-    // Both &inst.p and &inst.i point to the same memory address
+    // دریافت اشاره‌گر به فیلد صحیح
+    // هر دو &inst.p و &inst.i به آدرس حافظه یکسانی اشاره می‌کنند
     var iptr: int64* = &inst.i;
 
-    // Indirectly modify the union memory through the aliased pointer
+    // تغییر غیرمستقیم حافظه union از طریق اشاره‌گر مستعار
     *iptr = 2500;
 
-    // The shared memory now holds the bit pattern of the integer 2500
+    // حافظه مشترک اکنون حاوی الگوی بیتی عدد صحیح ۲۵۰۰ است
     printf("%d\n", inst.i);
 }
 ```

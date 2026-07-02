@@ -1,27 +1,27 @@
 ---
-title: Basic Syntax
+title: نحو پایه
 weight: 1
 ---
 
-# Basic Syntax
+# نحو پایه
 
-This article is an introduction to the Cyrus Programming Language. It assumes you already have a basic understanding of programming concepts such as variables, statements, and types. Here, you’ll see how familiar ideas are expressed in Cyrus, while also being introduced to new concepts that make the language unique.
+این مقاله مقدمه‌ای بر زبان برنامه‌نویسی کوروش است. فرض بر این است که شما از پیش با مفاهیم برنامه‌نویسی مانند متغیرها، عبارات و انواع آشنا هستید. در اینجا خواهید دید که چگونه ایده‌های آشنا در کوروش بیان می‌شوند، همچنین با مفاهیم جدیدی که این زبان را منحصربه‌فرد می‌سازند نیز آشنا خواهید شد.
 
-If you haven't installed Cyrus yet, start with the [Getting Started](/en/docs/getting-started/install-compiler-binary) guide before continuing.
+اگر هنوز کوروش را نصب نکرده‌اید، پیش از ادامه از راهنمای [شروع به کار](/en/docs/getting-started/install-compiler-binary) شروع کنید.
 
-## Comments
+## توضیحات (Comments)
 
-Comments are pieces of text ignored by the compiler.
-They're useful for explaining code, leaving notes, or temporarily disabling parts of a program. Cyrus supports both single-line and multi-line comments.
+توضیحات بخش‌هایی از متن هستند که توسط کامپایلر نادیده گرفته می‌شوند.
+آنها برای توضیح کد، گذاشتن یادداشت یا غیرفعال کردن موقت بخش‌هایی از برنامه مفید هستند. کوروش از توضیحات تک‌خطی و چندخطی پشتیبانی می‌کند.
 
-- Single-line Comments
+- توضیحات تک‌خطی
 
 ```cyrus
 // This is a single-line comment
 var msg: char* = "Hello, Cyrus!"; // You can also place it after code
 ```
 
-- Multi-line Comments
+- توضیحات چندخطی
 
 ```cyrus
 /*
@@ -33,37 +33,37 @@ var msg: char* = "Hello, Cyrus!"; // You can also place it after code
 */
 ```
 
-## Const string and Character Literals
+## ثابت‌های رشته‌ای و نویسه‌ای
 
-String literals in Cyrus are enclosed in double quotes **"xxx"**, while character literals are enclosed in single quotes **'x'**.
-Both forms represent sequences of Unicode characters, but they differ in intent and usage:
+لیترال‌های رشته‌ای در کوروش درون علامت نقل‌قول دوتایی **"xxx"** محصور می‌شوند، در حالی که لیترال‌های نویسه‌ای درون علامت نقل‌قول تکی **'x'** قرار می‌گیرند.
+هر دو شکل دنباله‌هایی از نویسه‌های یونیکد را نمایش می‌دهند، اما از نظر کاربرد و هدف متفاوت هستند:
 
-- String literals produce values of type **char\***, which can hold arbitrarily many characters.
-- Character literals produce values of type **char**, which always represent exactly one Unicode scalar value.
+- لیترال‌های رشته‌ای مقادیری از نوع **char\*** تولید می‌کنند که می‌توانند تعداد دلخواهی نویسه را در خود نگه دارند.
+- لیترال‌های نویسه‌ای مقادیری از نوع **char** تولید می‌کنند که همواره دقیقاً یک مقدار اسکالر یونیکد را نشان می‌دهند.
 
 ```cyrus
 var greeting: char* = "Hello, Cyrus!";
 var letter: char = 'A';
 ```
 
-### Escapes
+### دنباله‌های گریز (Escapes)
 
-Special characters that are difficult to type directly or would otherwise break the syntax can be written using escape sequences. All escape sequences begin with a backslash (\).
+نویسه‌های خاصی که تایپ مستقیم آنها دشوار است یا در غیر این صورت ساختار نحو را می‌شکنند، می‌توانند با استفاده از دنباله‌های گریز نوشته شوند. همه دنباله‌های گریز با یک بک‌اسلش (\) شروع می‌شوند.
 
-Common escapes include:
+گریزهای رایج عبارتند از:
 
-- **\n** - newline (line feed, U+000A)
-- **\t** - horizontal tab (U+0009)
-- **\r** - carriage return (U+000D)
-- **\b** - backspace (U+0008)
-- **\a** - bell/alert (U+0007)
-- **\v** - vertical tab (U+000B)
-- **\f** - form feed (U+000C)
-- **\\** - literal backslash
-- **\"** - double quote (inside strings)
-- **\'** - single quote (inside chars or strings)
+- **\n** - خط جدید (line feed, U+000A)
+- **\t** - تب افقی (horizontal tab, U+0009)
+- **\r** - بازگشت به ابتدای خط (carriage return, U+000D)
+- **\b** - بک‌اسپیس (backspace, U+0008)
+- **\a** - زنگ/هشدار (bell/alert, U+0007)
+- **\v** - تب عمودی (vertical tab, U+000B)
+- **\f** - تغذیه صفحه (form feed, U+000C)
+- **\\** - بک‌اسلش لفظی
+- **\"** - نقل‌قول دوتایی (داخل رشته‌ها)
+- **\'** - نقل‌قول تکی (داخل نویسه‌ها یا رشته‌ها)
 
-Example:
+مثال:
 
 ```cyrus
 var poem: char* = "Line one\nLine two\nLine three";
@@ -75,9 +75,9 @@ Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
 when an unknown printer took a galley of type and scrambled it to make a type specimen book.";
 ```
 
-### Unicode and Emojis
+### یونیکد و ایموجی‌ها
 
-Cyrus supports Unicode characters directly in string and character literals. You can type emojis, accented letters, or any other Unicode characters inside quotes:
+کوروش مستقیماً از نویسه‌های یونیکد در لیترال‌های رشته‌ای و نویسه‌ای پشتیبانی می‌کند. می‌توانید ایموجی‌ها، حروف همراه با اعراب یا هر نویسه یونیکد دیگری را داخل علامت نقل‌قول تایپ کنید:
 
 ```cyrus
 var letter: char = 'A';                     // valid
@@ -88,43 +88,43 @@ var emoji_char: char = '😇';                // NOT VALID
 var multibyte_char: char = '\u263A';        // NOT VALID
 ```
 
-## Integer Constants
+## ثابت‌های اعداد صحیح
 
-Numeric constants in Cyrus can be written in **decimal**, **hexadecimal**, **octal**, or **binary** formats:
+ثابت‌های عددی در کوروش می‌توانند در قالب‌های **دهدهی**، **هگزادسیمال**، **اکتال** یا **دودویی** نوشته شوند:
 
-- Decimal (Base 10):
+- دهدهی (مبنای ۱۰):
 
 ```cyrus
 var a = 1234;
 ```
 
-- Hexadecimal (Base 16, prefix with 0x or 0X):
+- هگزادسیمال (مبنای ۱۶، پیشوند 0x یا 0X):
 
 ```cyrus
 var b = 0x42EDAA02;
 ```
 
-- Binary (Base 2, prefix with 0b or 0B):
+- دودویی (مبنای ۲، پیشوند 0b یا 0B):
 
 ```cyrus
 var c = 0b101010;
 ```
 
-Numeric literals may include underscores **\_** between digits for readability; these are ignored by the compiler:
+لیترال‌های عددی ممکن است برای خوانایی بیشتر شامل زیرخط **\_** بین ارقام باشند؛ این زیرخط‌ها توسط کامپایلر نادیده گرفته می‌شوند:
 
 ```cyrus
 var million = 1_000_000;
 var hex_val = 0xDE_AD_BE_EF;
 ```
 
-## Literal Suffixes
+## پسوندهای لیترال
 
-Cyrus allows explicit type suffixes on numeric literals to specify their type.
-This is useful when the compiler cannot infer the type or when you want to guarantee a specific type.
+کوروش امکان استفاده از پسوندهای نوع صریح بر روی لیترال‌های عددی را برای مشخص کردن نوع آنها فراهم می‌کند.
+این امر زمانی مفید است که کامپایلر نتواند نوع را استنتاج کند یا زمانی که می‌خواهید نوع خاصی را تضمین کنید.
 
-### Integer Suffixes
+### پسوندهای اعداد صحیح
 
-Valid integer suffixes include:
+پسوندهای معتبر اعداد صحیح عبارتند از:
 
 - uintptr
 - intptr
@@ -143,33 +143,33 @@ Valid integer suffixes include:
 - uint64
 - uint128
 
-Valid float suffixes include:
+پسوندهای معتبر اعداد اعشاری عبارتند از:
 
 - float16
 - float32
 - float64
 - float128
 
-Example:
+مثال:
 
 ```cyrus
 var a = 1234int64;
 var b = 3.14float64;
 ```
 
-### Default Type of Literals
+### نوع پیش‌فرض لیترال‌ها
 
-If you don't specify a type suffix, Cyrus assigns `int` as the default type for integer literals, and `float64` as the default type for floating-point literals.
+اگر پسوند نوع را مشخص نکنید، کوروش `int` را به عنوان نوع پیش‌فرض برای لیترال‌های اعداد صحیح و `float64` را به عنوان نوع پیش‌فرض برای لیترال‌های اعداد اعشاری در نظر می‌گیرد.
 
-Type suffixes can be used to explicitly control the size and signedness of an integer literal, or to select a different floating-point precision.
+می‌توان از پسوندهای نوع برای کنترل صریح اندازه و علامت‌دار بودن یک لیترال عدد صحیح، یا برای انتخاب دقت ممیز شناور متفاوت استفاده کرد.
 
-## Arrays
+## آرایه‌ها
 
-Arrays are fixed-size, stack-allocated sequences. Size must be known at compile time.
+آرایه‌ها دنباله‌هایی با اندازه ثابت و تخصیص‌یافته در پشته هستند. اندازه باید در زمان کامپایل مشخص باشد.
 
-### Explicit and Inferred Types
+### انواع صریح و استنتاج‌شده
 
-You can define types explicitly or let the compiler infer them:
+می‌توانید انواع را به صورت صریح تعریف کنید یا اجازه دهید کامپایلر آنها را استنتاج کند:
 
 ```cyrus
 // Explicit
@@ -179,7 +179,7 @@ var a = int[3]{1, 2, 3};
 const untyped = {1, 2, 3};
 ```
 
-### Multi-dimensional Arrays
+### آرایه‌های چندبعدی
 
 ```cyrus
 const matrix = int[2][3] {
@@ -188,20 +188,20 @@ const matrix = int[2][3] {
 };
 ```
 
-## Pointers
+## اشاره‌گرها
 
-Cyrus pointers function similarly to C.
+اشاره‌گرها در کوروش مشابه C عمل می‌کنند.
 
 ```cyrus
 var a: int = 10;
 var b: int* = &a;
 ```
 
-### GEP and Decay
+### GEP و زوال (Decay)
 
-Cyrus simplifies pointer access:
+کوروش دسترسی به اشاره‌گرها را ساده می‌کند:
 
-1. **GEP**: You can use indexing on pointers directly (GetElementPtr semantics).
+1. **GEP**: می‌توانید مستقیماً روی اشاره‌گرها ایندکس‌گذاری کنید (معنای GetElementPtr).
 
    ```cyrus
    var ptr: int* = malloc(8);
@@ -209,14 +209,14 @@ Cyrus simplifies pointer access:
    ptr[1] = 20;
    ```
 
-2. **Decay**: Arrays automatically decay to pointers when assigned to a pointer type.
+2. **زوال (Decay)**: آرایه‌ها هنگامی که به یک نوع اشاره‌گر تخصیص داده می‌شوند، به طور خودکار به اشاره‌گر تبدیل (زوال) می‌یابند.
 
    ```cyrus
    const nums = int[3]{1, 2, 3};
    const ptr: int* = nums; // Equivalent to &nums[0]
    ```
 
-3. **Pointer to Array**:
+3. **اشاره‌گر به آرایه**:
 
    ```cyrus
    const nums = int[3]{1, 2, 3};
@@ -225,10 +225,10 @@ Cyrus simplifies pointer access:
    (*ptr)[0] = 10;
    ```
 
-### Pointer Constness and Mutability
+### ثابت‌بودن و تغییرپذیری اشاره‌گر
 
-Cyrus distinguishes between the mutability of the pointer itself and the mutability of the data it points to.
-If you take a reference to a const value, the resulting pointer is automatically a pointer to a constant (e.g., const int\*), preventing mutation of the underlying value through that pointer.
+کوروش بین تغییرپذیری خود اشاره‌گر و تغییرپذیری داده‌ای که به آن اشاره می‌کند تمایز قائل می‌شود.
+اگر از یک مقدار const reference بگیرید، اشاره‌گر حاصل به طور خودکار یک اشاره‌گر به یک ثابت است (مانند const int\*) که از تغییر مقدار زیربنایی از طریق آن اشاره‌گر جلوگیری می‌کند.
 
 ```cyrus
 pub fn main() {

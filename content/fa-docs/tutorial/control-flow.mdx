@@ -1,11 +1,11 @@
 ---
-title: Control Flow
+title: جریان کنترل
 weight: 4
 ---
 
-## Conditional Statements
+## عبارات شرطی
 
-Conditional statements let you execute different blocks of code depending on whether a condition evaluates to true or false. Conditions must evaluate to a bool value.
+عبارات شرطی به شما امکان می‌دهند بلوک‌های مختلف کد را بسته به اینکه یک شرط true یا false ارزیابی شود، اجرا کنید. شرایط باید به یک مقدار bool ارزیابی شوند.
 
 ```cyrus
 if (condition) {
@@ -15,7 +15,7 @@ if (condition) {
 }
 ```
 
-Chained conditions:
+شرط‌های زنجیره‌ای:
 
 ```cyrus
 var grade: char;
@@ -29,13 +29,13 @@ if (score >= 90) {
 }
 ```
 
-## Looping Constructs
+## ساختارهای حلقه
 
-A for loop allows repeating a block of code multiple times. It usually consists of three optional parts inside the loop header:
+یک حلقه for امکان تکرار یک بلوک کد را چندین بار فراهم می‌کند. معمولاً از سه بخش اختیاری درون سرآیند حلقه تشکیل شده است:
 
-- Initializer - runs once before the loop begins (often used to declare and initialize a counter).
-- Condition - checked before each iteration; if false, the loop exits.
-- Increment/Update - executed after each iteration.
+- مقداردهنده اولیه (Initializer) - یک بار قبل از شروع حلقه اجرا می‌شود (اغلب برای اعلان و مقداردهی یک شمارنده استفاده می‌شود).
+- شرط (Condition) - قبل از هر تکرار بررسی می‌شود؛ اگر false باشد، حلقه خارج می‌شود.
+- افزایش/به‌روزرسانی (Increment/Update) - پس از هر تکرار اجرا می‌شود.
 
 ```cyrus
 for (initializer; condition; increment) {
@@ -43,7 +43,7 @@ for (initializer; condition; increment) {
 }
 ```
 
-### Classic Counter Loop
+### حلقه شمارنده کلاسیک
 
 ```cyrus
 for (var i = 0; i < 10; i++) {
@@ -51,9 +51,9 @@ for (var i = 0; i < 10; i++) {
 }
 ```
 
-Runs with i taking values from `0` to `9`.
+با i که مقادیر `0` تا `9` را می‌گیرد اجرا می‌شود.
 
-### Manual Increment Loop
+### حلقه با افزایش دستی
 
 ```cyrus
 for (var i = 0; i < 10;) {
@@ -63,9 +63,9 @@ for (var i = 0; i < 10;) {
 }
 ```
 
-Here, the increment part is omitted. The loop continues until the condition becomes false, but you control when i is updated.
+در اینجا، بخش افزایش حذف شده است. حلقه تا زمانی که شرط false شود ادامه می‌یابد، اما شما کنترل می‌کنید که i چه زمانی به‌روز شود.
 
-### Conditionless Loop with Initializer
+### حلقه بدون شرط با مقداردهنده اولیه
 
 ```cyrus
 for (var attempts = 0;) {
@@ -78,9 +78,9 @@ for (var attempts = 0;) {
 }
 ```
 
-With no condition provided, the loop is infinite unless exited using break or return.
+با عدم ارائه شرط، حلقه بی‌نهایت است مگر اینکه با break یا return خارج شود.
 
-### Pure Infinite Loop
+### حلقه بی‌نهایت خالص
 
 <WarningAlert>
   An infinite loop can also be written as:
@@ -99,11 +99,11 @@ for {
 }
 ```
 
-This form has no initializer, no condition, and no update. It must be terminated explicitly.
+این فرم هیچ مقداردهنده اولیه، شرط و به‌روزرسانی ندارد. باید به صورت صریح خاتمه یابد.
 
-### While Statement
+### دستور while
 
-A while loop repeatedly executes a block of code as long as a condition evaluates to true. The condition is checked before each iteration. If the condition is false at the start, the loop body never runs.
+یک حلقه while یک بلوک کد را تا زمانی که یک شرط true ارزیابی شود، به طور مکرر اجرا می‌کند. شرط قبل از هر تکرار بررسی می‌شود. اگر شرط در ابتدا false باشد، بدنه حلقه هرگز اجرا نمی‌شود.
 
 ```cyrus
 while (is_running) {
@@ -124,18 +124,18 @@ while (true) {
 }
 ```
 
-## Switch Statement
+## دستور Switch
 
 <InfoAlert>
   This is not pattern matching. Cases in Cyrus are always compared against raw
   values, not structural patterns or conditions.
 </InfoAlert>
 
-The switch statement provides structured control flow based on the value of an expression. It supports enum variants with destructuring, value-based matching, and an optional default branch.
+دستور switch جریان کنترل ساختاریافته‌ای را بر اساس مقدار یک عبارت فراهم می‌کند. از انواع enum با تخریب‌سازی (destructuring)، تطبیق مبتنی بر مقدار و یک شاخه default اختیاری پشتیبانی می‌کند.
 
-The general form is:
+فرم کلی به صورت زیر است:
 
-### Basic Form
+### فرم پایه
 
 ```cyrus
 switch (expression) {
@@ -148,13 +148,13 @@ switch (expression) {
 }
 ```
 
-Each case is introduced using `=>` and executes its associated block when the pattern matches.  
-Execution does not **fall through**; exactly one matching branch is executed.
+هر case با استفاده از `=>` معرفی می‌شود و بلوک مرتبط خود را زمانی که الگو مطابقت دارد اجرا می‌کند.  
+اجرا **به case بعدی سرایت نمی‌کند (fall through)**؛ دقیقاً یک شاخه مطابق اجرا می‌شود.
 
-### Switching on Enums
+### Switch روی Enumها
 
-When switching over enum values, each case matches a specific variant.  
-Variants without payloads match by name, while variants with associated data can destructure their fields directly.
+هنگام switch روی مقادیر enum، هر case یک variant خاص را مطابقت می‌دهد.  
+Variantهای بدون payload با نام مطابقت می‌کنند، در حالی که variantهای دارای داده مرتبط می‌توانند فیلدهای خود را مستقیماً تخریب (destructure) کنند.
 
 ```cyrus
 enum Color {
@@ -180,9 +180,9 @@ pub fn main() {
 }
 ```
 
-The switch is exhaustive: all possible variants of Color are handled.
+switch جامع (exhaustive) است: همه variantهای ممکن Color پوشش داده شده‌اند.
 
-### Switch Enum Without Payloads
+### Switch روی Enum بدون Payload
 
 ```cyrus
 enum Color {
@@ -208,11 +208,11 @@ pub fn main() {
 }
 ```
 
-Each case matches a concrete enum variant. Since all variants are covered, no default branch is required.
+هر case یک variant مشخص از enum را مطابقت می‌دهد. از آنجا که همه variantها پوشش داده شده‌اند، نیازی به شاخه default نیست.
 
-### Destructuring Tagged Values
+### تخریب‌سازی مقادیر برچسب‌دار
 
-Enums are commonly used as tagged unions. The switch statement allows safe extraction of the stored value based on the active variant.
+انواع enum معمولاً به عنوان اتحاد برچسب‌دار (tagged unions) استفاده می‌شوند. دستور switch امکان استخراج ایمن مقدار ذخیره‌شده بر اساس variant فعال را فراهم می‌کند.
 
 ```cyrus
 enum Value {
@@ -234,13 +234,13 @@ pub fn main() {
 }
 ```
 
-Here, the bound variable (number, text) is available only within its corresponding case block.
+در اینجا، متغیر مقید (number, text) فقط درون بلوک case مربوطه خود قابل دسترسی است.
 
-### Matching Multiple Enum Variants
+### تطبیق چندین Variant از Enum
 
-When an enum variant has no payload, it can be combined with other non-payload variants using the `|` operator inside a case.
+وقتی یک variant از enum فاقد payload است، می‌توان آن را با سایر variantهای بدون payload با استفاده از عملگر `|` درون یک case ترکیب کرد.
 
-This allows grouping several variants under one branch.
+این امکان گروه‌بندی چندین variant را تحت یک شاخه فراهم می‌کند.
 
 ```cyrus
 enum Color {
@@ -263,13 +263,13 @@ pub fn main() {
 }
 ```
 
-Only variants without payloads may be grouped via |.
-Variants with payloads must be matched individually so their fields can be destructured.
-Grouped cases behave as a single branch; no pattern binding is allowed.
+فقط variantهای بدون payload ممکن است با | گروه‌بندی شوند.
+Variantهای دارای payload باید به صورت جداگانه مطابقت داده شوند تا فیلدهایشان قابل تخریب باشد.
+Caseهای گروه‌بندی شده به عنوان یک شاخه واحد رفتار می‌کنند؛ هیچ binding الگویی مجاز نیست.
 
-### Switching On Non-enum Values
+### Switch روی مقادیر غیر Enum
 
-Switch can also be used with non-enum expressions such as integers, strings, or other comparable values.
+Switch همچنین می‌تواند با عبارات غیر enum مانند اعداد صحیح، رشته‌ها یا سایر مقادیر قابل مقایسه استفاده شود.
 
 ```cyrus
 const text = "Cyrus!";
@@ -284,17 +284,17 @@ switch (text) {
 }
 ```
 
-In this form:
+در این فرم:
 
-- Each case compares the switch expression against a concrete value
-- Default is executed when no case matches
-- Matching is value-based, not pattern-based
+- هر case عبارت switch را با یک مقدار مشخص مقایسه می‌کند
+- Default زمانی اجرا می‌شود که هیچ case مطابقت نداشته باشد
+- تطبیق مبتنی بر مقدار است، نه مبتنی بر الگو
 
-# Jump Blocks
+# بلوک‌های پرش
 
-Cyrus supports jump blocks using the goto statement. Jump blocks allow you to transfer control to a labeled point in the current function. While goto should be used sparingly, it can simplify certain low-level control flows or state-machine-like logic.
+کوروش از بلوک‌های پرش با استفاده از دستور goto پشتیبانی می‌کند. بلوک‌های پرش به شما امکان می‌دهند کنترل را به یک نقطه برچسب‌گذاری شده در تابع جاری منتقل کنید. اگرچه goto باید به ندرت استفاده شود، می‌تواند جریان‌های کنترل سطح پایین یا منطق شبیه به ماشین حالت را ساده کند.
 
-A label is an identifier followed by a colon and the goto statement transfers execution to that label:
+یک برچسب (label) یک شناسه است که با دو نقطه دنبال می‌شود و دستور goto اجرا را به آن برچسب منتقل می‌کند:
 
 ```cyrus
 pub fn main() {
@@ -305,7 +305,7 @@ goto label_name; // jumps to the labeled block
 }
 ```
 
-Labels must be defined within the same function.
+برچسب‌ها باید درون همان تابع تعریف شوند.
 
 ```cyrus
 import std::libc{printf, exit};
