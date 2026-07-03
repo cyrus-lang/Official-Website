@@ -14,30 +14,30 @@
     },
     "features": {
       "title": "Key Features",
-      "subtitle": "Cyrus combines familiar systems-level control with a highly predictable, minimalist design that gets out of your way.",
+      "subtitle": "Cyrus is designed around explicit control, predictable execution, and minimal abstraction over the machine.",
       "cleanSyntax": {
-        "title": "Syntax-First Simplicity",
-        "description": "Minimal, predictable syntax designed so you can read and understand code immediately, without mentally simulating complex compiler rules."
+        "title": "Predictable, Minimal Syntax",
+        "description": "A small and consistent syntax surface designed to remain readable without requiring mental simulation of hidden compiler behavior or complex rule resolution."
       },
       "typeSystem": {
-        "title": "Explicit Type System",
-        "description": "Prevents silent bugs with strict integer semantics and no implicit conversions, using monomorphized generics for zero-cost static dispatch."
+        "title": "Strict Explicit Type System",
+        "description": "Strong static typing with no implicit conversions. All type transformations are explicit, preventing silent coercions and reducing ambiguity in program behavior. Generic code is monomorphized for direct static dispatch with zero runtime abstraction cost."
       },
       "crossPlatform": {
-        "title": "LLVM-Backed Portability",
-        "description": "Compiles ahead-of-time (AOT) via LLVM to high-performance machine code, offering native speed and full C ABI compatibility."
+        "title": "LLVM-Based Native Compilation",
+        "description": "Ahead-of-time compilation through LLVM to optimized native machine code. Produces deterministic performance characteristics with full interoperability via the C ABI."
       },
       "lowCognitiveLoad": {
-        "title": "Controlled Cognitive Load",
-        "description": "Avoids paradigm mixing, heavy object hierarchies, and hidden compiler magic, keeping your focus entirely on procedural logic."
+        "title": "No Hidden Language Semantics",
+        "description": "Avoids implicit behavior, mixed paradigms, and layered abstractions. Execution flow remains close to the source, allowing reasoning without relying on compiler-driven assumptions or runtime inference."
       },
       "standardLibrary": {
-        "title": "Explicit Memory Control",
-        "description": "No garbage collection or complex ownership rules. Features manual memory management, custom allocators, and structured cleanup via defer."
+        "title": "Explicit Memory Model",
+        "description": "No garbage collector and no hidden ownership system. Memory is managed explicitly through manual allocation patterns, custom allocators, and deterministic cleanup using structured constructs such as defer."
       },
       "openSource": {
-        "title": "Open-Source & Community-driven",
-        "description": "Developed in the open for developers who value absolute control, performance, and deterministic runtime characteristics."
+        "title": "Open and Inspectable Design",
+        "description": "Developed openly with a focus on transparency and verifiability. The language is intended for systems where performance, determinism, and full control over execution are primary requirements."
       }
     },
     "examples": {

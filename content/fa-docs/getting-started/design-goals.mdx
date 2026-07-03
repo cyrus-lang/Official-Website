@@ -294,7 +294,7 @@ union Payload {
     s: char*;
 }
 
-var data = Payload{ s: "Cyrus" };
+var data = Payload { s: "Cyrus" };
 // data.i is gone, writing to s now overwrites stale memory
 
 var iptr: int64* = &data.i; // pointer aliasing: same address as data.s
