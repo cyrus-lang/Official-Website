@@ -606,41 +606,6 @@ Cyrus is not trying to replace any of these languages. It is a different point o
 - Those seeking strong compile-time safety guarantees without understanding the underlying machine
 - Applications where proving memory safety statically is a hard requirement
 
-## Tradeoff Summary
-
-<Table>
-  <TableHeader>
-    <TableRow>
-      <TableHead className="w-50">You gain</TableHead>
-      <TableHead>You give up</TableHead>
-    </TableRow>
-  </TableHeader>
-  <TableBody>
-    <TableRow>
-      <TableCell>Explicit, visible control over every operation</TableCell>
-      <TableCell>Strong compile-time safety guarantees</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>Predictable performance model</TableCell>
-      <TableCell>Automatic memory management</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        Algebraic types with zero-cost generics (enums, structs, interfaces)
-      </TableCell>
-      <TableCell>Advanced abstraction layers</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>Long-term code maintainability</TableCell>
-      <TableCell>Borrow-checker-level safety proofs</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>No hidden runtime or GC</TableCell>
-      <TableCell>Built-in concurrency primitives</TableCell>
-    </TableRow>
-  </TableBody>
-</Table>
-
 ## Design Constraint: Proven Ideas
 
 Cyrus does not pursue novelty for its own sake. Every feature earns its place by solving a real problem in systems programming — proven by decades of use in C-family languages, refined into a consistent and explicit form.
