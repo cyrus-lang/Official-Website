@@ -43,6 +43,124 @@ extern errno: int; // private external symbol
 pub extern stdin: void*; // public external symbol
 ```
 
+### Compile-Time Constants and Runtime Globals
+
+Cyrus distinguishes between compile-time constants and runtime global variables.
+
+- A `const` declaration at the top level creates a compile-time constant. Its value must be known at compile time and can be used in any compile-time expression, such as array sizes or type parameters.
+
+```cyrus
+const MAX_SIZE = 1024;
+
+pub fn main() {
+    var buffer: uint8[MAX_SIZE]; // OK: MAX_SIZE is const-evaluable
+}
+```
+
+- A `static` declaration creates a runtime global variable that exists in the binary. Even if declared `static const`, the value is stored in the data section and is **not** available for compile-time evaluation.
+
+```cyrus
+static const PAGE_SIZE: int32 = 4096;
+
+pub fn main() {
+    var arr: int32[PAGE_SIZE]; // ERROR: PAGE_SIZE is a runtime global
+}
+```
+
+You may use `static var` for mutable global state:
+
+```cyrus
+static var counter: int32 = 0;
+
+pub fn increment() {
+    counter += 1;
+}
+```
+
+**Important:** Declaring a global variable with plain `var` (without `const` or `static`) is **invalid**:
+
+```cyrus
+var foo = 0; // ERROR: global mutable variables must be declared with `static`
+```
+
+This restriction prevents potential side effects that could arise during compile-time evaluation, keeping the language safe and predictable.
+
+### Modifiers for Static Variables
+
+Static variables (both `static const` and `static var`) support several modifiers that control their linkage, visibility, placement, and other attributes. These modifiers appear before the `static` keyword.
+
+<Table>
+  <TableHeader>
+    <TableRow>
+      <TableHead className="w-37.5">Modifier</TableHead>
+      <TableHead>Description</TableHead>
+      <TableHead className="text-right">Platform</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell className="font-medium">weak</TableCell>
+      <TableCell>
+        Marks the symbol as weak, allowing multiple definitions without
+        conflict.
+      </TableCell>
+      <TableCell className="text-right">All</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell className="font-medium">dllimport</TableCell>
+      <TableCell>Imports the symbol from a dynamic-link library.</TableCell>
+      <TableCell className="text-right">Windows</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell className="font-medium">dllexport</TableCell>
+      <TableCell>
+        Exports the symbol for use in a dynamic-link library.
+      </TableCell>
+      <TableCell className="text-right">Windows</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell className="font-medium">section("name")</TableCell>
+      <TableCell>
+        Places the variable in a specific section (e.g., <code>.data</code>,{" "}
+        <code>.bss</code>).
+      </TableCell>
+      <TableCell className="text-right">All</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell className="font-medium">placement</TableCell>
+      <TableCell>
+        (Reserved for future use) Specifies a custom memory placement.
+      </TableCell>
+      <TableCell className="text-right">—</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell className="font-medium">linkage</TableCell>
+      <TableCell>
+        (Reserved for future use) Controls linkage behavior.
+      </TableCell>
+      <TableCell className="text-right">—</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+Examples:
+
+```cyrus
+// Weak symbol (allows multiple definitions)
+weak static const fallback_value: int32 = 0;
+
+// Import from a DLL
+dllimport static var external_counter: int32 = 0;
+
+// Export to a DLL
+dllexport static var internal_state: int32 = 0;
+
+// Place in custom section
+section(".my_data") static var cache: int32 = 0;
+```
+
+These modifiers are optional and can be combined where meaningful (e.g., `weak dllexport static var ...`), but their availability and behavior depend on the target platform.
+
 ## Local Variables
 
 Local variables are declared within function bodies using `var` or `const`. Their scope is restricted to the block in which they are defined.
@@ -76,6 +194,39 @@ pub fn main() {
     var z: void*; // initialized to (nil)
 
     printf("%d\n", x);
+}
+```
+
+## Undefined Initialization
+
+In some cases, you may want to declare a variable without zero-initializing it. Cyrus provides the `undefined` keyword to explicitly indicate that a variable should remain uninitialized.
+
+```cyrus
+pub fn main() {
+    var x: int32 = undefined; // x is NOT zero-initialized
+    var buffer: uint8[1024] = undefined; // buffer contains garbage data
+}
+```
+
+This works for both local variables and static global variables:
+
+```cyrus
+static var global_counter: int32 = undefined; // global variable without zero init
+```
+
+Using `undefined` is useful for performance-critical code where you will immediately assign a value before reading, avoiding the cost of unnecessary zero-initialization.
+
+**Important:** Reading from an `undefined` variable before assigning a value results in undefined behavior. Use this feature carefully and only when you can guarantee the variable is set before use.
+
+```cyrus
+pub fn main() {
+    var x: int32 = undefined;
+
+    // DO NOT read x here - undefined behavior!
+    // printf("%d\n", x); // WRONG!
+
+    x = 42; // Now it's safe to use
+    printf("%d\n", x); // OK
 }
 ```
 
