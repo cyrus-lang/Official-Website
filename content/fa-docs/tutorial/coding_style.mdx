@@ -1,0 +1,108 @@
+---
+title: Coding Style
+weight: 19
+---
+
+# Coding Style
+
+A consistent coding style makes code easier to read, understand, and maintain.
+It helps teams collaborate effectively by reducing ambiguity and improving code reviews.
+Following a common style also makes large codebases more organized and predictable.
+
+## Naming Conventions
+
+Cyrus uses **3 naming conventions**.
+
+<Table>
+  <TableHeader>
+    <TableRow>
+      <TableHead className="w-48">Convention</TableHead>
+      <TableHead>Used For</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell className="font-medium">PascalCase</TableCell>
+      <TableCell>Structs, enum names, objects</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell className="font-medium">snake_case</TableCell>
+      <TableCell>Variables, functions, methods, struct fields</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell className="font-medium">UPPER_SNAKE_CASE</TableCell>
+      <TableCell>Global variables</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+### PascalCase
+
+<Table>
+  <TableHeader>
+    <TableRow>
+      <TableHead>Category</TableHead>
+      <TableHead>Example</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>Struct</TableCell>
+      <TableCell><code>HttpServer</code></TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Enum</TableCell>
+      <TableCell><code>RequestMethod</code></TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Object</TableCell>
+      <TableCell><code>ApplicationContext</code></TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+### snake_case
+
+<Table>
+  <TableHeader>
+    <TableRow>
+      <TableHead>Category</TableHead>
+      <TableHead>Example</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>Variable</TableCell>
+      <TableCell><code>server_port</code></TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Function</TableCell>
+      <TableCell><code>start_server</code></TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Method</TableCell>
+      <TableCell><code>send_response</code></TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Struct Field</TableCell>
+      <TableCell><code>client_count</code></TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+### UPPER_SNAKE_CASE
+
+<Table>
+  <TableHeader>
+    <TableRow>
+      <TableHead>Category</TableHead>
+      <TableHead>Example</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>Global Variable</TableCell>
+      <TableCell><code>GLOBAL_CONFIG</code></TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
