@@ -43,12 +43,6 @@ Cyrus provides a set of built-in types for numbers, characters, booleans, and sp
   </TableHeader>
   <TableBody>
     <TableRow>
-      <TableCell className="font-medium">int</TableCell>
-      <TableCell>Signed Integer (default)</TableCell>
-      <TableCell>32</TableCell>
-      <TableCell className="text-right">Signed</TableCell>
-    </TableRow>
-    <TableRow>
       <TableCell className="font-medium">int8</TableCell>
       <TableCell>Signed Integer</TableCell>
       <TableCell>8</TableCell>
@@ -77,12 +71,6 @@ Cyrus provides a set of built-in types for numbers, characters, booleans, and sp
       <TableCell>Signed Integer</TableCell>
       <TableCell>128</TableCell>
       <TableCell className="text-right">Signed</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell className="font-medium">uint</TableCell>
-      <TableCell>Unsigned Integer (default)</TableCell>
-      <TableCell>32</TableCell>
-      <TableCell className="text-right">Unsigned</TableCell>
     </TableRow>
     <TableRow>
       <TableCell className="font-medium">uint8</TableCell>
@@ -175,7 +163,7 @@ Cyrus provides a set of built-in types for numbers, characters, booleans, and sp
   </TableBody>
 </Table>
 
-### Character and Boolean Types
+### Boolean Type
 
 <Table>
   <TableHeader>
@@ -186,16 +174,6 @@ Cyrus provides a set of built-in types for numbers, characters, booleans, and sp
     </TableRow>
   </TableHeader>
   <TableBody>
-    <TableRow>
-      <TableCell className="font-medium">char</TableCell>
-      <TableCell>
-        A single character unit (one code unit; multi-byte Unicode not allowed
-        in `'...'`).
-      </TableCell>
-      <TableCell className="text-right">
-        Unsigned; Represents ASCII/byte chars only
-      </TableCell>
-    </TableRow>
     <TableRow>
       <TableCell className="font-medium">bool</TableCell>
       <TableCell>

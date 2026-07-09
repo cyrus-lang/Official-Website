@@ -26,7 +26,7 @@ printf("%d\n", t.1); // prints 20
 Functions can return multiple values by specifying a tuple type as the return type:
 
 ```cyrus
-fn pair(x: int, y: int) (int, int) {
+fn pair(x: int32, y: int32) (int32, int32) {
     return (x, y);
 }
 
@@ -67,7 +67,7 @@ This form can be arbitrarily nested and follows the same destructuring logic for
 You can explicitly annotate tuple types to make destructuring clearer or enforce type constraints:
 
 ```cyrus
-var (a, (b, c)): (int, (int, char*)) = (10, (20, "Cyrus"));
+var (a, (b, c)): (int32, (int32, uint8*)) = (10, (20, "Cyrus"));
 
 printf("%d\n", a); // 10
 printf("%d\n", b); // 20

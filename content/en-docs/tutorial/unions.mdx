@@ -24,7 +24,7 @@ The size of a union is determined by the size of its largest member. Writing to 
 
 ```cyrus
 union DataUnion {
-    a: int;
+    a: int32;
     b: float64;
 }
 
@@ -77,7 +77,7 @@ Example: Interpreting the same 32-bit data as either an integer or raw bytes.
 import std::libc{printf};
 
 union IntBytes {
-    value: int;
+    value: int32;
     bytes: uint8[4];
 }
 
@@ -101,7 +101,7 @@ Similar to structs, you can use unnamed unions for inline data layout or initial
 ```cyrus
 union Payload {
     i: int64;
-    s: char*;
+    s: uint8*;
 }
 
 pub fn main() {
@@ -121,7 +121,7 @@ This is a powerful feature for systems programming, enabling direct memory manip
 
 ```cyrus
 union DataStore {
-    p: char*;
+    p: uint8*;
     i: int64;
 }
 

@@ -12,7 +12,7 @@ weight: 5
 یک تابع ساده که دو عدد صحیح را جمع می‌کند:
 
 ```cyrus
-fn sum(x: int, y: int) int {
+fn sum(x: int32, y: int32) int32 {
     return x + y;
 }
 ```
@@ -26,7 +26,7 @@ fn sum(x: int, y: int) int {
 توابع می‌توانند به صورت بازگشتی خود را فراخوانی کنند.
 
 ```cyrus
-fn fibonacci(n: int) int {
+fn fibonacci(n: int32) int32 {
     if (n == 0) {
         return 0;
     } else if (n == 1) {
@@ -62,7 +62,7 @@ pub fn main() {
 کنترل می‌کند که تابع از کجا قابل ارجاع است.
 
 ```cyrus
-pub fn compute() int { ... }
+pub fn compute() int32 { ... }
 ```
 
 اگر هیچ اصلاح‌کننده دیدی مشخص نشود، تابع نسبت به ماژول خود خصوصی است.
@@ -72,7 +72,7 @@ pub fn compute() int { ... }
 کنترل می‌کند که نماد تابع چگونه توسط پیونددهنده (linker) حل شود.
 
 ```cyrus
-extern fn printf(fmt: const char*, ...) int32;
+extern fn printf(fmt: const uint8*, ...) int32;
 ```
 
 فرم‌های پیوند اضافی برای موارد استفاده پیشرفته وجود دارد:
@@ -88,7 +88,7 @@ extern fn printf(fmt: const char*, ...) int32;
 راهنمایی می‌کند که کامپایلر چگونه با فراخوانی‌های تابع رفتار کند.
 
 ```cyrus
-inline fn add(a: int, b: int) int { ... }
+inline fn add(a: int32, b: int32) int32 { ... }
 ```
 
 اصلاح‌کننده‌های درون‌خطی‌سازی پشتیبانی‌شده:
@@ -130,7 +130,7 @@ pub dllexport fn api_entry() void { ... }
 قرارداد فراخوانی ABI مورد استفاده هنگام فراخوانی تابع را مشخص می‌کند.
 
 ```cyrus
-callconv(fastcall) fn memcpy(dst: void*, src: void*, n: uint) void;
+callconv(fastcall) fn memcpy(dst: void*, src: void*, n: uint32) void;
 ```
 
 قراردادهای فراخوانی پشتیبانی‌شده عبارتند از:
@@ -157,7 +157,7 @@ callconv(fastcall) fn memcpy(dst: void*, src: void*, n: uint) void;
 چندین پرچم اختیاری ممکن است روی یک تابع اعمال شود.
 
 ```cyrus
-noreturn cold fn fatal_error(msg: char*) void { ... }
+noreturn cold fn fatal_error(msg: uint8*) void { ... }
 ```
 
 پرچم‌های اختیاری پشتیبانی‌شده عبارتند از:
@@ -192,7 +192,7 @@ section(".init") fn early_init() void { ... }
 توابع متغیر به سبک C از نشانه‌گذاری `...` درست مانند C استفاده می‌کنند. اینها معمولاً برای **ارتباط با کتابخانه‌های C** (مانند `printf`) یا زمانی که ایمنی نوع مطرح نیست استفاده می‌شوند.
 
 ```cyrus
-extern fn printf(format: const char*, ...) int;
+extern fn printf(format: const uint8*, ...) int32;
 
 fn main() {
     printf("Hello %s, number = %d\n", "Cyrus", 42);
@@ -208,7 +208,7 @@ fn main() {
 کوروش به شما امکان می‌دهد یک **نام متفاوت در سطح ABI (لینکر)** برای یک تابع نسبت به نام کوروشی آن مشخص کنید. این کار با استفاده از کلیدواژه `as` بعد از اعلان انجام می‌شود.
 
 ```cyrus
-extern fn printf(fmt: string, ...) int as my_printf;
+extern fn printf(fmt: string, ...) int32 as my_printf;
 
 fn main() {
     my_printf("Hello, %s!\n", "Cyrus");
@@ -232,7 +232,7 @@ fn main() {
 مثال:
 
 ```cyrus
-type HandlerFn = fn(int, int) void;
+type HandlerFn = fn(int32, int32) void;
 ```
 
 ### تعریف یک لامبدا
@@ -241,7 +241,7 @@ type HandlerFn = fn(int, int) void;
 
 ```cyrus
 pub fn main() {
-    const handler = fn(x: int, y: int) int {
+    const handler = fn(x: int32, y: int32) int32 {
         return x + y;
     };
 
@@ -295,7 +295,7 @@ pub fn main() {
 
 ```cyrus
 pub fn main() {
-    var add = fn(x: int, y: int) int {
+    var add = fn(x: int32, y: int32) int32 {
         return x + y;
     };
 
@@ -312,7 +312,7 @@ pub fn main() {
 fn main() {
     var base = 10;
 
-    var adder = fn(x: int) int {
+    var adder = fn(x: int32) int32 {
         return x + base; // base is not accessible here
     };
 }
@@ -348,7 +348,7 @@ This allows you to write C-like code readily in Cyrus (optional!) */}
 با این حال، می‌توانید به طور صریح از کلیدواژه const در لیست پارامترها استفاده کنید تا اعمال و مستند کنید که مقدار آرگومان نمی‌تواند درون بدنه تابع تغییر کند.
 
 ```cyrus
-fn sum(const x: int, const y: int) int {
+fn sum(const x: int32, const y: int32) int32 {
     x = 10; // ERROR!
 
     return x + y;

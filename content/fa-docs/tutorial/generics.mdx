@@ -22,7 +22,7 @@ pub fn main() {
     const p1 = identity_pair({1, 2});
 
     // آرگومان‌های نوع صریح
-    const p2 = identity_pair<int>({3, 4});
+    const p2 = identity_pair<int32>({3, 4});
 
     printf("%d %d\n", p1[0], p2[0]);
 }
@@ -57,8 +57,8 @@ struct Pair<K, V> {
 }
 
 pub fn main() {
-    // K به صورت صریح (uint)، اما اجازه دهید کامپایلر V را استنتاج کند
-    const entry = Pair<uint, _> {
+    // K به صورت صریح (uint32)، اما اجازه دهید کامپایلر V را استنتاج کند
+    const entry = Pair<uint32, _> {
         key: 1,
         value: "Cyrus"
     };
@@ -75,7 +75,7 @@ enum Option<T> {
     None
 }
 
-fn print_opt(opt: Option<int>) {
+fn print_opt(opt: Option<int32>) {
     switch (opt) {
         case .Some(val) => {
             printf("Value: %d\n", val);
@@ -121,7 +121,7 @@ struct Result<V, E = uint64> {
 
 pub fn main() {
     // از uint64 پیش‌فرض برای E استفاده می‌کند
-    var res = Result<char*, _> { value: "Success", error_code: 0 };
+    var res = Result<uint8*, _> { value: "Success", error_code: 0 };
 }
 ```
 
@@ -136,13 +136,13 @@ struct Pair<K, V> {
 }
 
 // نام مستعار غیر جنریک برای یک نمونه جنریک خاص
-type IntPair = Pair<int, int>;
+type IntPair = Pair<int32, int32>;
 
 // یک نام مستعار جنریک
 type Handler<T> = fn(T) void;
 
 pub fn main() {
-    const log: Handler<int> = fn(x: int) void {
+    const log: Handler<int32> = fn(x: int32) void {
         printf("%d", x);
     };
 }
@@ -159,8 +159,8 @@ interface IValidator<T> {
     fn validate(&const self, value: T) bool;
 }
 
-struct AgeValidator : IValidator<int> {
-    pub fn validate(&const self, val: int) bool {
+struct AgeValidator : IValidator<int32> {
+    pub fn validate(&const self, val: int32) bool {
         return val >= 18;
     }
 }
@@ -222,8 +222,8 @@ pub fn main() {
 
     // برای فراخوانی‌های استاتیک، ممکن است نیاز به ارائه هر دو داشته باشید:
     // InfixCalc<int64> نوع را مشخص می‌کند
-    // static_sum<uint> تخصصی‌سازی متد را مشخص می‌کند
-    const result = InfixCalc<int64>.static_sum<uint>(10, 20);
+    // static_sum<uint32> تخصصی‌سازی متد را مشخص می‌کند
+    const result = InfixCalc<int64>.static_sum<uint32>(10, 20);
     printf("%d\n", result);
 
     // همچنین می‌توانید اجازه دهید کامپایلر آن را استنتاج کند:

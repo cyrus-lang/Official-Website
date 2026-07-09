@@ -21,7 +21,7 @@ weight: 8
 
 ```cyrus
 union DataUnion {
-    a: int;
+    a: int32;
     b: float64;
 }
 
@@ -74,7 +74,7 @@ var un: DataUnion = DataUnion { a: 10 };
 import std::libc{printf};
 
 union IntBytes {
-    value: int;
+    value: int32;
     bytes: uint8[4];
 }
 
@@ -98,7 +98,7 @@ fn main() {
 ```cyrus
 union Payload {
     i: int64;
-    s: char*;
+    s: uint8*;
 }
 
 pub fn main() {
@@ -118,7 +118,7 @@ pub fn main() {
 
 ```cyrus
 union DataStore {
-    p: char*;
+    p: uint8*;
     i: int64;
 }
 

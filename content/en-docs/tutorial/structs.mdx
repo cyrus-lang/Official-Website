@@ -13,9 +13,9 @@ Use the `struct` keyword, followed by the name and fields:
 
 ```cyrus
 struct User {
-    pub name: char*; // public field
-    pub age: uint; // public field
-    king: bool; // private field
+    pub name: uint8*, // public field
+    pub age: uint32, // public field
+    king: bool, // private field
 }
 ```
 
@@ -50,9 +50,9 @@ Structs can define functions inside their body, called methods. Methods allow st
 
 ```cyrus
 struct SimpleCounter {
-    pub count: int;
+    pub count: int32,
 
-    pub fn new(count: int) Self {
+    pub fn new(count: int32) Self {
         return Self { count };
     }
 
@@ -79,7 +79,7 @@ Static methods do not require a struct instance. They are called on the struct t
 
 ```cyrus
 pub struct MathUtils {
-    pub fn square(x: int) int {
+    pub fn square(x: int32) int32 {
         return x * x;
     }
 }
@@ -174,16 +174,16 @@ This compatibility allows for fluid conversion between formal struct types and i
 
 ```cyrus
 struct MyStruct {
-    pub a: int;
-    pub b: float64;
-    pub c: char;
+    pub a: int32,
+    pub b: float64,
+    pub c: uint8,
 }
 
 pub fn main() {
     const obj = MyStruct { a: 10, b: 3.14, c: 'z' };
 
     // compatible because field names and types match exactly!
-    const temp: struct { a: int, b: float64, c: char } = obj;
+    const temp: struct { a: int32, b: float64, c: uint8 } = obj;
 
     printf("%d %f %c", temp.a, temp.b, temp.c);
 }
@@ -210,7 +210,7 @@ Using `&const self` ensures that the method cannot modify any fields of the stru
 
 ```cyrus
 struct Wallet {
-    pub balance: float64;
+    pub balance: float64,
 
     pub fn calculate_projection(const self, const adjustment: float64) float64 {
         self->balance += adjustment; // ERROR!

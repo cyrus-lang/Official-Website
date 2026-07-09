@@ -64,7 +64,7 @@ import std::mem{Allocator, LibcAllocator};
 
 pub fn main() {
     const allocator = LibcAllocator.new();
-    var buffer: int* = allocator.alloc(64 * @sizeof(int));
+    var buffer: int32* = allocator.alloc(64 * @sizeof(int32));
     defer allocator.free(buffer); // cleanup is visible and scoped
 
     buffer[0] = 369;
@@ -139,7 +139,7 @@ pub struct BumpAllocator : Allocator {
 
 ```cyrus
 union IntBytes {
-    value: int;
+    value: int32;
     bytes: uint8[4];
 }
 
@@ -162,7 +162,7 @@ var ptr2: int32* = ptr + 5; // pointer arithmetic
 **Interface directly with hardware, kernel, or bare-metal targets** — inline assembly, `extern` for C ABI, `naked` functions, and custom calling conventions are all available:
 
 ```cyrus
-extern fn printf(fmt: const char*, ...) int32;
+extern fn printf(fmt: const uint8*, ...) int32;
 naked fn interrupt_handler() void { /* no prologue/epilogue */ }
 ```
 
@@ -189,9 +189,9 @@ Named fields, methods, and explicit visibility:
 
 ```cyrus
 struct User {
-    pub name: char*;
-    pub age: uint;
-    role: char*; // private field
+    pub name: uint8*,
+    pub age: uint32,
+    role: uint8* // private field
 }
 
 pub fn main() {
@@ -215,7 +215,7 @@ pub const config = struct { // unnamed struct
 pub fn main() {
   point.x += 5;
 
-  const temp: struct { a: int, b: float64 } = obj; // compatible with named struct
+  const temp: struct { a: int32, b: float64 } = obj; // compatible with named struct
 }
 ```
 
@@ -238,7 +238,7 @@ enum ConnectionState {
 ```cyrus
 enum Task {
   Delay(uint32),
-  Timeout(uint32, const char*)
+  Timeout(uint32, const uint8*)
 }
 ```
 
@@ -246,8 +246,8 @@ enum Task {
 
 ```cyrus
 enum Error {
-    NotFound { id: uint32, msg: const char* },
-    PermissionDenied { resource: const char* }
+    NotFound { id: uint32, msg: const uint8* },
+    PermissionDenied { resource: const uint8* }
 }
 ```
 
@@ -291,7 +291,7 @@ Unions provide unchecked type punning — all fields share the same memory addre
 ```cyrus
 union Payload {
     i: int64;
-    s: char*;
+    s: uint8*;
 }
 
 var data = Payload { s: "Cyrus" };
@@ -308,7 +308,7 @@ Unnamed unions can be used inline for temporary layout or initialization of name
 ```cyrus
 union Payload {
   i: int64,
-  s: char*
+  s: uint8*
 }
 
 pub fn main() {
@@ -335,7 +335,7 @@ struct Triple<A, B, C> {
 
 pub fn main() {
     const triple = Triple.new(3, 4.5, "hello"); // implicit var type
-    const triple2: Triple<int, float64, char*> = Triple.new(3, 4.5, "hello"); // explicit var type
+    const triple2: Triple<int32, float64, uint8*> = Triple.new(3, 4.5, "hello"); // explicit var type
 
     printf("%d %f %s\n", triple.first, triple.second, triple.third);
 }
@@ -372,9 +372,9 @@ Methods receive the struct instance through an explicit receiver parameter:
 
 ```cyrus
 struct SimpleCounter {
-    pub count: int;
+    pub count: int32,
 
-    pub fn new(initial: int) Self {
+    pub fn new(initial: int32) Self {
         return Self{ count: initial };
     }
 
@@ -386,7 +386,7 @@ struct SimpleCounter {
         printf("count: %d\n", self->count);
     }
 
-    pub fn into_value(self) int { // by-value (consuming) receiver
+    pub fn into_value(self) int32 { // by-value (consuming) receiver
         return self.count;        // self is a copy
     }
 }
@@ -445,7 +445,7 @@ Methods without a receiver parameter are called on the type itself:
 
 ```cyrus
 pub struct MathUtils {
-    pub fn square(x: int) int {
+    pub fn square(x: int32) int32 {
         return x * x;
     }
 }
@@ -470,7 +470,7 @@ Cyrus is statically typed with strict rules designed for predictability.
 Type inference works within fully declared contexts — every variable must have a known type at the point of declaration, either from an initializer or an explicit annotation:
 
 ```cyrus
-const object: Box<int> = Box.new(10);  // OK: explicit type annotation
+const object: Box<int32> = Box.new(10);  // OK: explicit type annotation
 const value = Box.new(10);             // OK: type inferred from initializer
 // const object;                       // ERROR: type cannot be inferred later
 ```
@@ -481,7 +481,7 @@ The `type` keyword creates named aliases — the compiler expands them transpare
 
 ```cyrus
 type rune = uint32;
-type Handler = fn(int, int) void;
+type Handler = fn(int32, int32) void;
 ```
 
 ### Zero Initialization
@@ -489,9 +489,9 @@ type Handler = fn(int, int) void;
 Any variable declared without an explicit initial value is automatically zero-initialized:
 
 ```cyrus
-var x: int; // initialized to 0
+var x: int32; // initialized to 0
 var p: void*; // initialized to null
-var arr: int[10]; // all elements set to 0
+var arr: int32[10]; // all elements set to 0
 ```
 
 ## Predictable Performance Model
@@ -511,7 +511,7 @@ Cyrus modules are files, resolved by path, with explicit visibility:
 
 ```cyrus
 // auth_utils.cyrus
-pub fn login(user: char*) { /* visible outside */ }
+pub fn login(user: uint8*) { /* visible outside */ }
 fn internal_helper() { /* private to this file */ }
 ```
 

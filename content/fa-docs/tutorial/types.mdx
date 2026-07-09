@@ -43,12 +43,6 @@ var i: int64 = @cast(int64, u); // Explicit unsafe cast from uint32 to int64.
   </TableHeader>
   <TableBody>
     <TableRow>
-      <TableCell className="font-medium">int</TableCell>
-      <TableCell>Signed Integer (default)</TableCell>
-      <TableCell>32</TableCell>
-      <TableCell className="text-right">Signed</TableCell>
-    </TableRow>
-    <TableRow>
       <TableCell className="font-medium">int8</TableCell>
       <TableCell>Signed Integer</TableCell>
       <TableCell>8</TableCell>
@@ -77,12 +71,6 @@ var i: int64 = @cast(int64, u); // Explicit unsafe cast from uint32 to int64.
       <TableCell>Signed Integer</TableCell>
       <TableCell>128</TableCell>
       <TableCell className="text-right">Signed</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell className="font-medium">uint</TableCell>
-      <TableCell>Unsigned Integer (default)</TableCell>
-      <TableCell>32</TableCell>
-      <TableCell className="text-right">Unsigned</TableCell>
     </TableRow>
     <TableRow>
       <TableCell className="font-medium">uint8</TableCell>
@@ -175,7 +163,7 @@ var i: int64 = @cast(int64, u); // Explicit unsafe cast from uint32 to int64.
   </TableBody>
 </Table>
 
-### انواع نویسه و بولی
+### نویسه بولی
 
 <Table>
   <TableHeader>
@@ -186,16 +174,6 @@ var i: int64 = @cast(int64, u); // Explicit unsafe cast from uint32 to int64.
     </TableRow>
   </TableHeader>
   <TableBody>
-    <TableRow>
-      <TableCell className="font-medium">char</TableCell>
-      <TableCell>
-        A single character unit (one code unit; multi-byte Unicode not allowed
-        in `'...'`).
-      </TableCell>
-      <TableCell className="text-right">
-        Unsigned; Represents ASCII/byte chars only
-      </TableCell>
-    </TableRow>
     <TableRow>
       <TableCell className="font-medium">bool</TableCell>
       <TableCell>

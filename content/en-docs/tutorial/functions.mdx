@@ -12,7 +12,7 @@ Functions in Cyrus are defined using the fn keyword, followed by the function na
 A simple function that adds two integers:
 
 ```cyrus
-fn sum(x: int, y: int) int {
+fn sum(x: int32, y: int32) int32 {
     return x + y;
 }
 ```
@@ -26,7 +26,7 @@ fn sum(x: int, y: int) int {
 Functions may call themselves recursively.
 
 ```cyrus
-fn fibonacci(n: int) int {
+fn fibonacci(n: int32) int32 {
     if (n == 0) {
         return 0;
     } else if (n == 1) {
@@ -62,7 +62,7 @@ Cyrus classifies function modifiers into distinct semantic groups. This separati
 Controls where the function can be referenced from.
 
 ```cyrus
-pub fn compute() int { ... }
+pub fn compute() int32 { ... }
 ```
 
 If no visibility modifier is specified, the function is private to its module.
@@ -72,7 +72,7 @@ If no visibility modifier is specified, the function is private to its module.
 Controls how the function symbol is resolved by the linker.
 
 ```cyrus
-extern fn printf(fmt: const char*, ...) int32;
+extern fn printf(fmt: const uint8*, ...) int32;
 ```
 
 Additional linkage forms exist for advanced use cases:
@@ -88,7 +88,7 @@ Only one linkage modifier may be specified per function.
 Hints how the compiler should treat calls to the function.
 
 ```cyrus
-inline fn add(a: int, b: int) int { ... }
+inline fn add(a: int32, b: int32) int32 { ... }
 ```
 
 Supported inlining modifiers:
@@ -130,7 +130,7 @@ These modifiers are platform-specific and primarily used when producing shared l
 Specifies the ABI calling convention used when invoking the function.
 
 ```cyrus
-callconv(fastcall) fn memcpy(dst: void*, src: void*, n: uint) void;
+callconv(fastcall) fn memcpy(dst: void*, src: void*, n: uint32) void;
 ```
 
 Supported calling conventions include:
@@ -157,7 +157,7 @@ Optional flags provide additional semantic or optimization hints.
 Multiple optional flags may be applied to the same function.
 
 ```cyrus
-noreturn cold fn fatal_error(msg: char*) void { ... }
+noreturn cold fn fatal_error(msg: uint8*) void { ... }
 ```
 
 Supported optional flags include:
@@ -192,7 +192,7 @@ Cyrus supports two kinds of variadic arguments, allowing functions to accept a v
 C-style variadic functions use the `...` notation, just like in C. These are typically used for **interfacing with C libraries** (e.g., `printf`) or when type safety is not a concern.
 
 ```cyrus
-extern fn printf(format: const char*, ...) int;
+extern fn printf(format: const uint8*, ...) int32;
 
 fn main() {
     printf("Hello %s, number = %d\n", "Cyrus", 42);
@@ -208,7 +208,7 @@ To access and iterate over the variable arguments from within your function, see
 Cyrus allows you to specify a **different ABI-level (linker) name** for a function than its Cyrus name. This is done using the `as` keyword after the declaration.
 
 ```cyrus
-extern fn printf(fmt: string, ...) int as my_printf;
+extern fn printf(fmt: string, ...) int32 as my_printf;
 
 fn main() {
     my_printf("Hello, %s!\n", "Cyrus");
@@ -232,7 +232,7 @@ Every lambda has a function type, which describes its parameters and return type
 Example:
 
 ```cyrus
-type HandlerFn = fn(int, int) void;
+type HandlerFn = fn(int32, int32) void;
 ```
 
 ### Defining a Lambda
@@ -241,7 +241,7 @@ The syntax is straightforward:
 
 ```cyrus
 pub fn main() {
-    const handler = fn(x: int, y: int) int {
+    const handler = fn(x: int32, y: int32) int32 {
         return x + y;
     };
 
@@ -295,7 +295,7 @@ You can store lambdas in variables:
 
 ```cyrus
 pub fn main() {
-    var add = fn(x: int, y: int) int {
+    var add = fn(x: int32, y: int32) int32 {
         return x + y;
     };
 
@@ -312,7 +312,7 @@ That means they do not capture variables from their surrounding scope. For examp
 fn main() {
     var base = 10;
 
-    var adder = fn(x: int) int {
+    var adder = fn(x: int32) int32 {
         return x + base; // base is not accessible here
     };
 }
@@ -348,7 +348,7 @@ By default, function parameters in Cyrus are immutable.
 However, you can explicitly use the const keyword in the parameter list to enforce and document that the value of the argument cannot be modified within the function body.
 
 ```cyrus
-fn sum(const x: int, const y: int) int {
+fn sum(const x: int32, const y: int32) int32 {
     x = 10; // ERROR!
 
     return x + y;

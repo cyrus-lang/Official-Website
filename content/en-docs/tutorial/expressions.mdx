@@ -462,9 +462,9 @@ It evaluates operands from left to right and returns the first pointer that is n
 If all operands are null, the result is null.
 
 ```cyrus
-var p1: int* = null;
-var p2: int* = &x;
-var p3: int* = &y;
+var p1: int32* = null;
+var p2: int32* = &x;
+var p3: int32* = &y;
 
 var result1 = p1 || p2;        // returns p2
 var result2 = p1 || null;      // returns null

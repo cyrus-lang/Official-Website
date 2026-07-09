@@ -23,7 +23,7 @@ enum Color {
     Red,
     Green,
     Black,
-    Custom(int, int, int)
+    Custom(int32, int32, int32)
 }
 ```
 
@@ -70,10 +70,10 @@ Tuple variants carry unnamed positional data, like a typed tuple attached to the
 enum Task {
     Compute(struct {
         id: uint64,
-        priority: int
+        priority: int32
     }),
     Delay(uint32),
-    Range((int, int))
+    Range((int32, int32))
 }
 
 fn process_task(t: Task) {
@@ -115,8 +115,8 @@ enum Error {
 
     Custom {
         id: uint32,
-        msg: const char*,
-        extra: const char*
+        msg: const uint8*,
+        extra: const uint8*
     }
 }
 
@@ -214,7 +214,7 @@ enum Option<T> {
 }
 
 pub fn main() {
-    var opt: Option<int> = .None;
+    var opt: Option<int32> = .None;
     display_option(opt);
 
     opt = .Some(10);
@@ -249,7 +249,7 @@ import std::libc{printf};
 enum Color {
     Red,                     // Unit variant
     Green = "green!",        // Valued variant (scalar/constant)
-    Custom(uint, uint, uint) // Tuple variant
+    Custom(uint32, uint32, uint32) // Tuple variant
 }
 
 pub fn main() {

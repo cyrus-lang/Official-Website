@@ -22,7 +22,7 @@ pub fn main() {
     const p1 = identity_pair({1, 2});
 
     // Explicit type args
-    const p2 = identity_pair<int>({3, 4});
+    const p2 = identity_pair<int32>({3, 4});
 
     printf("%d %d\n", p1[0], p2[0]);
 }
@@ -52,13 +52,13 @@ You can use the underscore `_` to tell the compiler to infer a specific type arg
 
 ```cyrus
 struct Pair<K, V> {
-    pub key: K;
-    pub value: V;
+    pub key: K,
+    pub value: V,
 }
 
 pub fn main() {
-    // Explicit K (uint), but let compiler infer V
-    const entry = Pair<uint, _> {
+    // Explicit K (uint32), but let compiler infer V
+    const entry = Pair<uint32, _> {
         key: 1,
         value: "Cyrus"
     };
@@ -75,7 +75,7 @@ enum Option<T> {
     None
 }
 
-fn print_opt(opt: Option<int>) {
+fn print_opt(opt: Option<int32>) {
     switch (opt) {
         case .Some(val) => {
             printf("Value: %d\n", val);
@@ -100,7 +100,7 @@ struct Math {
 }
 
 struct Box<T> {
-    value: T;
+    value: T,
 
     // 'Self' refers to Box<T>
     pub fn new(val: T) Self {
@@ -115,13 +115,13 @@ You can provide default types for generic parameters. If the type cannot be infe
 
 ```cyrus
 struct Result<V, E = uint64> {
-    pub value: V;
-    pub error_code: E;
+    pub value: V,
+    pub error_code: E,
 }
 
 pub fn main() {
     // Uses default uint64 for E
-    var res = Result<char*, _> { value: "Success", error_code: 0 };
+    var res = Result<uint8*, _> { value: "Success", error_code: 0 };
 }
 ```
 
@@ -131,18 +131,18 @@ Type aliases can be used to create "shorthands" for complex generic types, or th
 
 ```cyrus
 struct Pair<K, V> {
-    key: K;
-    value: V;
+    key: K,
+    value: V,
 }
 
 // Non-generic alias for a specific generic instance
-type IntPair = Pair<int, int>;
+type IntPair = Pair<int32, int32>;
 
 // A generic alias
 type Handler<T> = fn(T) void;
 
 pub fn main() {
-    const log: Handler<int> = fn(x: int) void {
+    const log: Handler<int32> = fn(x: int32) void {
         printf("%d", x);
     };
 }
@@ -159,8 +159,8 @@ interface IValidator<T> {
     fn validate(&const self, value: T) bool;
 }
 
-struct AgeValidator : IValidator<int> {
-    pub fn validate(&const self, val: int) bool {
+struct AgeValidator : IValidator<int32> {
+    pub fn validate(&const self, val: int32) bool {
         return val >= 18;
     }
 }
@@ -192,8 +192,8 @@ When calling a generic method on a generic type, the type arguments are split be
 
 ```cyrus
 struct InfixCalc<T> {
-    pub x: T;
-    pub y: T;
+    pub x: T,
+    pub y: T,
 
     pub fn new(const x: T, const y: T) Self {
         return Self { x, y };
@@ -222,8 +222,8 @@ pub fn main() {
 
     // For static calls, you may need to provide both:
     // InfixCalc<int64> identifies the type
-    // static_sum<uint> identifies the method specialization
-    const result = InfixCalc<int64>.static_sum<uint>(10, 20);
+    // static_sum<uint32> identifies the method specialization
+    const result = InfixCalc<int64>.static_sum<uint32>(10, 20);
     printf("%d\n", result);
 
     // Also you could let the compiler infer it:

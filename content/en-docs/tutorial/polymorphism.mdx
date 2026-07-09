@@ -209,20 +209,20 @@ This example shows how both struct and enum types can implement interfaces, and 
 import std::libc{printf};
 
 interface MyConstraint {
-    fn foo(&self, x: int) int;
-    fn bar(&self) char*;
+    fn foo(&self, x: int32) int32;
+    fn bar(&self) uint8*;
 }
 
 struct Object : MyConstraint {
-    name: char*;
+    name: uint8*;
 
-    pub fn new(name: char*) Self {
+    pub fn new(name: uint8*) Self {
         return Self { name };
     }
-    pub fn foo(&self, x: int) int {
+    pub fn foo(&self, x: int32) int32 {
         return (x * 10) + 2;
     }
-    pub fn bar(&self) char* {
+    pub fn bar(&self) uint8* {
         return self->name;
     }
 }
@@ -231,10 +231,10 @@ enum Choice : MyConstraint {
     A,
     B,
 
-    pub fn foo(&self, x: int) int {
+    pub fn foo(&self, x: int32) int32 {
         return -x;
     }
-    pub fn bar(&self) char* {
+    pub fn bar(&self) uint8* {
         return "Choice";
     }
 }
@@ -275,8 +275,8 @@ interface IValidator<T> {
     fn validate(&const self, value: T) bool;
 }
 
-struct NumberValidator: IValidator<int> {
-	pub fn validate(&const self, value: int) bool {
+struct NumberValidator: IValidator<int32> {
+	pub fn validate(&const self, value: int32) bool {
 		if (value > 5) {
 			return true;
 		} else {
@@ -286,7 +286,7 @@ struct NumberValidator: IValidator<int> {
 }
 
 pub fn main() {
-	const validator: IValidator<int> = dynamic NumberValidator{};
+	const validator: IValidator<int32> = dynamic NumberValidator{};
 
 	if (validator.validate(10)) {
 		printf("yes\n");
@@ -325,7 +325,7 @@ struct HeapAllocator : Allocator {
 pub fn main() {
     const allocator = HeapAllocator.new();
 
-    var ptr: int* = allocator.alloc(4);
+    var ptr: int32* = allocator.alloc(4);
 
     *ptr = 5;
     printf("%d\n", *ptr);

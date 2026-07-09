@@ -18,7 +18,7 @@ weight: 1
 
 ```cyrus
 // This is a single-line comment
-var msg: char* = "Hello, Cyrus!"; // You can also place it after code
+var msg: uint8* = "Hello, Cyrus!"; // You can also place it after code
 ```
 
 - توضیحات چندخطی
@@ -38,12 +38,12 @@ var msg: char* = "Hello, Cyrus!"; // You can also place it after code
 لیترال‌های رشته‌ای در کوروش درون علامت نقل‌قول دوتایی **"xxx"** محصور می‌شوند، در حالی که لیترال‌های نویسه‌ای درون علامت نقل‌قول تکی **'x'** قرار می‌گیرند.
 هر دو شکل دنباله‌هایی از نویسه‌های یونیکد را نمایش می‌دهند، اما از نظر کاربرد و هدف متفاوت هستند:
 
-- لیترال‌های رشته‌ای مقادیری از نوع **char\*** تولید می‌کنند که می‌توانند تعداد دلخواهی نویسه را در خود نگه دارند.
-- لیترال‌های نویسه‌ای مقادیری از نوع **char** تولید می‌کنند که همواره دقیقاً یک مقدار اسکالر یونیکد را نشان می‌دهند.
+- لیترال‌های رشته‌ای مقادیری از نوع **uint8\*** تولید می‌کنند که می‌توانند تعداد دلخواهی نویسه را در خود نگه دارند.
+- لیترال‌های نویسه‌ای مقادیری از نوع **uint8** تولید می‌کنند که همواره دقیقاً یک مقدار اسکالر یونیکد را نشان می‌دهند.
 
 ```cyrus
-var greeting: char* = "Hello, Cyrus!";
-var letter: char = 'A';
+var greeting: uint8* = "Hello, Cyrus!";
+var letter: uint8 = 'A';
 ```
 
 ### دنباله‌های گریز (Escapes)
@@ -66,11 +66,11 @@ var letter: char = 'A';
 مثال:
 
 ```cyrus
-var poem: char* = "Line one\nLine two\nLine three";
-var quote: char* = "She said: \"Cyrus is great!\"";
-var backslash: char = '\\';
+var poem: uint8* = "Line one\nLine two\nLine three";
+var quote: uint8* = "She said: \"Cyrus is great!\"";
+var backslash: uint8 = '\\';
 
-var paragraph: char* = "Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+var paragraph: uint8* = "Lorem Ipsum is simply dummy text of the printing and typesetting industry.
 Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
 when an unknown printer took a galley of type and scrambled it to make a type specimen book.";
 ```
@@ -80,12 +80,12 @@ when an unknown printer took a galley of type and scrambled it to make a type sp
 کوروش مستقیماً از نویسه‌های یونیکد در لیترال‌های رشته‌ای و نویسه‌ای پشتیبانی می‌کند. می‌توانید ایموجی‌ها، حروف همراه با اعراب یا هر نویسه یونیکد دیگری را داخل علامت نقل‌قول تایپ کنید:
 
 ```cyrus
-var letter: char = 'A';                     // valid
-var smile: char* = "😇";                    // valid
+var letter: uint8 = 'A';                     // valid
+var smile: uint8* = "😇";                    // valid
 var rocket: string = "Let's go! \u{1F680}"; // valid "Let's go! 🚀"
-var greek_alpha: char* = "\u03B1";          // valid "α"
-var emoji_char: char = '😇';                // NOT VALID
-var multibyte_char: char = '\u263A';        // NOT VALID
+var greek_alpha: uint8* = "\u03B1";          // valid "α"
+var emoji_char: uint8 = '😇';                // NOT VALID
+var multibyte_char: uint8 = '\u263A';        // NOT VALID
 ```
 
 ## ثابت‌های اعداد صحیح
@@ -130,13 +130,11 @@ var hex_val = 0xDE_AD_BE_EF;
 - intptr
 - usize
 - isize
-- int
 - int8
 - int16
 - int32
 - int64
 - int128
-- uint
 - uint8
 - uint16
 - uint32
@@ -159,7 +157,7 @@ var b = 3.14float64;
 
 ### نوع پیش‌فرض لیترال‌ها
 
-اگر پسوند نوع را مشخص نکنید، کوروش `int` را به عنوان نوع پیش‌فرض برای لیترال‌های اعداد صحیح و `float64` را به عنوان نوع پیش‌فرض برای لیترال‌های اعداد اعشاری در نظر می‌گیرد.
+اگر پسوند نوع را مشخص نکنید، کوروش `int32` را به عنوان نوع پیش‌فرض برای لیترال‌های اعداد صحیح و `float64` را به عنوان نوع پیش‌فرض برای لیترال‌های اعداد اعشاری در نظر می‌گیرد.
 
 می‌توان از پسوندهای نوع برای کنترل صریح اندازه و علامت‌دار بودن یک لیترال عدد صحیح، یا برای انتخاب دقت ممیز شناور متفاوت استفاده کرد.
 
@@ -173,7 +171,7 @@ var b = 3.14float64;
 
 ```cyrus
 // Explicit
-var a = int[3]{1, 2, 3};
+var a = int32[3]{1, 2, 3};
 
 // Inferred
 const untyped = {1, 2, 3};
@@ -182,9 +180,9 @@ const untyped = {1, 2, 3};
 ### آرایه‌های چندبعدی
 
 ```cyrus
-const matrix = int[2][3] {
-    int[3] {1, 2, 3},
-    int[3] {1, 2, 3},
+const matrix = int32[2][3] {
+    int32[3] {1, 2, 3},
+    int32[3] {1, 2, 3},
 };
 ```
 
@@ -193,8 +191,8 @@ const matrix = int[2][3] {
 اشاره‌گرها در کوروش مشابه C عمل می‌کنند.
 
 ```cyrus
-var a: int = 10;
-var b: int* = &a;
+var a: int32 = 10;
+var b: int32* = &a;
 ```
 
 ### GEP و زوال (Decay)
@@ -204,7 +202,7 @@ var b: int* = &a;
 1. **GEP**: می‌توانید مستقیماً روی اشاره‌گرها ایندکس‌گذاری کنید (معنای GetElementPtr).
 
    ```cyrus
-   var ptr: int* = malloc(8);
+   var ptr: int32* = malloc(8);
    ptr[0] = 10;
    ptr[1] = 20;
    ```
@@ -212,15 +210,15 @@ var b: int* = &a;
 2. **زوال (Decay)**: آرایه‌ها هنگامی که به یک نوع اشاره‌گر تخصیص داده می‌شوند، به طور خودکار به اشاره‌گر تبدیل (زوال) می‌یابند.
 
    ```cyrus
-   const nums = int[3]{1, 2, 3};
-   const ptr: int* = nums; // Equivalent to &nums[0]
+   const nums = int32[3]{1, 2, 3};
+   const ptr: int32* = nums; // Equivalent to &nums[0]
    ```
 
 3. **اشاره‌گر به آرایه**:
 
    ```cyrus
-   const nums = int[3]{1, 2, 3};
-   var ptr: int[3]* = &nums;
+   const nums = int32[3]{1, 2, 3};
+   var ptr: int32[3]* = &nums;
 
    (*ptr)[0] = 10;
    ```
@@ -228,16 +226,16 @@ var b: int* = &a;
 ### ثابت‌بودن و تغییرپذیری اشاره‌گر
 
 کوروش بین تغییرپذیری خود اشاره‌گر و تغییرپذیری داده‌ای که به آن اشاره می‌کند تمایز قائل می‌شود.
-اگر از یک مقدار const reference بگیرید، اشاره‌گر حاصل به طور خودکار یک اشاره‌گر به یک ثابت است (مانند const int\*) که از تغییر مقدار زیربنایی از طریق آن اشاره‌گر جلوگیری می‌کند.
+اگر از یک مقدار const reference بگیرید، اشاره‌گر حاصل به طور خودکار یک اشاره‌گر به یک ثابت است (مانند const int32\*) که از تغییر مقدار زیربنایی از طریق آن اشاره‌گر جلوگیری می‌کند.
 
 ```cyrus
 pub fn main() {
    const x = 10;
 
-   // immut_ref is a mutable pointer to a constant integer (const int*)
+   // immut_ref is a mutable pointer to a constant integer (const int32*)
    var immut_ref = &x;
 
-   // ERROR: cannot modify a value through a 'const int*'
+   // ERROR: cannot modify a value through a 'const int32*'
    *immut_ref = 20;
 
    printf("%d\n", *immut_ref);
