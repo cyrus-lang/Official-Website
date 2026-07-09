@@ -109,7 +109,7 @@ function HeadingItem({
         className={cn(
           "block py-1 text-gray-400 text-wrap hover:underline transition",
           isActive
-            ? "text-primary font-medium"
+            ? "text-primary text-shadow-primary-light text-shadow-2xs dark:text-shadow-none"
             : "hover:text-gray-600 dark:hover:text-gray-300",
         )}
       >

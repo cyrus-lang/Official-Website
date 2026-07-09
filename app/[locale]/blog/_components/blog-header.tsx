@@ -25,7 +25,7 @@ export const BlogHeaderSection = ({ locale, t }: BlogHeaderSectionProps) => {
         <p className="max-w-xl text-muted-foreground">{t("subtitle")}</p>
       </div>
 
-      <div className={`flex ${isRtl ? "justify-start" : "justify-end"}`}>
+      <div className={"flex justify-end"}>
         <BlogSearchInput isRtl={isRtl} />
       </div>
     </div>

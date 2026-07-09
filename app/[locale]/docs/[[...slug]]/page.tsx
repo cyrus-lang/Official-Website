@@ -42,7 +42,7 @@ export default async function ShowDocumentPage({
     const relativePath = filePath.replace(`${process.cwd()}/`, "");
 
     return (
-      <div className="px-1 py-5 pt-8 text-xl lg:mx-12 md:mx-6 sm:px-0">
+      <div className="px-1 py-5 pt-8 text-xl ltr:lg:ml-8 rtl:lg:mr-8  ltr:md:ml-6 rtl:md:mr-6 sm:px-0">
         <MDXContent source={content} path={relativePath} />
         <ScrollToElement />
       </div>
