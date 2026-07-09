@@ -18,7 +18,7 @@ export default async function MDXContent({
 
   const isRoadmapRoute = path.includes("roadmap");
   return (
-    <div className="grid grid-cols-12 gap-8">
+    <div className="grid grid-cols-12 gap-6">
       <div
         className={cn(
           isRoadmapRoute
@@ -45,7 +45,7 @@ export default async function MDXContent({
           isRoadmapRoute && "hidden",
         )}
       >
-        <div className="sticky top-24 max-h-[calc(100vh-8rem)] overflow-y-auto pr-2 custom-scrollbar">
+        <div className="sticky top-24 max-h-[calc(100vh-8rem)] overflow-y-auto ltr:pr-2 rtl:pl-2 custom-scrollbar">
           <p className="text-lg font-semibold mb-3 dark:text-gray-300 text-gray-500">
             {t("title")}
           </p>

@@ -109,6 +109,8 @@ html {
 
 html[lang="fa"] * {
   font-family: "Vazir", "Inter", sans-serif;
+}
+html[lang="fa"] {
   direction: rtl;
 }
 
