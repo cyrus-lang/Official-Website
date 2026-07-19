@@ -1,0 +1,312 @@
+---
+title: Builtins
+weight: 15
+---
+
+# Builtins
+
+Builtins in Cyrus are special compiler-provided operations that enable low-level memory manipulation, compile-time introspection, debugging, and conditional compilation. They are implemented in two primary forms: **Block** and **Func**, with different evaluation phases determining when they are processed during compilation.
+
+## Builtin Forms
+
+Builtins in Cyrus can be used in two distinct forms:
+
+### Func Form (Expression Form)
+
+Builtins that appear as function calls and return a value that can be used in expressions, assignments, or as arguments to other functions.
+
+**Examples:**
+
+```cyrus
+const size = @sizeof(int32);
+const line_num = @line();
+const value = @cast(uint32, -1);
+```
+
+### Block Form (Statement Form)
+
+Builtins that appear as block statements used for control flow and conditional compilation. These can contain multiple statements and declarations within their scope.
+
+**Examples:**
+
+```cyrus
+@debug() {
+    // Code only compiled in debug mode
+    const x = 10;
+    printf("Debug mode\n");
+}
+
+@release() printf("Release mode shorthand");
+```
+
+## Builtin Families
+
+### ConstEval Family (Compile-Time Evaluation)
+
+These builtins are completely evaluated at compile time, producing constant values that can be used in constant expressions.
+
+```cyrus
+// All evaluated at compile time
+const type_size = @sizeof(int32);    // Returns 4
+const alignment = @alignof(float64); // Returns 8
+const current_line = @line();        // Returns line number
+const current_file = @file_name();   // Returns file name string
+```
+
+### Intrinsic Family (Compiler Operations)
+
+These builtins are low-level operations implemented directly by the compiler and compiled to efficient machine code.
+
+```cyrus
+// Low-level operations
+@memcpy(&dest, &src, @sizeof(Data)); // Memory copy
+@memset(&buffer, 0x00, 100);         // Memory set
+const x = @cast(uint32, y);          // Type casting
+```
+
+## Builtin Reference
+
+### Source Information Builtins
+
+#### `@func_name()`
+
+Returns the name of the current function as a string literal.
+
+```cyrus
+import std::libc{printf};
+
+pub fn main() {
+    printf("%s\n", @func_name()); // Output: main
+}
+```
+
+#### `@method_name()`
+
+Returns the name of the current method when called within a struct method.
+
+```cyrus
+struct Object {
+    pub fn my_method() {
+        printf("%s\n", @method_name()); // Output: my_method
+    }
+}
+```
+
+#### `@module_name()`
+
+Returns the name of the current module as a string literal.
+
+```cyrus
+printf("%s\n", @module_name()); // Output: my_module_name
+```
+
+#### `@file_name()`
+
+Returns the name of the current source file as a string literal.
+
+```cyrus
+printf("%s\n", @file_name()); // Output: main.cyrus
+```
+
+#### `@line()`
+
+Returns the current line number as an integer constant.
+
+```cyrus
+printf("Error at line %d\n", @line()); // Output: Error at line 5
+```
+
+#### `@column()`
+
+Returns the current column number as an integer constant.
+
+```cyrus
+printf("Error at column %d\n", @column()); // Output: Error at column 10
+```
+
+### Type Information Builtins
+
+#### `@sizeof(type)`
+
+Returns the size in bytes of the given type as a compile-time constant.
+
+```cyrus
+printf("%d ", @sizeof(int32));   // 4
+printf("%d ", @sizeof(int64));   // 8
+printf("%d ", @sizeof(float64)); // 8
+printf("%d ", @sizeof(bool));    // 1
+
+// Works with user-defined types
+struct MyStruct { a: int32, b: int32 }
+printf("%d\n", @sizeof(MyStruct)); // 8
+```
+
+#### `@alignof(type)`
+
+Returns the alignment requirement in bytes of the given type.
+
+```cyrus
+printf("%d ", @alignof(int32));                         // 4
+printf("%d ", @alignof(float64));                       // 8
+printf("%d ", @alignof(struct { a: int32* }));          // 8
+printf("%d\n", @alignof(struct { a: int32, b: int8 })); // 4
+```
+
+#### `@offsetof(type, field_name)`
+
+Returns the byte offset of a field within a struct type.
+
+```cyrus
+struct Foo {
+    a: int32,
+    b: int32*
+}
+
+printf("%d ", @offsetof(Foo, "a"));  // 0
+printf("%d\n", @offsetof(Foo, "b")); // 8
+```
+
+#### `@typeof(expression)`
+
+Returns the type of the given expression at compile time.
+
+```cyrus
+var x: @typeof('a'); // x is of type char
+x = 'b';
+printf("%c\n", x);   // Output: b
+
+var y: @typeof(42);  // y is of type int32
+```
+
+### Intrinsic Operations
+
+#### `@cast(target_type, value)`
+
+Performs a type cast between compatible types.
+
+```cyrus
+// Cast between numeric types
+var i8_val: int8 = 100;
+var i32_val = @cast(int32, i8_val);  // 100
+
+// Cast between signed and unsigned
+var u32_val: uint32 = 4294967295;
+var i64_val = @cast(int64, u32_val); // 4294967295
+
+// Cast character to rune
+type rune = uint32;
+const x = @cast(rune, 'x'); // 120
+```
+
+#### `@memcpy(dest, src, size)`
+
+Copies a block of memory from source to destination.
+
+```cyrus
+struct Data {
+    id: int32,
+    score: float64,
+    flag: bool
+}
+
+var src = Data { id: 99, score: 99.5, flag: true };
+var dst: Data;
+
+@memcpy(&dst, &src, @sizeof(Data));
+// dst now contains a copy of src
+```
+
+#### `@memset(dest, value, size)`
+
+Fills a block of memory with a specified value.
+
+```cyrus
+var x: int32 = 0;
+@memset(&x, 0xAAAA, @sizeof(int32));
+// x is now 0xAAAAAAAA
+```
+
+### Control Flow Builtins
+
+#### `@assert(condition, message?)`
+
+Asserts that a condition is true at runtime, panicking with an optional message if false.
+
+```cyrus
+const x = 20;
+@assert(x == 2, "x is not 2");  // Panics with message
+```
+
+#### `@panic(message?)`
+
+Panics the program with an optional message.
+
+```cyrus
+@panic("Fatal error occurred");  // Terminates with message
+```
+
+#### `@todo(message?)`
+
+Marks code as TODO, causing a compile-time or runtime panic.
+
+```cyrus
+@todo("Implement this function");  // Panics with TODO message
+```
+
+#### `@unimplemented(message?)`
+
+Marks code as unimplemented, causing a compile-time or runtime panic.
+
+```cyrus
+@unimplemented("Not implemented yet");
+```
+
+#### `@unreachable(message?)`
+
+Marks code as unreachable, causing a compile-time or runtime panic if reached.
+
+```cyrus
+if (x) {
+    // Do something
+} else {
+    @unreachable("This branch should never execute");
+}
+```
+
+### Conditional Compilation Builtins
+
+#### `@debug() { ... }`
+
+Executes the code block only in debug builds. Works as both a block and shorthand statement.
+
+```cyrus
+// Block form
+@debug() {
+    const x = 10;
+    printf("Debug mode: %d\n", x);
+}
+
+// Shorthand statement form
+@debug() printf("Debug-only output\n");
+
+// Variables declared inside debug block are only available in debug mode
+@debug() {
+    const debug_var = 100;  // Only exists in debug builds
+}
+printf("%d\n", debug_var);  // Error in release builds
+```
+
+#### `@release() { ... }`
+
+Executes the code block only in release builds. Works as both a block and shorthand statement.
+
+```cyrus
+// Block form
+@release() {
+    const x = 10;
+    printf("Release mode: %d\n", x);
+}
+
+// Shorthand statement form
+@release() printf("Release-only output\n");
+```

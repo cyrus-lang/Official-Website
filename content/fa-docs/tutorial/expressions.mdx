@@ -457,7 +457,7 @@ weight: 3
 
 ## عملگر ادغام تهی (Null-Coalescing)
 
-عملگر ادغام تهی `||` با اشاره‌گرها برای انتخاب اولین مقدار غیرتهی از زنجیره‌ای از عملوندها استفاده می‌شود.  
+عملگر ادغام تهی `??` با اشاره‌گرها برای انتخاب اولین مقدار غیرتهی از زنجیره‌ای از عملوندها استفاده می‌شود.  
 این عملگر عملوندها را از چپ به راست ارزیابی کرده و اولین اشاره‌گری را که null نیست برمی‌گرداند.  
 اگر همه عملوندها null باشند، نتیجه null است.
 
@@ -466,7 +466,7 @@ var p1: int32* = null;
 var p2: int32* = &x;
 var p3: int32* = &y;
 
-var result1 = p1 || p2;        // returns p2
-var result2 = p1 || null;      // returns null
-var result3 = p1 || p2 || p3;  // returns p2 (first non-null)
+var result1 = p1 ?? p2;        // returns p2
+var result2 = p1 ?? null;      // returns null
+var result3 = p1 ?? p2 || p3;  // returns p2 (first non-null)
 ```
