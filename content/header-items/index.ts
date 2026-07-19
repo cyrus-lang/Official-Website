@@ -4,7 +4,6 @@ export const headerItems: {
   className?: string;
 }[] = [
   { path: "/blog", content: "navigation.blog" },
-  { path: "/forum", content: "navigation.forum" },
   { path: "/packages", content: "navigation.packages" },
 
   // DISABLED
