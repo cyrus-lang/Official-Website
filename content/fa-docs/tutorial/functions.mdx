@@ -208,7 +208,7 @@ fn main() {
 کوروش به شما امکان می‌دهد یک **نام متفاوت در سطح ABI (لینکر)** برای یک تابع نسبت به نام کوروشی آن مشخص کنید. این کار با استفاده از کلیدواژه `as` بعد از اعلان انجام می‌شود.
 
 ```cyrus
-extern fn printf(fmt: string, ...) int32 as my_printf;
+extern fn printf(fmt: uint8*, ...) int32 as my_printf;
 
 fn main() {
     my_printf("Hello, %s!\n", "Cyrus");

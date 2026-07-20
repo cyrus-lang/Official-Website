@@ -208,7 +208,7 @@ To access and iterate over the variable arguments from within your function, see
 Cyrus allows you to specify a **different ABI-level (linker) name** for a function than its Cyrus name. This is done using the `as` keyword after the declaration.
 
 ```cyrus
-extern fn printf(fmt: string, ...) int32 as my_printf;
+extern fn printf(fmt: uint8*, ...) int32 as my_printf;
 
 fn main() {
     my_printf("Hello, %s!\n", "Cyrus");
