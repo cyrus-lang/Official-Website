@@ -38,8 +38,8 @@ var msg: uint8* = "Hello, Cyrus!"; // You can also place it after code
 String literals in Cyrus are enclosed in double quotes **"xxx"**, while character literals are enclosed in single quotes **'x'**.
 Both forms represent sequences of Unicode characters, but they differ in intent and usage:
 
-- String literals produce values of type **uint8\***, which can hold arbitrarily many characters.
-- Character literals produce values of type **uint8**, which always represent exactly one Unicode scalar value.
+- String literals produce values of type `uint8*` (a pointer to a byte array), which can hold arbitrarily many characters as a sequence of bytes.
+- Character literals produce values of type `uint8`, which can hold only a single byte (0-255). In many languages, this means it can represent ASCII characters or a single byte of UTF-8, but not arbitrary Unicode scalar values that require multiple bytes (like '€' or '你').
 
 ```cyrus
 var greeting: uint8* = "Hello, Cyrus!";
