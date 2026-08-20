@@ -153,9 +153,8 @@ export function RoadmapTimeline() {
               <div className="relative flex items-start gap-4">
                 {/* vertical line */}
                 {index !== phases.length - 1 && (
-                  <div className="absolute left-4 top-10 h-[calc(100%+24px)] w-px bg-zinc-200 dark:bg-zinc-800" />
-                )}
-
+                  <div className="absolute left-4 top-10 hidden h-[calc(100%+24px)] w-px bg-zinc-200 dark:bg-zinc-800 md:block" />
+                )}                
                 <StatusIcon status={phase.status} />
 
                 <div className="pt-1">
@@ -217,6 +216,7 @@ export function RoadmapTimeline() {
                   ))}
                 </div>
               </div>
+
             </div>
           ))}
         </div>

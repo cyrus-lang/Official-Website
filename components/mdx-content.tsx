@@ -19,13 +19,7 @@ export default async function MDXContent({
   const isRoadmapRoute = path.includes("roadmap");
   return (
     <div className="grid grid-cols-12 gap-6">
-      <div
-        className={cn(
-          isRoadmapRoute
-            ? "col-span-12"
-            : "xl:col-span-9 2xl:col-span-10 lg:col-span-8 col-span-12",
-        )}
-      >
+      <div className="xl:col-span-9 2xl:col-span-10 lg:col-span-8 col-span-12">
         <MDXRemote source={source} components={components} />
 
         <div className="mt-8 flex justify-end w-full">
