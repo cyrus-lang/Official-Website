@@ -1,4 +1,5 @@
 import MDXContent from "@/components/mdx-content";
+import { RouteReadySignal } from "@/components/route-ready-signal";
 import { ScrollToElement } from "@/components/scroll-to-element";
 import { redirect } from "@/i18n/navigation";
 import { locales } from "@/i18n/routing";
@@ -34,7 +35,12 @@ export default async function ShowDocumentPage({
   }
   const filePath = await getDocPath(slug!!, locale);
   if (!filePath) {
-    return <div>Document not found</div>;
+    return (
+      <div>
+        <RouteReadySignal />
+        Document not found
+      </div>
+    );
   }
 
   try {
@@ -43,12 +49,18 @@ export default async function ShowDocumentPage({
 
     return (
       <div className="px-1 py-5 pt-8 text-xl ltr:lg:ml-8 rtl:lg:mr-8  ltr:md:ml-6 rtl:md:mr-6 sm:px-0">
+        <RouteReadySignal />
         <MDXContent source={content} path={relativePath} />
         <ScrollToElement />
       </div>
     );
   } catch (error) {
     console.error(`Error loading MDX content from ${filePath}:`, error);
-    return <div>Error loading document</div>;
+    return (
+      <div>
+        <RouteReadySignal />
+        Error loading document
+      </div>
+    );
   }
 }

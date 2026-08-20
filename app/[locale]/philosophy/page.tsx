@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import bg from "@/app/assets/philosophy-background.png";
+import { RouteReadySignal } from "@/components/route-ready-signal";
 
 const fadeUp = {
   hidden: { y: 40 },
@@ -34,6 +35,7 @@ export default function PhilosophyPage() {
 
   return (
     <div className="relative min-h-screen text-white overflow-hidden">
+      <RouteReadySignal />
 
       {/* Background */}
       <div className="fixed inset-0 -z-10">
@@ -79,7 +81,7 @@ export default function PhilosophyPage() {
             initial="hidden"
             whileInView="show"
             variants={fadeUp}
-            viewport={{ once: true, amount: 0.4 }}
+            viewport={{ once: true, amount: 0.2 }}
           >
             <GlassCard>
               <h2 className="text-2xl md:text-3xl font-semibold mb-6">

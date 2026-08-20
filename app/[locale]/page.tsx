@@ -1,4 +1,5 @@
 import Layout from "@/components/layout";
+import { RouteReadySignal } from "@/components/route-ready-signal";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { HomeCodeExamples } from "./_components/home-code-examples";
 import { HomeCommunityCards } from "./_components/home-community";
@@ -22,6 +23,7 @@ export default async function HomePage({
 
   return (
     <Layout footer locale={locale}>
+      <RouteReadySignal />
       <HomeHero t={t} />
       <HomeFeaturesCards t={t} />
       <HomeCodeExamples t={t} />

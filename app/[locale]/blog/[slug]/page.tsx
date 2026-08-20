@@ -1,3 +1,4 @@
+import { RouteReadySignal } from "@/components/route-ready-signal";
 import { getMDXComponents } from "@/lib/get-mdx";
 import { getPostBySlug, getBlogPosts } from "@/lib/blog";
 import { MDXRemote } from "next-mdx-remote/rsc";
@@ -45,6 +46,7 @@ export default async function PostPage({
       dir={isRtl ? "rtl" : "ltr"} 
       className={`container mx-auto max-w-3xl py-12 px-6 ${isRtl ? "font-vazir" : ""}`}
     >
+      <RouteReadySignal />
       <header className="mb-10 text-center">
         <h1 className="text-4xl md:text-5xl font-extrabold mb-4 tracking-tight">
           {post.metadata.title}

@@ -1,5 +1,6 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
+import { RouteReadySignal } from "@/components/route-ready-signal";
 import { getBlogPosts, mapBlogPosts } from "@/lib/blog";
 import { cn } from "@/lib/utils";
 import { BlogFeaturedPost } from "./_components/blog-featured-post";
@@ -55,6 +56,7 @@ export default async function BlogPage({
       )}
     >
       <div className="container mx-auto px-4 md:px-6">
+        <RouteReadySignal />
         <BlogHeaderSection locale={locale} t={t} />
 
         <BlogFeaturedPost locale={locale} featuredPost={featuredPost} />

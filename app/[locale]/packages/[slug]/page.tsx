@@ -2,6 +2,7 @@ import { setRequestLocale, getTranslations } from "next-intl/server";
 import { MOCK_PACKAGES_FA } from "@/content/packages/mock-packages-fa";
 import { MOCK_PACKAGES } from "@/content/packages/mock-packages";
 import { notFound } from "next/navigation";
+import { RouteReadySignal } from "@/components/route-ready-signal";
 import { PackageSlugHeader } from "./packages-slug-header";
 import { PackageSlugInstall } from "./packages-slug-install";
 import { PackageSlugReadme } from "./packages-slug-readme";
@@ -28,6 +29,7 @@ export default async function PackageDetailPage({
       className={`min-h-screen pt-32 pb-20 ${isRtl ? "font-vazir" : ""}`}
     >
       <div className="container mx-auto px-4 max-w-6xl">
+        <RouteReadySignal />
         <div className="grid lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2 space-y-8">
             <PackageSlugHeader

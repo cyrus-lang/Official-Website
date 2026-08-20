@@ -1,4 +1,5 @@
 import { MOCK_PACKAGES } from "@/content/packages/mock-packages";
+import { RouteReadySignal } from "@/components/route-ready-signal";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { PackagesCards } from "./_components/packages-cards";
 import { PackagesHeaderSection } from "./_components/packages-header";
@@ -24,6 +25,7 @@ export default async function PackagesPage({
   return (
     <main dir={isRtl ? "rtl" : "ltr"} className="min-h-screen py-10">
       <div className="container mx-auto px-4 py-10">
+        <RouteReadySignal />
         <PackagesHeaderSection t={t} isRtl={isRtl} />
         <PackagesCards
           locale={locale}

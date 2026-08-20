@@ -9,7 +9,7 @@ export const HomeFeaturesCard = ({
     key={index}
     initial={{ opacity: 0, y: 20 }}
     whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true, amount: 0.8 }}
+    viewport={{ once: true, amount: 0.2 }}
     transition={{ duration: 0.4, delay: index * 0.1 }}
     className="bg-background rounded-lg p-6 shadow-xs border hover:scale-[107.5%] transition-transform"
   >

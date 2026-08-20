@@ -15,7 +15,7 @@ export function HomeGetStartedCard({
     <Motion
       initial={{ opacity: 0, y: 10 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.8 }}
+      viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.3 }}
       className="text-center hover:scale-[107.5%] transition-transform"
     >

@@ -1,4 +1,5 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { RouteReadySignal } from "@/components/route-ready-signal";
 import { ContributorsTitle } from "./_components/contributors-title";
 import { ContributorsCards } from "./_components/contributors-cards";
 
@@ -15,6 +16,7 @@ export default async function ContributorsPage({
 
   return (
     <div className="container sm:px-10 px-3 py-10 flex flex-col gap-5 mb-10">
+      <RouteReadySignal />
       <ContributorsTitle t={t} />
       <ContributorsCards t={t} />
     </div>

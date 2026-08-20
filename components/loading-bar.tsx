@@ -3,6 +3,7 @@
 import { usePathname } from "next/navigation";
 import { ReactNode, useEffect, useRef, useState } from "react";
 import { LoadingBarContainer, useLoadingBar } from "react-top-loading-bar";
+import { isRouteReady, subscribeRouteReady } from "@/lib/route-ready";
 import { Motion } from "./motion";
 
 export default function AppLoadingWrapper() {
@@ -23,10 +24,19 @@ interface InnerAppProps {
   setShowLoadingBar: (val: boolean) => void;
 }
 
+const MAX_MS = 8000;
+
 function InnerApp({ showLoadingBar, setShowLoadingBar }: InnerAppProps) {
   const { start, complete } = useLoadingBar();
   const pathname = usePathname();
   const firstLoad = useRef(true);
+
+  const startRef = useRef(start);
+  const completeRef = useRef(complete);
+  useEffect(() => {
+    startRef.current = start;
+    completeRef.current = complete;
+  });
 
   // Handle initial splash timing
   useEffect(() => {
@@ -42,10 +52,30 @@ function InnerApp({ showLoadingBar, setShowLoadingBar }: InnerAppProps) {
   useEffect(() => {
     if (!showLoadingBar) return;
     if (firstLoad.current) return;
-    start();
-    const timeout = setTimeout(() => complete(), 500);
-    return () => clearTimeout(timeout);
-  }, [pathname, showLoadingBar, start, complete]);
+
+    if (isRouteReady(pathname)) return;
+
+    startRef.current();
+
+    let settled = false;
+    const finish = () => {
+      if (settled) return;
+      settled = true;
+      clearTimeout(maxTimer);
+      unsubscribe();
+      completeRef.current();
+    };
+
+    const unsubscribe = subscribeRouteReady(() => {
+      if (isRouteReady(pathname)) finish();
+    });
+    const maxTimer = setTimeout(finish, MAX_MS);
+
+    return () => {
+      clearTimeout(maxTimer);
+      unsubscribe();
+    };
+  }, [pathname, showLoadingBar]);
 
   return (
     <Motion
