@@ -30,7 +30,6 @@ export const HomeCodeExamples = ({ t }: TranslationProps) => (
             </TabsList> : undefined
           }
 
-
           {homeExamplesCodeTabs.map(({ value }, idx) => (
             <TabsContent value={value} key={value} className="mt-6">
               <Motion

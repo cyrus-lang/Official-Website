@@ -10,7 +10,7 @@ export const HomeHero = ({ t }: TranslationProps) => (
     <div className="container relative z-10">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
         {/* Left Side: Title, Subtitle, Buttons */}
-        <div className="lg:col-span-6 space-y-8 text-center lg:text-left">
+        <div className="lg:col-span-5 space-y-8 text-center lg:text-left">
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-primary leading-[1.1]">
             {t("hero.title")}
           </h1>
@@ -32,7 +32,7 @@ export const HomeHero = ({ t }: TranslationProps) => (
         </div>
 
         {/* Right Side: Custom HeroCode component */}
-        <div className="lg:col-span-6">
+        <div className="lg:col-span-7">
           <HeroCode code={homeExamplesCodeSnippets["hello"]} />
         </div>
       </div>

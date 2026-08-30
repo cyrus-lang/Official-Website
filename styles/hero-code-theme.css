@@ -1,0 +1,72 @@
+.hero-code-theme pre,
+.hero-code-theme code,
+.hero-code-theme .hljs {
+  padding: 0 !important;
+  margin: 0 !important;
+  background: transparent !important;
+}
+
+.hero-code-theme .hljs {
+  color: #f0e6da !important;
+}
+.hero-code-theme .hljs-comment,
+.hero-code-theme .hljs-quote,
+.hero-code-theme .hljs-params {
+  color: #a3907f !important;
+  font-style: italic;
+}
+.hero-code-theme .hljs-attr,
+.hero-code-theme .hljs-punctuation {
+  color: #d8c4b0 !important;
+}
+.hero-code-theme .hljs-meta,
+.hero-code-theme .hljs-name,
+.hero-code-theme .hljs-selector-tag,
+.hero-code-theme .hljs-char.escape_,
+.hero-code-theme .hljs-operator {
+  color: #d9a066 !important;
+}
+.hero-code-theme .hljs-deletion,
+.hero-code-theme .hljs-keyword {
+  color: #ff8f66 !important;
+}
+.hero-code-theme .hljs-regexp,
+.hero-code-theme .hljs-selector-attr,
+.hero-code-theme .hljs-selector-pseudo,
+.hero-code-theme .hljs-variable.language_ {
+  color: #e8a488 !important;
+}
+.hero-code-theme .hljs-code,
+.hero-code-theme .hljs-formula,
+.hero-code-theme .hljs-property,
+.hero-code-theme .hljs-section,
+.hero-code-theme .hljs-subst,
+.hero-code-theme .hljs-title.function_ {
+  color: #f0c674 !important;
+}
+.hero-code-theme .hljs-addition,
+.hero-code-theme .hljs-bullet,
+.hero-code-theme .hljs-meta .hljs-string,
+.hero-code-theme .hljs-selector-class,
+.hero-code-theme .hljs-string,
+.hero-code-theme .hljs-symbol,
+.hero-code-theme .hljs-title.class_,
+.hero-code-theme .hljs-title.class_.inherited__ {
+  color: #f2b880 !important;
+}
+.hero-code-theme .hljs-attribute,
+.hero-code-theme .hljs-built_in,
+.hero-code-theme .hljs-doctag,
+.hero-code-theme .hljs-link,
+.hero-code-theme .hljs-literal,
+.hero-code-theme .hljs-meta .hljs-keyword,
+.hero-code-theme .hljs-number,
+.hero-code-theme .hljs-selector-id,
+.hero-code-theme .hljs-tag,
+.hero-code-theme .hljs-template-tag,
+.hero-code-theme .hljs-template-variable,
+.hero-code-theme .hljs-title,
+.hero-code-theme .hljs-type,
+.hero-code-theme .hljs-variable {
+  color: #e3b98f !important;
+}
