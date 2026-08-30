@@ -3,14 +3,31 @@ import { Link } from "@/i18n/navigation";
 import { TranslationProps } from "@/types/translation";
 import { HeroCode } from "./home-hero-code";
 import { homeExamplesCodeSnippets } from "@/content/home/home-examples-code";
+import LogoDark from "@/app/assets/logo-dark.png";
+import LogoLight from "@/app/assets/logo-light.png";
+import Image from "next/image";
 
 export const HomeHero = ({ t }: TranslationProps) => (
   <section className="relative py-20 md:py-28 lg:py-36 overflow-hidden">
     <div className="absolute inset-0 bg-linear-to-br from-background via-background to-primary/10 z-0"></div>
     <div className="container relative z-10">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-        {/* Left Side: Title, Subtitle, Buttons */}
-        <div className="lg:col-span-5 space-y-8 text-center lg:text-left">
+        {/* Left Side: Logo, Title, Subtitle, Buttons */}
+        <div className="lg:col-span-5 space-y-6 text-center lg:text-left">
+          <div className="flex justify-center lg:justify-start">
+            <div className="relative w-20 h-20 sm:w-25 sm:h-25">
+              <Image
+                src={LogoDark}
+                className="dark:block hidden w-full h-full object-contain"
+                alt="Cyrus Logo Dark"
+              />
+              <Image
+                src={LogoLight}
+                className="dark:hidden block w-full h-full object-contain"
+                alt="Cyrus Logo Light"
+              />
+            </div>
+          </div>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-primary leading-[1.1]">
             {t("hero.title")}
           </h1>

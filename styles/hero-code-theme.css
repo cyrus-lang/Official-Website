@@ -1,40 +1,34 @@
-.hero-code-theme pre,
-.hero-code-theme code,
+/* Light Theme Defaults (derived darker warm tones from dark mode palette for high contrast) */
 .hero-code-theme .hljs {
-  padding: 0 !important;
-  margin: 0 !important;
+  color: #2b241e !important;
   background: transparent !important;
-}
-
-.hero-code-theme .hljs {
-  color: #f0e6da !important;
 }
 .hero-code-theme .hljs-comment,
 .hero-code-theme .hljs-quote,
 .hero-code-theme .hljs-params {
-  color: #a3907f !important;
+  color: #7a6b5d !important;
   font-style: italic;
 }
 .hero-code-theme .hljs-attr,
 .hero-code-theme .hljs-punctuation {
-  color: #d8c4b0 !important;
+  color: #5e5044 !important;
 }
 .hero-code-theme .hljs-meta,
 .hero-code-theme .hljs-name,
 .hero-code-theme .hljs-selector-tag,
 .hero-code-theme .hljs-char.escape_,
 .hero-code-theme .hljs-operator {
-  color: #d9a066 !important;
+  color: #b36b22 !important;
 }
 .hero-code-theme .hljs-deletion,
 .hero-code-theme .hljs-keyword {
-  color: #ff8f66 !important;
+  color: #cc4411 !important;
 }
 .hero-code-theme .hljs-regexp,
 .hero-code-theme .hljs-selector-attr,
 .hero-code-theme .hljs-selector-pseudo,
 .hero-code-theme .hljs-variable.language_ {
-  color: #e8a488 !important;
+  color: #a65d3b !important;
 }
 .hero-code-theme .hljs-code,
 .hero-code-theme .hljs-formula,
@@ -42,7 +36,7 @@
 .hero-code-theme .hljs-section,
 .hero-code-theme .hljs-subst,
 .hero-code-theme .hljs-title.function_ {
-  color: #f0c674 !important;
+  color: #996611 !important;
 }
 .hero-code-theme .hljs-addition,
 .hero-code-theme .hljs-bullet,
@@ -52,7 +46,7 @@
 .hero-code-theme .hljs-symbol,
 .hero-code-theme .hljs-title.class_,
 .hero-code-theme .hljs-title.class_.inherited__ {
-  color: #f2b880 !important;
+  color: #a3581c !important;
 }
 .hero-code-theme .hljs-attribute,
 .hero-code-theme .hljs-built_in,
@@ -68,5 +62,78 @@
 .hero-code-theme .hljs-title,
 .hero-code-theme .hljs-type,
 .hero-code-theme .hljs-variable {
+  color: #8c5825 !important;
+}
+
+/* Dark Theme overrides when .dark class is present */
+.dark .hero-code-theme .hljs {
+  color: #f0e6da !important;
+}
+.dark .hero-code-theme .hljs-comment,
+.dark .hero-code-theme .hljs-quote,
+.dark .hero-code-theme .hljs-params {
+  color: #a3907f !important;
+}
+.dark .hero-code-theme .hljs-attr,
+.dark .hero-code-theme .hljs-punctuation {
+  color: #d8c4b0 !important;
+}
+.dark .hero-code-theme .hljs-meta,
+.dark .hero-code-theme .hljs-name,
+.dark .hero-code-theme .hljs-selector-tag,
+.dark .hero-code-theme .hljs-char.escape_,
+.dark .hero-code-theme .hljs-operator {
+  color: #d9a066 !important;
+}
+.dark .hero-code-theme .hljs-deletion,
+.dark .hero-code-theme .hljs-keyword {
+  color: #ff8f66 !important;
+}
+.dark .hero-code-theme .hljs-regexp,
+.dark .hero-code-theme .hljs-selector-attr,
+.dark .hero-code-theme .hljs-selector-pseudo,
+.dark .hero-code-theme .hljs-variable.language_ {
+  color: #e8a488 !important;
+}
+.dark .hero-code-theme .hljs-code,
+.dark .hero-code-theme .hljs-formula,
+.dark .hero-code-theme .hljs-property,
+.dark .hero-code-theme .hljs-section,
+.dark .hero-code-theme .hljs-subst,
+.dark .hero-code-theme .hljs-title.function_ {
+  color: #f0c674 !important;
+}
+.dark .hero-code-theme .hljs-addition,
+.dark .hero-code-theme .hljs-bullet,
+.dark .hero-code-theme .hljs-meta .hljs-string,
+.dark .hero-code-theme .hljs-selector-class,
+.dark .hero-code-theme .hljs-string,
+.dark .hero-code-theme .hljs-symbol,
+.dark .hero-code-theme .hljs-title.class_,
+.dark .hero-code-theme .hljs-title.class_.inherited__ {
+  color: #f2b880 !important;
+}
+.dark .hero-code-theme .hljs-attribute,
+.dark .hero-code-theme .hljs-built_in,
+.dark .hero-code-theme .hljs-doctag,
+.dark .hero-code-theme .hljs-link,
+.dark .hero-code-theme .hljs-literal,
+.dark .hero-code-theme .hljs-meta .hljs-keyword,
+.dark .hero-code-theme .hljs-number,
+.dark .hero-code-theme .hljs-selector-id,
+.dark .hero-code-theme .hljs-tag,
+.dark .hero-code-theme .hljs-template-tag,
+.dark .hero-code-theme .hljs-template-variable,
+.dark .hero-code-theme .hljs-title,
+.dark .hero-code-theme .hljs-type,
+.dark .hero-code-theme .hljs-variable {
   color: #e3b98f !important;
+}
+
+.hero-code-theme pre,
+.hero-code-theme code,
+.hero-code-theme .hljs {
+  padding: 0 !important;
+  margin: 0 !important;
+  background: transparent !important;
 }
