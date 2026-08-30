@@ -1,36 +1,36 @@
 import { Translation } from "@/types/translation";
-import { Code, Cpu, Github, Globe, Layers, Shield } from "lucide-react";
+import { Code, Workflow, Cog, Timer, Zap, Link } from "lucide-react";
 import { HomeFeatureType } from "./type";
 
 export const homeFeaturesArray = (t: Translation): HomeFeatureType[] => [
   {
+    icon: <Workflow className="h-6 w-6 text-primary" />,
+    title: t("features.effectSystem.title"),
+    desc: t("features.effectSystem.description"),
+  },
+  {
+    icon: <Cog className="h-6 w-6 text-primary" />,
+    title: t("features.comptime.title"),
+    desc: t("features.comptime.description"),
+  },
+  {
+    icon: <Timer className="h-6 w-6 text-primary" />,
+    title: t("features.buildTime.title"),
+    desc: t("features.buildTime.description"),
+  },
+  {
+    icon: <Zap className="h-6 w-6 text-primary" />,
+    title: t("features.performance.title"),
+    desc: t("features.performance.description"),
+  },
+  {
+    icon: <Link className="h-6 w-6 text-primary" />,
+    title: t("features.cInteroperability.title"),
+    desc: t("features.cInteroperability.description"),
+  },
+  {
     icon: <Code className="h-6 w-6 text-primary" />,
-    title: t("features.cleanSyntax.title"),
-    desc: t("features.cleanSyntax.description"),
-  },
-  {
-    icon: <Shield className="h-6 w-6 text-primary" />,
-    title: t("features.typeSystem.title"),
-    desc: t("features.typeSystem.description"),
-  },
-  {
-    icon: <Globe className="h-6 w-6 text-primary" />,
-    title: t("features.crossPlatform.title"),
-    desc: t("features.crossPlatform.description"),
-  },
-  {
-    icon: <Cpu className="h-6 w-6 text-primary" />,
-    title: t("features.lowCognitiveLoad.title"),
-    desc: t("features.lowCognitiveLoad.description"),
-  },
-  {
-    icon: <Layers className="h-6 w-6 text-primary" />,
-    title: t("features.standardLibrary.title"),
-    desc: t("features.standardLibrary.description"),
-  },
-  {
-    icon: <Github className="h-6 w-6 text-primary" />,
-    title: t("features.openSource.title"),
-    desc: t("features.openSource.description"),
+    title: t("features.minimalSyntax.title"),
+    desc: t("features.minimalSyntax.description"),
   },
 ];

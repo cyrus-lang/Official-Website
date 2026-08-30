@@ -20,7 +20,7 @@ export const HomeHero = ({ t }: TranslationProps) => (
               {t("hero.getStarted")}
             </Button>
           </Link>
-          <Link href="/#examples">
+          <Link href="/#features">
             <Button size="lg" variant="outline" className="w-full sm:w-auto">
               {t("hero.seeExamples")}
             </Button>

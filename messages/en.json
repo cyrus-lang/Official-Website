@@ -13,46 +13,32 @@
       "subtitle": "We deeply appreciate the valuable support of our sponsors. Their partnership empowers us to deliver a better experience for our users and continue our journey of growth and innovation. Having you by our side inspires us to build a brighter future."
     },
     "features": {
-      "title": "Key Features",
-      "subtitle": "Cyrus is designed around explicit control, predictable execution, and minimal abstraction over the machine.",
-      "cleanSyntax": {
-        "title": "Predictable, Minimal Syntax",
-        "description": "A small and consistent syntax surface designed to remain readable without requiring mental simulation of hidden compiler behavior or complex rule resolution."
-      },
-      "typeSystem": {
-        "title": "Strict Explicit Type System",
-        "description": "Strong static typing with no implicit conversions. All type transformations are explicit, preventing silent coercions and reducing ambiguity in program behavior. Generic code is monomorphized for direct static dispatch with zero runtime abstraction cost."
-      },
-      "crossPlatform": {
-        "title": "LLVM-Based Native Compilation",
-        "description": "Ahead-of-time compilation through LLVM to optimized native machine code. Produces deterministic performance characteristics with full interoperability via the C ABI."
-      },
-      "lowCognitiveLoad": {
-        "title": "No Hidden Language Semantics",
-        "description": "Avoids implicit behavior, mixed paradigms, and layered abstractions. Execution flow remains close to the source, allowing reasoning without relying on compiler-driven assumptions or runtime inference."
-      },
-      "standardLibrary": {
-        "title": "Explicit Memory Model",
-        "description": "No garbage collector and no hidden ownership system. Memory is managed explicitly through manual allocation patterns, custom allocators, and deterministic cleanup using structured constructs such as defer."
-      },
-      "openSource": {
-        "title": "Open and Inspectable Design",
-        "description": "Developed openly with a focus on transparency and verifiability. The language is intended for systems where performance, determinism, and full control over execution are primary requirements."
-      }
-    },
-    "examples": {
-      "title": "Elegant by Design",
-      "subtitle": "Cyrus's syntax is designed to be intuitive, expressive, and easy to read.",
-      "tabs": {
-        "helloWorld": "Hello World"
-      },
-      "comingSoon": "Coming soon"
-    },
-    "why": {
       "title": "Ancient Wisdom, Modern Power",
-      "paragraph1": "Cyrus is rooted in an enduring principle: the programmer should command the machine, not negotiate with the language that describes it. It turns away from transient fashions and excessive abstraction, returning instead to the established foundations of systems programming, disciplined, explicit, and unwaveringly predictable. Built upon a modern compiler infrastructure, it bridges classical systems wisdom with contemporary execution efficiency, producing a language that is both clear to reason about and powerful in performance.",
-      "paragraph2": "Every design choice in Cyrus exists to make intent visible. Operations are never implicit: mutability is declared openly, conversions are intentional acts, memory is managed with full awareness, and indirection is always exposed to the reader. Nothing of consequence is hidden behind runtime magic or unseen mechanisms. By keeping the full structure of execution in plain sight, Cyrus allows developers to reason about their programs with precision, confidence, and control.",
-      "paragraph3": "Cyrus follows a philosophy of restrained and deliberate abstraction. It avoids obscuring the machine, instead offering deterministic low-level control and a transparent execution model without hidden runtime behavior or implicit systems. Memory, performance, and program flow remain visible and directly governed by the developer. Rather than introducing new paradigms, it refines long-established systems programming concepts into a cohesive whole. The result is a language that reads naturally, executes predictably, and remains steadfast in performance-critical domains where clarity and control are paramount."
+      "subtitle": "Discover the foundational capabilities that make Cyrus fast, predictable, and expressive.",
+      "minimalSyntax": {
+        "title": "Minimal Syntax",
+        "description": "A clean, uncluttered syntax that keeps the focus entirely on your code's logic rather than bureaucratic language noise."
+      },
+      "effectSystem": {
+        "title": "Effect System",
+        "description": "Track and manage side effects explicitly across your program, ensuring complete predictability and compile-time guarantees without hidden traps."
+      },
+      "comptime": {
+        "title": "Comptime",
+        "description": "Execute logic at compile time with zero runtime overhead, enabling powerful metaprogramming, type-safe code generation, and advanced configuration."
+      },
+      "buildTime": {
+        "title": "Build Time",
+        "description": "Lightning-fast ahead-of-time compilation powered by CodegenC and TinyCC, enabling quick debugging and rapid startup times."
+      },
+      "performance": {
+        "title": "Performance",
+        "description": "Designed for high-performance programs where you need control over every instruction, with the absolute minimum abstraction cost possible."
+      },
+      "cInteroperability": {
+        "title": "C Interoperability",
+        "description": "Seamlessly call C functions and libraries directly from Cyrus, and vice versa, so you can take advantage of existing ecosystems or slowly move away from legacy C codebases easily."
+      }
     },
     "getStarted": {
       "title": "Get Started with Cyrus Programming Language",
