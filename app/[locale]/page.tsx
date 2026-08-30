@@ -22,7 +22,11 @@ export default async function HomePage({
   const t = await getTranslations("HomePage");
 
   return (
-    <Layout footer locale={locale}>
+    <Layout
+      footer
+      locale={locale}
+      header={{ pathname: `/${locale}`, variant: "dynamic" }}
+    >
       <RouteReadySignal />
       <HomeHero t={t} />
       <HomeFeaturesCards t={t} />

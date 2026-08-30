@@ -8,12 +8,15 @@ import { useTranslations } from "next-intl";
 export const HeaderNav = ({
   type = "desktop",
   isPhilosophy = false,
+  isTransparent = false,
 }: {
   type?: "mobile" | "desktop";
   isPhilosophy?: boolean;
+  isTransparent?: boolean;
 }) => {
   const t = useTranslations("Header");
   const pathname = usePathname();
+  const lightText = isPhilosophy || isTransparent;
   return (
     <nav
       className={cn(
@@ -28,7 +31,7 @@ export const HeaderNav = ({
           href={item.path}
           className={cn(
             "text-sm font-medium hover:text-primary transition-colors ",
-            isPhilosophy && "text-white",
+            lightText && "text-white",
             pathname.includes(item.path)
               ? isPhilosophy
                 ? "dark:text-[#ff9967] text-[#ff9967]"
