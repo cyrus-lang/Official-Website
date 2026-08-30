@@ -20,9 +20,6 @@ export const HomeFeaturesCards = () => {
 
       <div className="container relative z-10">
         <div className="max-w-3xl mx-auto text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-medium bg-primary/10 text-primary mb-4">
-            ARCHITECTURE & CAPABILITIES
-          </div>
           <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-6">
             {t("features.title")}
           </h2>
@@ -81,12 +78,8 @@ export const HomeFeaturesCards = () => {
               initial={{ opacity: 0, y: 12, scale: 0.98 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{ duration: 0.3, ease: "easeOut" }}
-              className="relative p-8 md:p-12 rounded-2xl bg-gradient-to-br from-muted/40 via-muted/20 to-transparent border border-border/60 backdrop-blur-sm"
+              className="relative p-8 md:p-12 rounded-2xl bg-linear-to-br from-muted/40 via-muted/20 to-transparent border border-border/60 backdrop-blur-sm"
             >
-              <div className="absolute top-6 right-6 font-mono text-6xl font-extrabold text-primary/10 pointer-events-none select-none">
-                0{activeIndex + 1}
-              </div>
-
               <div className="h-16 w-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-8 text-primary shadow-inner">
                 {activeFeature.icon}
               </div>
