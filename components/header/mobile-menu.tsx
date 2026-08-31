@@ -12,7 +12,6 @@ import { ThemeToggle } from "../theme-toggle";
 import { HeaderNav } from "./header-nav";
 import { DEFAULT_DOCS_HREF } from "@/app/[locale]/docs/_page";
 import { useTranslations } from "next-intl";
-import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
 
 export default function MobileMenu({ isTransparent = false }: { isTransparent?: boolean }) {
   const t = useTranslations("Header");
@@ -43,10 +42,10 @@ export default function MobileMenu({ isTransparent = false }: { isTransparent?: 
       </SheetTrigger>
 
       <SheetContent side="right" className="w-full fixed inset-0 ml-auto">
-        <VisuallyHidden.Root>
+        <div className="sr-only">
           <SheetTitle>{t("buttons.toggleMenu")}</SheetTitle>
           <SheetDescription>Mobile navigation menu</SheetDescription>
-        </VisuallyHidden.Root>
+        </div>
 
         <div className="flex flex-col h-full">
           <div className="flex items-center justify-between mb-6">

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { useTranslations } from "next-intl";
 import bg from "@/app/assets/philosophy-background.png";
 
