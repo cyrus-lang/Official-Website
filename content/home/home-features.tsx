@@ -1,36 +1,66 @@
 import { Translation } from "@/types/translation";
-import { Code, Cpu, Github, Globe, Layers, Shield } from "lucide-react";
+import { Code, Workflow, Cog, Timer, Zap, Link } from "lucide-react";
 import { HomeFeatureType } from "./type";
 
 export const homeFeaturesArray = (t: Translation): HomeFeatureType[] => [
   {
     icon: <Code className="h-6 w-6 text-primary" />,
-    title: t("features.cleanSyntax.title"),
-    desc: t("features.cleanSyntax.description"),
+    title: t("features.minimalSyntax.title"),
+    desc: t("features.minimalSyntax.description"),
+    details: [
+      t("features.minimalSyntax.details.0"),
+      t("features.minimalSyntax.details.1"),
+      t("features.minimalSyntax.details.2"),
+    ],
   },
   {
-    icon: <Shield className="h-6 w-6 text-primary" />,
-    title: t("features.typeSystem.title"),
-    desc: t("features.typeSystem.description"),
+    icon: <Workflow className="h-6 w-6 text-primary" />,
+    title: t("features.effectSystem.title"),
+    desc: t("features.effectSystem.description"),
+    details: [
+      t("features.effectSystem.details.0"),
+      t("features.effectSystem.details.1"),
+      t("features.effectSystem.details.2"),
+    ],
   },
   {
-    icon: <Globe className="h-6 w-6 text-primary" />,
-    title: t("features.crossPlatform.title"),
-    desc: t("features.crossPlatform.description"),
+    icon: <Cog className="h-6 w-6 text-primary" />,
+    title: t("features.comptime.title"),
+    desc: t("features.comptime.description"),
+    details: [
+      t("features.comptime.details.0"),
+      t("features.comptime.details.1"),
+      t("features.comptime.details.2"),
+    ],
   },
   {
-    icon: <Cpu className="h-6 w-6 text-primary" />,
-    title: t("features.lowCognitiveLoad.title"),
-    desc: t("features.lowCognitiveLoad.description"),
+    icon: <Timer className="h-6 w-6 text-primary" />,
+    title: t("features.buildTime.title"),
+    desc: t("features.buildTime.description"),
+    details: [
+      t("features.buildTime.details.0"),
+      t("features.buildTime.details.1"),
+      t("features.buildTime.details.2"),
+    ],
   },
   {
-    icon: <Layers className="h-6 w-6 text-primary" />,
-    title: t("features.standardLibrary.title"),
-    desc: t("features.standardLibrary.description"),
+    icon: <Zap className="h-6 w-6 text-primary" />,
+    title: t("features.performance.title"),
+    desc: t("features.performance.description"),
+    details: [
+      t("features.performance.details.0"),
+      t("features.performance.details.1"),
+      t("features.performance.details.2"),
+    ],
   },
   {
-    icon: <Github className="h-6 w-6 text-primary" />,
-    title: t("features.openSource.title"),
-    desc: t("features.openSource.description"),
+    icon: <Link className="h-6 w-6 text-primary" />,
+    title: t("features.cInteroperability.title"),
+    desc: t("features.cInteroperability.description"),
+    details: [
+      t("features.cInteroperability.details.0"),
+      t("features.cInteroperability.details.1"),
+      t("features.cInteroperability.details.2"),
+    ],
   },
 ];

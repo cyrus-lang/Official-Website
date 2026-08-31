@@ -1,6 +1,6 @@
-"use client"; // Required for framer-motion interactions
+"use client";
 
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import {
   Card,
   CardContent,

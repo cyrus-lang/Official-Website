@@ -30,14 +30,13 @@ export const HomeCodeExamples = ({ t }: TranslationProps) => (
             </TabsList> : undefined
           }
 
-
           {homeExamplesCodeTabs.map(({ value }, idx) => (
             <TabsContent value={value} key={value} className="mt-6">
               <Motion
-                initial={{ opacity: 0, y: 10 }}
+                initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.8 }}
-                transition={{ duration: 0.3, delay: idx * 0.1 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.5, delay: idx * 0.08, ease: [0.22, 1, 0.36, 1] }}
               >
                 <pre className="font-mono text-sm">
                   <CodeBlock disableBorder language="typescript">

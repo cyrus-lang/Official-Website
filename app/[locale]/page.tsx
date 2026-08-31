@@ -1,11 +1,9 @@
 import Layout from "@/components/layout";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { HomeCodeExamples } from "./_components/home-code-examples";
 import { HomeCommunityCards } from "./_components/home-community";
 import { HomeFeaturesCards } from "./_components/home-features";
 import { HomeGetStartedCards } from "./_components/home-get-started";
 import { HomeHero } from "./_components/home-hero";
-import { HomeWhyCyrus } from "./_components/home-why-cyrus";
 import { HomeSponsors } from "./_components/home-sponsors";
 // import { HomeNewsLetter } from "./_components/home-news-letter";
 
@@ -23,9 +21,7 @@ export default async function HomePage({
   return (
     <Layout footer locale={locale}>
       <HomeHero t={t} />
-      <HomeFeaturesCards t={t} />
-      <HomeCodeExamples t={t} />
-      <HomeWhyCyrus t={t} />
+      <HomeFeaturesCards />
       <HomeGetStartedCards t={t} />
       <HomeCommunityCards t={t} />
       <HomeSponsors t={t} />

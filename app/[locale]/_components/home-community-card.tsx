@@ -9,16 +9,17 @@ export const HomeCommunityCard = ({
 }: HomeCommunityType & { index: number }) => (
   <Motion
     key={index}
-    initial={{ opacity: 0 }}
-    whileInView={{ opacity: 1 }}
-    viewport={{ once: true, amount: 0.8 }}
+    initial={{ opacity: 0, y: 15 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, margin: "-50px" }}
     transition={{
-      duration: 0.6,
+      duration: 0.5,
       delay: index * 0.08,
-      ease: [0.25, 0.1, 0.25, 1.0]
+      ease: [0.22, 1, 0.36, 1]
     }}
-    className="bg-background rounded-lg p-6 shadow-xs border text-center hover:scale-[107.5%] transition-transform"
+    className="bg-background rounded-xl p-6 shadow-xs border text-center hover:-translate-y-1 hover:shadow-md transition-all duration-300 relative overflow-hidden"
   >
+    <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-primary/5 via-transparent to-transparent pointer-events-none" />
     {item.icon}
     <h3 className="text-xl font-bold mb-2">{item.title}</h3>
     <p className="text-muted-foreground mb-4">{item.desc}</p>

@@ -13,10 +13,11 @@ export const HomeWhyCyrus = ({ t }: TranslationProps) => (
         <Motion
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 0.4 }}
-          className="bg-background rounded-lg p-8 shadow-xs border"
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          className="bg-background rounded-xl p-8 shadow-xs border relative overflow-hidden"
         >
+          <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-primary/5 via-transparent to-transparent pointer-events-none" />
           <p className="text-lg max-md:text-base mb-6">{t("why.paragraph1")}</p>
           <p className="text-lg max-md:text-base mb-6">{t("why.paragraph2")}</p>
           <p className="text-lg max-md:text-base">{t("why.paragraph3")}</p>

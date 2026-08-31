@@ -1,27 +1,70 @@
-import { homeFeaturesArray } from "@/content/home/home-features";
-import { HomeFeaturesCard } from "./home-features-card";
-import { TranslationProps } from "@/types/translation";
+"use client";
 
-export const HomeFeaturesCards = ({ t }: TranslationProps) => (
-  <section id="features" className="py-20 bg-muted/50">
-    <div className="container">
-      <div className="text-center mb-16">
-        <h2 className="text-3xl md:text-4xl font-bold mb-4">
-          {t("features.title")}
-        </h2>
-        <p className="text-muted-foreground max-w-2xl mx-auto">
-          {t("features.subtitle")}
-        </p>
+import { homeFeaturesArray } from "@/content/home/home-features";
+import { useTranslations } from "next-intl";
+import { Motion } from "@/components/motion";
+import { Check } from "lucide-react";
+
+export const HomeFeaturesCards = () => {
+  const t = useTranslations("HomePage");
+  const features = homeFeaturesArray(t);
+
+  return (
+    <section id="features" className="py-24 md:py-32 bg-muted/50">
+      <div className="container">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-4">
+            {t("features.title")}
+          </h2>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            {t("features.subtitle")}
+          </p>
+        </div>
+
+        {/* 3-Column Grid of Rich Feature Cards with ample context details */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+          {features.map((feature, index) => (
+            <Motion
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
+              className="bg-background rounded-xl p-8 shadow-xs border flex flex-col justify-between hover:border-primary/50 hover:-translate-y-1 hover:shadow-md transition-all duration-300 group relative overflow-hidden"
+            >
+              <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-primary/5 via-transparent to-transparent pointer-events-none" />
+              <div>
+                <div className="flex items-center justify-between mb-6">
+                  <div className="h-14 w-14 rounded-xl bg-primary/10 flex items-center justify-center text-primary group-hover:scale-110 transition-transform duration-300 shadow-inner">
+                    {feature.icon}
+                  </div>
+                </div>
+
+                <h3 className="text-xl font-bold tracking-tight mb-3 text-foreground">
+                  {feature.title}
+                </h3>
+
+                <p className="text-muted-foreground leading-relaxed text-sm md:text-base mb-6">
+                  {feature.desc}
+                </p>
+              </div>
+
+              {feature.details && feature.details.length > 0 && (
+                <div className="pt-6 border-t border-border/60 mt-auto">
+                  <ul className="space-y-2.5">
+                    {feature.details.map((detail, idx) => (
+                      <li key={idx} className="flex items-start gap-2.5 text-xs md:text-sm text-muted-foreground">
+                        <Check className="h-4 w-4 text-primary shrink-0 mt-0.5" />
+                        <span>{detail}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </Motion>
+          ))}
+        </div>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {homeFeaturesArray(t).map((item, index) => (
-          <HomeFeaturesCard
-            key={"home-features-" + index}
-            {...item}
-            index={index}
-          />
-        ))}
-      </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
