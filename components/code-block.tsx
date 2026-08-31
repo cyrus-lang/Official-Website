@@ -58,7 +58,6 @@ export default function CodeBlock({
       className="my-6 overflow-x-auto relative group code-block rounded-xl border border-border/60 bg-background/60 dark:bg-zinc-950/60 backdrop-blur-xl" 
       dir="ltr"
     >
-      <div className="absolute top-0 left-0 right-0 h-10 bg-gradient-to-b from-background/90 dark:from-zinc-950/90 to-transparent pointer-events-none z-10" />
       <div className="absolute right-2 top-2 opacity-0 group-hover:opacity-100 transition-opacity z-20">
         <Button
           size="sm"

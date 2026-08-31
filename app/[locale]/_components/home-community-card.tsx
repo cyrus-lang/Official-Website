@@ -19,7 +19,6 @@ export const HomeCommunityCard = ({
     }}
     className="bg-background rounded-xl p-6 shadow-xs border text-center hover:-translate-y-1 hover:shadow-md transition-all duration-300 relative overflow-hidden"
   >
-    <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-primary/5 via-transparent to-transparent pointer-events-none" />
     {item.icon}
     <h3 className="text-xl font-bold mb-2">{item.title}</h3>
     <p className="text-muted-foreground mb-4">{item.desc}</p>
