@@ -6,6 +6,7 @@ import { homeExamplesCodeSnippets } from "@/content/home/home-examples-code";
 import LogoDark from "@/app/assets/logo-dark.png";
 import LogoLight from "@/app/assets/logo-light.png";
 import Image from "next/image";
+import { Motion } from "@/components/motion";
 
 export const HomeHero = ({ t }: TranslationProps) => (
   <section className="relative py-20 md:py-28 lg:py-36 overflow-hidden">
@@ -14,7 +15,12 @@ export const HomeHero = ({ t }: TranslationProps) => (
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
         {/* Left Side: Logo, Title, Subtitle, Buttons */}
         <div className="lg:col-span-5 space-y-6 text-center lg:text-left">
-          <div className="flex justify-center lg:justify-start">
+          <Motion
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+            className="flex justify-center lg:justify-start"
+          >
             <div className="relative w-20 h-20 sm:w-25 sm:h-25">
               <Image
                 src={LogoDark}
@@ -27,14 +33,31 @@ export const HomeHero = ({ t }: TranslationProps) => (
                 alt="Cyrus Logo Light"
               />
             </div>
-          </div>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-primary leading-[1.1]">
+          </Motion>
+          <Motion
+            type="h1"
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-primary leading-[1.1]"
+          >
             {t("hero.title")}
-          </h1>
-          <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed max-w-xl mx-auto lg:mx-0">
+          </Motion>
+          <Motion
+            type="p"
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            className="text-lg sm:text-xl text-muted-foreground leading-relaxed max-w-xl mx-auto lg:mx-0"
+          >
             {t("hero.subtitle")}
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+          </Motion>
+          <Motion
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+            className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+          >
             <Link href="/docs">
               <Button size="lg" className="w-full sm:w-auto">
                 {t("hero.getStarted")}
@@ -45,7 +68,7 @@ export const HomeHero = ({ t }: TranslationProps) => (
                 {t("hero.seeExamples")}
               </Button>
             </Link>
-          </div>
+          </Motion>
         </div>
 
         {/* Right Side: Custom HeroCode component */}

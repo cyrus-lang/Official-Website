@@ -28,10 +28,11 @@ export const HomeFeaturesCards = () => {
               key={index}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.4, delay: index * 0.08 }}
-              className="bg-background rounded-xl p-8 shadow-xs border flex flex-col justify-between hover:border-primary/50 transition-all duration-300 group"
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
+              className="bg-background rounded-xl p-8 shadow-xs border flex flex-col justify-between hover:border-primary/50 hover:-translate-y-1 hover:shadow-md transition-all duration-300 group relative overflow-hidden"
             >
+              <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-primary/5 via-transparent to-transparent pointer-events-none" />
               <div>
                 <div className="flex items-center justify-between mb-6">
                   <div className="h-14 w-14 rounded-xl bg-primary/10 flex items-center justify-center text-primary group-hover:scale-110 transition-transform duration-300 shadow-inner">
