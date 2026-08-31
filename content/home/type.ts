@@ -4,6 +4,7 @@ export type HomeFeatureType = {
   icon: ReactNode;
   title: string;
   desc: string;
+  details?: string[];
 };
 export interface HomeCommunityType extends HomeFeatureType {
   link: string;

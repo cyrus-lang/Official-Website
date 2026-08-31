@@ -1,95 +1,67 @@
 "use client";
 
-import { useState } from "react";
 import { homeFeaturesArray } from "@/content/home/home-features";
 import { useTranslations } from "next-intl";
 import { Motion } from "@/components/motion";
-import { cn } from "@/lib/utils";
+import { Check } from "lucide-react";
 
 export const HomeFeaturesCards = () => {
   const t = useTranslations("HomePage");
   const features = homeFeaturesArray(t);
-  const [activeIndex, setActiveIndex] = useState(0);
-
-  const activeFeature = features[activeIndex];
 
   return (
-    <section id="features" className="py-20 bg-muted/50">
+    <section id="features" className="py-24 md:py-32 bg-muted/50">
       <div className="container">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+          <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-4">
             {t("features.title")}
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             {t("features.subtitle")}
           </p>
         </div>
 
-        {/* Interactive Feature Showcase following project design patterns */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start max-w-5xl mx-auto">
-          {/* Navigation selector list */}
-          <div className="lg:col-span-5 flex flex-col space-y-2">
-            {features.map((feature, index) => {
-              const isActive = index === activeIndex;
-              return (
-                <button
-                  key={index}
-                  onClick={() => setActiveIndex(index)}
-                  className={cn(
-                    "group text-left px-5 py-4 rounded-lg transition-all duration-200 flex items-center justify-between border",
-                    isActive
-                      ? "bg-background border-primary/50 shadow-xs text-foreground font-semibold"
-                      : "bg-background/60 hover:bg-background border-border text-muted-foreground hover:text-foreground"
-                  )}
-                >
-                  <div className="flex items-center gap-3">
-                    <span
-                      className={cn(
-                        "font-mono text-xs tracking-wider",
-                        isActive ? "text-primary" : "text-muted-foreground"
-                      )}
-                    >
-                      0{index + 1}
-                    </span>
-                    <span className="text-base tracking-tight">
-                      {feature.title}
-                    </span>
-                  </div>
-                  <div
-                    className={cn(
-                      "transition-transform duration-200",
-                      isActive ? "text-primary" : "text-muted-foreground group-hover:scale-105"
-                    )}
-                  >
+        {/* 3-Column Grid of Rich Feature Cards with ample context details */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+          {features.map((feature, index) => (
+            <Motion
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.4, delay: index * 0.08 }}
+              className="bg-background rounded-xl p-8 shadow-xs border flex flex-col justify-between hover:border-primary/50 transition-all duration-300 group"
+            >
+              <div>
+                <div className="flex items-center justify-between mb-6">
+                  <div className="h-14 w-14 rounded-xl bg-primary/10 flex items-center justify-center text-primary group-hover:scale-110 transition-transform duration-300 shadow-inner">
                     {feature.icon}
                   </div>
-                </button>
-              );
-            })}
-          </div>
+                </div>
 
-          {/* Detailed active feature display panel following standard project container style */}
-          <div className="lg:col-span-7">
-            <Motion
-              key={activeIndex}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.2, ease: "easeOut" }}
-              className="bg-background rounded-lg p-8 shadow-xs border relative"
-            >
-              <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-6 text-primary">
-                {activeFeature.icon}
+                <h3 className="text-xl font-bold tracking-tight mb-3 text-foreground">
+                  {feature.title}
+                </h3>
+
+                <p className="text-muted-foreground leading-relaxed text-sm md:text-base mb-6">
+                  {feature.desc}
+                </p>
               </div>
 
-              <h3 className="text-2xl font-bold tracking-tight mb-4 text-foreground">
-                {activeFeature.title}
-              </h3>
-
-              <p className="text-muted-foreground leading-relaxed text-base">
-                {activeFeature.desc}
-              </p>
+              {feature.details && feature.details.length > 0 && (
+                <div className="pt-6 border-t border-border/60 mt-auto">
+                  <ul className="space-y-2.5">
+                    {feature.details.map((detail, idx) => (
+                      <li key={idx} className="flex items-start gap-2.5 text-xs md:text-sm text-muted-foreground">
+                        <Check className="h-4 w-4 text-primary shrink-0 mt-0.5" />
+                        <span>{detail}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </Motion>
-          </div>
+          ))}
         </div>
       </div>
     </section>

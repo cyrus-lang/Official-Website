@@ -16,28 +16,60 @@
       "title": "Ancient Wisdom, Modern Power",
       "subtitle": "Discover the foundational capabilities that make Cyrus fast, predictable, and expressive.",
       "minimalSyntax": {
-        "title": "Minimal Syntax",
-        "description": "A clean, uncluttered syntax that keeps the focus entirely on your code's logic rather than bureaucratic language noise."
+        "title": "Explicitness",
+        "description": "Explicit, predictable, human-readable code built around a procedural paradigm.",
+        "details": [
+          "Manual memory management",
+          "No hidden control flow",
+          "No hidden compiler rule resolution",
+          "Predictable control flow statements",
+          "Clean, human-readable syntax"
+        ]
       },
       "effectSystem": {
         "title": "Effect System",
-        "description": "Track and manage side effects explicitly across your program, ensuring complete predictability and compile-time guarantees without hidden traps."
+        "description": "Track and manage side effects explicitly across your program, ensuring complete predictability and compile-time guarantees without hidden traps.",
+        "details": [
+          "Compile-time effect tracking",
+          "Zero unexpected side-effect mutations",
+          "Transparent caller-callee contracts"
+        ]
       },
       "comptime": {
         "title": "Comptime",
-        "description": "Execute logic at compile time with zero runtime overhead, enabling powerful metaprogramming, type-safe code generation, and advanced configuration."
+        "description": "Execute logic at compile time with zero runtime overhead, enabling powerful metaprogramming, type-safe code generation, and advanced configuration.",
+        "details": [
+          "Compile-time code execution",
+          "Zero runtime reflection cost",
+          "Type-safe template generation"
+        ]
       },
       "buildTime": {
         "title": "Build Time",
-        "description": "Lightning-fast ahead-of-time compilation powered by CodegenC and TinyCC, enabling quick debugging and rapid startup times."
+        "description": "Lightning-fast ahead-of-time compilation powered by TinyC and CodegenC for debug builds.",
+        "details": [
+          "Deterministic build performance",
+          "Fast debug builds",
+          "Ahead-of-time compilation"
+        ]
       },
       "performance": {
         "title": "Performance",
-        "description": "Designed for high-performance programs where you need control over every instruction, with the absolute minimum abstraction cost possible."
+        "description": "Designed for high-performance programs where you need control over every instruction, with the absolute minimum abstraction cost possible.",
+        "details": [
+          "Manual memory management",
+          "Zero garbage collector pauses",
+          "Direct hardware-level efficiency"
+        ]
       },
       "cInteroperability": {
         "title": "C Interoperability",
-        "description": "Seamlessly call C functions and libraries directly from Cyrus, and vice versa, so you can take advantage of existing ecosystems or slowly move away from legacy C codebases easily."
+        "description": "Seamlessly call C functions and libraries directly from Cyrus, and vice versa, so you can take advantage of existing ecosystems or slowly move away from legacy C codebases easily.",
+        "details": [
+          "Native C ABI compatibility",
+          "Bidirectional function calling",
+          "Smooth legacy project migration"
+        ]
       }
     },
     "getStarted": {
