@@ -80,4 +80,11 @@ export const contributorsArray: Contributor[] = [
     github: "https://github.com/CluvexStudio",
     telegram: "https://t.me/CluvexStudio",
   }
+  {
+    id: 9,
+    name: "Tyler",
+    title: "Contributor",
+    picture: "https://avatars.githubusercontent.com/TheJudge26",
+    github: "https://github.com/TheJudge26"
+  }
 ];
