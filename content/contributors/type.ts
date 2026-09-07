@@ -1,4 +1,4 @@
-export type ContributorCategory = "Core Team" | "Website Frontend Team";
+export type ContributorCategory = "Core Team" | "Website Team";
 
 export type ContributorTag =
   | "Creator"

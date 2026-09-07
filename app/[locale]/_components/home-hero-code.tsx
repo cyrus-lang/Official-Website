@@ -21,9 +21,9 @@ export function HeroCode({ code }: HeroCodeProps) {
 
   return (
     <Motion
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 15 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
       className="hero-code-theme rounded-2xl border border-border/60 bg-background/60 dark:bg-zinc-950/60 backdrop-blur-xl text-foreground shadow-lg dark:shadow-2xl overflow-hidden w-full relative"
       dir="ltr"
     >

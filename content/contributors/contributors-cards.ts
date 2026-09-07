@@ -2,7 +2,7 @@ import { Contributor, ContributorCategory } from "./type";
 
 export const categories: ContributorCategory[] = [
   "Core Team",
-  "Website Frontend Team",
+  "Website Team",
 ];
 
 export const contributorsArray: Contributor[] = [
@@ -31,7 +31,7 @@ export const contributorsArray: Contributor[] = [
     id: 3,
     name: "Alisan",
     nameFa: "علیسان",
-    category: "Website Frontend Team",
+    category: "Website Team",
     tags: ["Website Frontend"],
     picture: "https://avatars.githubusercontent.com/azcpcf",
     github: "https://github.com/azcpcf",
@@ -42,7 +42,7 @@ export const contributorsArray: Contributor[] = [
     id: 4,
     name: "Saeed Dayani",
     nameFa: "سعید دیانی",
-    category: "Website Frontend Team",
+    category: "Website Team",
     tags: ["Website Frontend"],
     picture: "https://avatars.githubusercontent.com/talionsd",
     github: "https://github.com/talionsd",
@@ -52,7 +52,7 @@ export const contributorsArray: Contributor[] = [
     id: 5,
     name: "MrPi",
     nameFa: "مستر پی",
-    category: "Website Frontend Team",
+    category: "Website Team",
     tags: ["Website Frontend"],
     picture: "https://avatars.githubusercontent.com/imMrPi",
     github: "https://github.com/imMrPi",
@@ -62,7 +62,7 @@ export const contributorsArray: Contributor[] = [
     id: 6,
     name: "meshya",
     nameFa: "مشیا",
-    category: "Website Frontend Team",
+    category: "Website Team",
     tags: ["Website Frontend"],
     picture: "https://avatars.githubusercontent.com/meshya",
     github: "https://github.com/meshya",
@@ -74,7 +74,7 @@ export const contributorsArray: Contributor[] = [
     id: 7,
     name: "Mahdi Rahmani",
     nameFa: "مهدی رحمانی",
-    category: "Website Frontend Team",
+    category: "Website Team",
     tags: ["Website Frontend"],
     picture: "https://avatars.githubusercontent.com/u/110809899?v=4",
     github: "https://github.com/MahdiRahmany",

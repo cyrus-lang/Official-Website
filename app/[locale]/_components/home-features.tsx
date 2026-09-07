@@ -2,7 +2,6 @@
 
 import { homeFeaturesArray } from "@/content/home/home-features";
 import { useTranslations } from "next-intl";
-import { Motion } from "@/components/motion";
 import { Check } from "lucide-react";
 
 export const HomeFeaturesCards = () => {
@@ -24,13 +23,10 @@ export const HomeFeaturesCards = () => {
         {/* 3-Column Grid of Rich Feature Cards with ample context details */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
           {features.map((feature, index) => (
-            <Motion
+            <div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.5, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
-              className="bg-background rounded-xl p-8 shadow-xs border flex flex-col justify-between hover:border-primary/50 hover:-translate-y-1 hover:shadow-md transition-all duration-300 group relative overflow-hidden"
+              className="animate-fade-in bg-background rounded-xl p-8 shadow-xs border flex flex-col justify-between hover:border-primary/50 transition-all duration-300 group relative overflow-hidden"
+              style={{ animationDelay: `${index * 60}ms` }}
             >
               <div>
                 <div className="flex items-center justify-between mb-6">
@@ -60,7 +56,7 @@ export const HomeFeaturesCards = () => {
                   </ul>
                 </div>
               )}
-            </Motion>
+            </div>
           ))}
         </div>
       </div>

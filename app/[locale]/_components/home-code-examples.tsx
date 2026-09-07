@@ -1,5 +1,4 @@
 import CodeBlock from "@/components/code-block";
-import { Motion } from "@/components/motion";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   homeExamplesCodeSnippets,
@@ -32,11 +31,9 @@ export const HomeCodeExamples = ({ t }: TranslationProps) => (
 
           {homeExamplesCodeTabs.map(({ value }, idx) => (
             <TabsContent value={value} key={value} className="mt-6">
-              <Motion
-                initial={{ opacity: 0, y: 15 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.5, delay: idx * 0.08, ease: [0.22, 1, 0.36, 1] }}
+              <div
+                className="animate-fade-in"
+                style={{ animationDelay: `${idx * 80}ms` }}
               >
                 <pre className="font-mono text-sm">
                   <CodeBlock disableBorder language="typescript">
@@ -44,7 +41,7 @@ export const HomeCodeExamples = ({ t }: TranslationProps) => (
                       t("examples.comingSoon")}
                   </CodeBlock>
                 </pre>
-              </Motion>
+              </div>
             </TabsContent>
           ))}
         </Tabs>

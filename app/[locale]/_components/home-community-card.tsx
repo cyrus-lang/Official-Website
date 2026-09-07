@@ -1,4 +1,3 @@
-import { Motion } from "@/components/motion";
 import { Button } from "@/components/ui/button";
 import { HomeCommunityType } from "@/content/home/type";
 import { Link } from "@/i18n/navigation";
@@ -7,17 +6,9 @@ export const HomeCommunityCard = ({
   index,
   ...item
 }: HomeCommunityType & { index: number }) => (
-  <Motion
-    key={index}
-    initial={{ opacity: 0, y: 15 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true, margin: "-50px" }}
-    transition={{
-      duration: 0.5,
-      delay: index * 0.08,
-      ease: [0.22, 1, 0.36, 1]
-    }}
-    className="bg-background rounded-xl p-6 shadow-xs border text-center hover:-translate-y-1 hover:shadow-md transition-all duration-300 relative overflow-hidden"
+  <div
+    className="animate-fade-in bg-background rounded-xl p-6 shadow-xs border text-center transition-all duration-300 relative overflow-hidden"
+    style={{ animationDelay: `${index * 80}ms` }}
   >
     {item.icon}
     <h3 className="text-xl font-bold mb-2">{item.title}</h3>
@@ -31,5 +22,5 @@ export const HomeCommunityCard = ({
         {item.button}
       </Link>
     </Button>
-  </Motion>
+  </div>
 );

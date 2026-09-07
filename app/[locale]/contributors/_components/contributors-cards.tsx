@@ -8,7 +8,7 @@ import { ContributorCategory } from "@/content/contributors/type";
 
 const getTranslatedCategory = (category: ContributorCategory, t: (key: string) => string) => {
   if (category === "Core Team") return t("categories.coreTeam");
-  if (category === "Website Frontend Team") return t("categories.websiteFrontendTeam");
+  if (category === "Website Team") return t("categories.websiteFrontendTeam");
   return category;
 };
 
