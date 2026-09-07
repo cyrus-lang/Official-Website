@@ -295,9 +295,15 @@
   "Contributors": {
     "title": "Team",
     "subtitle": "Meet the people behind Cyrus",
-    "roles": {
+    "categories": {
+      "coreTeam": "Core Team",
+      "websiteFrontendTeam": "Website Frontend Team"
+    },
+    "tags": {
       "creator": "Creator",
-      "contributor": "Contributor"
+      "websiteFrontend": "Website Frontend",
+      "compiler": "Compiler",
+      "standardLibrary": "Standard library"
     }
   },
   "Playground": {

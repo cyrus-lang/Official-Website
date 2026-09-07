@@ -293,9 +293,15 @@
   "Contributors": {
     "title": "تیم",
     "subtitle": "ملاقات با افراد پشت کوروش",
-    "roles": {
+    "categories": {
+      "coreTeam": "تیم اصلی",
+      "websiteFrontendTeam": "تیم فرانت‌اند وبسایت"
+    },
+    "tags": {
       "creator": "خالق",
-      "contributor": "مشارکت‌کننده"
+      "websiteFrontend": "فرانت‌اند وبسایت",
+      "compiler": "کامپایلر",
+      "standardLibrary": "کتابخانه استاندارد"
     }
   },
   "Playground": {

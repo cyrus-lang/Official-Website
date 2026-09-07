@@ -1,6 +1,6 @@
 import { TranslationProps } from "@/types/translation";
 import { contributorsSocialIconsArray } from "@/content/contributors/contributors-social-icons";
-import { Contributor } from "@/content/contributors/type";
+import { Contributor, ContributorTag } from "@/content/contributors/type";
 import { Link } from "@/i18n/navigation";
 import { getLocale } from "next-intl/server";
 import Image from "next/image";
@@ -11,10 +11,12 @@ export const ContributorCard = async ({
 }: TranslationProps & {
   contributor: Contributor;
 }) => {
-  const getTranslatedTitle = (title: string) => {
-    if (title === "Creator") return t("roles.creator");
-    if (title === "Contributor") return t("roles.contributor");
-    return title;
+  const getTranslatedTag = (tag: ContributorTag) => {
+    if (tag === "Creator") return t("tags.creator");
+    if (tag === "Website Frontend") return t("tags.websiteFrontend");
+    if (tag === "Compiler") return t("tags.compiler");
+    if (tag === "Standard library") return t("tags.standardLibrary");
+    return tag;
   };
   const locale = await getLocale();
 
@@ -27,12 +29,19 @@ export const ContributorCard = async ({
     <div className="rounded-2xl pt-5 px-3 border hover:scale-105 duration-300 shadow-sm hover:shadow-md transition-all">
       <div className="flex flex-col items-center w-full gap-2 mb-4">
         <div className="text-xl font-bold">{getDisplayName()}</div>
-        <div className="text-sm text-muted-foreground">
-          {getTranslatedTitle(contributor.title)}
+        <div className="flex flex-wrap justify-center gap-1.5">
+          {contributor.tags.map((tag) => (
+            <span
+              key={tag}
+              className="px-2.5 py-0.5 text-xs font-medium rounded-full bg-primary/10 text-primary"
+            >
+              {getTranslatedTag(tag)}
+            </span>
+          ))}
         </div>
       </div>
 
-      <div className="flex justify-center items-center w-full h-[400px] sm:h-[300px] relative overflow-hidden rounded-lg">
+      <div className="flex justify-center items-center w-full h-100 sm:h-75 relative overflow-hidden rounded-lg">
         <Image
           src={contributor.picture}
           alt={getDisplayName()}
