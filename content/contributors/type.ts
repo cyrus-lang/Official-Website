@@ -1,8 +1,17 @@
+export type ContributorCategory = "Core Team" | "Website Frontend Team";
+
+export type ContributorTag =
+  | "Creator"
+  | "Website Frontend"
+  | "Compiler"
+  | "Standard library";
+
 export interface Contributor {
   id: number;
   name: string;
   nameFa?: string;
-  title: "Creator" | "Contributor" | string;
+  category: ContributorCategory;
+  tags: ContributorTag[];
   picture: string;
   github?: string;
   mastodon?: string;
