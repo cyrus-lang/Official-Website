@@ -56,7 +56,7 @@ export default function MobileMenu({ isTransparent = false }: { isTransparent?: 
 
             <SheetClose asChild>
               <Button variant="outline" size="icon">
-                <X className="h-6 w-6" />
+                <X className="size-5.5!" />
                 <span className="sr-only">{t("buttons.closeMenu")}</span>
               </Button>
             </SheetClose>

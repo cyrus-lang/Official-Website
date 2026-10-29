@@ -1,6 +1,4 @@
-import { Input } from "@/components/ui/input";
 import { TranslationProps } from "@/types/translation";
-import { Search } from "lucide-react";
 import { PackagesSearchInput } from "./packages-search-input";
 
 interface PackagesHeaderSectionProps extends TranslationProps {

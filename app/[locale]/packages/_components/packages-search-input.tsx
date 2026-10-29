@@ -35,7 +35,7 @@ export const PackagesSearchInput = ({ isRtl }: { isRtl: boolean }) => {
         value={value}
         onChange={(e) => setValue(e.target.value)}
         placeholder={t("searchPlaceholder")}
-        className={`h-14 ${isRtl ? "pr-12" : "pl-12"} rounded-xl bg-secondary/60 text-lg border-2 dark:border-neutral-700 border-neutral-300 focus-visible:ring-2 focus-visible:ring-primary`}
+        className={`h-14 ${isRtl ? "pr-12" : "pl-12"} rounded-xl bg-card/60 text-lg focus-visible:ring-2 focus-visible:ring-primary`}
       />
     </div>
   );
