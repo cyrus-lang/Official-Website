@@ -10,7 +10,8 @@
     },
     "sponsors": {
       "title": "Our Sponsors",
-      "subtitle": "We deeply appreciate the valuable support of our sponsors. Their partnership empowers us to deliver a better experience for our users and continue our journey of growth and innovation. Having you by our side inspires us to build a brighter future."
+      "subtitle": "We deeply appreciate the valuable support of our sponsors. Their partnership empowers us to deliver a better experience for our users and continue our journey of growth and innovation. Having you by our side inspires us to build a brighter future.",
+      "seeDetails": "See details"
     },
     "features": {
       "title": "Ancient Wisdom, Modern Power",
@@ -384,6 +385,24 @@
     "footer": {
       "line1": "Built with care, inspired by history, and driven by respect for human dignity.",
       "line2": "Thank you for being part of this journey ❤️."
+    }
+  },
+  "Sponsors": {
+    "title": "Sponsors",
+    "subtitle": "Every donation and contribution that supports the Cyrus project, financial and non-financial.",
+    "empty": "No donations have been recorded yet.",
+    "viewDetails": "View details",
+    "back": "← All sponsors",
+    "table": {
+      "donation": "Donation",
+      "sponsor": "Sponsor",
+      "type": "Type",
+      "value": "Value",
+      "date": "Date"
+    },
+    "kinds": {
+      "financial": "Financial",
+      "non-financial": "Non-financial"
     }
   }
 }
