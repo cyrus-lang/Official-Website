@@ -3,12 +3,10 @@ export const homeExamplesCodeTabs = [
 ];
 
 export const homeExamplesCodeSnippets: Record<string, string> = {
-  hello: `import (
-    std::mem::arena{ArenaAllocator},
-    std::mem::libc{LibcAllocator},
-    std::mem{Allocator},
-    std::libc{printf},
-);
+  hello: `import std::mem::arena{ArenaAllocator};
+import std::mem::libc{LibcAllocator};
+import std::mem{Allocator};
+import std::libc{printf};
 
 pub fn main() {
     const allocator: Allocator = dynamic LibcAllocator.new();
