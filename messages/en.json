@@ -294,7 +294,9 @@
   },
   "Contributors": {
     "title": "Team",
-    "subtitle": "Meet the people behind Cyrus",
+    "subtitle": "Contributors building the Cyrus language 🩵",
+    "communityTitle": "Contributors",
+    "communitySubtitle": "Thank you to everyone who has contributed to Cyrus and helped make the project better",
     "categories": {
       "coreTeam": "Core Team",
       "websiteFrontendTeam": "Website Team"
