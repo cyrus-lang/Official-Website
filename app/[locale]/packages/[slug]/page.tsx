@@ -3,7 +3,6 @@ import { MOCK_PACKAGES_FA } from "@/content/packages/mock-packages-fa";
 import { MOCK_PACKAGES } from "@/content/packages/mock-packages";
 import { notFound } from "next/navigation";
 import { PackageSlugHeader } from "./packages-slug-header";
-import { PackageSlugInstall } from "./packages-slug-install";
 import { PackageSlugReadme } from "./packages-slug-readme";
 import { PackageSidebar } from "./packages-slug-sidebar";
 
@@ -25,18 +24,15 @@ export default async function PackageDetailPage({
   return (
     <main
       dir={isRtl ? "rtl" : "ltr"}
-      className={`min-h-screen pt-32 pb-20 ${isRtl ? "font-vazir" : ""}`}
+      className={`min-h-screen pt-24 pb-20 ${isRtl ? "font-vazir" : ""}`}
     >
       <div className="container mx-auto px-4 max-w-6xl">
-        <div className="grid lg:grid-cols-3 gap-8">
-          <div className="lg:col-span-2 space-y-8">
+        <div className="grid lg:grid-cols-[1fr_380px] xl:grid-cols-[1fr_400px] gap-8 items-start">
+          <div className="space-y-8 min-w-0">
             <PackageSlugHeader
               name={pkg.name}
-              version={pkg.version}
               description={pkg.description}
             />
-
-            <PackageSlugInstall name={pkg.name} isRtl={isRtl} />
 
             <PackageSlugReadme
               name={pkg.name}
