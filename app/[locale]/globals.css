@@ -24,17 +24,15 @@
 }
 
 @font-face {
-  font-family: Vazir;
-  src: url("/fonts/Vazir.ttf");
-}
-
-@font-face {
-  font-family: VazirMedium;
-  src: url("/fonts/Vazir-Medium.ttf");
+  font-family: "Estedad";
+  src: url("/fonts/Estedad.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
 }
 
 @theme {
-  --font-fa: Vazir;
+  --font-fa: "Estedad", "Inter", sans-serif;
   --color-background: hsl(0 0% 100%);
   --color-foreground: hsl(240 10% 3.9%);
   --color-card: hsl(0 0% 100%);
@@ -94,12 +92,12 @@
     border-color: var(--color-border);
   }
 
-  h1 {
-    font-family: "Lalezar", cursive;
-  }
-
   html[lang="en"] h1 {
     font-family: "Inter", sans-serif;
+  }
+
+  html[lang="fa"] h1 {
+    font-family: "Estedad", "Inter", sans-serif;
   }
 }
 
@@ -116,11 +114,21 @@ html {
   animation: fadeIn 0.5s ease-out both;
 }
 
-html[lang="fa"] * {
-  font-family: "Vazir", "Inter", sans-serif;
-}
-html[lang="fa"] {
+html[lang="fa"],
+html[lang="fa"] body {
   direction: rtl;
+  font-family: "Estedad", "Inter", sans-serif;
+}
+
+html[lang="fa"] pre,
+html[lang="fa"] pre *,
+html[lang="fa"] code,
+html[lang="fa"] code *,
+html[lang="fa"] .font-mono,
+html[lang="fa"] .font-mono *,
+html[lang="fa"] .hljs,
+html[lang="fa"] .hljs * {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !important;
 }
 
 html[lang="fa"] .brand-text {

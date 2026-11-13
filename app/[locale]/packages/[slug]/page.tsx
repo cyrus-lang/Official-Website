@@ -24,7 +24,7 @@ export default async function PackageDetailPage({
   return (
     <main
       dir={isRtl ? "rtl" : "ltr"}
-      className={`min-h-screen pt-24 pb-20 ${isRtl ? "font-vazir" : ""}`}
+      className={`min-h-screen pt-24 pb-20 ${isRtl ? "font-fa" : ""}`}
     >
       <div className="container mx-auto px-4 max-w-6xl">
         <div className="grid lg:grid-cols-[1fr_380px] xl:grid-cols-[1fr_400px] gap-8 items-start">

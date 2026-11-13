@@ -1,3 +1,4 @@
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
@@ -38,9 +39,14 @@ export default async function DonationPage({
     <article className="container max-w-3xl sm:px-10 px-3 py-10 mb-10">
       <Link
         href="/sponsors"
-        className="text-sm text-muted-foreground hover:text-primary"
+        className="inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
       >
-        {t("back")}
+        {locale === "fa" ? (
+          <ArrowRight className="h-4 w-4" />
+        ) : (
+          <ArrowLeft className="h-4 w-4" />
+        )}
+        <span>{t("back")}</span>
       </Link>
 
       <header className="mt-4 mb-8 flex flex-col gap-4">
