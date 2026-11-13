@@ -1,7 +1,6 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { getBlogPosts, mapBlogPosts } from "@/lib/blog";
-import { cn } from "@/lib/utils";
 import { BlogFeaturedPost } from "./_components/blog-featured-post";
 import { BlogHeaderSection } from "./_components/blog-header";
 import { BlogPosts } from "./_components/blog-posts";
@@ -26,7 +25,7 @@ export default async function BlogPage({
   searchParams: Promise<{ query?: string }>;
 }) {
   const { locale } = await params;
-  const { query } = await searchParams;
+  const { query = "" } = await searchParams;
 
   setRequestLocale(locale);
 
@@ -36,10 +35,12 @@ export default async function BlogPage({
   const rawPosts = await getBlogPosts(locale);
   let posts: BlogPostType[] = mapBlogPosts(rawPosts, t);
 
-  if (query) {
-    const q = query.toLowerCase();
+  const normalizedQuery = query.trim().toLowerCase();
+  if (normalizedQuery) {
     posts = posts.filter((p) =>
-      [p.title, p.excerpt, p.category].some((v) => v.toLowerCase().includes(q)),
+      [p.title, p.excerpt, p.category, p.author.name].some((v) =>
+        v.toLowerCase().includes(normalizedQuery),
+      ),
     );
   }
 
@@ -47,22 +48,17 @@ export default async function BlogPage({
   const regularPosts = posts.slice(1);
 
   return (
-    <main
+    <div
       dir={isRtl ? "rtl" : "ltr"}
-      className={cn(
-        "container min-h-screen w-full mb-20 mt-10",
-        isRtl && "font-vazir *:font-vazir **:font-vazir",
-      )}
+      className="container sm:px-10 px-4 py-12 md:py-16 flex flex-col gap-10 mb-10"
     >
-      <div className="container mx-auto px-4 md:px-6">
-        <BlogHeaderSection locale={locale} t={t} />
+      <BlogHeaderSection locale={locale} t={t} />
 
-        <BlogFeaturedPost locale={locale} featuredPost={featuredPost} />
+      <BlogFeaturedPost locale={locale} featuredPost={featuredPost} />
 
-        <BlogPosts locale={locale} t={t} posts={regularPosts} />
+      <BlogPosts locale={locale} t={t} posts={regularPosts} />
 
-        <BlogNotFound isVisible={!posts.length} t={t} />
-      </div>
-    </main>
+      <BlogNotFound isVisible={!posts.length} t={t} />
+    </div>
   );
 }

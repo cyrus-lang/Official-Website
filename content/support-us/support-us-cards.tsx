@@ -1,5 +1,4 @@
 import { Translation } from "@/types/translation";
-import { Motion } from "@/components/motion";
 import { Link } from "@/i18n/navigation";
 import { Coffee, DollarSign, Mail } from "lucide-react";
 import { SupportUsCardType } from "./type";
@@ -45,19 +44,12 @@ export const supportUsCardsArray = (t: Translation): SupportUsCardType[] => [
             rel="noopener noreferrer"
             className="block"
           >
-            <Motion
-              whileHover={{
-                scale: 1.05,
-                transition: { duration: 0.1 },
-              }}
-            >
-              <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white">
-                <div className="flex items-center justify-center gap-2">
-                  <DollarSign className="h-4 w-4" />
-                  {t("donation.paypal")}
-                </div>
-              </Button>
-            </Motion>
+            <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white">
+              <div className="flex items-center justify-center gap-2">
+                <DollarSign className="h-4 w-4" />
+                {t("donation.paypal")}
+              </div>
+            </Button>
           </Link>
 
           <Link
@@ -66,19 +58,12 @@ export const supportUsCardsArray = (t: Translation): SupportUsCardType[] => [
             rel="noopener noreferrer"
             className="block"
           >
-            <Motion
-              whileHover={{
-                scale: 1.05,
-                transition: { duration: 0.1 },
-              }}
-            >
-              <Button className="w-full bg-orange-500 hover:bg-orange-600 text-white">
-                <div className="flex items-center justify-center gap-2">
-                  <Coffee className="h-4 w-4" />
-                  {t("donation.kofi")}
-                </div>
-              </Button>
-            </Motion>
+            <Button className="w-full bg-orange-500 hover:bg-orange-600 text-white">
+              <div className="flex items-center justify-center gap-2">
+                <Coffee className="h-4 w-4" />
+                {t("donation.kofi")}
+              </div>
+            </Button>
           </Link>
         </div>
       </>
