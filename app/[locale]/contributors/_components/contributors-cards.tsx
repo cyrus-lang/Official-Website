@@ -13,15 +13,20 @@ const getTranslatedCategory = (category: ContributorCategory, t: (key: string) =
 };
 
 export const ContributorsCards = ({ t }: TranslationProps) => (
-  <div className="flex flex-col gap-10">
+  <div className="flex flex-col gap-14">
     {categories.map((category) => {
       const members = contributorsArray.filter((c) => c.category === category);
       return (
-        <section key={category} className="mb-6">
-          <h2 className="text-3xl font-bold mb-4">
-            {getTranslatedCategory(category, t)}
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+        <section key={category} className="flex flex-col gap-6">
+          <div className="flex items-baseline justify-between gap-4">
+            <h2 className="text-2xl font-bold tracking-tight text-foreground">
+              {getTranslatedCategory(category, t)}
+            </h2>
+            <span className="text-sm text-muted-foreground">
+              {members.length} {members.length === 1 ? "member" : "members"}
+            </span>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {members.map((contributor) => (
               <ContributorCard
                 t={t}

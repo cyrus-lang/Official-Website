@@ -92,7 +92,10 @@ export async function getMDXComponents(
       return <p className="text-base md:text-lg my-3 leading-relaxed">{content}</p>;
     },
     ul: ({ children }) => (
-      <ul className="list-disc list-inside my-4 space-y-1">{children}</ul>
+      <ul className="list-disc list-inside my-4 space-y-1.5">{children}</ul>
+    ),
+    ol: ({ children }) => (
+      <ol className="list-decimal list-inside my-4 space-y-1.5">{children}</ol>
     ),
     li: ({ children }) => <li className="text-base md:text-lg">{children}</li>,
     a: ({ children, href }) => (

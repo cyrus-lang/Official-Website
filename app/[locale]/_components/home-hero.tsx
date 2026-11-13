@@ -18,7 +18,7 @@ export const HomeHero = ({ t }: TranslationProps) => (
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: "easeOut" }}
-          className="lg:col-span-5 space-y-6 text-center lg:text-left"
+          className="lg:col-span-5 space-y-6 text-center lg:text-start"
         >
           <div className="flex justify-center lg:justify-start">
             <div className="relative w-20 h-20 sm:w-25 sm:h-25">

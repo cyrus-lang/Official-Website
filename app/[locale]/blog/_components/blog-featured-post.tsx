@@ -1,4 +1,3 @@
-import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import Link from "next/link";
 import { BlogPostType } from "../page";
@@ -15,62 +14,61 @@ export const BlogFeaturedPost = ({
   if (!featuredPost) return null;
 
   return (
-    <section className="mb-20">
+    <section>
       <Link
         href={`/${locale}/blog/${featuredPost.slug}`}
         className="group block"
       >
-        <div className="relative grid gap-8 overflow-hidden rounded-3xl border border-border bg-secondary p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-2xl md:grid-cols-2 md:p-10 dark:bg-secondary/60">
-          {/* IMAGE */}
-          <div className="relative aspect-video w-full overflow-hidden rounded-2xl">
+        <article className="grid md:grid-cols-2 overflow-hidden rounded-xl border bg-background shadow-xs hover:border-primary/50 transition-all duration-300">
+          <div className="relative aspect-video md:aspect-auto md:min-h-[300px] w-full overflow-hidden bg-muted border-b md:border-b-0 md:ltr:border-r md:rtl:border-l border-border/60">
             <img
               src={featuredPost.image}
               alt={featuredPost.title}
-              className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+              className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
             />
-
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/30 via-black/0 to-black/0 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
           </div>
 
-          {/* CONTENT */}
-          <div className="flex flex-col justify-center space-y-5">
-            <div className="flex items-center gap-3">
-              <Badge className="rounded-full bg-primary/90 px-3 py-1 text-primary-foreground">
-                {featuredPost.category}
-              </Badge>
+          <div className="flex flex-col justify-between gap-6 p-6 sm:p-8">
+            <div className="space-y-4">
+              <div className="flex items-center gap-3">
+                <span className="inline-flex items-center rounded-md border border-primary/40 bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary">
+                  {featuredPost.category}
+                </span>
+                <span className="text-xs text-muted-foreground">
+                  {featuredPost.readTime}
+                </span>
+              </div>
 
-              <span className="text-sm text-muted-foreground">
-                {featuredPost.readTime}
-              </span>
+              <h2 className="text-2xl sm:text-3xl font-bold leading-snug tracking-tight text-foreground group-hover:text-primary transition-colors">
+                {featuredPost.title}
+              </h2>
+
+              <p className="line-clamp-3 text-sm md:text-base leading-relaxed text-muted-foreground">
+                {featuredPost.excerpt}
+              </p>
             </div>
 
-            <h2 className="text-3xl font-extrabold leading-tight tracking-tight transition-colors duration-300 group-hover:text-primary md:text-4xl">
-              {featuredPost.title}
-            </h2>
-
-            <p className="line-clamp-3 text-base leading-relaxed text-muted-foreground md:text-lg">
-              {featuredPost.excerpt}
-            </p>
-
-            <div className="mt-6 flex items-center gap-4 border-t border-border/60 pt-5">
-              <Avatar className="h-11 w-11 rounded-full ring-2 ring-background transition group-hover:ring-primary/40">
-                <AvatarImage src={featuredPost.author.avatar} />
-                <AvatarFallback className="bg-primary/10">
+            <div className="flex items-center gap-3 pt-4 border-t border-border/60">
+              <Avatar className="h-9 w-9 rounded-full overflow-hidden border bg-muted shrink-0">
+                <AvatarImage
+                  src={featuredPost.author.avatar}
+                  alt={featuredPost.author.name}
+                  className="h-full w-full object-cover"
+                />
+                <AvatarFallback className="flex h-full w-full items-center justify-center bg-primary/10 text-xs font-medium text-primary">
                   {featuredPost.author.name[0]}
                 </AvatarFallback>
               </Avatar>
 
-              <div className="text-sm leading-tight">
-                <p className="font-semibold">
+              <div className="text-xs leading-snug">
+                <p className="font-semibold text-foreground">
                   {featuredPost.author.name}
                 </p>
-                <p className="text-muted-foreground">
-                  {featuredPost.date}
-                </p>
+                <p className="text-muted-foreground">{featuredPost.date}</p>
               </div>
             </div>
           </div>
-        </div>
+        </article>
       </Link>
     </section>
   );

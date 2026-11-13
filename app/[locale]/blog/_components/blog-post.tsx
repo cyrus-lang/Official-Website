@@ -1,14 +1,7 @@
+import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { BlogPostType } from "../page";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-} from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
-import { Button } from "@/components/ui/button";
 import { TranslationProps } from "@/types/translation";
 
 interface BlogPostProps extends TranslationProps {
@@ -20,72 +13,68 @@ export const BlogPost = ({ post, locale, t }: BlogPostProps) => {
   const isRtl = locale === "fa";
 
   return (
-    <Link href={`/${locale}/blog/${post.slug}`} className="group h-full">
-      <Card className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-secondary transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-2xl dark:bg-secondary/60">
-        {/* IMAGE */}
-        <div className="relative aspect-[16/10] w-full overflow-hidden">
-          <img
-            src={post.image}
-            alt={post.title}
-            className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
-          />
-
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/25 via-black/0 to-black/0 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-        </div>
-
-        {/* HEADER */}
-        <CardHeader className="space-y-3 p-6">
-          <div className="flex items-center justify-between">
-            <Badge className="rounded-full bg-primary/10 px-3 py-1 font-medium text-primary">
-              {post.category}
-            </Badge>
-
-            <span className="text-xs text-muted-foreground">
-              {post.readTime}
-            </span>
+    <Link href={`/${locale}/blog/${post.slug}`} className="group block h-full">
+      <article className="bg-background rounded-xl shadow-xs border overflow-hidden flex flex-col justify-between hover:border-primary/50 transition-all duration-300 h-full">
+        <div>
+          <div className="relative aspect-video w-full overflow-hidden bg-muted border-b border-border/60">
+            <img
+              src={post.image}
+              alt={post.title}
+              className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+            />
           </div>
 
-          <h3 className="line-clamp-2 text-lg font-extrabold leading-snug tracking-tight transition-colors duration-300 group-hover:text-primary">
-            {post.title}
-          </h3>
-        </CardHeader>
+          <div className="p-5 sm:p-6 space-y-3">
+            <div className="flex items-center justify-between gap-2">
+              <span className="inline-flex items-center rounded-md border border-primary/40 bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary">
+                {post.category}
+              </span>
+              <span className="text-xs text-muted-foreground">
+                {post.readTime}
+              </span>
+            </div>
 
-        {/* CONTENT */}
-        <CardContent className="grow px-6 pb-0">
-          <p className="line-clamp-3 text-sm leading-relaxed text-muted-foreground">
-            {post.excerpt}
-          </p>
-        </CardContent>
+            <h3 className="line-clamp-2 text-xl font-bold leading-snug tracking-tight text-foreground group-hover:text-primary transition-colors">
+              {post.title}
+            </h3>
 
-        {/* FOOTER */}
-        <CardFooter className="mt-auto p-6 pt-6">
-          <div className="flex w-full items-center gap-3">
-            <Avatar className="h-9 w-9 rounded-full ring-1 ring-border transition group-hover:ring-primary/40">
-              <AvatarImage src={post.author.avatar} />
-              <AvatarFallback className="bg-primary/10">
+            <p className="line-clamp-3 text-sm md:text-base leading-relaxed text-muted-foreground">
+              {post.excerpt}
+            </p>
+          </div>
+        </div>
+
+        <div className="px-5 sm:px-6 pb-5 pt-4 border-t border-border/60 mt-auto flex items-center justify-between gap-3">
+          <div className="flex items-center gap-2.5 min-w-0">
+            <Avatar className="h-8 w-8 rounded-full overflow-hidden border bg-muted shrink-0">
+              <AvatarImage
+                src={post.author.avatar}
+                alt={post.author.name}
+                className="h-full w-full object-cover"
+              />
+              <AvatarFallback className="flex h-full w-full items-center justify-center bg-primary/10 text-xs font-medium text-primary">
                 {post.author.name[0]}
               </AvatarFallback>
             </Avatar>
 
-            <div className="flex flex-col text-xs leading-tight">
-              <span className="font-semibold">
+            <div className="flex flex-col text-xs leading-snug min-w-0">
+              <span className="font-semibold text-foreground truncate">
                 {post.author.name}
               </span>
-              <span className="text-muted-foreground">
-                {post.date}
-              </span>
+              <span className="text-muted-foreground">{post.date}</span>
             </div>
-
-            <Button
-              variant="ghost"
-              size="sm"
-              className={`${isRtl ? "mr-auto" : "ml-auto"} rounded-full px-3 transition-all duration-300 group-hover:text-primary group-hover:bg-primary/5`}
-            >
-              {t("readButton")}
-            </Button>
           </div>
-        </CardFooter>
-      </Card>
+
+          <span className="inline-flex items-center gap-1 text-xs font-medium text-muted-foreground group-hover:text-primary transition-colors shrink-0">
+            {t("readButton")}
+            {isRtl ? (
+              <ArrowLeft className="h-3.5 w-3.5" />
+            ) : (
+              <ArrowRight className="h-3.5 w-3.5" />
+            )}
+          </span>
+        </div>
+      </article>
     </Link>
   );
 };

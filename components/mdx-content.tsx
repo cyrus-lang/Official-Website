@@ -18,9 +18,10 @@ export default async function MDXContent({
 
   const isRoadmapRoute = path.includes("roadmap");
   return (
-    <div className="grid grid-cols-12 gap-6">
+    <div className="grid grid-cols-12 gap-6 w-full min-w-0">
       <div
         className={cn(
+          "min-w-0",
           isRoadmapRoute
             ? "col-span-12"
             : "xl:col-span-9 2xl:col-span-10 lg:col-span-8 col-span-12",

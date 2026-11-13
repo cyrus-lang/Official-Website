@@ -1,5 +1,6 @@
 import Footer from "@/components/footer";
 import Header, { HeaderProps } from "@/components/header";
+import { cn } from "@/lib/utils";
 import { setRequestLocale } from "next-intl/server";
 import { PropsWithChildren } from "react";
 
@@ -21,12 +22,12 @@ export default function Layout({
 }: PropsWithChildren<LayoutProps>) {
   setRequestLocale(locale);
   return (
-    <main className={className}>
+    <div className="min-h-screen flex flex-col">
       {header && (
         <Header {...(typeof header !== "boolean" ? header : { pathname })} />
       )}
-      {children}
+      <main className={cn("flex-1", className)}>{children}</main>
       {footer && <Footer />}
-    </main>
+    </div>
   );
 }

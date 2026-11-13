@@ -40,7 +40,7 @@ export async function getBlogPosts(locale: "en" | "fa") {
       const { data, content } = matter(fileContent);
 
       const words = content.split(/\s+/gu).length;
-      const readTime = `${Math.ceil(words / 200)} min read`;
+      const readTime = `${Math.ceil(words / 200)}`;
 
       return {
         slug: file.replace(".mdx", ""),
@@ -61,10 +61,13 @@ export async function getPostBySlug(slug: string, locale: "en" | "fa") {
     const filePath = path.join(BLOG_ROOT, locale, `${slug}.mdx`);
     const fileContent = fs.readFileSync(filePath, "utf-8");
     const { data, content } = matter(fileContent);
+    const words = content.split(/\s+/gu).length;
+    const readTime = `${Math.ceil(words / 200)}`;
 
     return {
       metadata: data as BlogFrontmatter,
       content,
+      readTime,
     };
   } catch (error) {
     return null;

@@ -7,11 +7,11 @@ export const BlogNotFound = ({
   isVisible: boolean;
   t: Translation;
 }) => {
-  if (isVisible) {
-    return (
-      <div className="w-full text-center py-20 bg-secondary/20 rounded-3xl">
-        <p className="text-muted-foreground">{t("emptyState")}</p>
-      </div>
-    );
-  }
+  if (!isVisible) return null;
+
+  return (
+    <div className="w-full text-center py-16 bg-background border rounded-xl shadow-xs">
+      <p className="text-muted-foreground">{t("emptyState")}</p>
+    </div>
+  );
 };

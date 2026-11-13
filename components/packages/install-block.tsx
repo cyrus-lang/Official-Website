@@ -1,13 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Terminal, Copy, Check } from "lucide-react";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+import { Copy, Check, Terminal } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface InstallBlockProps {
@@ -38,31 +32,37 @@ export function InstallBlock({
   };
 
   return (
-    <div className="cursor-pointer p-6 bg-secondary rounded-xl text-zinc-100 relative group border border-neutral-300 dark:border-neutral-700 transition-all hover:border-primary/50 active:scale-[0.99]">
+    <button
+      type="button"
+      onClick={handleCopy}
+      title={copied ? translations.copied : translations.tooltip}
+      className="w-full text-start cursor-pointer bg-background rounded-xl p-5 shadow-xs border transition-all duration-200 hover:border-primary/50 active:scale-[0.99] group"
+    >
+      <div className="flex items-center justify-between gap-2 mb-3">
+        <span className="inline-flex items-center gap-1.5 text-xs font-medium text-muted-foreground">
+          <Terminal className="h-3.5 w-3.5 text-primary" />
+          {translations.label}
+        </span>
+
+        <span className="shrink-0 text-muted-foreground group-hover:text-primary transition-colors">
+          {copied ? (
+            <Check size={15} className="text-green-500" />
+          ) : (
+            <Copy size={15} />
+          )}
+        </span>
+      </div>
+
       <div
-        onClick={() => handleCopy()}
+        dir="ltr"
         className={cn(
-          "shrink-0 absolute top-0 p-4",
-          isRtl ? "left-0" : "right-0",
+          "font-mono text-sm sm:text-base font-medium text-foreground truncate",
+          isRtl && "text-left"
         )}
       >
-        {copied ? (
-          <Check size={18} className="text-green-500 animate-in zoom-in" />
-        ) : (
-          <Copy
-            size={18}
-            className="text-zinc-600 group-hover:text-primary transition-colors"
-          />
-        )}
+        <span className="text-primary select-none mr-2">$</span>
+        <code>{command}</code>
       </div>
-      <p className="text-[10px] text-zinc-500 mb-3 ltr:uppercase ltr:tracking-widest rtl:text-lg rtl:relative bottom-3 rtl:!font-vazir font-bold">
-        {translations.label}
-      </p>
-      <div className="flex items-center justify-between gap-4">
-        <code className="text-lg font-mono text-primary truncate">
-          {command}
-        </code>
-      </div>
-    </div>
+    </button>
   );
 }

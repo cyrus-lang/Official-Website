@@ -10,11 +10,13 @@ export const PackagesHeaderSection = ({
 }: PackagesHeaderSectionProps) => {
   return (
     <div className="flex flex-col items-center mb-12 text-center">
-      <h1 className="text-4xl font-extrabold lg:text-5xl mb-4 rtl:flex-row-reverse flex gap-3">
+      <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-4 rtl:flex-row-reverse flex gap-3">
         <span>{t("headerTitle.normal")}</span>
-        <span className="text-primary"> {t("headerTitle.colored")}</span>
+        <span className="text-primary">{t("headerTitle.colored")}</span>
       </h1>
-      <p className="text-muted-foreground max-w-xl">{t("subtitle")}</p>
+      <p className="text-muted-foreground max-w-xl text-base md:text-lg">
+        {t("subtitle")}
+      </p>
 
       <PackagesSearchInput isRtl={isRtl} />
     </div>

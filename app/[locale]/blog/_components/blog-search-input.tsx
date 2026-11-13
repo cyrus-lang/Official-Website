@@ -1,7 +1,7 @@
 "use client";
 
 import { Input } from "@/components/ui/input";
-import { Search } from "lucide-react";
+import { Search, X } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -14,30 +14,45 @@ export const BlogSearchInput = ({ isRtl }: { isRtl: boolean }) => {
   const [value, setValue] = useState(params.get("query") || "");
 
   useEffect(() => {
+    const currentQuery = params.get("query") || "";
+    if (value === currentQuery) return;
+
     const timeout = setTimeout(() => {
       const sp = new URLSearchParams(params.toString());
 
       if (value) sp.set("query", value);
       else sp.delete("query");
 
-      router.push(`?${sp.toString()}`);
+      const nextQuery = sp.toString();
+      router.push(nextQuery ? `?${nextQuery}` : "?");
     }, 300);
 
     return () => clearTimeout(timeout);
-  }, [value]);
+  }, [value, params, router]);
 
   return (
-    <div className="relative w-full max-w-sm">
+    <div className="relative w-full md:max-w-sm">
       <Search
-        className={`absolute rtl:right-3 ltr:left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground`}
+        className={`pointer-events-none absolute ${isRtl ? "right-3.5" : "left-3.5"} top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground`}
       />
 
       <Input
         value={value}
         onChange={(e) => setValue(e.target.value)}
         placeholder={t("searchPlaceholder")}
-        className={`${isRtl ? "pr-10" : "pl-10"} rounded-xl border-2 bg-secondary/60`}
+        className={`h-10 ${isRtl ? "pr-10 pl-10" : "pl-10 pr-10"} rounded-lg bg-background border border-input shadow-xs`}
       />
+
+      {value && (
+        <button
+          type="button"
+          onClick={() => setValue("")}
+          aria-label="Clear search"
+          className={`absolute ${isRtl ? "left-3.5" : "right-3.5"} top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors`}
+        >
+          <X className="h-4 w-4" />
+        </button>
+      )}
     </div>
   );
 };
