@@ -1,30 +1,20 @@
-"use client";
-
-import { useEffect, useRef } from "react";
-import hljs from "highlight.js";
+import hljs from "highlight.js/lib/core";
+import typescript from "highlight.js/lib/languages/typescript";
 import "highlight.js/styles/base16/bright.css";
 import "@/styles/hero-code-theme.css";
-import { Motion } from "@/components/motion";
+
+hljs.registerLanguage("typescript", typescript);
 
 interface HeroCodeProps {
   code: string;
 }
 
 export function HeroCode({ code }: HeroCodeProps) {
-  const codeRef = useRef<HTMLElement | null>(null);
-
-  useEffect(() => {
-    if (codeRef.current) {
-      hljs.highlightElement(codeRef.current);
-    }
-  }, [code]);
+  const highlightedHtml = hljs.highlight(code, { language: "typescript" }).value;
 
   return (
-    <Motion
-      initial={{ opacity: 0, y: 15 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
-      className="hero-code-theme rounded-2xl border border-border/60 bg-background/60 dark:bg-zinc-950/60 backdrop-blur-xl text-foreground shadow-lg dark:shadow-2xl overflow-hidden w-full relative"
+    <div
+      className="animate-fade-in hero-code-theme rounded-2xl border border-border/60 bg-background/60 dark:bg-zinc-950/60 backdrop-blur-xl text-foreground shadow-lg dark:shadow-2xl overflow-hidden w-full relative"
       dir="ltr"
     >
       <div className="px-4 py-2.5 border-b border-border/40 bg-muted/30 flex items-center justify-between text-xs font-mono text-muted-foreground relative z-20">
@@ -32,11 +22,13 @@ export function HeroCode({ code }: HeroCodeProps) {
       </div>
       <div className="p-3.5 overflow-x-auto text-left bg-transparent relative" dir="ltr">
         <pre className="m-0 text-sm md:text-base leading-relaxed font-mono bg-transparent! p-0!">
-          <code ref={codeRef} className="language-typescript text-left bg-transparent!" dir="ltr">
-            {code}
-          </code>
+          <code
+            className="hljs language-typescript text-left bg-transparent!"
+            dir="ltr"
+            dangerouslySetInnerHTML={{ __html: highlightedHtml }}
+          />
         </pre>
       </div>
-    </Motion>
+    </div>
   );
 }
