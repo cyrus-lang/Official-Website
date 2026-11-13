@@ -64,7 +64,7 @@ export default async function Header({
 
         // variants
         variant === "default" &&
-          "bg-background/95 backdrop-blur-sm supports-backdrop-filter:bg-background/60",
+        "bg-background/95 backdrop-blur-sm supports-backdrop-filter:bg-background/60",
 
         variant === "transparent" && "bg-transparent backdrop-blur-0",
 

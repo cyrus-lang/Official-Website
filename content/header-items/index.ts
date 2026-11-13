@@ -11,5 +11,4 @@ export const headerItems: {
   
   { path: "/contributors", content: "navigation.contributors" },
   { path: "/support_us", content: "navigation.supportUs" },
-  { path: "/philosophy", content: "navigation.philosophy" },
 ];
