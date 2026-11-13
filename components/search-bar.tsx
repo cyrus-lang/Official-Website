@@ -32,11 +32,20 @@ export default function SearchBar({ isTransparent = false }: { isTransparent?: b
   const triggerVariant = isTransparent ? "glass" : "outline";
 
   useEffect(() => {
+    if (!isOpen || index.length > 0) return;
+
+    let cancelled = false;
     fetch("/search-index.json")
       .then((res) => res.json())
-      .then((data) => setIndex(data))
+      .then((data) => {
+        if (!cancelled) setIndex(data);
+      })
       .catch((err) => console.error("Error loading search index:", err));
-  }, []);
+
+    return () => {
+      cancelled = true;
+    };
+  }, [isOpen, index.length]);
 
   const fuse = useMemo(() => {
     if (!index.length) return null;

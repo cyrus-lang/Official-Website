@@ -6,7 +6,6 @@ import { homeExamplesCodeSnippets } from "@/content/home/home-examples-code";
 import LogoDark from "@/app/assets/logo-dark.png";
 import LogoLight from "@/app/assets/logo-light.png";
 import Image from "next/image";
-import { Motion } from "@/components/motion";
 
 export const HomeHero = ({ t }: TranslationProps) => (
   <section className="relative py-20 md:py-28 lg:py-36 overflow-hidden">
@@ -14,21 +13,18 @@ export const HomeHero = ({ t }: TranslationProps) => (
     <div className="container relative z-10">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
         {/* Left Side: Logo, Title, Subtitle, Buttons */}
-        <Motion
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
-          className="lg:col-span-5 space-y-6 text-center lg:text-start"
-        >
+        <div className="animate-fade-in lg:col-span-5 space-y-6 text-center lg:text-start">
           <div className="flex justify-center lg:justify-start">
             <div className="relative w-20 h-20 sm:w-25 sm:h-25">
               <Image
                 src={LogoDark}
+                priority
                 className="dark:block hidden w-full h-full object-contain"
                 alt="Cyrus Logo Dark"
               />
               <Image
                 src={LogoLight}
+                priority
                 className="dark:hidden block w-full h-full object-contain"
                 alt="Cyrus Logo Light"
               />
@@ -52,7 +48,7 @@ export const HomeHero = ({ t }: TranslationProps) => (
               </Button>
             </Link>
           </div>
-        </Motion>
+        </div>
 
         {/* Right Side: Custom HeroCode component */}
         <div className="lg:col-span-7">

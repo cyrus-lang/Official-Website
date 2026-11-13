@@ -35,12 +35,10 @@ export const HomeCodeExamples = ({ t }: TranslationProps) => (
                 className="animate-fade-in"
                 style={{ animationDelay: `${idx * 80}ms` }}
               >
-                <pre className="font-mono text-sm">
-                  <CodeBlock disableBorder language="typescript">
-                    {homeExamplesCodeSnippets[value] ||
-                      t("examples.comingSoon")}
-                  </CodeBlock>
-                </pre>
+                <CodeBlock disableBorder language="typescript">
+                  {homeExamplesCodeSnippets[value] ||
+                    t("examples.comingSoon")}
+                </CodeBlock>
               </div>
             </TabsContent>
           ))}
