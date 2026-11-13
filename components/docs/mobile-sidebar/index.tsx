@@ -27,7 +27,7 @@ export default function MobileSidebar({
         </SheetTrigger>
         <SheetContent
           side="left"
-          className="p-0 w-full h-full flex flex-col dark:bg-background/10 backdrop-blur-xs bg-white/65"
+          className="p-0 w-full h-full flex flex-col dark:bg-background backdrop-blur-xs bg-white"
         >
           <div className="flex items-center justify-between mb-0 p-4 pb-1">
             <Link
@@ -46,7 +46,7 @@ export default function MobileSidebar({
                 size="icon"
                 className="bg-background/40"
               >
-                <X className="h-6 w-6" />
+                <X className="size-5.5!" />
                 <span className="sr-only">{t("mobile.closeMenu")}</span>
               </Button>
             </SheetTrigger>
