@@ -2,6 +2,7 @@ import { Contributor, ContributorCategory } from "./type";
 
 export const categories: ContributorCategory[] = [
   "Core Team",
+  "Language Design",
   "Website Team",
 ];
 
@@ -116,5 +117,17 @@ export const contributorsArray: Contributor[] = [
     picture: "https://avatars.githubusercontent.com/dll-as",
     github: "https://github.com/dll-as",
     telegram: "https://t.me/dll_as",
+  },
+  {
+    id: 9,
+    name: "Hamidreza Kalbasi",
+    nameFa: "حمیدرضا کلباسی",
+    handle: "@hkalbasi",
+    bio: "Helped designing the language and checking the soundness of features.",
+    bioFa: "مشارکت در طراحی زبان و بررسی درستی و سازگاری ویژگی‌ها.",
+    category: "Language Design",
+    tags: ["Language Design"],
+    picture: "https://avatars.githubusercontent.com/hkalbasi",
+    github: "https://github.com/hkalbasi",
   },
 ];

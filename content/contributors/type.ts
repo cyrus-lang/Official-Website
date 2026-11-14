@@ -1,9 +1,10 @@
-export type ContributorCategory = "Core Team" | "Website Team";
+export type ContributorCategory = "Core Team" | "Website Team" | "Language Design";
 
 export type ContributorTag =
   | "Creator"
   | "Website Frontend"
   | "Compiler"
+  | "Language Design"
   | "Standard library";
 
 export interface Contributor {
