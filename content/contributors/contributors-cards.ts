@@ -130,4 +130,16 @@ export const contributorsArray: Contributor[] = [
     picture: "https://avatars.githubusercontent.com/hkalbasi",
     github: "https://github.com/hkalbasi",
   },
+  {
+    id: 10,
+    name: "Mahdi Bahramian",
+    nameFa: "مهدی بهرامیان",
+    handle: "@MahdiGMK",
+    bio: "Helped compare language features with other languages and complete feature details.",
+    bioFa: "مشارکت در مقایسه ویژگی‌های زبان با سایر زبان‌ها و تکمیل جزئیات ویژگی‌ها.",
+    category: "Language Design",
+    tags: ["Language Design"],
+    picture: "https://avatars.githubusercontent.com/MahdiGMK",
+    github: "https://github.com/MahdiGMK",
+  },
 ];
