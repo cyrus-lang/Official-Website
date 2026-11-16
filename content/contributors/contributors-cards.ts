@@ -142,4 +142,16 @@ export const contributorsArray: Contributor[] = [
     picture: "https://avatars.githubusercontent.com/MahdiGMK",
     github: "https://github.com/MahdiGMK",
   },
+  {
+    id: 11,
+    name: "Mahdi Sharifi",
+    nameFa: "مهدی شریفی",
+    handle: "@mahdisharifithedev",
+    bio: "Early supporter who helped shape the systems programming mindset and avoid language anti-features.",
+    bioFa: "حامی اولیه پروژه که در شکل‌گیری نگرش زبان‌های برنامه‌نویسی سیستمی و پرهیز از ضدویژگی‌ها نقش داشت.",
+    category: "Language Design",
+    tags: ["Language Design"],
+    picture: "https://avatars.githubusercontent.com/mahdisharifithedev",
+    github: "https://github.com/mahdisharifithedev",
+  },
 ];
