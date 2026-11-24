@@ -76,7 +76,7 @@ const phases: Phase[] = [
       "comptime execution",
       "foreach loop",
       "testing framework",
-      "babylon package manager",
+      "build system",
       "slices",
     ],
   },
@@ -88,15 +88,13 @@ const phases: Phase[] = [
     progress: 0,
     status: "planned",
     items: [
-      "arena & pool allocators",
-      "buffered & stream I/O",
+      "Slab & Pool allocators",
+      "Buffered & Stream I/O",
       "JSON & TOML parsers",
-      "compression",
-      "networking",
-      "async APIs",
-      "collections",
-      "formatting",
-      "package ecosystem",
+      "Compression",
+      "Networking",
+      "Data Structures",
+      "Formatting",
     ],
   },
   {
@@ -107,11 +105,11 @@ const phases: Phase[] = [
     progress: 0,
     status: "planned",
     items: [
-      "language server (LSP)",
-      "code formatter",
-      "linter & static analysis",
-      "debugger integration",
-      "doc generator"
+      "Language Server (LSP)",
+      "Code formatter",
+      "Linter & Static Analysis",
+      "Debugger integration",
+      "Doc generator"
     ],
   },
   {
@@ -126,8 +124,8 @@ const phases: Phase[] = [
       "macOS / Darwin bindings",
       "cross-compilation targets",
       "COFF & Mach-O linking",
-      "platform-agnostic filesystem & I/O",
-      "release binaries & installers",
+      "Platform-agnostic filesystem & I/O",
+      "Installers",
     ],
   },
 ];
