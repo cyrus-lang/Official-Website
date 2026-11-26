@@ -99,6 +99,23 @@ const phases: Phase[] = [
   },
   {
     phase: 6,
+    title: "Cross-Platform Support",
+    description:
+      "Extend compiler backends, system bindings, and standard library abstractions to natively support Windows and macOS.",
+    progress: 0,
+    status: "planned",
+    items: [
+      "CodegenLLVM",
+      "Win32 API bindings",
+      "macOS / Darwin bindings",
+      "cross-compilation targets",
+      "COFF & Mach-O linking",
+      "Platform-agnostic filesystem & I/O",
+      "Installers",
+    ],
+  },
+  {
+    phase: 7,
     title: "Developer Tooling & IDE Support",
     description:
       "Deliver a first-class developer experience with editor integrations, static analysis, and debugging utilities.",
@@ -110,22 +127,6 @@ const phases: Phase[] = [
       "Linter & Static Analysis",
       "Debugger integration",
       "Doc generator"
-    ],
-  },
-  {
-    phase: 7,
-    title: "Cross-Platform Support",
-    description:
-      "Extend compiler backends, system bindings, and standard library abstractions to natively support Windows and macOS.",
-    progress: 0,
-    status: "planned",
-    items: [
-      "Win32 API bindings",
-      "macOS / Darwin bindings",
-      "cross-compilation targets",
-      "COFF & Mach-O linking",
-      "Platform-agnostic filesystem & I/O",
-      "Installers",
     ],
   },
 ];

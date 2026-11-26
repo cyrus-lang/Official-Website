@@ -1,3 +1,22 @@
 ---
 weight: 8
 ---
+
+
+<RunnableCodeBlock language="cyrus" title="main.cyrus" output="Hello, Cyrus!">
+{`import std::io;
+
+fn main() {
+    io::println("Hello, Cyrus!");
+}`}
+</RunnableCodeBlock>
+
+{/* Language comparison */}
+<CodeComparison
+  title="Hello World"
+  items={[
+    { label: "Cyrus", language: "cyrus", code: `fn main() {\n    io::println("Hello!");\n}` },
+    { label: "C", language: "c", code: `#include <stdio.h>\nint main() {\n    printf("Hello!\\n");\n}` },
+    { label: "Rust", language: "rust", code: `fn main() {\n    println!("Hello!");\n}` },
+  ]}
+/>

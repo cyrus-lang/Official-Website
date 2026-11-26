@@ -1,7 +1,8 @@
 import { LinkIcon } from "lucide-react";
 import type { MDXComponents } from "mdx/types";
 
-import CodeBlock from "@/components/code-block";
+import CodeBlock, { RunnableCodeBlock } from "@/components/code-block";
+import CodeComparison from "@/components/code-comparison";
 import { ErrorAlert, InfoAlert, WarningAlert } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import {
@@ -128,7 +129,7 @@ export async function getMDXComponents(
         );
       }
       return (
-        <pre className="my-6 rounded-lg p-4 bg-gray-50 dark:bg-gray-900 border overflow-x-auto text-left" dir="ltr" {...props}>
+        <pre className="my-6 rounded-lg p-4 md:p-5 border border-border/60 bg-background/60 dark:bg-zinc-950/60 backdrop-blur-xl text-foreground shadow-sm overflow-x-auto text-left" dir="ltr" {...props}>
           {children}
         </pre>
       );
@@ -157,6 +158,8 @@ export async function getMDXComponents(
     CardTitle,
     Link,
     CodeBlock,
+    RunnableCodeBlock,
+    CodeComparison,
     Table,
     TableHeader,
     TableBody,
