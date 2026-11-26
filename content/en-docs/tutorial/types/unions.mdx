@@ -1,5 +1,6 @@
 ---
-weight: 8
+title: "Unions"
+weight: 9
 ---
 
 
@@ -15,8 +16,8 @@ fn main() {
 <CodeComparison
   title="Hello World"
   items={[
-    { label: "Cyrus", language: "cyrus", code: `fn main() {\n    io::println("Hello!");\n}` },
-    { label: "C", language: "c", code: `#include <stdio.h>\nint main() {\n    printf("Hello!\\n");\n}` },
+    { label: "Cyrus", language: "cyrus", code: `import std::io;\n\nfn main() {\n    io::println("Hello!");\n}` },
+    { label: "C", language: "c", code: `#include <stdio.h>\n\nint main() {\n    printf("Hello!\\n");\n}` },
     { label: "Rust", language: "rust", code: `fn main() {\n    println!("Hello!");\n}` },
   ]}
 />

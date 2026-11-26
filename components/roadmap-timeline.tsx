@@ -69,8 +69,8 @@ const phases: Phase[] = [
     title: "Expanding Language Features",
     description:
       "Introduce explicit error handling, compile-time execution, and core build tooling to make Cyrus production-ready.",
-    progress: 0,
-    status: "in-progress",
+    progress: 100,
+    status: "done",
     items: [
       "error handling",
       "comptime execution",
@@ -82,6 +82,21 @@ const phases: Phase[] = [
   },
   {
     phase: 5,
+    title: "Effect System & Memory Safety",
+    description:
+      "Introduce a static effect system and compile-time memory safety guarantees without sacrificing low-level control.",
+    progress: 100,
+    status: "done",
+    items: [
+      "effect system",
+      "memory safety",
+      "ownership & lifetimes",
+      "borrow checking",
+      "unsafe blocks",
+    ],
+  },
+  {
+    phase: 6,
     title: "Extending Standard Library",
     description:
       "Equip the standard library with specialized allocators, data serialization, I/O primitives, and systems-level utilities for real-world applications.",
@@ -98,7 +113,7 @@ const phases: Phase[] = [
     ],
   },
   {
-    phase: 6,
+    phase: 7,
     title: "Cross-Platform Support",
     description:
       "Extend compiler backends, system bindings, and standard library abstractions to natively support Windows and macOS.",
@@ -115,7 +130,7 @@ const phases: Phase[] = [
     ],
   },
   {
-    phase: 7,
+    phase: 8,
     title: "Developer Tooling & IDE Support",
     description:
       "Deliver a first-class developer experience with editor integrations, static analysis, and debugging utilities.",
