@@ -1,13 +1,103 @@
 ---
-title: "Basic Syntax"
+title: "Comments"
 weight: 1
 ---
 
+# Comments
+
 Cyrus has two distinct comment types:
 
-- Normal comments 
+- Normal comments
 - Doc comments
 
-<RunnableCodeBlock language="cyrus" title="main.cyrus" output="Hello, Cyrus!">
-// Normal single line comment
-</RunnableCodeBlock>
+## Normal Comments
+
+Normal comments stay inside the source code to help developers understand it.
+The compiler ignores them, so they don't appear in generated documentation.
+
+<CodeBlock language="cyrus" title="main.cyrus">
+{`// Normal single line comment
+
+/* 
+    Normal multi-line comment
+
+    /* 
+        Nesting supported
+    */
+
+    Another normal comment
+*/`}
+</CodeBlock>
+
+## Doc Comments
+
+Doc comments document APIs and their behavior. 
+The compiler collects them automatically to 
+generate human-readable HTML documentation.
+
+<CodeBlock language="cyrus" title="main.cyrus">
+{`/// A single line doc comment.
+fn foo() {
+    // Attached to function \`foo\`
+}`}
+</CodeBlock>
+
+<CodeBlock language="cyrus" title="main.cyrus">
+{`/// A single line doc comment.
+struct Struct {
+    /// Doc comment attached to a struct field.
+    pub field: int32
+}`}
+</CodeBlock>
+
+<CodeBlock language="cyrus" title="main.cyrus">
+{`/// A single line doc comment.
+union Union {
+    /// Doc comment attached to an union field.
+    field: int32
+}`}
+</CodeBlock>
+
+<CodeBlock language="cyrus" title="main.cyrus">
+{`/// A single line doc comment.
+enum Enum {
+    /// Doc comment attached to an enum variant.
+    Variant1,
+
+    /// Doc comment attached to an enum variant.
+    Variant2
+}`}
+</CodeBlock>
+
+<CodeBlock language="cyrus" title="main.cyrus">
+{`/// A single line doc comment.
+interface Interface {
+    /// Doc comment attached to an interface member.
+    fn member(self: Self) void;
+}`}
+</CodeBlock>
+
+<CodeBlock language="cyrus" title="main.cyrus">
+{`/// A single line doc comment.
+effect LockHeld {
+    // Attached to effect \`LockHeld\`
+}`}
+</CodeBlock>
+
+<CodeBlock language="cyrus" title="main.cyrus">
+{`/// A single line doc comment.
+mod Module {
+    /// Doc comment attached to a global variable.
+    const x: int32 = 0;
+}`}
+</CodeBlock>
+
+Unattached doc comments raise a compile-time error:
+
+<CodeBlock language="cyrus" title="main.cyrus">
+{`/// Unattached doc comment.`}
+</CodeBlock>
+
+<BasicBlock>
+{`error: unattached doc comment`}
+</BasicBlock>

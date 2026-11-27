@@ -1,7 +1,7 @@
 import { LinkIcon } from "lucide-react";
 import type { MDXComponents } from "mdx/types";
 
-import CodeBlock, { RunnableCodeBlock } from "@/components/code-block";
+import CodeBlock, { BasicBlock, RunnableCodeBlock } from "@/components/code-block";
 import CodeComparison from "@/components/code-comparison";
 import { ErrorAlert, InfoAlert, WarningAlert } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
@@ -38,12 +38,16 @@ export async function getMDXComponents(
   const tIntro = await getTranslations("DocsContent.introduction");
   const tTutorial = await getTranslations("DocsContent.tutorial");
 
-  const getHeadingStyles = (baseClass: string) => {
+  const getHeadingStyles = (
+    baseClass: string,
+    spacingClass: string,
+    marginTopClass: string
+  ) => {
     if (!firstAnyHeadingRendered) {
       firstAnyHeadingRendered = true;
-      return `${baseClass} mt-0 mb-4`;
+      return `${baseClass} mt-0 ${spacingClass}`;
     }
-    return `${baseClass} mt-10 mb-4`;
+    return `${baseClass} ${marginTopClass} ${spacingClass}`;
   };
 
   return {
@@ -51,7 +55,10 @@ export async function getMDXComponents(
       const rawText = children?.toString() || "";
       const id = getTitleId(rawText);
       return (
-        <h1 id={id} className={`group heading heading-h1 ${getHeadingStyles("rm-underline")}`}>
+        <h1
+          id={id}
+          className={`group heading heading-h1 ${getHeadingStyles("rm-underline", "mb-6", "mt-12")}`}
+        >
           <a href={`#${id}`} className="rm-underline font-extrabold flex items-center gap-2">
             {rawText}
             {firstAnyHeadingRendered && <LinkIcon className="opacity-0 group-hover:opacity-100 transition-opacity" />}
@@ -62,7 +69,10 @@ export async function getMDXComponents(
     h2: ({ children }) => {
       const id = getTitleId(children?.toString() || "");
       return (
-        <h2 id={id} className={`group heading heading-h2 ${getHeadingStyles("")}`}>
+        <h2
+          id={id}
+          className={`group heading heading-h2 ${getHeadingStyles("", "mb-5", "mt-10")}`}
+        >
           <a href={`#${id}`} className="flex items-center gap-2">
             {children}
             <LinkIcon className="opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -73,7 +83,10 @@ export async function getMDXComponents(
     h3: ({ children }) => {
       const id = getTitleId(children?.toString() || "");
       return (
-        <h3 id={id} className={`group heading heading-h3 ${getHeadingStyles("")}`}>
+        <h3
+          id={id}
+          className={`group heading heading-h3 ${getHeadingStyles("", "mb-4", "mt-8")}`}
+        >
           <a href={`#${id}`} className="flex items-center gap-2">
             {children}
             <LinkIcon className="opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -158,6 +171,7 @@ export async function getMDXComponents(
     CardTitle,
     Link,
     CodeBlock,
+    BasicBlock,
     RunnableCodeBlock,
     CodeComparison,
     Table,

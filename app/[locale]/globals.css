@@ -174,17 +174,17 @@ button:hover {
   }
 
   .heading-h1 {
-    @apply text-2xl md:text-3xl lg:text-4xl font-bold mb-3;
+    @apply text-2xl md:text-3xl lg:text-4xl font-bold;
     scroll-margin-top: 150px;
   }
 
   .heading-h2 {
-    @apply text-xl md:text-2xl font-bold mb-2;
+    @apply text-xl md:text-2xl font-bold;
     scroll-margin-top: 140px;
   }
 
   .heading-h3 {
-    @apply text-lg md:text-xl font-bold mb-2;
+    @apply text-lg md:text-xl font-bold;
     scroll-margin-top: 135px;
   }
 

@@ -5,18 +5,134 @@ weight: 2
 
 # Naming Convention
 
-# Global Variable
+While Cyrus does not mandate a particular naming style, it's highly recommended to 
+follow a consistent and expressive naming convention, as shown below. 
+However, every project is free to apply its own naming style.
 
-# Variable
+# Global Variables
 
-# Function
+Global variables should follow a `SCREAMING_SNAKE_CASE` naming style.
 
-# Method 
+<CodeBlock language="cyrus" title="main.cyrus">
+{`
+const SCREAMING_SNAKE_CASE: int32 = 0;
+`}
+</CodeBlock>
 
-# Struct 
+# Variables
 
-# Union
+Variables should follow a `snake_case` naming style.
 
-# Enum 
+<CodeBlock language="cyrus" title="main.cyrus">
+{`
+pub fn main() {
+    const my_var: int32 = 0;
+}
+`}
+</CodeBlock>
 
+# Functions
+
+Functions should follow a `snake_case` naming style.
+
+<CodeBlock language="cyrus" title="main.cyrus">
+{`
+pub fn my_function() {
+    ...    
+}
+`}
+</CodeBlock>
+
+# Methods
+
+Methods should follow a `snake_case` naming style.
+
+<CodeBlock language="cyrus" title="main.cyrus">
+{`
+pub fn my_function() {
+    ...    
+}
+`}
+</CodeBlock>
+
+# Structs
+
+Structs should follow a `PascalCase` naming style.
+
+<CodeBlock language="cyrus" title="main.cyrus">
+{`
+struct MyStruct {
+    ...
+}
+`}
+</CodeBlock>
+
+# Unions
+
+Unions should follow a `PascalCase` naming style.
+
+<CodeBlock language="cyrus" title="main.cyrus">
+{`
+union MyUnion {
+    ...
+}
+`}
+</CodeBlock>
+
+# Enums
+
+Enums should follow a `PascalCase` naming style.
+
+<CodeBlock language="cyrus" title="main.cyrus">
+{`
+enum MyEnum {
+    ...
+}
+`}
+</CodeBlock>
+
+# Interfaces
+
+Interfaces should follow a `PascalCase` naming style.
+
+<CodeBlock language="cyrus" title="main.cyrus">
+{`
+interface MyInterface {
+    ...
+}
+`}
+</CodeBlock>
+
+# Effects
+
+Effects should follow a `PascalCase` naming style.
+
+<CodeBlock language="cyrus" title="main.cyrus">
+{`
+effect MyEffect {
+    ...
+}
+`}
+</CodeBlock>
+
+
+# Types
+
+Type aliases should follow their underlying type's naming. For example, if an alias
+points to a struct, it's better to follow the struct's naming convention.
+
+It's also common to see type aliases in `snake_case` when they point
+to scalar types like `int32`.
+
+<CodeBlock language="cyrus" title="main.cyrus">
+{`
+type MyAlias = MyStruct<int32, float64>;
+`}
+</CodeBlock>
+
+<CodeBlock language="cyrus" title="main.cyrus">
+{`
+type c_int = int32;
+`}
+</CodeBlock>
 

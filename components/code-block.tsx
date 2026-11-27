@@ -34,12 +34,24 @@ export default function CodeBlock({
 
   const resolvedLanguage = resolveLanguage(language);
   const canRun = runnable || output !== undefined || onRun !== undefined;
+  const stringCode = typeof children === "string" ? children.trim() : null;
+
+  const highlightedHtml =
+    stringCode !== null
+      ? hljs.getLanguage(resolvedLanguage)
+        ? hljs.highlight(stringCode, { language: resolvedLanguage }).value
+        : hljs.highlightAuto(stringCode).value
+      : null;
 
   useEffect(() => {
-    if (codeRef.current && !codeRef.current.dataset.highlighted) {
+    if (
+      stringCode === null &&
+      codeRef.current &&
+      !codeRef.current.dataset.highlighted
+    ) {
       hljs.highlightElement(codeRef.current);
     }
-  }, [children, resolvedLanguage]);
+  }, [stringCode, children, resolvedLanguage]);
 
   const handleCopy = async () => {
     if (!codeRef.current) return;
@@ -126,13 +138,22 @@ export default function CodeBlock({
           className="m-0 text-sm md:text-base leading-relaxed font-mono bg-transparent! p-0! border-0!"
           dir="ltr"
         >
-          <code
-            ref={codeRef}
-            className={`hljs language-${resolvedLanguage} text-left bg-transparent!`}
-            dir="ltr"
-          >
-            {children}
-          </code>
+          {highlightedHtml !== null ? (
+            <code
+              ref={codeRef}
+              className={`hljs language-${resolvedLanguage} text-left bg-transparent!`}
+              dir="ltr"
+              dangerouslySetInnerHTML={{ __html: highlightedHtml }}
+            />
+          ) : (
+            <code
+              ref={codeRef}
+              className={`hljs language-${resolvedLanguage} text-left bg-transparent!`}
+              dir="ltr"
+            >
+              {children}
+            </code>
+          )}
         </pre>
       </div>
 
@@ -167,4 +188,27 @@ export default function CodeBlock({
 
 export function RunnableCodeBlock(props: CodeBlockProps) {
   return <CodeBlock {...props} runnable />;
+}
+
+export function BasicBlock({ children }: { children: ReactNode }) {
+  return (
+    <div
+      className="my-6 hero-code-theme rounded-lg border border-border/60 bg-background/60 dark:bg-zinc-950/60 backdrop-blur-xl text-foreground shadow-sm overflow-hidden w-full relative code-block"
+      dir="ltr"
+    >
+      <div
+        className="p-3.5 md:p-4 overflow-x-auto text-left bg-transparent relative"
+        dir="ltr"
+      >
+        <pre
+          className="m-0 text-sm md:text-base leading-relaxed font-mono bg-transparent! p-0! border-0! whitespace-pre-wrap"
+          dir="ltr"
+        >
+          <code className="text-left bg-transparent!" dir="ltr">
+            {typeof children === "string" ? children.trim() : children}
+          </code>
+        </pre>
+      </div>
+    </div>
+  );
 }
