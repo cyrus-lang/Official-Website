@@ -2,3 +2,162 @@
 title: "Variables"
 weight: 3
 ---
+
+# Global Variables
+
+Cyrus offers two distinct kinds of global variables:
+
+- Static 
+- Comptime
+
+Static global variables are emitted into the data segment of the binary. 
+
+<RunnableCodeBlock language="cyrus" title="main.cyrus">
+{`
+import std::io;
+
+static const PI: float64 = 3.14;
+
+pub fn main() {
+    // \`PI\` is read at runtime
+    io::println("{}", PI);
+}
+`}
+</RunnableCodeBlock>
+
+Static global variables do not participate in constant evaluation:
+
+<CodeBlock language="cyrus" title="main.cyrus">
+{`
+import std::io;
+
+static const CAPACITY: int32 = 4;
+
+pub fn main() {
+    const array: int32[CAPACITY] = {1, 2, 3, 4}; // ERROR
+}
+`}
+</CodeBlock>
+
+The value of a static global variable can be updated if it is declared with `var`:
+
+<RunnableCodeBlock language="cyrus" title="main.cyrus">
+{`
+import std::io;
+
+static var COUNTER: int32 = 1;
+
+pub fn main() {
+    COUNTER += 1; // increment
+    io::println("{}", COUNTER);
+}
+`}
+</RunnableCodeBlock>
+
+Global variables declared without `static` are evaluated at compile time 
+and are not emitted into the binary.
+
+<RunnableCodeBlock language="cyrus" title="main.cyrus">
+{`
+import std::io;
+
+const PI: float64 = 3.14;
+
+pub fn main() {
+    // \`PI\` is read at comptime
+    io::println("{}", PI);
+}
+`}
+</RunnableCodeBlock>
+
+Therefore, the array capacity example works:
+
+<RunnableCodeBlock language="cyrus" title="main.cyrus">
+{`
+import std::io;
+
+const CAPACITY: int32 = 4;
+
+pub fn main() {
+    const array: int32[CAPACITY] = {1, 2, 3, 4}; // OK
+}
+`}
+</RunnableCodeBlock>
+
+Mutable comptime global variables are not permitted:
+
+<CodeBlock language="cyrus" title="main.cyrus">
+{`
+var CAPACITY: int32 = 4; // ERROR
+`}
+</CodeBlock>
+
+# Variables
+
+Local variables are defined with `const` or `var`.
+
+<RunnableCodeBlock language="cyrus" title="main.cyrus">
+{`
+import std::io;
+
+pub fn main() {
+    // \`x\` is immutable
+    const x: int32 = 1;
+    // x += 1; // ERROR
+    
+    // \`y\` is mutable
+    var y: int32 = 1;
+    y += 1; // OK
+
+    io::println("{}", x); // 1
+    io::println("{}", y); // 2
+}
+`}
+</RunnableCodeBlock>
+
+Constant variables must always be initialized:
+
+<RunnableCodeBlock language="cyrus" title="main.cyrus">
+{`
+pub fn main() {
+    const x: int32; // ERROR
+}
+`}
+</RunnableCodeBlock>
+
+However, `var` variables can be left uninitialized. 
+If the type is zeroable, the compiler zero-initializes it; 
+otherwise, it is rejected.
+
+<RunnableCodeBlock language="cyrus" title="main.cyrus">
+{`
+import std::io;
+
+pub fn main() {
+    var x: int32;   // OK
+    var y: float64; // OK
+    var z: struct { // OK
+        a: int32, 
+        b: int32 
+    }; 
+
+    io::println("{}", x); // 0
+    io::println("{}", y); // 0.0
+    io::println("{}", z); // struct { a: 0, b: 0 }
+}
+`}
+</RunnableCodeBlock>
+
+*See [Zeroable Types](http://google.com) for more details.*
+
+In any case, a variable cannot be left incomplete; 
+it must have either an explicit type or an initializer.
+
+<RunnableCodeBlock language="cyrus" title="main.cyrus">
+{`
+pub fn main() {
+    const x; // ERROR
+    var y; // ERROR
+}
+`}
+</RunnableCodeBlock>

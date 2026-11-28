@@ -14,12 +14,12 @@ weight: 1
 در اینجا یک نمای اجمالی از کد کوروش را می‌بینید:
 
 ```cyrus
-import std::libc{printf};
+import std::io;
 
 pub fn main() {
-  const msg: uint8* = "Cyrus";
+  const name: const uint8& = "Cyrus";
 
-  printf("Hello, %s!\n", msg);
+  io::println("Hello, {}!\n", name); // Hello, Cyrus!
 }
 ```
 

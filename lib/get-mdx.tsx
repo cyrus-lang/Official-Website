@@ -153,7 +153,11 @@ export async function getMDXComponents(
         return <CodeBlock language={language}>{children}</CodeBlock>;
       }
       return (
-        <code className="bg-neutral-200! dark:bg-neutral-800! px-1.5 py-0.5 mx-0.5 text-sm rounded-sm font-mono" dir="ltr" {...props}>
+        <code
+          className="text-[0.9em] px-1.5 py-0.5 mx-0.5 rounded-md border border-border/60 bg-transparent font-mono"
+          dir="ltr"
+          {...props}
+        >
           {children}
         </code>
       );

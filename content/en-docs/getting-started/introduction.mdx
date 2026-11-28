@@ -14,12 +14,12 @@ Welcome to the official documentation for Cyrus.
 Here's a glimpse of what Cyrus code looks like:
 
 ```cyrus
-import std::libc{printf};
+import std::io;
 
 pub fn main() {
-  const msg: uint8* = "Cyrus";
+  const name: const uint8& = "Cyrus";
 
-  printf("Hello, %s!\n", msg);
+  io::println("Hello, {}!\n", name); // Hello, Cyrus!
 }
 ```
 
