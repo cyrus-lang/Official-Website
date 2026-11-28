@@ -17,17 +17,20 @@ import MobileMenu from "./mobile-menu";
 
 export function Logo({ forceLightMode = false }: { forceLightMode?: boolean }) {
   if (forceLightMode) {
-    return <Image src={LogoLight} className="w-8 h-8" alt="logo-light" />;
+    return <Image src={LogoLight} width={32} height={32} loading="eager" className="size-8" alt="logo-light" />;
   }
 
   return (
     <>
       <Image
         src={LogoDark}
-        className="dark:block hidden w-8 h-8"
+        width={32}
+        height={32}
+        loading="eager"
+        className="hidden size-8 dark:block"
         alt="logo-dark"
       />
-      <Image src={LogoLight} className="dark:hidden block w-8" alt="logo" />
+      <Image src={LogoLight} width={32} height={32} loading="eager" className="block size-8 dark:hidden" alt="logo" />
     </>
   );
 }

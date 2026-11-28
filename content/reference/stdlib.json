@@ -1,0 +1,97 @@
+{
+  "name": "Cyrus",
+  "source": "https://github.com/cyrus-lang/Cyrus/tree/b37e4a102af1c4db96c60aebc0eee7fe27e92e1a/lib/std",
+  "modules": [
+    {
+      "id": "libc",
+      "path": "std::libc",
+      "description": { "en": "Bindings to the C standard library for formatted I/O, memory allocation, and byte strings.", "fa": "رابط کتابخانهٔ استاندارد C برای ورودی و خروجی قالب‌بندی‌شده، تخصیص حافظه و رشته‌های بایتی." },
+      "items": [
+        {
+          "name": "printf", "kind": "function",
+          "signature": "fn printf(format: const types::c_char*, ...) types::c_int;",
+          "parameters": ["format: const types::c_char*", "..."],
+          "returns": "types::c_int",
+          "description": { "en": "Writes formatted output to standard output.", "fa": "متن قالب‌بندی‌شده را در خروجی استاندارد می‌نویسد." },
+          "example": "import std::libc{printf};\n\npub fn main() {\n    printf(\"Hello, Cyrus!\\n\");\n}"
+        },
+        {
+          "name": "puts", "kind": "function",
+          "signature": "fn puts(str: const types::c_char*) types::c_int;",
+          "parameters": ["str: const types::c_char*"],
+          "returns": "types::c_int",
+          "description": { "en": "Writes a string to standard output, followed by a newline.", "fa": "یک رشته و سپس نویسهٔ خط جدید را در خروجی استاندارد می‌نویسد." }
+        },
+        {
+          "name": "malloc", "kind": "function",
+          "signature": "fn malloc(size: types::c_size) types::c_void*;",
+          "parameters": ["size: types::c_size"],
+          "returns": "types::c_void*",
+          "description": { "en": "Allocates uninitialized memory and returns a pointer to it, or null on failure.", "fa": "حافظهٔ مقداردهی‌نشده تخصیص می‌دهد و اشاره‌گر آن را برمی‌گرداند. در صورت شکست، مقدار null را برمی‌گرداند." }
+        },
+        {
+          "name": "free", "kind": "function",
+          "signature": "fn free(ptr: types::c_void*) types::c_void;",
+          "parameters": ["ptr: types::c_void*"],
+          "returns": "types::c_void",
+          "description": { "en": "Releases memory previously allocated by the C allocator.", "fa": "حافظه‌ای را که تخصیص‌دهندهٔ C رزرو کرده است آزاد می‌کند." }
+        },
+        {
+          "name": "strlen", "kind": "function",
+          "signature": "fn strlen(s: const types::c_char*) types::c_size;",
+          "parameters": ["s: const types::c_char*"],
+          "returns": "types::c_size",
+          "description": { "en": "Counts the bytes before the terminating null byte.", "fa": "بایت‌های قبل از بایت پایان‌دهندهٔ صفر را می‌شمارد." }
+        },
+        {
+          "name": "CDivResult", "kind": "struct",
+          "signature": "pub struct CDivResult",
+          "description": { "en": "Holds the quotient and remainder returned by C integer division.", "fa": "خارج‌قسمت و باقی‌ماندهٔ تقسیم عدد صحیح در C را نگه می‌دارد." }
+        },
+        {
+          "name": "EINVAL", "kind": "constant",
+          "signature": "pub const EINVAL: types::c_int = 22;",
+          "description": { "en": "Error code for an invalid argument.", "fa": "کد خطای آرگومان نامعتبر." }
+        }
+      ]
+    },
+    {
+      "id": "mem",
+      "path": "std::mem",
+      "description": { "en": "Allocator interfaces and helpers for explicit memory management.", "fa": "رابط‌های تخصیص‌دهنده و توابع کمکی برای مدیریت صریح حافظه." },
+      "items": [
+        {
+          "name": "Allocator", "kind": "interface",
+          "signature": "pub interface Allocator",
+          "description": { "en": "Defines allocation, reallocation, and release operations.", "fa": "عملیات تخصیص، تخصیص مجدد و آزادسازی حافظه را تعریف می‌کند." }
+        },
+        {
+          "name": "alloc_init", "kind": "function",
+          "signature": "pub fn alloc_init<T>(allocator: Allocator, value: T) T*",
+          "parameters": ["allocator: Allocator", "value: T"],
+          "returns": "T*",
+          "description": { "en": "Allocates space for a value and initializes it with the supplied value.", "fa": "برای یک مقدار فضا تخصیص می‌دهد و آن را با مقدار ورودی مقداردهی می‌کند." }
+        },
+        {
+          "name": "align_up", "kind": "function",
+          "signature": "pub fn align_up(ptr: uintptr, align: usize) uintptr",
+          "parameters": ["ptr: uintptr", "align: usize"],
+          "returns": "uintptr",
+          "description": { "en": "Rounds an address up to a power-of-two alignment.", "fa": "آدرس را به مرز هم‌ترازی توانی از دو گرد می‌کند." }
+        }
+      ]
+    },
+    {
+      "id": "collections",
+      "path": "std::collections",
+      "description": { "en": "Generic data structures for storing and traversing values.", "fa": "ساختارهای دادهٔ جنریک برای نگهداری و پیمایش مقادیر." },
+      "items": [
+        {
+          "name": "Vec", "kind": "struct",
+          "signature": "pub struct Vec<T>",
+          "description": { "en": "A growable contiguous collection backed by an explicit allocator.", "fa": "مجموعه‌ای پیوسته و قابل رشد که از تخصیص‌دهندهٔ صریح استفاده می‌کند." }
+        }
+      ]
+    }
+  ]
+}

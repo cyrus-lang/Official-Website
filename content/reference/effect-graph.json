@@ -1,0 +1,15 @@
+{
+  "nodes": [
+    { "id": "app", "label": "Application" },
+    { "id": "io", "label": "I/O", "color": "orange" },
+    { "id": "files", "label": "File system", "color": "yellow" },
+    { "id": "memory", "label": "Memory", "color": "red" },
+    { "id": "logging", "label": "Logging", "color": "white" }
+  ],
+  "edges": [
+    { "from": "app", "to": "io" },
+    { "from": "app", "to": "memory" },
+    { "from": "io", "to": "files" },
+    { "from": "logging", "to": "io" }
+  ]
+}
